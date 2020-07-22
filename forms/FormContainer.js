@@ -26,7 +26,7 @@ export default class FormContainer extends Component {
         const CurrentForm = this.props.forms[this.state.page];
         return (
             <View style={styles.formContainer}>
-                <View style={[{flexDirection: 'row', justifyContent: 'flex-start', width: '100%'}, this.state.page == 0? {opacity: 0}: {}]}>
+                <View style={[styles.header, this.state.page == 0 ? {opacity: 0} : {}]}>
                     <TouchableOpacity activeOpacity={0.8} style={styles.backButton} onPress={() => this.goBackward()}>
                         <Icon size={30} color='white' name='arrow-left'></Icon>
                     </TouchableOpacity>
@@ -94,5 +94,10 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+    },
+    header : {
+        flexDirection: 'row', 
+        justifyContent: 'flex-start',
+        width: '100%'
     }
 });
