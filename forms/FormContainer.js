@@ -1,29 +1,52 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
 import Colors from './Colors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default class FormContainer extends Component {
-
+    
     constructor(props) {
         super(props);
-        this.state = { page: 0 };
+        this.state = {
+            page: 0,
+            pageAnim: new Animated.Value(0)
+        };
     }
 
     goForward() {
         if (this.state.page < this.props.forms.length - 1) {
-            this.setState({page: this.state.page + 1})
+
+           
+
+            Animated.timing(this.state.pageAnim, {
+                toValue: this.state.page + 1,
+                duration: 500,
+                useNativeDriver: false,
+            }).start((res) => {
+                this.setState({
+                    page: this.state.page + 1
+                });
+            });
         }
     }
 
     goBackward() {
         if (this.state.page > 0) {
-            this.setState({page: this.state.page - 1})
+
+            Animated.timing(this.state.pageAnim, {
+                toValue: this.state.page - 1,
+                duration: 500,
+                useNativeDriver: false,
+            }).start(() => {
+                this.setState({
+                    page: this.state.page - 1
+                });
+            });
         }
     }
 
     render() {
-        const CurrentForm = this.props.forms[this.state.page];
+        const width = Dimensions.get('window').width;
         return (
             <View style={styles.formContainer}>
                 <View style={[styles.header, this.state.page == 0 ? {opacity: 0} : {}]}>
@@ -31,7 +54,9 @@ export default class FormContainer extends Component {
                         <Icon size={30} color='white' name='arrow-left'></Icon>
                     </TouchableOpacity>
                 </View>
-                <CurrentForm onCompleted={() => this.goForward()}/>
+                <Animated.View style={{width: '100%', position: 'relative', left: Animated.multiply(this.state.pageAnim, -width), flexDirection: 'row'}}>
+                    {this.props.forms.map((Form, index) => <Form key={index} onCompleted={() => this.goForward()}></Form>)}
+                </Animated.View>
                 <View style={styles.progressContainer}>
                     {this.props.forms.map((_, index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Grey}: {backgroundColor: Colors.Red}]}/>)}
                 </View>
