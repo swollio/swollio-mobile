@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput, Button } from 'react-native';
 import Colors from './Colors';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default class FormContainer extends Component {
 
@@ -26,7 +27,7 @@ export default class FormContainer extends Component {
             <View style={styles.formContainer}>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-start', width: '100%'}}>
                     <TouchableOpacity activeOpacity={0.8} style={styles.backButton} onPress={() => this.goBackward()}>
-                        <Text style={{color: Colors.White}}>Back</Text>
+                        <Icon size={30} color='white' name='arrow-left'></Icon>
                     </TouchableOpacity>
                 </View>
                 {this.props.forms[this.state.page]}
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
         height: 50,
         textAlign: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
         width: 100,
         borderTopRightRadius: 25,
         borderBottomRightRadius: 25,
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
         maxWidth: '80%',
         height: 50,
         textAlign: 'center',
+        alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,

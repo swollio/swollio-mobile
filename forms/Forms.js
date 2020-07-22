@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
     textInput: {
         width: 350,
         backgroundColor: Colors.LightGrey,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+        paddingHorizontal: 24,
+        fontSize: 16,
+        paddingVertical: 16,
         borderRadius: 10,
-        borderColor: Colors.Grey,
-        borderWidth: 1,
-        marginVertical: 10,
+        marginTop: 25,
+        marginBottom: 10,
         maxWidth: '80%',
     },
     form: {
