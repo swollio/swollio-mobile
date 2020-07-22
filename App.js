@@ -6,11 +6,11 @@ import * as Forms from './forms/Forms'
 export default function App(props) {
     return (
         <FormContainer forms={[
-            <Forms.FirstNameForm />,
-            <Forms.LastNameForm/>,
-            <Forms.AgeForm/>,
-            <Forms.EmailForm/>,
-            <Forms.GenderForm/>,
+            Forms.FirstNameForm,
+            Forms.LastNameForm,
+            Forms.AgeForm,
+            Forms.EmailForm,
+            Forms.GenderForm,
         ]}/>
     )
 };

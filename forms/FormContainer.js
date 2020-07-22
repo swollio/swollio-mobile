@@ -23,17 +23,18 @@ export default class FormContainer extends Component {
     }
 
     render() {
+        const CurrentForm = this.props.forms[this.state.page];
         return (
             <View style={styles.formContainer}>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-start', width: '100%'}}>
+                <View style={[{flexDirection: 'row', justifyContent: 'flex-start', width: '100%'}, this.state.page == 0? {opacity: 0}: {}]}>
                     <TouchableOpacity activeOpacity={0.8} style={styles.backButton} onPress={() => this.goBackward()}>
                         <Icon size={30} color='white' name='arrow-left'></Icon>
                     </TouchableOpacity>
                 </View>
-                {this.props.forms[this.state.page]}
-                <TouchableOpacity activeOpacity={0.8} style={styles.continueButton} onPress={() => this.goForward()}>
-                    <Text style={{color: Colors.White}}>Continue</Text>
-                </TouchableOpacity>
+                <CurrentForm onCompleted={() => this.goForward()}/>
+                <View style={styles.progressContainer}>
+                    {this.props.forms.map((_, index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Grey}: {backgroundColor: Colors.Red}]}/>)}
+                </View>
             </View>
         )
     }
@@ -45,6 +46,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         height: '100%',
         paddingVertical: 48
+    },
+    progressContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    circle: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        margin: 5,
     },
     backButton: {
         backgroundColor: Colors.Red,
