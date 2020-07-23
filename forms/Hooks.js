@@ -122,45 +122,6 @@ export function CreateTwoOptionForm (options) {
     };
 }
 
-/*
-export const GenderForm = CreateSingleStringForm({
-    title: 'What is your gender?',
-    field: 'gender',
-    option1: 'male',
-    option2: 'female'
-});
-*/
-
-/*
-export function GenderForm(props) {
-    return (
-        <View style={styles.form}>
-            <Text style={styles.title}>What is your gender?</Text>
-            <TouchableOpacity
-                style={styles.optionButton}
-                onPress={() => {
-                    props.onChange('gender', 'male');
-                    props.onCompleted();
-                }}>
-                <Text style={{color: Colors.White}}>
-                    Male
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.optionButton}
-                onPress={() => {
-                    props.onChange('gender', 'female');
-                    props.onCompleted();
-                }}>
-                <Text style={{color: Colors.White}}>
-                    Female
-                </Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
-*/
-
 const styles = StyleSheet.create({
     title: {
         fontSize: 30,
@@ -218,19 +179,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-        borderRadius: 25,
-        marginTop: 15,
-        marginBottom: 10
-    },
-    inverseOptionButton: {
-        width: 350,
-        maxWidth: '80%',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        borderColor: Colors.Red,
-        borderWidth: 1,
         borderRadius: 25,
         marginTop: 15,
         marginBottom: 10

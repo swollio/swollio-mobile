@@ -47,7 +47,7 @@ export const FirstNameForm = CreateSingleStringForm({
     subtitle: 'Enter your first name.',
     keyboardType: 'default',
     validator: (value) => value !== '',
-    field: 'first_name',
+    field: 'first_name'
 });
 
 export const LastNameForm = CreateSingleStringForm({
@@ -55,8 +55,7 @@ export const LastNameForm = CreateSingleStringForm({
     subtitle: 'Enter your last name.',
     keyboardType: 'default',
     validator: (value) => value !== '',
-    field: 'last_name',
-    autoFocus: true
+    field: 'last_name'
 });
 
 export const EmailForm = CreateSingleStringForm({
@@ -65,8 +64,7 @@ export const EmailForm = CreateSingleStringForm({
     keyboardType: 'email-address',
     validator: (value) => /(.+)@(.+){2,}\.(.+){2,}/.test(value), // ab*@cd*.ef*
     field: 'email',
-    noCaps: true,
-    autoFocus: true
+    noCaps: true
 });
 
 export function PasswordForm(props) {
