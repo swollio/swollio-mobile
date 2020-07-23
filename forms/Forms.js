@@ -36,7 +36,7 @@ export function LoginForm(props) {
 }
 
 
-export function MakeStringForm(options) {
+export function CreateSingleStringForm(options) {
     
     return (props) => {
         const [value, setValue] = useState('');
@@ -69,7 +69,7 @@ export function MakeStringForm(options) {
     }
 }
 
-export const FirstNameForm = MakeStringForm({
+export const FirstNameForm = CreateSingleStringForm({
     title: 'What is your first name?',
     subtitle: 'Enter your first name.',
     keyboardType: 'default',
@@ -77,7 +77,7 @@ export const FirstNameForm = MakeStringForm({
     field: 'first_name'
 });
 
-export const LastNameForm = MakeStringForm({
+export const LastNameForm = CreateSingleStringForm({
     title: 'What is your last name?',
     subtitle: 'Enter your last name.',
     keyboardType: 'default',
@@ -85,32 +85,45 @@ export const LastNameForm = MakeStringForm({
     field: 'last_name'
 });
 
-export const EmailForm = MakeStringForm({
+export const EmailForm = CreateSingleStringForm({
     title: 'What is your email??',
     subtitle: 'Enter your email address.',
-    keyboardType: 'email',
+    keyboardType: 'email-address',
     validator: (value) => /(.+)@(.+){2,}\.(.+){2,}/.test(value),
     field: 'email'
 });
 
 export function PasswordForm(props) {
-    
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const valid = password != '' && password == confirmPassword;
+
     return (
         <View style={styles.form}>
             <Text style={styles.title}>Create a password.</Text>
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={(text) => props.onChange('password', text)}
+                onChangeText={(text) => setPassword(text)}
                 secureTextEntry={true}  />
             <Text style={[styles.subtitle, {marginBottom: 10}]}>Enter your password</Text>
 
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={(text) => props.onChange('confirm_password', text)}
+                onChangeText={(text) => setConfirmPassword(text)}
                 secureTextEntry={true}  />
             <Text style={styles.subtitle}>Repeat your password</Text>
-            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
-                    <Text style={{color: Colors.White}}>Create Account</Text>
+            <TouchableOpacity 
+                activeOpacity={0.8}
+                style={valid ? styles.optionButton: styles.disabledButton}
+                onPress={() => {
+                    if (valid) {
+                        props.onChange('password', password)
+                        props.onCompleted()
+                    }
+                }}
+            >
+                <Text style={{color: Colors.White}}>Create Account</Text>
             </TouchableOpacity>
             <KeyboardSpacer />
         </View>
