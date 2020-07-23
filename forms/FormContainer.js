@@ -16,44 +16,48 @@ export default class FormContainer extends Component {
     }
 
     goForward() {
-        if (this.state.page < this.props.forms.length - 1 &&  this.state.buttonsEnabled) {
-
-            this.setState({
-                buttonsEnabled: false,
-            });
-
-            Animated.timing(this.state.pageAnim, {
-                toValue: this.state.page + 1,
-                duration: constants.PAGE_DURATION,
-                useNativeDriver: false,
-            }).start((res) => {
+        if (this.state.page < this.props.forms.length - 1) {
+            if (this.state.buttonsEnabled) {
                 this.setState({
-                    page: this.state.page + 1,
-                    buttonsEnabled: true,
+                    buttonsEnabled: false,
                 });
-            });
+    
+                Animated.timing(this.state.pageAnim, {
+                    toValue: this.state.page + 1,
+                    duration: constants.PAGE_DURATION,
+                    useNativeDriver: false,
+                }).start((res) => {
+                    this.setState({
+                        page: this.state.page + 1,
+                        buttonsEnabled: true,
+                    });
+                });
+            }
         } else {
             this.props.onCompleted();
         }
     }
 
     goBackward() {
-        if (this.state.page > 0 && this.state.buttonsEnabled) {
-
-            this.setState({
-                buttonsEnabled: false,
-            });
-
-            Animated.timing(this.state.pageAnim, {
-                toValue: this.state.page - 1,
-                duration: constants.PAGE_DURATION,
-                useNativeDriver: false,
-            }).start(() => {
+        if (this.state.page > 0) {
+            if (this.state.buttonsEnabled) {
                 this.setState({
-                    page: this.state.page - 1,
-                    buttonsEnabled: true,
+                    buttonsEnabled: false,
                 });
-            });
+    
+                Animated.timing(this.state.pageAnim, {
+                    toValue: this.state.page - 1,
+                    duration: constants.PAGE_DURATION,
+                    useNativeDriver: false,
+                }).start(() => {
+                    this.setState({
+                        page: this.state.page - 1,
+                        buttonsEnabled: true,
+                    });
+                });
+            }
+        } else {
+            this.props.onCancel();
         }
     }
 
@@ -61,7 +65,7 @@ export default class FormContainer extends Component {
         const width = Dimensions.get('window').width;
         return (
             <View style={styles.formContainer}>
-                <View style={[styles.header, this.state.page == 0 ? {opacity: 0} : {}]}>
+                <View style={styles.header}>
                     <TouchableOpacity activeOpacity={0.8} style={styles.backButton} onPress={() => this.goBackward()}>
                         <Icon size={30} color='white' name='arrow-left'></Icon>
                     </TouchableOpacity>

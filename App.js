@@ -8,17 +8,28 @@ import Colors from './forms/Colors';
 export default class App extends Component {
 
     state = {
-        formCompleted: false,
+        authenticationState: 'UNAUTHENTICATED',
+    }
+
+    loginForm() {
+        this.setState({
+            authenticationState: 'UNAUTHENTICATED',
+        })
     }
 
     completeForm() {
         this.setState({
-            formCompleted: true,
+            authenticationState: 'AUTHENTICATED',
         })
     }
 
+    createAccount() {
+        this.setState({
+            authenticationState: 'CREATE_ACCOUNT',
+        })
+    }
     render() {
-        if (this.state.formCompleted) {
+        if (this.state.authenticationState === 'AUTHENTICATED') {
             return (
                 <PageView pages={[{
                     header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>User</Text>,
@@ -31,22 +42,31 @@ export default class App extends Component {
                     icon: 'bar-chart-2'
                 }]}/>
             )
-        } else {
+        } else if (this.state.authenticationState === 'CREATE_ACCOUNT') {
             return (
-                <>
-                <StatusBar barStyle='dark-content' hidden={false} backgroundColor={Colors.Red} translucent={true}/>
-                <FormContainer onCompleted={() => this.completeForm()} forms={[
-                    Forms.FirstNameForm,
-                    Forms.LastNameForm,
-                    Forms.AgeForm,
-                    Forms.EmailForm,
-                    Forms.HeightForm,
-                    Forms.GenderForm,
-                    Forms.GymAccessForm,
-                    Forms.WorkoutEquipmentForm
+                <FormContainer
+                    onCancel={() => this.loginForm()}
+                    onCompleted={() => this.completeForm()} 
+                    forms={[
+                        Forms.FirstNameForm,
+                        Forms.LastNameForm,
+                        Forms.AgeForm,
+                        Forms.EmailForm,
+                        Forms.HeightForm,
+                        Forms.GenderForm,
+                        Forms.GymAccessForm,
+                        Forms.WorkoutEquipmentForm
                 ]}/>
-                </>
             )
+        } else if (this.state.authenticationState === 'UNAUTHENTICATED') {
+            return (
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <Forms.LoginForm 
+                        onCreateAccount={() => this.createAccount()}
+                        onLogin={() => this.completeForm()}
+                    />
+                </View>
+            );
         }
         
     }

@@ -4,6 +4,36 @@ import Colors from './Colors';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
+export function LoginForm(props) {
+    
+    return (
+        <View style={styles.form}>
+            <Text style={styles.title}>Login</Text>
+            <TextInput 
+                style={styles.textInput} 
+                onChangeText={props.onChange}
+                placeholder='email'
+            />
+            <TextInput 
+                style={styles.textInput} 
+                onChangeText={props.onChange}
+                placeholder='password'
+            />
+
+            <TouchableOpacity onPress={() => props.onLogin()} activeOpacity={0.8} style={styles.optionButton}>
+                    <Text style={{color: Colors.White}}>Login</Text>
+            </TouchableOpacity>
+
+            <View style={{height: 50}}></View>
+            <TouchableOpacity onPress={() => props.onCreateAccount()} activeOpacity={0.8} style={styles.inverseOptionButton}>
+                    <Text style={{color: Colors.Red}}>Create Account</Text>
+            </TouchableOpacity>
+
+            <KeyboardSpacer />
+        </View>
+    );
+}
+
 export function FirstNameForm(props) {
     
     return (
@@ -274,6 +304,20 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        marginTop: 15,
+        marginBottom: 10
+    },
+    inverseOptionButton: {
+        width: 350,
+        maxWidth: '80%',
+        height: 50,
+        alignItems: 'center',
+        textAlign: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        borderColor: Colors.Red,
+        borderWidth: 1,
+        borderRadius: 25,
         marginTop: 15,
         marginBottom: 10
     },
