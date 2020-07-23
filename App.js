@@ -31,13 +31,24 @@ export default function App(props) {
     } else if (authenticationState === 'CREATE_ACCOUNT') {
         return (
             <FormContainer
+                key={1}
                 onCancel={() => setAuthentiationState('UNAUTHENTICATED')}
-                onCompleted={() => setAuthentiationState('AUTHENTICATED') } 
+                onCompleted={(form) => {console.log(form); setAuthentiationState('SETUP_ACCOUNT')}} 
                 forms={[
                     Forms.FirstNameForm,
                     Forms.LastNameForm,
                     Forms.EmailForm,
                     Forms.PasswordForm,
+                    Forms.AccountCreatedForm,
+            ]}/>
+        )
+    } else if (authenticationState === 'SETUP_ACCOUNT') {
+        return (
+            <FormContainer
+                key={2}
+                onCancel={() => setAuthentiationState('UNAUTHENTICATED')}
+                onCompleted={(form) => {console.log(form); setAuthentiationState('AUTHENTICATED')}} 
+                forms={[
                     Forms.AgeForm,
                     Forms.HeightForm,
                     Forms.GenderForm,

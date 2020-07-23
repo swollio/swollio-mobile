@@ -42,7 +42,7 @@ export function FirstNameForm(props) {
             <Text style={styles.title}>What is your first name?</Text>
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange}
+                onChangeText={(text) => props.onChange('first_name', text)}
                 placeholder='Jim' />
             <Text style={styles.subtitle}>Enter your first name</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
@@ -61,15 +61,29 @@ export function PasswordForm(props) {
             <Text style={styles.title}>Create a password.</Text>
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange}
+                onChangeText={(text) => props.onChange('password', text)}
                 secureTextEntry={true}  />
             <Text style={[styles.subtitle, {marginBottom: 10}]}>Enter your password</Text>
 
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange}
+                onChangeText={(text) => props.onChange('confirm_password', text)}
                 secureTextEntry={true}  />
             <Text style={styles.subtitle}>Repeat your password</Text>
+            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
+                    <Text style={{color: Colors.White}}>Create Account</Text>
+            </TouchableOpacity>
+            <KeyboardSpacer />
+        </View>
+    );
+}
+
+export function AccountCreatedForm(props) {
+    
+    return (
+        <View style={styles.form}>
+            <Text style={[styles.title, {marginBottom: 20}]}>Your account has been created.</Text>
+            <Text style={styles.subtitle}>Before you get started, we will ask you a few more questions to improve your workout experience</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                     <Text style={{color: Colors.White}}>Continue</Text>
             </TouchableOpacity>
@@ -84,7 +98,7 @@ export function LastNameForm(props) {
             <Text style={styles.title}>What is your last name?</Text>
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange}
+                onChangeText={(text) => props.onChange('last_name', text)}
                 placeholder='Wood' />
             <Text style={styles.subtitle}>Enter your last name</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
@@ -101,7 +115,7 @@ export function AgeForm(props) {
             <Text style={styles.title}>How old are you?</Text>
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange} 
+                onChangeText={(text) => props.onChange('age', text)} 
                 keyboardType={'numeric'} 
                 returnKeyType={'done'} // Color is off here
                 placeholder='69' />
@@ -121,7 +135,7 @@ export function EmailForm(props) {
             <Text style={styles.title}>What is your email?</Text>
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange} 
+                onChangeText={(text) => props.onChange('email', text)} 
                 keyboardType = {'email-address'} // Maybe take this away?
                 placeholder='jimwood@email.com' />
             <Text style={styles.subtitle}>Enter your email address.</Text>
@@ -137,12 +151,22 @@ export function GenderForm(props) {
     return (
         <View style={styles.form}>
             <Text style={styles.title}>What is your gender?</Text>
-            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
+            <TouchableOpacity
+                style={styles.optionButton}
+                onPress={() => {
+                    props.onChange('gender', 'male');
+                    props.onCompleted();
+                }}>
                 <Text style={{color: Colors.White}}>
                     Male
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
+            <TouchableOpacity
+                style={styles.optionButton}
+                onPress={() => {
+                    props.onChange('gender', 'female');
+                    props.onCompleted();
+                }}>
                 <Text style={{color: Colors.White}}>
                     Female
                 </Text>
@@ -234,7 +258,6 @@ const styles = StyleSheet.create({
         maxWidth: '80%',
         height: 50,
         alignItems: 'center',
-        textAlign: 'center',
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,
@@ -254,7 +277,6 @@ const styles = StyleSheet.create({
         maxWidth: '80%',
         height: 50,
         alignItems: 'center',
-        textAlign: 'center',
         justifyContent: 'center',
         padding: 10,
         borderColor: Colors.Red,
