@@ -82,7 +82,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         height: '100%',
-        paddingVertical: 48
+        paddingVertical: 48,
+        width: '100%',
+        overflow: 'hidden',
     },
     progressContainer: {
         flexDirection: 'row',
