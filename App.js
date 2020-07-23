@@ -1,18 +1,53 @@
 import React, { Component } from 'react';
-import { Animated, StyleSheet, Text, View, Dimensions, TouchableHighlight, ScrollView, FlatList} from 'react-native';
+import { Animated, StyleSheet, StatusBar, Text, View, Dimensions, TouchableHighlight, ScrollView, FlatList} from 'react-native';
 import FormContainer from './forms/FormContainer'
+import PageView from './PageView'
 import * as Forms from './forms/Forms'
+import Colors from './forms/Colors';
 
-export default function App(props) {
-    return (
-        <FormContainer forms={[
-            Forms.FirstNameForm,
-            Forms.LastNameForm,
-            Forms.AgeForm,
-            Forms.EmailForm,
-            Forms.GenderForm,
-        ]}/>
-    )
+export default class App extends Component {
+
+    state = {
+        formCompleted: false,
+    }
+
+    completeForm() {
+        this.setState({
+            formCompleted: true,
+        })
+    }
+
+    render() {
+        if (this.state.formCompleted) {
+            return (
+                <PageView pages={[{
+                    header: (props) => <Text style={{fontSize: 24, color: Colors.White}}>User</Text>,
+                    icon: 'user'
+                }, {
+                    header: (props) => <Text style={{fontSize: 24, color: Colors.White}}>Workouts</Text>,
+                    icon: 'clipboard'
+                }, {
+                    header: (props) => <Text style={{fontSize: 24, color: Colors.White}}>Statistics</Text>,
+                    icon: 'bar-chart-2'
+                }]}/>
+            )
+        } else {
+            return (
+                <>
+                <StatusBar barStyle='dark-content' hidden={false} backgroundColor={Colors.Red} translucent={true}/>
+                <FormContainer onCompleted={() => this.completeForm()} forms={[
+                    Forms.FirstNameForm,
+                    Forms.LastNameForm,
+                    Forms.AgeForm,
+                    Forms.EmailForm,
+                    Forms.GenderForm,
+                ]}/>
+                </>
+            )
+        }
+        
+    }
+    
 };
 
 /*
