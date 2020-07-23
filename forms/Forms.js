@@ -14,11 +14,17 @@ export function LoginForm(props) {
                 style={styles.textInput} 
                 onChangeText={props.onChange}
                 placeholder='email'
+                autoCorrect={false}
+                autoCapitalize='none'
+                keyboardAppearance='light'
             />
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange}
                 placeholder='password'
+                secureTextEntry={true}
+                autoCorrect={false}
+                keyboardAppearance='light'
             />
 
             <TouchableOpacity onPress={() => props.onLogin()} activeOpacity={0.8} style={styles.optionButton}>
@@ -43,7 +49,10 @@ export function FirstNameForm(props) {
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange}
-                placeholder='Jim' />
+                autoCorrect={false}
+                placeholder='Jim'
+                keyboardAppearance='light'
+            />
             <Text style={styles.subtitle}>Enter your first name</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                     <Text style={{color: Colors.White}}>Continue</Text>
@@ -62,13 +71,19 @@ export function PasswordForm(props) {
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange}
-                secureTextEntry={true}  />
+                secureTextEntry={true}
+                autoCorrect={false}
+                keyboardAppearance='light'
+            />
             <Text style={[styles.subtitle, {marginBottom: 10}]}>Enter your password</Text>
 
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange}
-                secureTextEntry={true}  />
+                secureTextEntry={true}
+                autoCorrect={false}
+                keyboardAppearance='light'
+            />
             <Text style={styles.subtitle}>Repeat your password</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                     <Text style={{color: Colors.White}}>Continue</Text>
@@ -85,7 +100,10 @@ export function LastNameForm(props) {
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange}
-                placeholder='Wood' />
+                placeholder='Wood'
+                autoCorrect={false}
+                keyboardAppearance='light'
+            />
             <Text style={styles.subtitle}>Enter your last name</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                 <Text style={{color: Colors.White}}>Continue</Text>
@@ -102,9 +120,11 @@ export function AgeForm(props) {
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange} 
-                keyboardType={'numeric'} 
-                returnKeyType={'done'} // Color is off here
-                placeholder='69' />
+                keyboardType='numeric'
+                returnKeyType='done' // Color is off here
+                placeholder='69'
+                keyboardAppearance='light'
+            />
             <Text style={styles.subtitle}>Enter your age.</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                 <Text style={{color: Colors.White}}>Continue</Text>
@@ -122,8 +142,12 @@ export function EmailForm(props) {
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange} 
-                keyboardType = {'email-address'} // Maybe take this away?
-                placeholder='jimwood@email.com' />
+                keyboardType = 'email-address' // Maybe take this away?
+                placeholder='jimwood@email.com'
+                autoCorrect={false}
+                autoCapitalize='none'
+                keyboardAppearance='light'
+            />
             <Text style={styles.subtitle}>Enter your email address.</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                 <Text style={{color: Colors.White}}>Continue</Text>
