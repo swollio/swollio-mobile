@@ -14,11 +14,17 @@ export function LoginForm(props) {
                 style={styles.textInput} 
                 onChangeText={props.onChange}
                 placeholder='email'
+                autoCorrect={false}
+                autoCapitalize='none'
+                keyboardAppearance='light'
             />
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange}
                 placeholder='password'
+                secureTextEntry={true}
+                autoCorrect={false}
+                keyboardAppearance='light'
             />
 
             <TouchableOpacity onPress={() => props.onLogin()} activeOpacity={0.8} style={styles.optionButton}>
@@ -37,7 +43,6 @@ export function LoginForm(props) {
 
 
 export function CreateSingleStringForm(options) {
-    
     return (props) => {
         const [value, setValue] = useState('');
         const valid = options.validator(value);
@@ -104,14 +109,30 @@ export function PasswordForm(props) {
             <Text style={styles.title}>Create a password.</Text>
             <TextInput 
                 style={styles.textInput} 
+<<<<<<< HEAD
                 onChangeText={(text) => setPassword(text)}
                 secureTextEntry={true}  />
+=======
+                onChangeText={props.onChange}
+                secureTextEntry={true}
+                autoCorrect={false}
+                keyboardAppearance='light'
+            />
+>>>>>>> ddb3edb6299b1aa49f857cff98eae4f3c2f71a77
             <Text style={[styles.subtitle, {marginBottom: 10}]}>Enter your password</Text>
 
             <TextInput 
                 style={styles.textInput} 
+<<<<<<< HEAD
                 onChangeText={(text) => setConfirmPassword(text)}
                 secureTextEntry={true}  />
+=======
+                onChangeText={props.onChange}
+                secureTextEntry={true}
+                autoCorrect={false}
+                keyboardAppearance='light'
+            />
+>>>>>>> ddb3edb6299b1aa49f857cff98eae4f3c2f71a77
             <Text style={styles.subtitle}>Repeat your password</Text>
             <TouchableOpacity 
                 activeOpacity={0.8}
@@ -134,8 +155,20 @@ export function AccountCreatedForm(props) {
     
     return (
         <View style={styles.form}>
+<<<<<<< HEAD
             <Text style={[styles.title, {marginBottom: 20}]}>Your account has been created.</Text>
             <Text style={styles.subtitle}>Before you get started, we will ask you a few more questions to improve your workout experience</Text>
+=======
+            <Text style={styles.title}>What is your last name?</Text>
+            <TextInput 
+                style={styles.textInput} 
+                onChangeText={props.onChange}
+                placeholder='Wood'
+                autoCorrect={false}
+                keyboardAppearance='light'
+            />
+            <Text style={styles.subtitle}>Enter your last name</Text>
+>>>>>>> ddb3edb6299b1aa49f857cff98eae4f3c2f71a77
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                     <Text style={{color: Colors.White}}>Continue</Text>
             </TouchableOpacity>
@@ -151,10 +184,19 @@ export function AgeForm(props) {
             <Text style={styles.title}>How old are you?</Text>
             <TextInput 
                 style={styles.textInput} 
+<<<<<<< HEAD
                 onChangeText={(text) => props.onChange('age', text)} 
                 keyboardType={'numeric'} 
                 returnKeyType={'done'} // Color is off here
                 placeholder='69' />
+=======
+                onChangeText={props.onChange} 
+                keyboardType='numeric'
+                returnKeyType='done' // Color is off here
+                placeholder='69'
+                keyboardAppearance='light'
+            />
+>>>>>>> ddb3edb6299b1aa49f857cff98eae4f3c2f71a77
             <Text style={styles.subtitle}>Enter your age.</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                 <Text style={{color: Colors.White}}>Continue</Text>
@@ -165,6 +207,31 @@ export function AgeForm(props) {
 }
 
 
+<<<<<<< HEAD
+=======
+export function EmailForm(props) {
+    return (
+        <View style={styles.form}>
+            <Text style={styles.title}>What is your email?</Text>
+            <TextInput 
+                style={styles.textInput} 
+                onChangeText={props.onChange} 
+                keyboardType = 'email-address' // Maybe take this away?
+                placeholder='jimwood@email.com'
+                autoCorrect={false}
+                autoCapitalize='none'
+                keyboardAppearance='light'
+            />
+            <Text style={styles.subtitle}>Enter your email address.</Text>
+            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
+                <Text style={{color: Colors.White}}>Continue</Text>
+            </TouchableOpacity>
+            <KeyboardSpacer/>
+        </View>
+    );
+}
+
+>>>>>>> ddb3edb6299b1aa49f857cff98eae4f3c2f71a77
 export function GenderForm(props) {
     return (
         <View style={styles.form}>
