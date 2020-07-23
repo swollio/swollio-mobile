@@ -13,6 +13,7 @@ export default class FormContainer extends Component {
             page: 0,
             pageAnim: new Animated.Value(0),
             width: Dimensions.get('window').width,
+            form: {}
         };
     }
 
@@ -47,7 +48,7 @@ export default class FormContainer extends Component {
                 });
             }
         } else {
-            this.props.onCompleted();
+            this.props.onCompleted(this.state.form);
         }
     }
 
@@ -83,7 +84,16 @@ export default class FormContainer extends Component {
                     </TouchableOpacity>
                 </View>
                 <Animated.View style={{width: '100%', position: 'relative', left: Animated.multiply(this.state.pageAnim, -this.state.width), flexDirection: 'row'}}>
-                    {this.props.forms.map((Form, index) => <Form key={index} onCompleted={() => this.goForward()}></Form>)}
+                    {this.props.forms.map((Form, index) => 
+                        <Form key={index}
+                            onChange={(key, value) => {
+                                const state = this.state.form;
+                                state[key] = value;
+                                this.setState(state);
+                            }}
+                            onCompleted={() => this.goForward()}
+                        />
+                    )}
                 </Animated.View>
                 <View style={styles.progressContainer}>
                     {this.props.forms.map((_ , index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Grey}: {backgroundColor: Colors.Red}]}/>)}
@@ -116,7 +126,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Red,
         padding: 10,
         height: 50,
-        textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
         width: 100,
@@ -136,7 +145,6 @@ const styles = StyleSheet.create({
         width: 350,
         maxWidth: '80%',
         height: 50,
-        textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
