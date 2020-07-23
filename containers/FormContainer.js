@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Keyboard, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
-import Colors from './Colors';
+import Colors from '../utilities/Colors';
+import * as constants from '../utilities/constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import * as constants from '../constants';
 
 export default class FormContainer extends Component {
     

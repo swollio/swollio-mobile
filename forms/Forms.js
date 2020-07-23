@@ -1,8 +1,8 @@
 import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput, Button, Dimensions} from 'react-native';
-import Colors from './Colors';
+import Colors from '../utilities/Colors';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { CreateSingleStringForm, CreateTwoOptionForm, ButtonRow } from './Hooks';
+import { CreateSingleStringForm, CreateTwoOptionForm, ButtonRow } from '../components/Hooks';
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 export function LoginForm(props) {

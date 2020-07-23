@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Animated, StyleSheet, StatusBar, Text, View, Dimensions, TouchableHighlight, ScrollView, FlatList} from 'react-native';
-import FormContainer from './forms/FormContainer'
-import PageView from './PageView'
+import FormContainer from './containers/FormContainer'
+import PageView from './containers/PageView'
 import * as Forms from './forms/Forms'
-import Colors from './forms/Colors';
+import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light } from '@expo-google-fonts/comfortaa';
 
 export default function App(props) {

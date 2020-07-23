@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput, Button, Dimensions} from 'react-native';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import Colors from './Colors';
+import Colors from '../utilities/Colors';
 
 export function ButtonRow(props) {
     
