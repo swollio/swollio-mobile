@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput, Button, Dimensions} from 'react-native';
 import Colors from './Colors';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 export function FirstNameForm(props) {
     
@@ -94,6 +95,139 @@ export function GenderForm(props) {
     );
 }
 
+function ButtonRow() {
+    
+    const [states, setStates] = React.useState([false, false, false]);
+
+    function stateController(index) {
+        // Turning a different toggle on
+        if (states[index])
+            return;
+        
+        newStates = [false, false, false];
+        newStates[index] = true;
+
+        setStates(newStates);
+    }
+
+    return (
+        <View style={styles.buttonRow}>
+            <TouchableOpacity 
+                style={[
+                    styles.toggleButton, !states[0] ?
+                    {
+                        backgroundColor: Colors.White,
+                        borderColor: Colors.Red
+                    } : 
+                    {
+                        backgroundColor: Colors.Red,
+                        borderColor: Colors.White
+                    }    
+                ]}
+                onPress={() => stateController(0)}>
+                <Text style={[
+                        styles.buttonText, !states[0] ? 
+                        {color: Colors.Red} : 
+                        {color: Colors.White}]
+                    }>
+                    4'
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+                style={[
+                    styles.toggleButton, !states[1] ?
+                    {
+                        backgroundColor: Colors.White,
+                        borderColor: Colors.Red
+                    } : 
+                    {
+                        backgroundColor: Colors.Red,
+                        borderColor: Colors.White
+                    }    
+                ]}
+                onPress={() => stateController(1)}>
+                <Text 
+                    style={[
+                        styles.buttonText, !states[1] ? 
+                        {color: Colors.Red} : 
+                        {color: Colors.White}]
+                    }>
+                    5'
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+                style={[
+                    styles.toggleButton, !states[2] ?
+                    {
+                        backgroundColor: Colors.White,
+                        borderColor: Colors.Red
+                    } : 
+                    {
+                        backgroundColor: Colors.Red,
+                        borderColor: Colors.White
+                    }    
+                ]}
+                onPress={() => stateController(2)}>
+                <Text style={[
+                        styles.buttonText, !states[2] ? 
+                        {color: Colors.Red} : 
+                        {color: Colors.White}]
+                    }>
+                    6'
+                </Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+export function HeightForm(props) {
+    return (
+        <View style={styles.form}>
+            <Text style={[styles.title, {padding: 10}]}>What is your height?</Text>
+            <ButtonRow />
+            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
+                <Text style={{color: Colors.White}}>Continue</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+export function GymAccessForm(props) {
+    return (
+        <View style={styles.form}>
+            <Text style={styles.title}>Do you have gym access?</Text>
+            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
+                <Text style={{color: Colors.White}}>
+                    Yes
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
+                <Text style={{color: Colors.White}}>
+                    No
+                </Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+export function WorkoutEquipmentForm(props) {
+    return (
+        <View style={styles.form}>
+            <Text style={styles.title}>Do you have workout equipment?</Text>
+            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
+                <Text style={{color: Colors.White}}>
+                    Yes
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
+                <Text style={{color: Colors.White}}>
+                    No
+                </Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
 const styles = StyleSheet.create({
     title: {
         fontSize: 32,
@@ -142,5 +276,30 @@ const styles = StyleSheet.create({
         elevation: 5,
         marginTop: 15,
         marginBottom: 10
-    }
+    },
+    buttonRow: {
+        flexDirection: 'row',
+        width: '80%',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    toggleButton: {
+        padding: 10,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        borderWidth: 1,
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 30,
+        marginBottom: 50,
+    },
+    buttonText: {
+        fontSize: 26,
+    },
+
 });

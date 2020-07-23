@@ -21,13 +21,13 @@ export default class App extends Component {
         if (this.state.formCompleted) {
             return (
                 <PageView pages={[{
-                    header: (props) => <Text style={{fontSize: 24, color: Colors.White}}>User</Text>,
+                    header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>User</Text>,
                     icon: 'user'
                 }, {
-                    header: (props) => <Text style={{fontSize: 24, color: Colors.White}}>Workouts</Text>,
+                    header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>Workouts</Text>,
                     icon: 'clipboard'
                 }, {
-                    header: (props) => <Text style={{fontSize: 24, color: Colors.White}}>Statistics</Text>,
+                    header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>Statistics</Text>,
                     icon: 'bar-chart-2'
                 }]}/>
             )
@@ -40,7 +40,10 @@ export default class App extends Component {
                     Forms.LastNameForm,
                     Forms.AgeForm,
                     Forms.EmailForm,
+                    Forms.HeightForm,
                     Forms.GenderForm,
+                    Forms.GymAccessForm,
+                    Forms.WorkoutEquipmentForm
                 ]}/>
                 </>
             )

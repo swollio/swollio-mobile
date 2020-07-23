@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
 import Colors from './Colors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import * as constants from '../constants';
 
 export default class FormContainer extends Component {
     
@@ -23,7 +24,7 @@ export default class FormContainer extends Component {
 
             Animated.timing(this.state.pageAnim, {
                 toValue: this.state.page + 1,
-                duration: 500,
+                duration: constants.PAGE_DURATION,
                 useNativeDriver: false,
             }).start((res) => {
                 this.setState({
@@ -45,7 +46,7 @@ export default class FormContainer extends Component {
 
             Animated.timing(this.state.pageAnim, {
                 toValue: this.state.page - 1,
-                duration: 500,
+                duration: constants.PAGE_DURATION,
                 useNativeDriver: false,
             }).start(() => {
                 this.setState({
@@ -69,7 +70,7 @@ export default class FormContainer extends Component {
                     {this.props.forms.map((Form, index) => <Form key={index} onCompleted={() => this.goForward()}></Form>)}
                 </Animated.View>
                 <View style={styles.progressContainer}>
-                    {this.props.forms.map((_, index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Grey}: {backgroundColor: Colors.Red}]}/>)}
+                    {this.props.forms.map((_ , index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Grey}: {backgroundColor: Colors.Red}]}/>)}
                 </View>
             </View>
         )
