@@ -67,7 +67,7 @@ export function PasswordForm(props) {
     
     return (
         <View style={styles.form}>
-            <Text style={styles.title}>Create a Password</Text>
+            <Text style={styles.title}>Create a password.</Text>
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={props.onChange}
@@ -225,9 +225,10 @@ export function WorkoutEquipmentForm(props) {
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 32,
+        fontSize: 30,
         textAlign: 'center',
         maxWidth: '80%',
+        fontFamily: 'Comfortaa_300Light'
     },
     subtitle: {
         textAlign: 'center',
