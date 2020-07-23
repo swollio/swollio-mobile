@@ -104,7 +104,7 @@ function ButtonRow() {
         if (states[index])
             return;
         
-        newStates = [false, false, false];
+        const newStates = [false, false, false];
         newStates[index] = true;
 
         setStates(newStates);
