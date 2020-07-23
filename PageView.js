@@ -73,6 +73,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.White,
         flexDirection: 'row',
         padding: 10,
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-around'
     },
 });
