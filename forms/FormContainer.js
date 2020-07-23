@@ -31,6 +31,8 @@ export default class FormContainer extends Component {
                     buttonsEnabled: true,
                 });
             });
+        } else {
+            this.props.onCompleted();
         }
     }
 
