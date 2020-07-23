@@ -8,15 +8,18 @@ export default class FormContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            buttonsEnabled: true,
             page: 0,
             pageAnim: new Animated.Value(0)
         };
     }
 
     goForward() {
-        if (this.state.page < this.props.forms.length - 1) {
+        if (this.state.page < this.props.forms.length - 1 &&  this.state.buttonsEnabled) {
 
-           
+            this.setState({
+                buttonsEnabled: false,
+            });
 
             Animated.timing(this.state.pageAnim, {
                 toValue: this.state.page + 1,
@@ -24,14 +27,19 @@ export default class FormContainer extends Component {
                 useNativeDriver: false,
             }).start((res) => {
                 this.setState({
-                    page: this.state.page + 1
+                    page: this.state.page + 1,
+                    buttonsEnabled: true,
                 });
             });
         }
     }
 
     goBackward() {
-        if (this.state.page > 0) {
+        if (this.state.page > 0 && this.state.buttonsEnabled) {
+
+            this.setState({
+                buttonsEnabled: false,
+            });
 
             Animated.timing(this.state.pageAnim, {
                 toValue: this.state.page - 1,
@@ -39,7 +47,8 @@ export default class FormContainer extends Component {
                 useNativeDriver: false,
             }).start(() => {
                 this.setState({
-                    page: this.state.page - 1
+                    page: this.state.page - 1,
+                    buttonsEnabled: true,
                 });
             });
         }
