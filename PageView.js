@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
+import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType} from 'react-native';
 import Colors from './forms/Colors';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -23,24 +23,29 @@ export default class PageView extends Component {
     render() {
         const Header = this.props.pages[this.state.page].header;
         return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Header />
+            <>
+            <SafeAreaView style={{ flex: 0, backgroundColor: Colors.Red }} />
+            <SafeAreaView style={{ flex: 1 }}>
+                <StatusBar barStyle="light-content" />
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Header />
+                    </View>
+                    <View style={{flex: 1}}>
+                        <Text>Content</Text>  
+                    </View>
+                    <View style={styles.navigation}>
+                        {this.props.pages.map((page, index) => {
+                            if (this.state.page == index) {
+                                return <Icon key={index} size={40} onPress={() => this.switchPage(index)} color={Colors.Black} name={page.icon}/>
+                            } else {
+                                return <Icon key={index} size={40} onPress={() => this.switchPage(index)} color={Colors.Grey} name={page.icon}/>
+                            }
+                        })}
+                    </View>
                 </View>
-                <View style={{flex: 1}}>
-                    <Text>Content</Text>  
-                </View>
-                <View style={styles.navigation}>
-                    {this.props.pages.map((page, index) => {
-                        if (this.state.page == index) {
-                            return <Icon size={30} onPress={() => this.switchPage(index)} color={Colors.Black} name={page.icon}/>
-                        } else {
-                            return <Icon size={30} onPress={() => this.switchPage(index)} color={Colors.Grey} name={page.icon}/>
-                        }
-                    })}
-                </View>
-            </View>
-
+            </SafeAreaView>
+            </>
         );
     }
 }
@@ -57,14 +62,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Red,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-        shadowColor: Colors.Black,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
     },
     title: {
         color: Colors.White,
@@ -73,11 +70,9 @@ const styles = StyleSheet.create({
     navigation: {
         borderColor: Colors.Red,
         borderTopWidth: 2,
-        height: 60,
         backgroundColor: Colors.White,
         flexDirection: 'row',
-        paddingBottom: 20,
-        paddingTop: 10,
+        padding: 10,
         justifyContent: 'space-evenly'
     },
 });

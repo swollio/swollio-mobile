@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, StyleSheet, Text, View, Dimensions, TouchableHighlight, ScrollView, FlatList} from 'react-native';
+import { Animated, StyleSheet, StatusBar, Text, View, Dimensions, TouchableHighlight, ScrollView, FlatList} from 'react-native';
 import FormContainer from './forms/FormContainer'
 import PageView from './PageView'
 import * as Forms from './forms/Forms'
@@ -33,6 +33,8 @@ export default class App extends Component {
             )
         } else {
             return (
+                <>
+                <StatusBar barStyle='dark-content' hidden={false} backgroundColor={Colors.Red} translucent={true}/>
                 <FormContainer onCompleted={() => this.completeForm()} forms={[
                     Forms.FirstNameForm,
                     Forms.LastNameForm,
@@ -40,6 +42,7 @@ export default class App extends Component {
                     Forms.EmailForm,
                     Forms.GenderForm,
                 ]}/>
+                </>
             )
         }
         
