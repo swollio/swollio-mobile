@@ -52,6 +52,31 @@ export function FirstNameForm(props) {
     );
 }
 
+
+export function PasswordForm(props) {
+    
+    return (
+        <View style={styles.form}>
+            <Text style={styles.title}>Create a Password</Text>
+            <TextInput 
+                style={styles.textInput} 
+                onChangeText={props.onChange}
+                secureTextEntry={true}  />
+            <Text style={[styles.subtitle, {marginBottom: 10}]}>Enter your password</Text>
+
+            <TextInput 
+                style={styles.textInput} 
+                onChangeText={props.onChange}
+                secureTextEntry={true}  />
+            <Text style={styles.subtitle}>Repeat your password</Text>
+            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
+                    <Text style={{color: Colors.White}}>Continue</Text>
+            </TouchableOpacity>
+            <KeyboardSpacer />
+        </View>
+    );
+}
+
 export function LastNameForm(props) {
     return (
         <View style={styles.form}>

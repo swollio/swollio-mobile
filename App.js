@@ -50,8 +50,9 @@ export default class App extends Component {
                     forms={[
                         Forms.FirstNameForm,
                         Forms.LastNameForm,
-                        Forms.AgeForm,
                         Forms.EmailForm,
+                        Forms.PasswordForm,
+                        Forms.AgeForm,
                         Forms.HeightForm,
                         Forms.GenderForm,
                         Forms.GymAccessForm,

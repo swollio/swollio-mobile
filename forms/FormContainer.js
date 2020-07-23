@@ -11,10 +11,23 @@ export default class FormContainer extends Component {
         this.state = {
             buttonsEnabled: true,
             page: 0,
-            pageAnim: new Animated.Value(0)
+            pageAnim: new Animated.Value(0),
+            width: Dimensions.get('window').width,
         };
     }
 
+    onChange = ({ window, screen }) => {
+        this.setState({ width: window.width });
+    };
+
+    componentDidMount() {
+        Dimensions.addEventListener("change", this.onChange);
+    }
+
+    componentWillUnmount() {
+        Dimensions.removeEventListener("change", this.onChange);
+    }
+    
     goForward() {
         if (this.state.page < this.props.forms.length - 1) {
             if (this.state.buttonsEnabled) {
@@ -62,7 +75,6 @@ export default class FormContainer extends Component {
     }
 
     render() {
-        const width = Dimensions.get('window').width;
         return (
             <View style={styles.formContainer}>
                 <View style={styles.header}>
@@ -70,7 +82,7 @@ export default class FormContainer extends Component {
                         <Icon size={30} color='white' name='arrow-left'></Icon>
                     </TouchableOpacity>
                 </View>
-                <Animated.View style={{width: '100%', position: 'relative', left: Animated.multiply(this.state.pageAnim, -width), flexDirection: 'row'}}>
+                <Animated.View style={{width: '100%', position: 'relative', left: Animated.multiply(this.state.pageAnim, -this.state.width), flexDirection: 'row'}}>
                     {this.props.forms.map((Form, index) => <Form key={index} onCompleted={() => this.goForward()}></Form>)}
                 </Animated.View>
                 <View style={styles.progressContainer}>
