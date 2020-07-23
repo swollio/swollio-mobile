@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput, Button, Dimensions} from 'react-native';
 import Colors from './Colors';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { ButtonRow } from './Hooks';
+import { CreateSingleStringForm, CreateTwoOptionForm, ButtonRow } from './Hooks';
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 export function LoginForm(props) {
@@ -17,6 +17,7 @@ export function LoginForm(props) {
                 autoCorrect={false}
                 autoCapitalize='none'
                 keyboardAppearance='light'
+                keyboardType='email-address'
             />
             <TextInput 
                 style={styles.textInput} 
@@ -41,45 +42,12 @@ export function LoginForm(props) {
     );
 }
 
-
-export function CreateSingleStringForm(options) {
-    return (props) => {
-        const [value, setValue] = useState('');
-        const valid = options.validator(value);
-    
-        return (
-            <View style={styles.form}>
-                <Text style={styles.title}>{options.title}</Text>
-                <TextInput 
-                    style={styles.textInput} 
-                    keyboardType={options.keyboardType} 
-                    onChangeText={(text) => setValue(text)}
-                />
-                <Text style={styles.subtitle}>{options.subtitle}</Text>
-                <TouchableOpacity 
-                    activeOpacity={0.8}
-                    style={valid ? styles.optionButton: styles.disabledButton}
-                    onPress={() => {
-                        if (valid) {
-                            props.onChange(options.field, value)
-                            props.onCompleted()
-                        }
-                    }}
-                >
-                        <Text style={valid ?  {color: Colors.White}: {color: Colors.Grey}}>Continue</Text>
-                </TouchableOpacity>
-                <KeyboardSpacer />
-            </View>
-        );
-    }
-}
-
 export const FirstNameForm = CreateSingleStringForm({
     title: 'What is your first name?',
     subtitle: 'Enter your first name.',
     keyboardType: 'default',
     validator: (value) => value !== '',
-    field: 'first_name'
+    field: 'first_name',
 });
 
 export const LastNameForm = CreateSingleStringForm({
@@ -87,22 +55,25 @@ export const LastNameForm = CreateSingleStringForm({
     subtitle: 'Enter your last name.',
     keyboardType: 'default',
     validator: (value) => value !== '',
-    field: 'last_name'
+    field: 'last_name',
+    autoFocus: true
 });
 
 export const EmailForm = CreateSingleStringForm({
-    title: 'What is your email??',
+    title: 'What is your email?',
     subtitle: 'Enter your email address.',
     keyboardType: 'email-address',
-    validator: (value) => /(.+)@(.+){2,}\.(.+){2,}/.test(value),
-    field: 'email'
+    validator: (value) => /(.+)@(.+){2,}\.(.+){2,}/.test(value), // ab*@cd*.ef*
+    field: 'email',
+    noCaps: true,
+    autoFocus: true
 });
 
 export function PasswordForm(props) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const valid = password != '' && password == confirmPassword;
+    const valid = password != '' && password === confirmPassword;
 
     return (
         <View style={styles.form}>
@@ -133,7 +104,7 @@ export function PasswordForm(props) {
                 onPress={() => {
                     if (valid) {
                         props.onChange('password', password)
-                        props.onCompleted()
+                        props.onCompleted(true)
                     }
                 }}
             >
@@ -166,11 +137,11 @@ export function AgeForm(props) {
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={(text) => props.onChange('age', text)} 
-                keyboardType={'numeric'} 
-                returnKeyType={'done'} // Color is off here
+                keyboardType={'numeric'}
+                keyboardAppearance='light' 
                 placeholder='69' />
             <Text style={styles.subtitle}>Enter your age.</Text>
-            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
+            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted(true)}>
                 <Text style={{color: Colors.White}}>Continue</Text>
             </TouchableOpacity>
             <KeyboardSpacer/>
@@ -179,33 +150,32 @@ export function AgeForm(props) {
 }
 
 
-export function GenderForm(props) {
-    return (
-        <View style={styles.form}>
-            <Text style={styles.title}>What is your gender?</Text>
-            <TouchableOpacity
-                style={styles.optionButton}
-                onPress={() => {
-                    props.onChange('gender', 'male');
-                    props.onCompleted();
-                }}>
-                <Text style={{color: Colors.White}}>
-                    Male
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.optionButton}
-                onPress={() => {
-                    props.onChange('gender', 'female');
-                    props.onCompleted();
-                }}>
-                <Text style={{color: Colors.White}}>
-                    Female
-                </Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
+export const GenderForm = CreateTwoOptionForm({
+    title: 'What is your gender?',
+    field: 'gender',
+    storeValue1: 'male',
+    storeValue2: 'female',
+    showValue1: 'Male',
+    showValue2: 'Female'
+});
+
+export const GymAccessForm = CreateTwoOptionForm({
+    title: 'Do you have gym access?',
+    field: 'hasAccess',
+    storeValue1: true,
+    storeValue2: false,
+    showValue1: "Yes",
+    showValue2: "No"
+});
+
+export const WorkoutEquipmentForm = CreateTwoOptionForm({
+    title: 'Do you have workout equipment?',
+    field: 'hasEquipment',
+    storeValue1: true,
+    storeValue2: false,
+    showValue1: "Yes",
+    showValue2: "No"
+});
 
 export function HeightForm(props) {
     return (
@@ -214,42 +184,6 @@ export function HeightForm(props) {
             <ButtonRow buttons={['4\'', '5\'', '6\'']}/>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                 <Text style={{color: Colors.White}}>Continue</Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
-
-export function GymAccessForm(props) {
-    return (
-        <View style={styles.form}>
-            <Text style={styles.title}>Do you have gym access?</Text>
-            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
-                <Text style={{color: Colors.White}}>
-                    Yes
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
-                <Text style={{color: Colors.White}}>
-                    No
-                </Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
-
-export function WorkoutEquipmentForm(props) {
-    return (
-        <View style={styles.form}>
-            <Text style={styles.title}>Do you have workout equipment?</Text>
-            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
-                <Text style={{color: Colors.White}}>
-                    Yes
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.optionButton} onPress={() => props.onCompleted()}>
-                <Text style={{color: Colors.White}}>
-                    No
-                </Text>
             </TouchableOpacity>
         </View>
     );
