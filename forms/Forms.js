@@ -110,19 +110,21 @@ export function PasswordForm(props) {
             <TextInput 
                 style={styles.textInput} 
                 onChangeText={(text) => setPassword(text)}
-                secureTextEntry={true}  />
+                secureTextEntry={true}
                 autoCorrect={false}
                 keyboardAppearance='light'
+            />
 
             <Text style={[styles.subtitle, {marginBottom: 10}]}>Enter your password</Text>
 
             <TextInput 
                 style={styles.textInput} 
-
                 onChangeText={(text) => setConfirmPassword(text)}
-                secureTextEntry={true}  />
+                secureTextEntry={true}
                 autoCorrect={false}
                 keyboardAppearance='light'
+            />
+
 
             <Text style={styles.subtitle}>Repeat your password</Text>
             <TouchableOpacity 
