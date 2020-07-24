@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
-import Colors from './Colors';
+import { StyleSheet, TouchableOpacity, Keyboard, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
+import Colors from '../utilities/Colors';
+import * as constants from '../utilities/constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import * as constants from '../constants';
 
 export default class FormContainer extends Component {
     
@@ -91,7 +91,11 @@ export default class FormContainer extends Component {
                                 state[key] = value;
                                 this.setState(state);
                             }}
-                            onCompleted={() => this.goForward()}
+                            onCompleted={(dismissKeyboard=false) => {
+                                if (dismissKeyboard)
+                                    Keyboard.dismiss();
+                                this.goForward();
+                            }}
                         />
                     )}
                 </Animated.View>

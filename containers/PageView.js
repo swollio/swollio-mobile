@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType} from 'react-native';
-import Colors from './forms/Colors';
+import Colors from '../utilities/Colors';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default class PageView extends Component {
