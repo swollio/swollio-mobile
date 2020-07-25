@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Keyboard, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
 import Colors from '../utilities/Colors';
-import * as constants from '../utilities/constants';
+import * as constants from '../utilities/Constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+/**
+ * This class is a container which will manage forms in the app. An
+ * example of this is the Create Account workflow, where we have several
+ * forms that we want to get data from. This class manages all those forms.
+ */
 export default class FormContainer extends Component {
     
     constructor(props) {
@@ -85,7 +90,8 @@ export default class FormContainer extends Component {
                 </View>
                 <Animated.View style={{width: '100%', position: 'relative', left: Animated.multiply(this.state.pageAnim, -this.state.width), flexDirection: 'row'}}>
                     {this.props.forms.map((Form, index) => 
-                        <Form key={index}
+                        <Form 
+                            key={index}
                             onChange={(key, value) => {
                                 const state = this.state.form;
                                 state[key] = value;
