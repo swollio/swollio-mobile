@@ -33,7 +33,11 @@ export function ButtonRow(props) {
                         backgroundColor: Colors.White,
                         borderColor: Colors.Red,
                 }]}
-                onPress={() => stateController(index)}>
+                onPress={() => {
+                    stateController(index);
+                    // Since the button is toggled, pass the height up to the form controller
+                    props.onChange(props.field, props.buttons[index])
+                }}>
                     <Text 
                         style={[
                             styles.buttonText, states[index] ? 
@@ -131,10 +135,14 @@ export function ScrollWheel(props) {
     dataVals = dataVals.concat(['', '']);
 
     const [selected, setSelected] = useState(props.minVal + props.initIndex * props.deltaVal);
-    const flatListRef = useRef(null);
+    
     const onViewRef = useRef(( { viewableItems } ) => {
         setSelected(viewableItems[2].item);
+        
+        // Passing up inches for form container
+        props.onChange(props.field, viewableItems[2].item);
     });
+
     const viewConfigRef = useRef({
         waitForInteraction: true,
         viewAreaCoveragePercentThreshold: 95
@@ -178,7 +186,6 @@ export function ScrollWheel(props) {
 
     const flatList = 
         <FlatList
-            ref = {flatListRef}
             horizontal={true}
             bounces={false}
             snapToInterval={50}
@@ -279,7 +286,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginLeft: 10,
         marginTop: 30,
-        marginBottom: 50,
+        marginBottom: 30,
     },
     buttonText: {
         fontSize: 26,

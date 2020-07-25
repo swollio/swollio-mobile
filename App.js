@@ -8,18 +8,7 @@ import { ScrollWheel } from './components/Hooks';
 import { useFonts, Comfortaa_300Light } from '@expo-google-fonts/comfortaa';
 
 export default function App(props) {
-    
-    const testSlider = true;
 
-    return(
-        <View>
-            <ScrollWheel minVal={0} maxVal={12} deltaVal={1} initIndex={6}/>
-        </View>
-    );
-
-    // Uncomment this to run the normie code
-
-    /*
     let [authenticationState, setAuthentiationState] = useState('UNAUTHENTICATED');
     let [fontsLoaded] = useFonts({
         Comfortaa_300Light,
@@ -78,5 +67,4 @@ export default function App(props) {
             </View>
         );
     }
-    */
 };

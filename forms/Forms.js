@@ -2,7 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput, Button, Dimensions} from 'react-native';
 import Colors from '../utilities/Colors';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-import { CreateSingleStringForm, CreateTwoOptionForm, ButtonRow } from '../components/Hooks';
+import { CreateSingleStringForm, CreateTwoOptionForm, ButtonRow, ScrollWheel } from '../components/Hooks';
 import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 export function LoginForm(props) {
@@ -179,7 +179,19 @@ export function HeightForm(props) {
     return (
         <View style={styles.form}>
             <Text style={[styles.title, {padding: 10}]}>What is your height?</Text>
-            <ButtonRow buttons={['4\'', '5\'', '6\'']}/>
+            <ButtonRow 
+                field='feet' 
+                buttons={['4\'', '5\'', '6\'']} 
+                onChange={props.onChange} 
+            />
+            <ScrollWheel 
+                field='inches'
+                minVal={0} 
+                maxVal={11} 
+                deltaVal={1} 
+                initIndex={0}
+                onChange={props.onChange}
+            />
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                 <Text style={{color: Colors.White}}>Continue</Text>
             </TouchableOpacity>
