@@ -4,6 +4,11 @@ import Colors from '../utilities/Colors';
 import * as constants from '../utilities/Constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
+/**
+ * This class is a container which will manage forms in the app. An
+ * example of this is the Create Account workflow, where we have several
+ * forms that we want to get data from. This class manages all those forms.
+ */
 export default class FormContainer extends Component {
     
     constructor(props) {

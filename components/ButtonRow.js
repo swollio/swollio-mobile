@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Colors from '../utilities/Colors';
 
+/**
+ * This function returns a stateful component which manages a row of buttons.
+ * The buttons will have values determined by the buttons prop passed in
+ * 
+ * @param {Object} props Contains all the props passed in with the JSX component
+ */
 export default function ButtonRow(props) {
     
     // Creating an array of all false values to signify

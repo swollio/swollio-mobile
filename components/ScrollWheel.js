@@ -2,6 +2,15 @@ import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View, FlatList} from 'react-native';
 import Colors from '../utilities/Colors';
 
+/**
+ * This function returns a stateful component that contains a scroll
+ * wheel. This scroll wheel has the following properties (handed down via props):
+ * 
+ * minVal, maxVal, deltaVal, initIndex, onChange. All should be pretty self
+ * explanatory, except initIndex (which defines what item we start on by index)
+ * 
+ * @param {Object} props Contains all the props handed down from the JSX tags
+ */
 export default function ScrollWheel(props) {
 
     // Creating our data list which will be in our FlatView

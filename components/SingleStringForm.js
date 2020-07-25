@@ -3,11 +3,23 @@ import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-nativ
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Colors from '../utilities/Colors';
 
+/**
+ * This function returns a fully created form that has a single text input field.
+ * The parameter options contains the data necessary to distinguish SingleStringForms from each other.
+ * We return a function which takes in props, so that we can use JSX to pass in properties that
+ * defines the actions of the Form's components.
+ * 
+ * @param {Object} options Options contain the fields necessary to distinguish components
+ */
 export default function CreateSingleStringForm(options) {
     return (props) => {
+        // value is going to be a stateful property keeping track of the
+        // text in the text box
         const [value, setValue] = useState('');
         const valid = options.validator(value);
         
+        // When the submit button is pressed, call the onChange and complete 
+        // functions passed in as props to confirm values
         function submitValues() {
             if (valid) {
                 props.onChange(options.field, value)
@@ -31,8 +43,7 @@ export default function CreateSingleStringForm(options) {
                 <TouchableOpacity 
                     activeOpacity={0.8}
                     style={valid ? styles.optionButton: styles.disabledButton}
-                    onPress={submitValues}
-                >
+                    onPress={submitValues}>
                         <Text style={valid ?  {color: Colors.White}: {color: Colors.Grey}}>Continue</Text>
                 </TouchableOpacity>
                 <KeyboardSpacer />

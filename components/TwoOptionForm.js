@@ -2,6 +2,14 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Colors from '../utilities/Colors';
 
+/**
+ * This function returns a fully created form that has a two option layout.
+ * The parameter options contains the data necessary to distinguish TwoOptionsForms from each other.
+ * We return a function which takes in props, so that we can use JSX to pass in properties that
+ * defines the actions of the Form's components.
+ * 
+ * @param {Object} options Options contain the fields necessary to distinguish components
+ */
 export default function CreateTwoOptionForm (options) {
 
     return props => {
