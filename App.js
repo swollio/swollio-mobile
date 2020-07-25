@@ -4,7 +4,6 @@ import FormContainer from './containers/FormContainer'
 import PageView from './containers/PageView'
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
-import { ScrollWheel } from './components/Hooks';
 import { useFonts, Comfortaa_300Light } from '@expo-google-fonts/comfortaa';
 
 export default function App(props) {

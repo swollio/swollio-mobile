@@ -85,7 +85,8 @@ export default class FormContainer extends Component {
                 </View>
                 <Animated.View style={{width: '100%', position: 'relative', left: Animated.multiply(this.state.pageAnim, -this.state.width), flexDirection: 'row'}}>
                     {this.props.forms.map((Form, index) => 
-                        <Form key={index}
+                        <Form 
+                            key={index}
                             onChange={(key, value) => {
                                 const state = this.state.form;
                                 state[key] = value;
