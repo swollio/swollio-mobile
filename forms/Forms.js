@@ -185,13 +185,14 @@ export function HeightForm(props) {
             />
             <ScrollWheel 
                 field='inches'
-                minVal={0} 
-                maxVal={11} 
-                deltaVal={1} 
-                initIndex={0}
+                vals={[0, 11, 1, 0]} 
                 onChange={props.onChange}
             />
-            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
+            <TouchableOpacity 
+                activeOpacity={0.8} 
+                style={[styles.optionButton, 
+                {marginTop: 50}]} 
+                onPress={() => props.onCompleted()}>
                 <Text style={{color: Colors.White}}>Continue</Text>
             </TouchableOpacity>
         </View>

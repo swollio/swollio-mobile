@@ -6,7 +6,7 @@ import Colors from '../utilities/Colors';
  * This function returns a stateful component that contains a scroll
  * wheel. This scroll wheel has the following properties (handed down via props):
  * 
- * minVal, maxVal, deltaVal, initIndex, onChange. All should be pretty self
+ * [minVal, maxVal, deltaVal, initIndex], onChange. All should be pretty self
  * explanatory, except initIndex (which defines what item we start on by index)
  * 
  * @param {Object} props Contains all the props handed down from the JSX tags
@@ -15,17 +15,18 @@ export default function ScrollWheel(props) {
 
     // Creating our data list which will be in our FlatView
     let dataVals = ['', '']
-    for (let i = props.minVal; i <= props.maxVal; i += props.deltaVal)
+    for (let i = props.vals[0]; i <= props.vals[1]; i += props.vals[2])
         dataVals.push(i)
     dataVals = dataVals.concat(['', '']);
 
-    const [selected, setSelected] = useState(props.minVal + props.initIndex * props.deltaVal);
+    const [selected, setSelected] = useState(props.vals[0] + props.vals[3] * props.vals[2]);
     
     const onViewRef = useRef(( { viewableItems } ) => {
         setSelected(viewableItems[2].item);
         
         // Passing up inches for form container
-        props.onChange(props.field, viewableItems[2].item);
+        if (props.onChange)
+            props.onChange(props.field, viewableItems[2].item);
     });
 
     const viewConfigRef = useRef({
@@ -77,7 +78,7 @@ export default function ScrollWheel(props) {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             data = {dataVals}
-            initialScrollIndex = {props.initIndex}
+            initialScrollIndex = {props.vals[3]}
             viewabilityConfig={viewConfigRef.current}
             onViewableItemsChanged={onViewRef.current}
             getItemLayout={ getItemLayout }
@@ -94,23 +95,22 @@ export default function ScrollWheel(props) {
 
 const styles = StyleSheet.create({
     scrollBackground: {
-        margin: 50, 
         flexDirection: 'row', 
         width: 250, 
-        height: 44,
-        borderRadius: 22,
+        height: 46,
+        borderRadius: 23,
         borderWidth: 1, 
-        borderColor: Colors.Grey,
-        backgroundColor: Colors.Grey,
+        borderColor: Colors.LightGrey,
+        backgroundColor: Colors.LightGrey,
         justifyContent: 'center', 
         alignItems: 'center',
         alignContent: 'center'
     },
     selectedScrollView: {
-        width: 50, 
+        width: 44, 
         height: 44, 
         borderRadius: 22,
-        backgroundColor: "#E5E5E5",
+        backgroundColor: Colors.Green,
         justifyContent: 'center', 
         alignItems: 'center',
         flex:1
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     },
     selectedScrollText: {
         textAlign: "center", 
-        color: Colors.Black,
+        color: Colors.White,
         fontSize: 24,
     },
     unselectedScrollText: {
@@ -136,5 +136,8 @@ const styles = StyleSheet.create({
         textAlign: "center", 
         color: "#525252",
         fontSize: 22
+    },
+    flatListStyle: {
+        overflow: 'visible'
     }
 });

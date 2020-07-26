@@ -4,13 +4,14 @@ import FormContainer from './containers/FormContainer'
 import PageView from './containers/PageView'
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
-import { useFonts, Comfortaa_300Light } from '@expo-google-fonts/comfortaa';
+import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
+import { Card, ScrollWheel, WorkoutCard } from './components/Components'
 
 export default function App(props) {
-
     let [authenticationState, setAuthentiationState] = useState('UNAUTHENTICATED');
     let [fontsLoaded] = useFonts({
         Comfortaa_300Light,
+        Comfortaa_400Regular
     });
 
     if (!fontsLoaded) return <></>
@@ -26,7 +27,16 @@ export default function App(props) {
             }, {
                 header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>Statistics</Text>,
                 icon: 'bar-chart-2'
-            }]}/>
+            }]}>
+                <WorkoutCard 
+                    title='Overhead Press'
+                    barColor={Colors.Green}
+                    scrollVals={[[5, 80, 5, 2],
+                                [15, 35, 5, 2],
+                                [15, 35, 5, 2],
+                            ]}
+                    />
+            </PageView>
         )
     } else if (authenticationState === 'CREATE_ACCOUNT') {
         return (
@@ -67,3 +77,20 @@ export default function App(props) {
         );
     }
 };
+
+
+const styles = StyleSheet.create({
+    title: {
+        fontSize: 28,
+        color: Colors.Black,
+        fontFamily: 'Comfortaa_400Regular',
+        textAlign: 'left',
+        marginLeft: 10,
+        marginTop: 10,
+        marginBottom: 5
+    },
+    rows: {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    }
+});

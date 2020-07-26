@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType} from 'react-native';
 import Colors from '../utilities/Colors';
+import { Card, ScrollWheel } from '../components/Components';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default class PageView extends Component {
@@ -32,7 +33,7 @@ export default class PageView extends Component {
                         <Header />
                     </View>
                     <View style={{flex: 1}}>
-                        <Text>Content</Text>  
+                        { this.props.children }
                     </View>
                     <View style={styles.navigation}>
                         {this.props.pages.map((page, index) => {
@@ -64,8 +65,11 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 20,
     },
     title: {
-        color: Colors.White,
-        fontSize: 24,
+        fontSize: 28,
+        color: Colors.Black,
+        fontFamily: 'Comfortaa_400Regular',
+        textAlign: 'left',
+        marginLeft: 10
     },
     navigation: {
         borderColor: Colors.Red,
