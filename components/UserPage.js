@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../utilities/Colors';
 
 export default function UserPage(props) {
-    return (<View style={styles.header}>
-        <Text style={styles.title}>Users</Text>
-    </View>)
+
+    return (
+        <View style={styles.header}>
+            <Text style={styles.title}>Hello {props.user.first_name}!</Text>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
