@@ -1,55 +1,52 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType} from 'react-native';
 import Colors from '../utilities/Colors';
 import { Card, ScrollWheel } from '../components/Components';
 import Icon from 'react-native-vector-icons/Feather';
+import { current_user } from '../utilities/api'
 
-export default class PageView extends Component {
+export default function PageView(props) {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            page: 0,
-        };
-    }
-
-    switchPage(index) {
-        if (index >= 0 && index < this.props.pages.length) {
-            this.setState({
-                page: index
+    const [pageIndex, switchPage] = useState(0);
+    const [data, setData] = useState(null);
+    
+    useEffect(() => {
+        if (data == null) {
+            current_user().then(data => {
+                console.log(data);
+                setData(data)
             });
         }
-    }
+    });
 
-    render() {
-        const currentPage = this.props.pages[this.state.page]
-        const Content = currentPage.content;
-        const color = currentPage.color;
+    const currentPage = props.pages[pageIndex]
+    const Content = data ? currentPage.content: () => <Text>Loading...</Text>;
+    const color = currentPage.color;
 
-        return (
-            <>
-            <SafeAreaView style={{ flex: 0, backgroundColor: Colors.Red }} />
-            <SafeAreaView style={{ flex: 1 }}>
-                <StatusBar barStyle="light-content" />
-                <View style={styles.container}>
-                    <Content></Content>
+    return (
+        <>
+        <SafeAreaView style={{ flex: 0, backgroundColor: Colors.Red }} />
+        <SafeAreaView style={{ flex: 1 }}>
+            <StatusBar barStyle="light-content" />
+            <View style={styles.container}>
+                {
                     <View style={{flex: 1}}>
-                        { this.props.children }
+                        <Content user={data}></Content>
                     </View>
-                    <View style={[styles.navigation, { borderColor: color }]}>
-                        {this.props.pages.map((page, index) => {
-                            if (this.state.page == index) {
-                                return <Icon key={index} size={40} onPress={() => this.switchPage(index)} color={Colors.Black} name={page.icon}/>
-                            } else {
-                                return <Icon key={index} size={40} onPress={() => this.switchPage(index)} color={Colors.Grey} name={page.icon}/>
-                            }
-                        })}
-                    </View>
+                }
+                <View style={[styles.navigation, { borderColor: color }]}>
+                    {props.pages.map((page, index) => {
+                        if (pageIndex == index) {
+                            return <Icon key={index} size={40} onPress={() => switchPage(index)} color={Colors.Black} name={page.icon}/>
+                        } else {
+                            return <Icon key={index} size={40} onPress={() => switchPage(index)} color={Colors.Grey} name={page.icon}/>
+                        }
+                    })}
                 </View>
-            </SafeAreaView>
-            </>
-        );
-    }
+            </View>
+        </SafeAreaView>
+        </>
+    );
 }
 
 const styles = StyleSheet.create({

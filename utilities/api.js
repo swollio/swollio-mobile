@@ -71,10 +71,10 @@ export function athletes() {
     return get('athletes').then(result => result.json())
 }
 
-export function current_athlete() {
-    return get(`athletes/${currentUser()}`).then(result => result.json())
+export function current_user() {
+    return get(`users/${currentUser()}`).then(result => result.json())
 }
 
-export function current_athlete_workouts() {
-    return get(`athletes/${currentUser()}/workouts`).then(result => result.json())
+export function getWorkoutsForAthlete(athlete_id) {
+    return get(`athletes/${athlete_id}/workouts`).then(result => result.json())
 }
