@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Keyboard, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
 import Colors from '../utilities/Colors';
-import * as constants from '../utilities/Constants';
+import * as constants from '../utilities/constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 /**
