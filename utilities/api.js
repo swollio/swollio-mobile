@@ -78,4 +78,3 @@ export function current_athlete() {
 export function current_athlete_workouts() {
     return get(`athletes/${currentUser()}/workouts`).then(result => result.json())
 }
-
