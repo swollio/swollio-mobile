@@ -20,18 +20,18 @@ export default function App(props) {
     if (authenticationState === 'AUTHENTICATED') {
         return (
             <PageView pages={[{
-                content: UserPage,
-                color: Colors.Red,
-                icon: 'user'
-            }, {
-                content: WorkoutsPage,
-                color: Colors.Green,
-                icon: 'clipboard'
-            }, {
-                content: StatisticsPage,
-                color: Colors.Purple,
-                icon: 'bar-chart-2'
-            }]}>
+                    content: UserPage,
+                    color: Colors.Red,
+                    icon: 'user'
+                }, {
+                    content: WorkoutsPage,
+                    color: Colors.Green,
+                    icon: 'clipboard'
+                }, {
+                    content: StatisticsPage,
+                    color: Colors.Purple,
+                    icon: 'bar-chart-2'
+                }]}>
             </PageView>
         )
     } else if (authenticationState === 'CREATE_ACCOUNT') {
