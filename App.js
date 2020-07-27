@@ -7,7 +7,7 @@ import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
 import { Card, ScrollWheel, WorkoutCard } from './components/Components'
 import { UserPage, WorkoutsPage, StatisticsPage } from './pages/Pages'
-import { login, signup } from './utilities/api'
+import { login, signup, createAthlete } from './utilities/api'
 
 const State = {
     LOGGED_IN: "LOGGED_IN",
@@ -65,7 +65,12 @@ export default function App(props) {
             <FormContainer
                 key={2}
                 onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
-                onCompleted={(form) => {console.log(form); setAuthentiationState(State.LOGGED_IN)}} 
+                onCompleted={(form) => {
+                    createAthlete({age: form.age, height: 60, weight: 150, gender: form.gender}).then(() => {
+                        setAuthentiationState(State.LOGGED_IN)
+                    })
+                }} 
+
                 forms={[
                     Forms.AccountCreatedForm,
                     Forms.AgeForm,
@@ -79,10 +84,10 @@ export default function App(props) {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Forms.LoginForm 
-                    onCreateAccount={() =>  setAuthentiationState('CREATE_ACCOUNT')}
+                    onCreateAccount={() => setAuthentiationState(State.CREATE_USER)}
                     onLogin={(credentials) => {
                         login(credentials).then(() => {
-                            setAuthentiationState('AUTHENTICATED')
+                            setAuthentiationState(State.LOGGED_IN)
                         })
                     }}
                 />
