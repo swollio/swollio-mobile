@@ -5,13 +5,16 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { CreateSingleStringForm, CreateTwoOptionForm, ButtonRow, ScrollWheel } from '../components/Components';
 
 export function LoginForm(props) {
-    
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <View style={styles.form}>
             <Text style={styles.title}>Login</Text>
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange}
+                onChangeText={(text) => setEmail(text)}
                 placeholder='email'
                 autoCorrect={false}
                 autoCapitalize='none'
@@ -20,14 +23,14 @@ export function LoginForm(props) {
             />
             <TextInput 
                 style={styles.textInput} 
-                onChangeText={props.onChange}
+                onChangeText={(text) => setPassword(text)}
                 placeholder='password'
                 secureTextEntry={true}
                 autoCorrect={false}
                 keyboardAppearance='light'
             />
 
-            <TouchableOpacity onPress={() => props.onLogin()} activeOpacity={0.8} style={styles.optionButton}>
+            <TouchableOpacity onPress={() => props.onLogin({email, password})} activeOpacity={0.8} style={styles.optionButton}>
                     <Text style={{color: Colors.White}}>Login</Text>
             </TouchableOpacity>
 
