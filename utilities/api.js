@@ -1,4 +1,6 @@
-const api = 'http://localhost:8080'
+import {decode as atob, encode as btoa} from 'base-64'
+
+const api = 'http://192.168.86.237:8080'
 let jwt = '';
 
 function tokenPayload (token) {
