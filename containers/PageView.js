@@ -22,20 +22,21 @@ export default class PageView extends Component {
     }
 
     render() {
-        const Header = this.props.pages[this.state.page].header;
+        const currentPage = this.props.pages[this.state.page]
+        const Content = currentPage.content;
+        const color = currentPage.color;
+
         return (
             <>
             <SafeAreaView style={{ flex: 0, backgroundColor: Colors.Red }} />
             <SafeAreaView style={{ flex: 1 }}>
                 <StatusBar barStyle="light-content" />
                 <View style={styles.container}>
-                    <View style={styles.header}>
-                        <Header />
-                    </View>
+                    <Content></Content>
                     <View style={{flex: 1}}>
                         { this.props.children }
                     </View>
-                    <View style={styles.navigation}>
+                    <View style={[styles.navigation, { borderColor: color }]}>
                         {this.props.pages.map((page, index) => {
                             if (this.state.page == index) {
                                 return <Icon key={index} size={40} onPress={() => this.switchPage(index)} color={Colors.Black} name={page.icon}/>
@@ -57,22 +58,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: Colors.LightGrey,
     },  
-    header: {
-        width: '100%',
-        padding: 20,
-        backgroundColor: Colors.Red,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-    },
-    title: {
-        fontSize: 28,
-        color: Colors.Black,
-        fontFamily: 'Comfortaa_400Regular',
-        textAlign: 'left',
-        marginLeft: 10
-    },
     navigation: {
-        borderColor: Colors.Red,
         borderTopWidth: 2,
         backgroundColor: Colors.White,
         flexDirection: 'row',
