@@ -7,7 +7,7 @@ import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
 import { Card, ScrollWheel, WorkoutCard } from './components/Components'
 import { UserPage, WorkoutsPage, StatisticsPage } from './pages/Pages'
-import { login, signup } from './utilities/api'
+import { login, signup, createAthlete } from './utilities/api'
 
 export default function App(props) {
     let [authenticationState, setAuthentiationState] = useState('UNAUTHENTICATED');
@@ -57,7 +57,12 @@ export default function App(props) {
             <FormContainer
                 key={2}
                 onCancel={() => setAuthentiationState('UNAUTHENTICATED')}
-                onCompleted={(form) => {console.log(form); setAuthentiationState('AUTHENTICATED')}} 
+                onCompleted={(form) => {
+                    createAthlete({age: form.age, height: 60, weight: 150, gender: form.gender}).then(() => {
+                        setAuthentiationState('SETUP_ACCOUNT')
+                    })
+                    console.log(form); setAuthentiationState('AUTHENTICATED')
+                }} 
                 forms={[
                     Forms.AccountCreatedForm,
                     Forms.AgeForm,
