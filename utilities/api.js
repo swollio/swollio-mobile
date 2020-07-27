@@ -136,11 +136,6 @@ export function post(route, body) {
     })
 }
 
-
-export function athletes() {
-    return get('athletes').then(result => result.json())
-}
-
 export function current_user() {
     return get(`users/${currentUser()}`).then(result => result.json())
 }
