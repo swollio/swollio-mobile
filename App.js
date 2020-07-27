@@ -5,7 +5,7 @@ import PageView from './containers/PageView'
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
-import { Card, ScrollWheel, WorkoutCard } from './components/Components'
+import { Card, ScrollWheel, WorkoutCard, UserPage, WorkoutsPage, StatisticsPage } from './components/Components'
 import { login, signup } from './utilities/api'
 
 export default function App(props) {
@@ -20,24 +20,18 @@ export default function App(props) {
     if (authenticationState === 'AUTHENTICATED') {
         return (
             <PageView pages={[{
-                header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>User</Text>,
-                icon: 'user'
-            }, {
-                header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>Workouts</Text>,
-                icon: 'clipboard'
-            }, {
-                header: (props) => <Text style={{fontSize: 24, color: Colors.White, textAlign: 'center'}}>Statistics</Text>,
-                icon: 'bar-chart-2'
-            }]}>
-                <WorkoutCard 
-                    title='Overhead Press'
-                    barColor={Colors.Green}
-                    scrollVals={[[5, 80, 5, 2],
-                                [15, 35, 5, 2],
-                                [15, 35, 5, 2],
-                            ]}
-                    />
-                {/* <DataCard /> */}
+                    content: UserPage,
+                    color: Colors.Red,
+                    icon: 'user'
+                }, {
+                    content: WorkoutsPage,
+                    color: Colors.Green,
+                    icon: 'clipboard'
+                }, {
+                    content: StatisticsPage,
+                    color: Colors.Purple,
+                    icon: 'bar-chart-2'
+                }]}>
             </PageView>
         )
     } else if (authenticationState === 'CREATE_ACCOUNT') {
@@ -55,7 +49,6 @@ export default function App(props) {
                     Forms.LastNameForm,
                     Forms.EmailForm,
                     Forms.PasswordForm,
-                    Forms.AccountCreatedForm,
             ]}/>
         )
     } else if (authenticationState === 'SETUP_ACCOUNT') {
@@ -65,6 +58,7 @@ export default function App(props) {
                 onCancel={() => setAuthentiationState('UNAUTHENTICATED')}
                 onCompleted={(form) => {console.log(form); setAuthentiationState('AUTHENTICATED')}} 
                 forms={[
+                    Forms.AccountCreatedForm,
                     Forms.AgeForm,
                     Forms.HeightForm,
                     Forms.GenderForm,
