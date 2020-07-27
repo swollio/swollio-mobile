@@ -5,7 +5,8 @@ import PageView from './containers/PageView'
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
-import { Card, ScrollWheel, WorkoutCard, UserPage, WorkoutsPage, StatisticsPage } from './components/Components'
+import { Card, ScrollWheel, WorkoutCard } from './components/Components'
+import { UserPage, WorkoutsPage, StatisticsPage } from './pages/Pages'
 import { login, signup } from './utilities/api'
 
 export default function App(props) {
