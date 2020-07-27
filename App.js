@@ -9,8 +9,16 @@ import { Card, ScrollWheel, WorkoutCard } from './components/Components'
 import { UserPage, WorkoutsPage, StatisticsPage } from './pages/Pages'
 import { login, signup } from './utilities/api'
 
+const State = {
+    LOGGED_IN: "LOGGED_IN",
+    LOGGED_OUT: "LOGGED_OUT",
+    CREATE_USER: "CREATE_USER",
+    CREATE_ATHLETE: "CREATE_ATHLETE",
+    CREATE_COACH: "CREATE_COACH",
+};
+
 export default function App(props) {
-    let [authenticationState, setAuthentiationState] = useState('UNAUTHENTICATED');
+    let [authenticationState, setAuthentiationState] = useState(State.LOGGED_OUT);
     let [fontsLoaded] = useFonts({
         Comfortaa_300Light,
         Comfortaa_400Regular
@@ -18,7 +26,7 @@ export default function App(props) {
 
     if (!fontsLoaded) return <></>
 
-    if (authenticationState === 'AUTHENTICATED') {
+    if (authenticationState === State.LOGGED_IN) {
         return (
             <PageView pages={[{
                     content: UserPage,
@@ -35,14 +43,14 @@ export default function App(props) {
                 }]}>
             </PageView>
         )
-    } else if (authenticationState === 'CREATE_ACCOUNT') {
+    } else if (authenticationState === State.CREATE_USER) {
         return (
             <FormContainer
                 key={1}
-                onCancel={() => setAuthentiationState('UNAUTHENTICATED')}
+                onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
                 onCompleted={(form) => {
                     signup(form).then(() => {
-                        setAuthentiationState('SETUP_ACCOUNT')
+                        setAuthentiationState(State.CREATE_ATHLETE)
                     })
                 }} 
                 forms={[
@@ -52,12 +60,12 @@ export default function App(props) {
                     Forms.PasswordForm,
             ]}/>
         )
-    } else if (authenticationState === 'SETUP_ACCOUNT') {
+    } else if (authenticationState === State.CREATE_ATHLETE) {
         return (
             <FormContainer
                 key={2}
-                onCancel={() => setAuthentiationState('UNAUTHENTICATED')}
-                onCompleted={(form) => {console.log(form); setAuthentiationState('AUTHENTICATED')}} 
+                onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
+                onCompleted={(form) => {console.log(form); setAuthentiationState(State.LOGGED_IN)}} 
                 forms={[
                     Forms.AccountCreatedForm,
                     Forms.AgeForm,
@@ -67,7 +75,7 @@ export default function App(props) {
                     Forms.WorkoutEquipmentForm
             ]}/>
         )
-    } else if (authenticationState === 'UNAUTHENTICATED') {
+    } else if (authenticationState === State.LOGGED_OUT) {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Forms.LoginForm 
