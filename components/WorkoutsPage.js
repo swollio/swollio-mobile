@@ -16,6 +16,8 @@ export default function WorkoutsPage(props) {
             });
         }
     });
+
+    
     return (
         <>
             <View style={styles.header}>
