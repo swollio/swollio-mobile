@@ -25,7 +25,7 @@ export default function PageView(props) {
 
     return (
         <>
-        <SafeAreaView style={{ flex: 0, backgroundColor: Colors.Red }} />
+        <SafeAreaView style={{ flex: 0, backgroundColor: color }} />
         <SafeAreaView style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" />
             <View style={styles.container}>
