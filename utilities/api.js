@@ -75,4 +75,6 @@ export function current_user() {
     return get(`users/${currentUser()}`).then(result => result.json())
 }
 
-
+export function getWorkoutsForAthlete(athlete_id) {
+    return get(`athletes/${athlete_id}/workouts`).then(result => result.json())
+}
