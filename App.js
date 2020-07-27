@@ -5,7 +5,7 @@ import PageView from './containers/PageView'
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
-import { Card, ScrollWheel, WorkoutCard } from './components/Components'
+import { Card, ScrollWheel, WorkoutCard, DataCard } from './components/Components'
 
 export default function App(props) {
     let [authenticationState, setAuthentiationState] = useState('UNAUTHENTICATED');
@@ -36,6 +36,7 @@ export default function App(props) {
                                 [15, 35, 5, 2],
                             ]}
                     />
+                {/* <DataCard /> */}
             </PageView>
         )
     } else if (authenticationState === 'CREATE_ACCOUNT') {

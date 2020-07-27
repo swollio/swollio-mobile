@@ -5,17 +5,20 @@ import ScrollWheel from '../ScrollWheel';
 import Card from './Card';
 
 /**
- * This will create a special card called workout card, where 
- * scrollVals = [values to be passed into ScrollWheel]
+ * This will create a special card called workout card, where we have rows
+ * of Scroll Wheels, and the dataVals for each scroll wheel is passed in as
+ * an array in a list of arrays
  * 
  * @param {Object} props Contains props of workout card
  */
 export default function WorkoutCard(props) {
 
+    // Defining a constant which will make the appropriate amount
+    // of scroll wheel rows
     const rows = props.scrollVals.map((arr, index) => {
         return (
             <View key={index} style={styles.rows}>
-                <ScrollWheel vals={arr} onChange={props.onChange} />
+                <ScrollWheel vals={arr} selectColor={Colors.Green} onChange={props.onChange} />
             </View>
         );
     });
@@ -34,8 +37,6 @@ const styles = StyleSheet.create({
         color: Colors.Black,
         fontFamily: 'Comfortaa_400Regular',
         textAlign: 'left',
-        marginLeft: 10,
-        marginTop: 10,
         marginBottom: 10
     },
     rows: {

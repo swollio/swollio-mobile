@@ -37,7 +37,7 @@ export default function ScrollWheel(props) {
     function renderItem( { item } ) {
         if (selected === item) {
             return(    
-                <View style={styles.selectedScrollView}>
+                <View style={[styles.selectedScrollView, {backgroundColor: props.selectColor}]}>
                     <Text style={styles.selectedScrollText}>
                         {item}
                     </Text>
@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
         width: 44, 
         height: 44, 
         borderRadius: 22,
-        backgroundColor: Colors.Green,
         justifyContent: 'center', 
         alignItems: 'center',
         flex:1

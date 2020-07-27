@@ -5,3 +5,4 @@ export { default as CreateTwoOptionForm } from './TwoOptionForm';
 export { default as ScrollWheel } from './ScrollWheel';
 export { default as Card } from './Cards/Card';
 export { default as WorkoutCard } from './Cards/WorkoutCard';
+export { default as DataCard } from './Cards/DataCard';
