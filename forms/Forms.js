@@ -188,7 +188,8 @@ export function HeightForm(props) {
             />
             <ScrollWheel 
                 field='inches'
-                vals={[0, 11, 1, 0]} 
+                selectColor = {Colors.Red}
+                vals={[0, 11, 1, 0]}
                 onChange={props.onChange}
             />
             <TouchableOpacity 
