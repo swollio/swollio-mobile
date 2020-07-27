@@ -5,7 +5,8 @@ import PageView from './containers/PageView'
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
-import { Card, ScrollWheel, WorkoutCard, DataCard } from './components/Components'
+import { Card, ScrollWheel, WorkoutCard } from './components/Components'
+import { login, signup } from './utilities/api'
 
 export default function App(props) {
     let [authenticationState, setAuthentiationState] = useState('UNAUTHENTICATED');
@@ -44,7 +45,11 @@ export default function App(props) {
             <FormContainer
                 key={1}
                 onCancel={() => setAuthentiationState('UNAUTHENTICATED')}
-                onCompleted={(form) => {console.log(form); setAuthentiationState('SETUP_ACCOUNT')}} 
+                onCompleted={(form) => {
+                    signup(form).then(() => {
+                        setAuthentiationState('SETUP_ACCOUNT')
+                    })
+                }} 
                 forms={[
                     Forms.FirstNameForm,
                     Forms.LastNameForm,
@@ -72,7 +77,11 @@ export default function App(props) {
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Forms.LoginForm 
                     onCreateAccount={() =>  setAuthentiationState('CREATE_ACCOUNT')}
-                    onLogin={() => setAuthentiationState('AUTHENTICATED')}
+                    onLogin={(credentials) => {
+                        login(credentials).then(() => {
+                            setAuthentiationState('AUTHENTICATED')
+                        })
+                    }}
                 />
             </View>
         );
