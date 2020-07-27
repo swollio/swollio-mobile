@@ -1,4 +1,5 @@
-const api = 'http://localhost:8080'
+import config from '../config.json';
+
 let jwt = '';
 
 function tokenPayload (token) {
@@ -16,7 +17,7 @@ export function currentUser() {
 }
 
 export function get(route) {
-    return fetch(`${api}/${route}`, {
+    return fetch(`${config.api}/${route}`, {
         headers: {
             'Authorization': 'Bearer ' + jwt
         },
@@ -31,7 +32,7 @@ export function get(route) {
 }
 
 export function signup(user) {
-    return fetch(`${api}/auth/signup`, {
+    return fetch(`${config.api}/auth/signup`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ export function signup(user) {
 }
 
 export function login(user) {
-    return fetch(`${api}/auth/login`, {
+    return fetch(`${config.api}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
