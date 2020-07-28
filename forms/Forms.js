@@ -1,3 +1,4 @@
+import React from 'react';
 import * as CreateUserForms from './CreateUserForms'
 import * as CreateAthleteForms from './SetupAthleteForm'
 import FormContainer from '../containers/FormContainer'
