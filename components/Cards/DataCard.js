@@ -9,14 +9,58 @@ import * as scale from 'd3-scale';
 
 
 export default function DataCard() {
+
     const data = [
-        { date: new Date("06-27-2020"), weight: 40, reps: 8 },
-        { date: new Date("06-28-2020"), weight: 25, reps: 9 },
-        { date: new Date("07-01-2020"), weight: 25, reps: 10 },
-        { date: new Date("07-02-2020"), weight: 30, reps: 6 },
-        { date: new Date("07-06-2020"), weight: 30, reps: 8 },
-        { date: new Date("07-07-2020"), weight: 30, reps: 6 },
+        {
+            value: 50,
+            date: new Date(2018, 0, 1, 2),
+        },
+        {
+            value: 10,
+            date: new Date(2018, 0, 1, 9),
+        },
+        {
+            value: 150,
+            date: new Date(2018, 0, 1, 10),
+        },
+        {
+            value: 10,
+            date: new Date(2018, 0, 1, 13),
+        },
+        {
+            value: 100,
+            date: new Date(2018, 0, 1, 21),
+        },
+        {
+            value: 20,
+            date: new Date(2018, 0, 2, 0),
+        },
+        {
+            value: 115,
+            date: new Date(2018, 0, 2, 8),
+        },
+        {
+            value: 75,
+            date: new Date(2018, 0, 2, 10),
+        },
+        {
+            value: 25,
+            date: new Date(2018, 0, 2, 16),
+        },
+        {
+            value: 125,
+            date: new Date(2018, 0, 2, 17),
+        },
+        {
+            value: 66,
+            date: new Date(2018, 0, 2, 19),
+        },
+        {
+            value: 85,
+            date: new Date(2018, 0, 2, 23),
+        },
     ];
+    
 
     const WeightGradient = ({index}) =>
         <Defs key={index}>
@@ -33,7 +77,7 @@ export default function DataCard() {
                 data={data}
                 scale={ scale.scaleTime }
                 xAccessor={({item}) => item.date}
-                yAccessor={({item}) => item.weight}
+                yAccessor={({item}) => item.value}
                 curve={shape.curveLinear}
                 svg={{fill: 'url(#weightGradient)'}}
                 contentInset={{ top: 20, bottom: 20 }}
