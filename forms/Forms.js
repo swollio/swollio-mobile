@@ -22,14 +22,8 @@ export function CreateUserForm(props) {
 export function CreateAthleteForm(props) {
     return (
         <FormContainer
-            key={2}
-            onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
-            onCompleted={(form) => {
-                createAthlete({age: form.age, height: 60, weight: 150, gender: form.gender}).then(() => {
-                    setAuthentiationState(State.LOGGED_IN)
-                })
-            }} 
-
+            onCancel={() => props.onCancel()}
+            onCompleted={(form) => props.onCompleted(form)} 
             forms={[
                 CreateUserForms.AccountCreatedForm,
                 CreateAthleteForms.AgeForm,
