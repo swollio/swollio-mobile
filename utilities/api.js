@@ -146,5 +146,5 @@ export function getWorkoutsForAthlete(athlete_id) {
 }
 
 export function createAthlete(athlete) {
-    return post(`athletes/`, athlete).then(result => result.json())
+    return post(`athletes/`, athlete)
 }
