@@ -3,6 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../utilities/Colors';
 import { getAthletesForTeam } from '../utilities/api'
 import Card from '../components/Cards/Card'
+import Icon from 'react-native-vector-icons/Feather';
+
+function getFullName(user) {
+    return user.first_name.charAt(0).toUpperCase()
+         + user.first_name.toLowerCase().slice(1) + ' ' 
+         + user.last_name.charAt(0).toUpperCase()
+         + user.last_name.toLowerCase().slice(1);
+}
 
 export default function CoachPage(props) {
 
@@ -15,14 +23,26 @@ export default function CoachPage(props) {
     return (
         <View>
             <View style={styles.header}>
-                <Text style={styles.title}>Hello, Coach {props.user.last_name}!</Text>
+                <Text style={styles.title}>{getFullName(props.user)}</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={{width: 44, height: 44, marginRight: 12, borderRadius: 22, alignItems: "center", justifyContent: "center", backgroundColor: "white"}}>
+                        <Text style={[styles.subtitle, {color: Colors.Red}]}>{data == null ? '0': data.length}</Text>
+                    </View>
+                    <Text style={styles.subtitle}>Athletes</Text>
+                </View>
             </View>
-            <View style={{margin: 10}}>
+            <View style={{marginTop: 10}}>
                 {data == null ? 
                     <Text>Loading...</Text>: 
                     data.map((athlete => 
                         <Card key={athlete.id} barColor={Colors.Red}>
-                            <Text>{athlete.first_name + ' ' + athlete.last_name}</Text>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                                <View>
+                                    <Text style={{fontSize: 18}}>{getFullName(athlete)}</Text>
+                                </View>
+                                <Icon size={40} color={Colors.Red} name={'chevron-right'}/>
+                            </View>
+                            
                         </Card>
                     ))
                 }
@@ -43,6 +63,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
+        color: Colors.White,
+        fontFamily: 'Comfortaa_700Bold',
+        textAlign: 'left',
+        marginBottom: 16, 
+    },
+    subtitle: {
+        fontSize: 24,
         color: Colors.White,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',

@@ -19,17 +19,15 @@ export default function CoachWorkoutsPage(props) {
 
     return (
         <View style={{backgroundColor: Colors.White, flex: 1}}>
-            <TouchableOpacity onPress={() => props.pop()}>
-                <View style={styles.header}>
-                    <Icon size={40} color={Colors.White} name={'arrow-left'}/>
-                    <Text style={styles.title}>Details</Text>
-                    <Icon size={40} color={Colors.White} name={'plus'}/>
-                </View>
-            </TouchableOpacity>
+            <View style={styles.header}>
+                <Icon onPress={() => props.pop()} size={40} color={Colors.White} name={'arrow-left'}/>
+                <Text style={styles.title}>Details</Text>
+                <Icon size={40} color={Colors.White} name={'plus'}/>
+            </View>
             <View>
                 {assignments == null ? <Text>Loading...</Text>: 
                 <View>
-                    <View style={{padding: 8, borderBottomColor: Colors.LightGrey, borderBottomWidth: 2}}>
+                    <View style={{padding: 8, borderBottomColor: Colors.Grey, borderBottomWidth: 1}}>
                         <TextInput style={styles.textInput} value={props.workout.name} />
                         <View style={{marginVertical: 12, flexDirection: 'row', alignItems: 'center'}}>
                             <Text style={{fontSize: 18, marginRight: 8}}>Repeat:</Text>

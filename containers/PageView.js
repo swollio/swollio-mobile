@@ -33,7 +33,7 @@ export default function PageView(props) {
                     <View style={[styles.navigation, { borderColor: color }]}>
                         {props.pages.map((page, index) => {
                             if (pageIndex == index) {
-                                return <Icon key={index} size={40} onPress={() => switchPage(index)} color={Colors.Black} name={page.icon}/>
+                                return <Icon key={index} size={40} name={page.icon}/>
                             } else {
                                 return <Icon key={index} size={40} onPress={() => switchPage(index)} color={Colors.Grey} name={page.icon}/>
                             }
