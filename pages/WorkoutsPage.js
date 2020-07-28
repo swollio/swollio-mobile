@@ -9,7 +9,7 @@ export default function WorkoutsPage(props) {
     const [workouts, setWorkouts] = useState(null);
     
     useEffect(() => {
-        if (workouts == null)
+        if (workouts === null)
             getWorkoutsForAthlete(props.user.athlete_id).then(data => setWorkouts(data) );
     });
 
@@ -19,7 +19,7 @@ export default function WorkoutsPage(props) {
                 <Text style={styles.title}>Workouts</Text>
             </View>
             <ScrollView>
-                {  (workouts == null && <Text style={styles.watermark}>Loading...</Text>)
+                {  (workouts === null && <Text style={styles.watermark}>Loading...</Text>)
                 || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
                 || (workouts.map((workout) =>
                         <Card barColor={Colors.Green} key={workout.id}>
