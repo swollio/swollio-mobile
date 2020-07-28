@@ -9,12 +9,8 @@ export default function WorkoutsPage(props) {
     const [workouts, setWorkouts] = useState(null);
     
     useEffect(() => {
-        if (workouts == null) {
-            getWorkoutsForAthlete(props.user.athlete_id).then(data => {
-                console.log(data);
-                setWorkouts(data)
-            });
-        }
+        if (workouts == null)
+            getWorkoutsForAthlete(props.user.athlete_id).then(data => setWorkouts(data) );
     });
 
     return (
