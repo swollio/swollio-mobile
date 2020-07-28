@@ -11,12 +11,8 @@ export default function PageView(props) {
     const [data, setData] = useState(null);
     
     useEffect(() => {
-        if (data == null) {
-            current_user().then(data => {
-                console.log(data);
-                setData(data)
-            });
-        }
+        if (data == null)
+            current_user().then( data => setData(data) );
     });
 
     const currentPage = props.pages[pageIndex]

@@ -5,6 +5,7 @@ import { Defs, LinearGradient, Stop } from 'react-native-svg'
 import * as shape from 'd3-shape'
 import Colors from '../../utilities/Colors';
 import Card from './Card';
+import * as scale from 'd3-scale';
 
 
 export default function DataCard() {
@@ -28,7 +29,9 @@ export default function DataCard() {
     return (
         <Card barColor={Colors.Purple}>
             <AreaChart
+                style={{height: 200}}
                 data={data}
+                scale={ scale.scaleTime }
                 xAccessor={({item}) => item.date}
                 yAccessor={({item}) => item.weight}
                 curve={shape.curveNatural}
