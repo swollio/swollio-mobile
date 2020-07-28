@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { CreateTwoOptionForm, ButtonRow, ScrollWheel } from '../components/Components';
 
 export function AgeForm(props) {
@@ -18,7 +17,6 @@ export function AgeForm(props) {
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted(true)}>
                 <Text style={{color: Colors.White}}>Continue</Text>
             </TouchableOpacity>
-            <KeyboardSpacer/>
         </View>
     );
 }

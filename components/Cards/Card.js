@@ -20,7 +20,7 @@ export default function Card(props) {
 
 const styles = StyleSheet.create({
     card: {
-        width:"95%",
+        width: '95%',
         backgroundColor: Colors.White,
         borderRadius: 11,
         borderLeftWidth: 11,

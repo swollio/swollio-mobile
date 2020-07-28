@@ -20,11 +20,11 @@ export default function CoachPage(props) {
             <View style={{margin: 10}}>
                 {data == null ? 
                     <Text>Loading...</Text>: 
-                    data.map(athlete => 
-                        <Card barColor={Colors.Red}>
+                    data.map((athlete => 
+                        <Card key={athlete.id} barColor={Colors.Red}>
                             <Text>{athlete.first_name + ' ' + athlete.last_name}</Text>
                         </Card>
-                    )
+                    ))
                 }
             </View>
         </View>

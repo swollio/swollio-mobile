@@ -22,8 +22,8 @@ export default function WorkoutsPage(props) {
                 {  (workouts == null && <Text style={styles.watermark}>Loading...</Text>)
                 || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
                 || (workouts.map((workout) =>
-                        <Card key={workout.id}>
-                            <Text style={styles.title}>{workout.workout_name}</Text>
+                        <Card barColor={Colors.Green} key={workout.id}>
+                            <Text>{workout.workout_name}</Text>
                             <Text>Team: {workout.team_name}</Text>
                             <Text>Repeat: {workout.repeat}</Text>
                         </Card>

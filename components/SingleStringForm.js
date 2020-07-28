@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Colors from '../utilities/Colors';
 
 /**
@@ -46,7 +45,6 @@ export default function CreateSingleStringForm(options) {
                     onPress={submitValues}>
                         <Text style={valid ?  {color: Colors.White}: {color: Colors.Grey}}>Continue</Text>
                 </TouchableOpacity>
-                <KeyboardSpacer />
             </View>
         );
     }

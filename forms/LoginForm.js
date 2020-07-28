@@ -43,7 +43,6 @@ export default function LoginForm(props) {
                     <Text style={{color: Colors.Red}}>Create Account</Text>
             </TouchableOpacity>
 
-            <KeyboardSpacer />
         </View>
     );
 }

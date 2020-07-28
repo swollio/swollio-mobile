@@ -12,7 +12,7 @@ import { current_user } from '../utilities/api'
 export default function UserPageView(props) {
     const [data, setData] = useState(null);
     useEffect(() => {
-        if (data == null) 
+        if (data == null)  
             current_user().then(data => setData(data));
     });
 
