@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
-import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
+import { useFonts, Comfortaa_300Light, Comfortaa_400Regular, Comfortaa_500Medium, Comfortaa_600SemiBold, Comfortaa_700Bold } from '@expo-google-fonts/comfortaa';
 import UserPageView from './pages/Pages'
 import { login, signup, createAthlete } from './utilities/api'
 
@@ -18,7 +18,10 @@ export default function App(props) {
     let [authenticationState, setAuthentiationState] = useState(State.LOGGED_OUT);
     let [fontsLoaded] = useFonts({
         Comfortaa_300Light,
-        Comfortaa_400Regular
+        Comfortaa_400Regular,
+        Comfortaa_500Medium,
+        Comfortaa_600SemiBold,
+        Comfortaa_700Bold
     });
 
     if (!fontsLoaded) return <></>
