@@ -1,7 +1,9 @@
+import React from 'react';
 import UserPage from './UserPage'
 import WorkoutsPage from './WorkoutsPage'
 import StatisticsPage from './StatisticsPage'
 import PageView from '../containers/PageView'
+import Colors from '../utilities/Colors';
 
 export default function UserPageView(props) {
     return (
