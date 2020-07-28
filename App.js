@@ -6,7 +6,7 @@ import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
 import { Card, ScrollWheel, WorkoutCard } from './components/Components'
-import { UserPage, WorkoutsPage, StatisticsPage } from './pages/Pages'
+import UserPageView, { UserPage, WorkoutsPage, StatisticsPage } from './pages/Pages'
 import { login, signup, createAthlete } from './utilities/api'
 
 const State = {
@@ -26,61 +26,10 @@ export default function App(props) {
 
     if (!fontsLoaded) return <></>
 
-    if (authenticationState === State.LOGGED_IN) {
-        return (
-            <PageView pages={[{
-                    content: UserPage,
-                    color: Colors.Red,
-                    icon: 'user'
-                }, {
-                    content: WorkoutsPage,
-                    color: Colors.Green,
-                    icon: 'clipboard'
-                }, {
-                    content: StatisticsPage,
-                    color: Colors.Purple,
-                    icon: 'bar-chart-2'
-                }]}>
-            </PageView>
-        )
-    } else if (authenticationState === State.CREATE_USER) {
-        return (
-            <FormContainer
-                key={1}
-                onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
-                onCompleted={(form) => {
-                    signup(form).then(() => {
-                        setAuthentiationState(State.CREATE_ATHLETE)
-                    })
-                }} 
-                forms={[
-                    Forms.FirstNameForm,
-                    Forms.LastNameForm,
-                    Forms.EmailForm,
-                    Forms.PasswordForm,
-            ]}/>
-        )
-    } else if (authenticationState === State.CREATE_ATHLETE) {
-        return (
-            <FormContainer
-                key={2}
-                onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
-                onCompleted={(form) => {
-                    createAthlete({age: form.age, height: 60, weight: 150, gender: form.gender}).then(() => {
-                        setAuthentiationState(State.LOGGED_IN)
-                    })
-                }} 
-
-                forms={[
-                    Forms.AccountCreatedForm,
-                    Forms.AgeForm,
-                    Forms.HeightForm,
-                    Forms.GenderForm,
-                    Forms.GymAccessForm,
-                    Forms.WorkoutEquipmentForm
-            ]}/>
-        )
-    } else if (authenticationState === State.LOGGED_OUT) {
+    switch (authenticationState) {
+    case State.LOGGED_IN:
+        return  <UserPageView />;
+    case State.LOGGED_OUT:
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Forms.LoginForm 
@@ -93,9 +42,30 @@ export default function App(props) {
                 />
             </View>
         );
+    case State.CREATE_USER:
+        return (
+            <Forms.CreateUserForm
+                onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
+                onCompleted={(form) => {
+                    signup(form).then(() => {
+                        setAuthentiationState(State.CREATE_ATHLETE)
+                    })
+                }} 
+            />
+        )
+    case State.CREATE_ATHLETE:
+        return (
+            <Forms.CreateAthleteForm
+                onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
+                onCompleted={(form) => {
+                    createAthlete({age: form.age, height: 60, weight: 150, gender: form.gender}).then(() => {
+                        setAuthentiationState(State.LOGGED_IN)
+                    })
+                }}
+            />
+        );
     }
 };
-
 
 const styles = StyleSheet.create({
     title: {
