@@ -1,12 +1,9 @@
 import React, { useState} from 'react';
-import { Animated, StyleSheet, StatusBar, Text, View, ListItem, Dimensions, TouchableHighlight, ScrollView, FlatList} from 'react-native';
-import FormContainer from './containers/FormContainer'
-import PageView from './containers/PageView'
+import { StyleSheet, View } from 'react-native';
 import * as Forms from './forms/Forms'
 import Colors from './utilities/Colors';
 import { useFonts, Comfortaa_300Light, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
-import { Card, ScrollWheel, WorkoutCard } from './components/Components'
-import UserPageView, { UserPage, WorkoutsPage, StatisticsPage } from './pages/Pages'
+import UserPageView from './pages/Pages'
 import { login, signup, createAthlete } from './utilities/api'
 
 const State = {
