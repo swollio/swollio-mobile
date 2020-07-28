@@ -28,43 +28,21 @@ export default function App(props) {
     if (!fontsLoaded) return <></>
 
     switch (authenticationState) {
-        case State.LOGGED_IN:
-            return  <UserPageView />;
-        case State.LOGGED_OUT:
-            return (
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <Forms.LoginForm 
-                        onCreateAccount={() => setAuthentiationState(State.CREATE_USER)}
-                        onLogin={(credentials) => {
-                            login(credentials).then(() => {
-                                setAuthentiationState(State.LOGGED_IN)
-                            })
-                        }}
-                    />
-                </View>
-            );
-        case State.CREATE_USER:
-            return (
-                <Forms.CreateUserForm
-                    onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
-                    onCompleted={(form) => {
-                        signup(form).then(() => {
-                            setAuthentiationState(State.CREATE_ATHLETE)
-                        })
-                    }} 
-                />
-            )
-        case State.CREATE_ATHLETE:
-            return (
-                <Forms.CreateAthleteForm
-                    onCancel={() => setAuthentiationState(State.LOGGED_OUT)}
-                    onCompleted={(form) => {
-                        createAthlete({age: form.age, height: 60, weight: 150, gender: form.gender}).then(() => {
+    case State.LOGGED_IN:
+        return  <UserPageView />;
+    case State.LOGGED_OUT:
+        return (
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <Forms.LoginForm 
+                    onCreateAccount={() => setAuthentiationState(State.CREATE_USER)}
+                    onLogin={(credentials) => {
+                        login(credentials).then(() => {
                             setAuthentiationState(State.LOGGED_IN)
                         })
                     }}
                 />
-            );
+            </View>
+        );
     case State.CREATE_USER:
         return (
             <Forms.CreateUserForm
