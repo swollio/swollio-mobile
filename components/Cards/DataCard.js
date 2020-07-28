@@ -34,7 +34,7 @@ export default function DataCard() {
                 scale={ scale.scaleTime }
                 xAccessor={({item}) => item.date}
                 yAccessor={({item}) => item.weight}
-                curve={shape.curveNatural}
+                curve={shape.curveLinear}
                 svg={{fill: 'url(#weightGradient)'}}
                 contentInset={{ top: 20, bottom: 20 }}
                 >

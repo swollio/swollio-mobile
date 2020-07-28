@@ -3,9 +3,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../utilities/Colors';
 
 export default function StatisticsPage(props) {
-    return (<View style={styles.header}>
-        <Text style={styles.title}>Statistics</Text>
-    </View>)
+    return (
+        <View>
+            <View style={styles.header}>
+                <Text style={styles.title}>Statistics</Text>
+            </View>
+            <View style={{margin: 10}}>
+                <DataCard />
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
