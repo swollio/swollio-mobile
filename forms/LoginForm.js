@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import config from '../config.json';
+import { login } from '../utilities/api';
 
 export default function LoginForm(props) {
+
+    if (config.devMode)
+        props.onLogin(config.credentials)
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

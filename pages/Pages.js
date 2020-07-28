@@ -19,7 +19,6 @@ export default function UserPageView(props) {
             content: StatisticsPage,
             color: Colors.Purple,
             icon: 'bar-chart-2'
-        }]}>
-        </PageView>
+        }]} />
     );
 }
