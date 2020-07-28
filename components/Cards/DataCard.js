@@ -10,7 +10,7 @@ import * as scale from 'd3-scale';
 
 export default function DataCard() {
     const data = [
-        { date: new Date("06-27-2020"), weight: 25, reps: 8 },
+        { date: new Date("06-27-2020"), weight: 40, reps: 8 },
         { date: new Date("06-28-2020"), weight: 25, reps: 9 },
         { date: new Date("07-01-2020"), weight: 25, reps: 10 },
         { date: new Date("07-02-2020"), weight: 30, reps: 6 },
