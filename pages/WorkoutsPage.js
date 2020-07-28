@@ -24,7 +24,7 @@ export default function WorkoutsPage(props) {
             </View>
             <ScrollView>
                 {  (workouts == null && <Text style={styles.watermark}>Loading...</Text>)
-                || (workouts.length == 0 && <Text style={styles.watermark}>no upcoming workouts</Text>)
+                || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
                 || (workouts.map((workout) =>
                         <Card key={workout.id}>
                             <Text style={styles.title}>{workout.workout_name}</Text>
@@ -40,7 +40,9 @@ export default function WorkoutsPage(props) {
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        padding: 20,
+        padding: 15,
+        paddingLeft: 20,
+        paddingBottom: 20,
         backgroundColor: Colors.Green,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
@@ -52,9 +54,9 @@ const styles = StyleSheet.create({
         margin: 50,
     },
     title: {
-        fontSize: 28,
-        color: Colors.Black,
-        fontFamily: 'Comfortaa_400Regular',
+        fontSize: 32,
+        color: Colors.White,
+        fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
     }
 })

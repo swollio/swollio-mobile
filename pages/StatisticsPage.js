@@ -11,16 +11,17 @@ export default function StatisticsPage(props) {
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        padding: 20,
+        padding: 15,
+        paddingLeft: 20,
+        paddingBottom: 20,
         backgroundColor: Colors.Purple,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
     },
     title: {
-        fontSize: 28,
-        color: Colors.Black,
-        fontFamily: 'Comfortaa_400Regular',
+        fontSize: 32,
+        color: Colors.White,
+        fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
-        marginLeft: 10
     }
 })
