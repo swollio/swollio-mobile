@@ -6,7 +6,7 @@ export default function UserPage(props) {
 
     return (
         <View style={styles.header}>
-            <Text style={styles.title}>Hello {props.user.first_name}!</Text>
+            <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
         </View>
     );
 }
@@ -14,16 +14,17 @@ export default function UserPage(props) {
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        padding: 20,
+        padding: 15,
+        paddingLeft: 20,
+        paddingBottom: 20,
         backgroundColor: Colors.Red,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
     },
     title: {
-        fontSize: 28,
-        color: Colors.Black,
-        fontFamily: 'Comfortaa_400Regular',
+        fontSize: 32,
+        color: Colors.White,
+        fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
-        marginLeft: 10
     }
 })
