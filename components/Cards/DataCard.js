@@ -1,60 +1,44 @@
-import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import { LineChart } from 'react-native-chart-kit';
+import React from 'react'
+import { StyleSheet } from 'react-native'
+import { AreaChart, Grid } from 'react-native-svg-charts'
+import { Defs, LinearGradient, Stop } from 'react-native-svg'
+import * as shape from 'd3-shape'
 import Colors from '../../utilities/Colors';
 import Card from './Card';
 
 
 export default function DataCard() {
-    // const data = [
-    //     { date: "06-24-2020", weight: 25, reps: 8 },
-    //     { date: "06-26-2020", weight: 25, reps: 9 },
-    //     { date: "06-28-2020", weight: 25, reps: 10 },
-    //     { date: "06-30-2020", weight: 30, reps: 6 },
-    //     { date: "07-02-2020", weight: 30, reps: 8 },
-    //     { date: "07-04-2020", weight: 30, reps: 6 },
-    // ];
+    const data = [
+        { date: new Date("06-27-2020"), weight: 25, reps: 8 },
+        { date: new Date("06-28-2020"), weight: 25, reps: 9 },
+        { date: new Date("07-01-2020"), weight: 25, reps: 10 },
+        { date: new Date("07-02-2020"), weight: 30, reps: 6 },
+        { date: new Date("07-06-2020"), weight: 30, reps: 8 },
+        { date: new Date("07-07-2020"), weight: 30, reps: 6 },
+    ];
 
-    const data = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-          {
-            data: [20, 45, 28, 80, 99, 43],
-            color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-            
-            strokeWidth: 2 // optional
-          }
-        ],
-        legend: ["Rainy Days"] // optional
-      };
+    const WeightGradient = ({index}) =>
+        <Defs key={index}>
+            <LinearGradient id='weightGradient' x1='0%' x2='0%' y1='100%' y2='0%'>
+                <Stop offset='0%' stopColor={Colors.Purple} stopOpacity={0.8} />
+                <Stop offset='100%' stopColor={Colors.Purple} stopOpacity={0.2} />
+            </LinearGradient>
+        </Defs>
 
-    const chartConfig = {
-        backgroundGradientFrom: Colors.LightGrey,
-        backgroundGradientFromOpacity: 1,
-        backgroundGradientTo: Colors.LightGrey,
-        backgroundGradientToOpacity: 1,
-        fillShadowGradient: 1,
-        fillShadowGradientOpacity: 0.2,
-        useShadowColorFromDataset: true,
-        color: (opacity = 1) => `rgba(201, 171, 219, ${opacity})`,
-        strokeWidth: 2, // optional, default 3
-        barPercentage: 0.5,
-        useShadowColorFromDataset: false // optional
-    };
-
-    const width = Dimensions.get('window').width;
-
-    return(
-        // <Card barColor={Colors.Purple}>
-            <LineChart
+    return (
+        <Card barColor={Colors.Purple}>
+            <AreaChart
                 data={data}
-                width={width}
-                height={256}
-                verticalLabelRotation={30}
-                chartConfig={chartConfig}
-                bezier
-                />
-        // </Card>
+                xAccessor={({item}) => item.date}
+                yAccessor={({item}) => item.weight}
+                curve={shape.curveNatural}
+                svg={{fill: 'url(#weightGradient)'}}
+                contentInset={{ top: 20, bottom: 20 }}
+                >
+                <Grid />
+                <WeightGradient />
+            </AreaChart>
+        </Card>
     );
 }
 
