@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../utilities/Colors';
-import { DataCard } from '../components/Components';
+import DataCard from '../components/Cards/DataCard';
 
 export default function UserPage(props) {
 
@@ -11,7 +11,6 @@ export default function UserPage(props) {
                 <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
             </View>
             <View style={{margin: 10}}>
-                <DataCard />
             </View>
         </View>
     );
