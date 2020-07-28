@@ -11,7 +11,7 @@ export default function CoachWorkoutsPage(props) {
     const [workouts, setWorkouts] = useState(null);
     
     useEffect(() => {
-        if (workouts == null)
+        if (workouts === null)
             getWorkoutsForTeam(props.user.team_id).then(data => setWorkouts(data) );
     });
 
@@ -22,7 +22,7 @@ export default function CoachWorkoutsPage(props) {
                 <Icon size={40} color={Colors.White} name={'plus'}/>
             </View>
             <ScrollView>
-                {  (workouts == null && <Text style={styles.watermark}>Loading...</Text>)
+                {  (workouts === null && <Text style={styles.watermark}>Loading...</Text>)
                 || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
                 || (workouts.map((workout) =>
                         <Card barColor={Colors.Green} key={workout.id}>

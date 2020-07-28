@@ -10,7 +10,7 @@ export default function CoachWorkoutsPage(props) {
     const [assignments, setAssignments] = useState(null);
     
     useEffect(() => {
-        if (assignments == null)
+        if (assignments === null)
             getWorkoutForTeam(props.user.team_id, props.workout.id).then(data => {
                 console.log(data)
                 setAssignments(data)
@@ -25,7 +25,7 @@ export default function CoachWorkoutsPage(props) {
                 <Icon size={40} color={Colors.White} name={'plus'}/>
             </View>
             <View>
-                {assignments == null ? <Text>Loading...</Text>: 
+                {assignments === null ? <Text>Loading...</Text>: 
                 <View>
                     <View style={{padding: 8, borderBottomColor: Colors.Grey, borderBottomWidth: 1}}>
                         <TextInput style={styles.textInput} value={props.workout.name} />

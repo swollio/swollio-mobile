@@ -16,7 +16,7 @@ export default function CoachPage(props) {
 
     const [data, setData] = useState(null);
     useEffect(() => {
-        if (data == null) 
+        if (data === null) 
             getAthletesForTeam(props.user.team_id).then(data => setData(data));
     });
 
@@ -26,13 +26,13 @@ export default function CoachPage(props) {
                 <Text style={styles.title}>{getFullName(props.user)}</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                     <View style={{width: 44, height: 44, marginRight: 12, borderRadius: 22, alignItems: "center", justifyContent: "center", backgroundColor: "white"}}>
-                        <Text style={[styles.subtitle, {color: Colors.Red}]}>{data == null ? '0': data.length}</Text>
+                        <Text style={[styles.subtitle, {color: Colors.Red}]}>{data === null ? '0': data.length}</Text>
                     </View>
                     <Text style={styles.subtitle}>Athletes</Text>
                 </View>
             </View>
             <View style={{marginTop: 10}}>
-                {data == null ? 
+                {data === null ? 
                     <Text>Loading...</Text>: 
                     data.map((athlete => 
                         <Card key={athlete.id} barColor={Colors.Red}>
