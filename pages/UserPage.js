@@ -10,9 +10,6 @@ export default function UserPage(props) {
             <View style={styles.header}>
                 <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
             </View>
-            <View style={{margin: 10}}>
-                <DataCard />
-            </View>
         </View>
     );
 }
