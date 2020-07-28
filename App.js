@@ -29,7 +29,7 @@ export default function App(props) {
 
     switch (authenticationState) {
     case State.LOGGED_IN:
-        return  <UserPageView />;
+        return  <UserPageView onNeedsAccountSetup={() => setAuthentiationState(State.SELECT_ROLE)}/>;
     case State.LOGGED_OUT:
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

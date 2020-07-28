@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { CreateSingleStringForm } from '../components/Components';
 
 export const FirstNameForm = CreateSingleStringForm({
@@ -70,7 +69,6 @@ export function PasswordForm(props) {
             >
                 <Text style={{color: Colors.White}}>Create Account</Text>
             </TouchableOpacity>
-            <KeyboardSpacer />
         </View>
     );
 }
@@ -84,7 +82,6 @@ export function AccountCreatedForm(props) {
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
                     <Text style={{color: Colors.White}}>Continue</Text>
             </TouchableOpacity>
-            <KeyboardSpacer />
         </View>
     );
 }
