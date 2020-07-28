@@ -145,10 +145,18 @@ export function getWorkoutsForAthlete(athlete_id) {
     return get(`athletes/${athlete_id}/workouts`).then(result => result.json())
 }
 
+export function getWorkoutsForTeam(team_id) {
+    return get(`teams/${team_id}/workouts`).then(result => result.json())
+}
+
 export function createAthlete(athlete) {
     return post(`athletes/`, athlete)
 }
 
 export function createTeam(team) {
     return post(`teams/`, team)
+}
+
+export function getAthletesForTeam(team_id) {
+    return get(`teams/${team_id}/athletes`).then(result => result.json())
 }

@@ -11,7 +11,7 @@ import Colors from '../../utilities/Colors';
 export default function Card(props) {
     return (
         <View style={{alignItems: 'center'}}>
-            <View style = {[styles.card, {borderLeftColor: props.barColor}]}>
+            <View style = {[styles.card, {borderLeftColor: props.barColor, margin: props.margin || 5}]}>
                 { props.children }
             </View>
         </View>
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
         borderRadius: 11,
         borderLeftWidth: 11,
         padding: 10,
-        margin: 15,
+        margin: 0,
     },
 });

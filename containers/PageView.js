@@ -3,20 +3,13 @@ import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, Text
 import Colors from '../utilities/Colors';
 import { Card, ScrollWheel } from '../components/Components';
 import Icon from 'react-native-vector-icons/Feather';
-import { current_user } from '../utilities/api'
 
 export default function PageView(props) {
 
     const [pageIndex, switchPage] = useState(0);
-    const [data, setData] = useState(null);
-    
-    useEffect(() => {
-        if (data == null)
-            current_user().then( data => setData(data) );
-    });
 
     const currentPage = props.pages[pageIndex]
-    const Content = data ? currentPage.content: () => <Text>Loading...</Text>;
+    const Content = currentPage.content;
     const color = currentPage.color;
 
     return (
@@ -27,7 +20,7 @@ export default function PageView(props) {
             <View style={styles.container}>
                 {
                     <View style={{flex: 1}}>
-                        <Content user={data}></Content>
+                        <Content user={props.user}></Content>
                     </View>
                 }
                 <View style={[styles.navigation, { borderColor: color }]}>
