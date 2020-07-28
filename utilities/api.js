@@ -121,6 +121,7 @@ export function get(route) {
  */
 export function post(route, body) {
     return fetch(`${config.api}/${route}`, {
+        method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + jwt
@@ -142,4 +143,8 @@ export function current_user() {
 
 export function getWorkoutsForAthlete(athlete_id) {
     return get(`athletes/${athlete_id}/workouts`).then(result => result.json())
+}
+
+export function createAthlete(athlete) {
+    return post(`athletes/`, athlete).then(result => result.json())
 }
