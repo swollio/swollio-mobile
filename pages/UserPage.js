@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../utilities/Colors';
-import DataCard from '../components/Cards/DataCard';
 
 export default function UserPage(props) {
 
