@@ -4,6 +4,7 @@ import Colors from '../utilities/Colors';
 import { Card } from '../components/Components'
 import { getWorkoutForTeam } from '../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
+import SelectExercise from './SelectExercise';
 
 export default function CoachWorkoutsPage(props) {
 
@@ -22,7 +23,16 @@ export default function CoachWorkoutsPage(props) {
             <View style={styles.header}>
                 <Icon onPress={() => props.pop()} size={40} color={Colors.White} name={'arrow-left'}/>
                 <Text style={styles.title}>Details</Text>
-                <Icon size={40} color={Colors.White} name={'plus'}/>
+                <Icon onPress={() => props.push(
+                        <SelectExercise
+                            push={props.push}
+                            pop={props.pop}
+                        />
+                    )}
+                    size={40}
+                    color={Colors.White}
+                    name={'plus'}
+                />
             </View>
             <View>
                 {assignments === null ? <Text>Loading...</Text>: 
