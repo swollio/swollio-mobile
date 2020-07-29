@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, ScrollView, TextInput, ListView } from 'react-native';
 import Colors from '../utilities/Colors';
 import { Card } from '../components/Components'
 import { getWorkoutForTeam } from '../utilities/api'
@@ -56,6 +56,7 @@ export default function CoachWorkoutsDetails(props) {
                             </View>
                         </View>
                     </View>
+                    <ScrollView style={{height: '100%'}}>
                     {
                         assignments.map((a, index) =>
                         <View key={index} style={{padding: 16, borderBottomColor: Colors.SurfaceContrast2, borderBottomWidth: 1}}>
@@ -64,6 +65,7 @@ export default function CoachWorkoutsDetails(props) {
                         </View>
                         )
                     }
+                    </ScrollView>
                 </View>}
             </View>
         </View>
