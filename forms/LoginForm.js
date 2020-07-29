@@ -52,10 +52,12 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         maxWidth: '80%',
-        fontFamily: 'Comfortaa_300Light'
+        fontFamily: 'Comfortaa_300Light',
+        color: Colors.BackgroundContrast
     },
     textInput: {
         width: 350,
+        color: Colors.SurfaceContrast,
         backgroundColor: Colors.Background,
         paddingHorizontal: 24,
         fontSize: 16,
@@ -67,6 +69,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     form: {
+        height: '100%',
+        backgroundColor: Colors.Surface,
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',

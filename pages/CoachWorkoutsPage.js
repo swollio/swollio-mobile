@@ -36,8 +36,8 @@ export default function CoachWorkoutsPage(props) {
                             )}>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <View style={{justifyContent: 'space-around'}}>
-                                    <Text style={{fontSize: 20}}>{workout.name}</Text>
-                                    <Text>Repeat: {workout.repeat}</Text>
+                                    <Text style={{color: Colors.SurfaceContrast, fontSize: 20}}>{workout.name}</Text>
+                                    <Text style={{color: Colors.SurfaceContrast}}>Repeat: {workout.repeat}</Text>
                                 </View>
                                 <Icon size={40} color={Colors.Primary} name={'chevron-right'}/>
                             </View>
