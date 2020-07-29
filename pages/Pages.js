@@ -42,7 +42,10 @@ function AthletePageView(props) {
     );
 }
 
-
+/**
+ * The CoachPageView component is a container which
+ * @param props -
+ */
 function CoachPageView(props) {
     return (
         <PageView user={props.user} pages={[{
