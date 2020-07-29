@@ -10,21 +10,19 @@ import Colors from '../../utilities/Colors';
  */
 export default function Card(props) {
     return (
-        <View style={{alignItems: 'center'}}>
-            <View style = {[styles.card, {borderLeftColor: props.barColor, margin: props.margin || 5}]}>
-                { props.children }
-            </View>
+        <View style = {styles.card}>
+            { props.children }
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     card: {
-        width: '95%',
-        backgroundColor: Colors.White,
-        borderRadius: 11,
-        borderLeftWidth: 11,
+        width: '100%',
+        backgroundColor: Colors.Surface,
+        borderLeftColor: Colors.Primary,
+        borderRadius: 4,
+        borderLeftWidth: 10,
         padding: 10,
-        margin: 0,
     },
 });

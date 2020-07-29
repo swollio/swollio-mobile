@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Colors from '../utilities/Colors';
 import DataCard from '../components/Cards/DataCard';
 
@@ -9,9 +9,9 @@ export default function StatisticsPage(props) {
             <View style={styles.header}>
                 <Text style={styles.title}>Statistics</Text>
             </View>
-            <View style={{margin: 10}}>
+            <ScrollView padding={10} style={{height: '100%'}}>
                 <DataCard />
-            </View>
+            </ScrollView>
         </View>
     );
 }
@@ -20,15 +20,13 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         padding: 15,
-        paddingLeft: 20,
-        paddingBottom: 20,
-        backgroundColor: Colors.Purple,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        borderColor: Colors.BackgroundContrast,
+        borderBottomWidth: 3,
+        backgroundColor: Colors.Primary,
     },
     title: {
         fontSize: 32,
-        color: Colors.White,
+        color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
     }

@@ -15,7 +15,7 @@ export function AgeForm(props) {
                 placeholder='69' />
             <Text style={styles.subtitle}>Enter your age.</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted(true)}>
-                <Text style={{color: Colors.White}}>Continue</Text>
+                <Text style={{color: Colors.PrimaryContrast}}>Continue</Text>
             </TouchableOpacity>
         </View>
     );
@@ -59,7 +59,7 @@ export function HeightForm(props) {
             />
             <ScrollWheel 
                 field='inches'
-                selectColor = {Colors.Red}
+                selectColor = {Colors.Primary}
                 vals={[0, 11, 1, 0]}
                 onChange={props.onChange}
             />
@@ -68,7 +68,7 @@ export function HeightForm(props) {
                 style={[styles.optionButton, 
                 {marginTop: 50}]} 
                 onPress={() => props.onCompleted()}>
-                <Text style={{color: Colors.White}}>Continue</Text>
+                <Text style={{color: Colors.PrimaryContrast}}>Continue</Text>
             </TouchableOpacity>
         </View>
     );
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         width: 350,
-        backgroundColor: Colors.LightGrey,
+        backgroundColor: Colors.Background,
         paddingHorizontal: 24,
         fontSize: 16,
         paddingVertical: 16,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     optionButton: {
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         width: 350,
         maxWidth: '80%',
         height: 50,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,
-        shadowColor: Colors.Black,
+        shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
             height: 2,

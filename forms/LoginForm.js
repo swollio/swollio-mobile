@@ -35,12 +35,12 @@ export default function LoginForm(props) {
             />
 
             <TouchableOpacity onPress={() => props.onLogin({email, password})} activeOpacity={0.8} style={styles.optionButton}>
-                    <Text style={{color: Colors.White}}>Login</Text>
+                    <Text style={{color: Colors.PrimaryContrast}}>Login</Text>
             </TouchableOpacity>
 
             <View style={{height: 50}}></View>
             <TouchableOpacity onPress={() => props.onCreateAccount()} activeOpacity={0.8} style={styles.inverseOptionButton}>
-                    <Text style={{color: Colors.Red}}>Create Account</Text>
+                    <Text style={{color: Colors.Primary}}>Create Account</Text>
             </TouchableOpacity>
 
         </View>
@@ -52,11 +52,13 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         maxWidth: '80%',
-        fontFamily: 'Comfortaa_300Light'
+        fontFamily: 'Comfortaa_300Light',
+        color: Colors.BackgroundContrast
     },
     textInput: {
         width: 350,
-        backgroundColor: Colors.LightGrey,
+        color: Colors.SurfaceContrast,
+        backgroundColor: Colors.Background,
         paddingHorizontal: 24,
         fontSize: 16,
         paddingVertical: 16,
@@ -67,12 +69,14 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     form: {
+        height: '100%',
+        backgroundColor: Colors.Surface,
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
     },
     optionButton: {
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         width: 350,
         maxWidth: '80%',
         height: 50,
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,
-        shadowColor: Colors.Black,
+        shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
             height: 2,
@@ -98,7 +102,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
-        borderColor: Colors.Red,
+        borderColor: Colors.Primary,
         borderWidth: 1,
         borderRadius: 25,
         marginTop: 15,

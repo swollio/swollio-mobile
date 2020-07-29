@@ -4,6 +4,19 @@ import Colors from '../utilities/Colors';
 import { Card, ScrollWheel } from '../components/Components';
 import Icon from 'react-native-vector-icons/Feather';
 
+function Navigation(props) {
+    return (
+    <View style={styles.navigation}>
+        {props.pages.map((page, index) => {
+            if (props.currentIndex == index) {
+                return <Icon key={index} size={40} name={page.icon}/>
+            } else {
+                return <Icon key={index} size={40} onPress={() => props.onSwitchPage(index)} color={Colors.SurfaceContrast2} name={page.icon}/>
+            }
+        })}
+    </View>);
+}
+
 export default function PageView(props) {
 
     const [pageIndex, switchPage] = useState(0);
@@ -11,52 +24,54 @@ export default function PageView(props) {
  
     const currentPage = props.pages[pageIndex]
     const Content = currentPage.content;
-    const color = currentPage.color;
-
 
     return (
         <>
-        <SafeAreaView style={{ flex: 0, backgroundColor: color }} />
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.White}}>
-            <StatusBar barStyle="light-content" />
-            <View style={styles.container}>
-                {
-                    stack.length === 0 ?
-                <>
-                    <View style={{flex: 1}}>
-                    <Content 
-                        push={(x) => setStack([x, ...stack])}
-                        pop={() => setStack(stack.slice(1))}
-                        user={props.user}
-                    />
-                    </View>
-                    <View style={[styles.navigation, { borderColor: color }]}>
-                        {props.pages.map((page, index) => {
-                            if (pageIndex == index) {
-                                return <Icon key={index} size={40} name={page.icon}/>
-                            } else {
-                                return <Icon key={index} size={40} onPress={() => switchPage(index)} color={Colors.Grey} name={page.icon}/>
-                            }
-                        })}
-                    </View>
-                </>
-                : stack[0]
-                }
-            </View>
-        </SafeAreaView>
+            <SafeAreaView style={styles.safeAreaTop} />
+            <SafeAreaView style={styles.safeAreaBottom}>
+                <StatusBar barStyle="light-content" />
+                <View style={styles.container}>
+                    {
+                        stack.length !== 0 ? stack[0]:
+                        <>
+                            <View  style={{flex: 1}}>
+                                <Content 
+                                    push={(x) => setStack([x, ...stack])}
+                                    pop={() => setStack(stack.slice(1))}
+                                    user={props.user}
+                                />
+                            </View>
+                            <Navigation
+                                currentIndex={pageIndex}
+                                onSwitchPage={switchPage}
+                                pages={props.pages}
+                            />
+                        </>
+                    }
+                </View>
+            </SafeAreaView>
         </>
     );
 }
 
 const styles = StyleSheet.create({
+    safeAreaTop: {
+        flex: 0,
+        backgroundColor: Colors.Primary
+    },
+    safeAreaBottom: {
+        flex: 1,
+        backgroundColor: Colors.Surface,
+    },
     container: {
         height: '100%',
         width: '100%',
-        backgroundColor: Colors.LightGrey,
+        backgroundColor: Colors.Background,
     },  
     navigation: {
         borderTopWidth: 2,
-        backgroundColor: Colors.White,
+        borderColor: Colors.Primary,
+        backgroundColor: Colors.Surface,
         flexDirection: 'row',
         padding: 10,
         justifyContent: 'space-around'
