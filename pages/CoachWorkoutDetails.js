@@ -74,14 +74,12 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         padding: 15,
-        paddingLeft: 20,
-        paddingBottom: 20,
+        borderColor: Colors.BackgroundContrast,
+        borderBottomWidth: 3,
         backgroundColor: Colors.Primary,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
     },
     watermark: {
         textAlign: 'center',
