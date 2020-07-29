@@ -29,7 +29,7 @@ function Header(props) {
         </View>
     );
 }
-export default function CoachWorkoutsPage(props) {
+export default function CoachWorkoutsDetails(props) {
 
     const [assignments, setAssignments] = useState(null);
     
