@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native';
+import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType, ScrollView} from 'react-native';
 import Colors from '../utilities/Colors';
 import { searchExercisesByName } from '../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
@@ -13,7 +13,7 @@ function Header(props) {
         </View>
     );
 }
-export default function CoachWorkoutsPage(props) {
+export default function SelectExercises(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [exerciseResults, setExerciseResults] = useState([]);
     
@@ -25,28 +25,40 @@ export default function CoachWorkoutsPage(props) {
     }, [searchTerm]);
 
     return (
-        <View style={{backgroundColor: Colors.Surface, height: '100%'}}>
-            <Header push={props.push} pop={props.pop} />
-            <View style={{flex: 1}}>
-                <View style={{padding: 16, borderBottomColor: Colors.SurfaceContrast2, borderBottomWidth: 1}}>
-                    <TextInput onChangeText={(value) => setSearchTerm(value)} style={styles.textInput} />
+        <View style={{height: '100%'}}>
+            <SafeAreaView style={styles.safeAreaTop} />
+            <SafeAreaView style={styles.safeAreaBottom}>
+            <View style={{backgroundColor: Colors.Surface, height: '100%'}}>
+                <Header pop={props.pop} />
+                <View style={{flex: 1}}>
+                    <View style={{padding: 16, borderBottomColor: Colors.SurfaceContrast2, borderBottomWidth: 1}}>
+                        <TextInput onChangeText={(value) => setSearchTerm(value)} style={styles.textInput} />
+                    </View>
+                    <ScrollView  style={{flex: 1}}>
+                    {
+                        exerciseResults.map((a, index) =>
+                            <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, borderBottomColor: Colors.Grey, borderBottomWidth: 1}}>
+                                <Text style={{fontSize: 16}}>{a.name}</Text>
+                                <Icon onPress={() => props.onSelectExercise(a)} size={40} color={Colors.Primary} name={'chevron-right'}/>
+                            </View>
+                        )
+                    }
+                    </ScrollView>
                 </View>
-                <ScrollView  style={{flex: 1}}>
-                {
-                    exerciseResults.map((a, index) =>
-                        <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, borderBottomColor: Colors.Grey, borderBottomWidth: 1}}>
-                            <Text style={{fontSize: 16}}>{a.name}</Text>
-                            <Icon onPress={() => props.pop()} size={40} color={Colors.Primary} name={'chevron-right'}/>
-                        </View>
-                    )
-                }
-                </ScrollView>
             </View>
+            </SafeAreaView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    safeAreaTop: {
+        flex: 0,
+        backgroundColor: Colors.Primary
+    },
+    safeAreaBottom: {
+        flex: 1,
+    },
     header: {
         width: '100%',
         padding: 15,

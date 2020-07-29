@@ -5,6 +5,7 @@ import { Card } from '../components/Components'
 import { getWorkoutsForTeam } from '../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
 import CoachWorkoutDetails from './CoachWorkoutDetails'
+import CreateWorkoutForm from './CreateWorkoutForm'
 
 export default function CoachWorkoutsPage(props) {
 
@@ -19,7 +20,7 @@ export default function CoachWorkoutsPage(props) {
         <>
             <View style={styles.header}>
                 <Text style={styles.title}>Workouts</Text>
-                <Icon size={40} color={Colors.PrimaryContrast} name={'plus'}/>
+                <Icon onPress={() => props.push(<CreateWorkoutForm onCreate={(w) => {console.log(w); props.pop()}} onCancel={() => props.pop()}></CreateWorkoutForm>)} size={40} color={Colors.PrimaryContrast} name={'plus'}/>
             </View>
             <ScrollView padding={10}>
                 {  (workouts === null && <Text style={styles.watermark}>Loading...</Text>)

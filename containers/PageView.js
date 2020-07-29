@@ -26,13 +26,13 @@ export default function PageView(props) {
     const Content = currentPage.content;
 
     return (
+        stack.length !== 0 ? stack[0]:
         <>
             <SafeAreaView style={styles.safeAreaTop} />
             <SafeAreaView style={styles.safeAreaBottom}>
                 <StatusBar barStyle="light-content" />
                 <View style={styles.container}>
-                    {
-                        stack.length !== 0 ? stack[0]:
+                   
                         <>
                             <View  style={{flex: 1}}>
                                 <Content 
@@ -47,7 +47,7 @@ export default function PageView(props) {
                                 pages={props.pages}
                             />
                         </>
-                    }
+     
                 </View>
             </SafeAreaView>
         </>

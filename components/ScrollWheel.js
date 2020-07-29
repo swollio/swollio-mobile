@@ -26,7 +26,7 @@ export default function ScrollWheel(props) {
         
         // Passing up inches for form container
         if (props.onChange)
-            props.onChange(props.field, viewableItems[2].item);
+            props.onChange(viewableItems[2].item);
     });
 
     const viewConfigRef = useRef({
@@ -62,6 +62,7 @@ export default function ScrollWheel(props) {
         );
     }
 
+    
     function getItemLayout(data, index) {
         return {
             length: 50,
@@ -100,8 +101,7 @@ const styles = StyleSheet.create({
         height: 46,
         borderRadius: 23,
         borderWidth: 1, 
-        borderColor: Colors.LightGrey,
-        backgroundColor: Colors.LightGrey,
+        borderColor: Colors.SurfaceContrast,
         justifyContent: 'center', 
         alignItems: 'center',
         alignContent: 'center'
@@ -123,17 +123,17 @@ const styles = StyleSheet.create({
     },
     selectedScrollText: {
         textAlign: "center", 
-        color: Colors.White,
+        color: Colors.SurfaceContrast,
         fontSize: 24,
     },
     unselectedScrollText: {
         textAlign: "center", 
-        color: "#B5B5B5",
+        color: Colors.Background,
         fontSize: 20
     },
     nextSelectedScrollText: {
         textAlign: "center", 
-        color: "#525252",
+        color: Colors.SurfaceContrast2,
         fontSize: 22
     },
     flatListStyle: {
