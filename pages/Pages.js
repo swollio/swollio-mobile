@@ -47,15 +47,12 @@ function CoachPageView(props) {
     return (
         <PageView user={props.user} pages={[{
             content: CoachPage,
-            color: Colors.Red,
             icon: 'users'
         }, {
             content: CoachWorkoutsPage,
-            color: Colors.Green,
             icon: 'clipboard'
         }, {
             content: StatisticsPage,
-            color: Colors.Purple,
             icon: 'bar-chart-2'
         }]} />
     );
