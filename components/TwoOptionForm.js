@@ -22,7 +22,7 @@ export default function CreateTwoOptionForm (options) {
                         props.onChange(options.field, options.storeValue1);
                         props.onCompleted();
                     }}>
-                    <Text style={{color: Colors.White}}>
+                    <Text style={{color: Colors.PrimaryContrast}}>
                         {options.showValue1}
                     </Text>
                 </TouchableOpacity>
@@ -32,7 +32,7 @@ export default function CreateTwoOptionForm (options) {
                         props.onChange(options.field, options.storeValue2);
                         props.onCompleted();
                     }}>
-                    <Text style={{color: Colors.White}}>
+                    <Text style={{color: Colors.PrimaryContrast}}>
                         {options.showValue2}
                     </Text>
                 </TouchableOpacity>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Comfortaa_300Light'
     },
     optionButton: {
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         width: 350,
         maxWidth: '80%',
         height: 50,
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,
-        shadowColor: Colors.Black,
+        shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
             height: 2,

@@ -19,13 +19,13 @@ export default function CoachWorkoutsPage(props) {
         <>
             <View style={styles.header}>
                 <Text style={styles.title}>Workouts</Text>
-                <Icon size={40} color={Colors.White} name={'plus'}/>
+                <Icon size={40} color={Colors.PrimaryContrast} name={'plus'}/>
             </View>
-            <ScrollView>
+            <ScrollView padding={10}>
                 {  (workouts === null && <Text style={styles.watermark}>Loading...</Text>)
                 || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
                 || (workouts.map((workout) =>
-                        <Card barColor={Colors.Green} key={workout.id}>
+                        <Card barColor={Colors.Primary} key={workout.id}>
                             <TouchableOpacity onPress={() => props.push(
                                 <CoachWorkoutDetails 
                                     pop={() => props.pop()}
@@ -39,7 +39,7 @@ export default function CoachWorkoutsPage(props) {
                                     <Text style={{fontSize: 20}}>{workout.name}</Text>
                                     <Text>Repeat: {workout.repeat}</Text>
                                 </View>
-                                <Icon size={40} color={Colors.Green} name={'chevron-right'}/>
+                                <Icon size={40} color={Colors.Primary} name={'chevron-right'}/>
                             </View>
                             </TouchableOpacity>
                         </Card>
@@ -53,24 +53,23 @@ const styles = StyleSheet.create({
     header: {
         width: '100%',
         padding: 15,
-        paddingLeft: 20,
-        paddingBottom: 20,
-        backgroundColor: Colors.Green,
+        backgroundColor: Colors.Primary,
+        borderColor: Colors.BackgroundContrast,
+        borderBottomWidth: 3,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+
     },
     watermark: {
         textAlign: 'center',
         fontSize: 24,
-        color: Colors.Grey,
+        color: Colors.SurfaceContrast2,
         margin: 50,
     },
     title: {
         fontSize: 32,
-        color: Colors.White,
+        color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
     }

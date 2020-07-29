@@ -43,7 +43,7 @@ export default function CreateSingleStringForm(options) {
                     activeOpacity={0.8}
                     style={valid ? styles.optionButton: styles.disabledButton}
                     onPress={submitValues}>
-                        <Text style={valid ?  {color: Colors.White}: {color: Colors.Grey}}>Continue</Text>
+                        <Text style={valid ?  {color: Colors.PrimaryContrast}: {color: Colors.SurfaceContrast2}}>Continue</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         width: 350,
-        backgroundColor: Colors.LightGrey,
+        backgroundColor: Colors.Background,
         paddingHorizontal: 24,
         fontSize: 16,
         paddingVertical: 16,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         marginBottom: 50,
     },
     optionButton: {
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         width: 350,
         maxWidth: '80%',
         height: 50,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,
-        shadowColor: Colors.Black,
+        shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
             height: 2,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     disabledButton: {
-        backgroundColor: Colors.LightGrey,
+        backgroundColor: Colors.Background,
         width: 350,
         maxWidth: '80%',
         height: 50,

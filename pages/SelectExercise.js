@@ -4,6 +4,15 @@ import Colors from '../utilities/Colors';
 import { searchExercisesByName } from '../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
 
+function Header(props) {
+    return (
+        <View style={styles.header}>
+            <Icon onPress={() => props.pop()} size={40} color={Colors.PrimaryContrast} name={'arrow-left'}/>
+            <Text style={styles.title}>Exercises</Text>
+            <View style={{width: 50}}></View>
+        </View>
+    );
+}
 export default function CoachWorkoutsPage(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [exerciseResults, setExerciseResults] = useState([]);
@@ -16,14 +25,10 @@ export default function CoachWorkoutsPage(props) {
     }, [searchTerm]);
 
     return (
-        <View style={{backgroundColor: Colors.White, height: '100%'}}>
-            <View style={styles.header}>
-                <Icon onPress={() => props.pop()} size={40} color={Colors.White} name={'arrow-left'}/>
-                <Text style={styles.title}>Exercises</Text>
-                <View style={{width: 50}}></View>
-            </View>
+        <View style={{backgroundColor: Colors.Surface, height: '100%'}}>
+            <Header push={props.push} pop={props.pop} />
             <View style={{flex: 1}}>
-                <View style={{padding: 16, borderBottomColor: Colors.Grey, borderBottomWidth: 1}}>
+                <View style={{padding: 16, borderBottomColor: Colors.SurfaceContrast2, borderBottomWidth: 1}}>
                     <TextInput onChangeText={(value) => setSearchTerm(value)} style={styles.textInput} />
                 </View>
                 <ScrollView  style={{flex: 1}}>
@@ -31,7 +36,7 @@ export default function CoachWorkoutsPage(props) {
                     exerciseResults.map((a, index) =>
                         <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, borderBottomColor: Colors.Grey, borderBottomWidth: 1}}>
                             <Text style={{fontSize: 16}}>{a.name}</Text>
-                            <Icon onPress={() => props.pop()} size={40} color={Colors.Green} name={'chevron-right'}/>
+                            <Icon onPress={() => props.pop()} size={40} color={Colors.Primary} name={'chevron-right'}/>
                         </View>
                     )
                 }
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
         padding: 15,
         paddingLeft: 20,
         paddingBottom: 20,
-        backgroundColor: Colors.Green,
+        backgroundColor: Colors.Primary,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -57,18 +62,18 @@ const styles = StyleSheet.create({
     watermark: {
         textAlign: 'center',
         fontSize: 24,
-        color: Colors.Grey,
+        color: Colors.SurfaceContrast2,
         margin: 50,
     },
     title: {
         fontSize: 30,
-        color: Colors.White,
+        color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'center',
     },
     textInput: {
         width: '100%',
-        backgroundColor: Colors.LightGrey,
+        backgroundColor: Colors.Background,
         paddingHorizontal: 18,
         fontSize: 24,
         paddingVertical: 8,
