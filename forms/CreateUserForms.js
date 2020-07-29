@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { CreateSingleStringForm } from '../components/Components';
 
 export const FirstNameForm = CreateSingleStringForm({
@@ -68,9 +67,8 @@ export function PasswordForm(props) {
                     }
                 }}
             >
-                <Text style={{color: Colors.White}}>Create Account</Text>
+                <Text style={valid ? {color: Colors.PrimaryContrast}: {color: Colors.SurfaceContrast2}}>Create Account</Text>
             </TouchableOpacity>
-            <KeyboardSpacer />
         </View>
     );
 }
@@ -82,9 +80,8 @@ export function AccountCreatedForm(props) {
             <Text style={[styles.title, {marginBottom: 20}]}>Your account has been created.</Text>
             <Text style={styles.subtitle}>Before you get started, we will ask you a few more questions to improve your workout experience</Text>
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted()}>
-                    <Text style={{color: Colors.White}}>Continue</Text>
+                    <Text style={{color: Colors.PrimaryContrast}}>Continue</Text>
             </TouchableOpacity>
-            <KeyboardSpacer />
         </View>
     );
 }
@@ -108,7 +105,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         width: 350,
-        backgroundColor: Colors.LightGrey,
+        backgroundColor: Colors.Background,
         paddingHorizontal: 24,
         fontSize: 16,
         paddingVertical: 16,
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     optionButton: {
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         width: 350,
         maxWidth: '80%',
         height: 50,
@@ -127,7 +124,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,
-        shadowColor: Colors.Black,
+        shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
             height: 2,
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     disabledButton: {
-        backgroundColor: Colors.LightGrey,
+        backgroundColor: Colors.Background,
         width: 350,
         maxWidth: '80%',
         height: 50,

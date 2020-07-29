@@ -63,14 +63,14 @@ export default function DataCard() {
     
     const WeightGradient = ({index}) =>
         <Defs key={index}>
-            <LinearGradient id='weightGradient' x1='0%' x2='0%' y1='10%' y2='90%'>
-                <Stop offset='0%' stopColor={Colors.Purple} stopOpacity={1} />
-                <Stop offset='100%' stopColor={Colors.Purple} stopOpacity={0.2} />
+            <LinearGradient id='weightGradient' x1='0%' x2='0%' y1='100%' y2='0%'>
+                <Stop offset='0%' stopColor={Colors.Primary} stopOpacity={0.8} />
+                <Stop offset='100%' stopColor={Colors.Primary} stopOpacity={0.2} />
             </LinearGradient>
         </Defs>
 
     return (
-        <Card barColor={Colors.Purple}>
+        <Card barColor={Colors.Primary}>
             <AreaChart
                 style={{height: 200}}
                 data={data}

@@ -106,7 +106,7 @@ export default class FormContainer extends Component {
                     )}
                 </Animated.View>
                 <View style={styles.progressContainer}>
-                    {this.props.forms.map((_ , index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Grey}: {backgroundColor: Colors.Red}]}/>)}
+                    {this.props.forms.map((_ , index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Background}: {backgroundColor: Colors.Primary}]}/>)}
                 </View>
             </View>
         )
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         margin: 5,
     },
     backButton: {
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         padding: 10,
         height: 50,
         justifyContent: 'center',
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         width: 100,
         borderTopRightRadius: 25,
         borderBottomRightRadius: 25,
-        shadowColor: Colors.Black,
+        shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
             height: 2,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     continueButton: {
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         width: 350,
         maxWidth: '80%',
         height: 50,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 10,
         borderRadius: 25,
-        shadowColor: Colors.Black,
+        shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
             height: 2,
