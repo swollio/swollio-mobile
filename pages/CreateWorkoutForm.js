@@ -64,7 +64,7 @@ function WorkoutDateForm(props) {
     return (
             <View style={styles.form}>
                 <Text style={[styles.formTitle, {marginBottom: 8}]}>What day is your workout?</Text>
-                <DatePicker onChange={(date) =>props.onChange('date', date)}/>
+                <DatePicker onChange={(date) => props.onChange('created', date)}/>
                 <SolidButton 
                     width={200}
                     text={'Continue'}
@@ -145,8 +145,8 @@ export default function CreateWorkoutForm(props) {
         <CoachWorkoutsDetails 
             options={options}
             assignments={assignments}
-            onCreate={props.onCreate}
-            onCancel={props.onCancel}
+            onCreate={() => props.onCreate({...options, assignments})}
+            onCancel={() => props.onCancel()}
             onAddExercises={() => setCreationState(1)}>
         </CoachWorkoutsDetails> :
         <CreateAssignmentForm

@@ -23,45 +23,18 @@ function Header(props) {
     return (
         <View style={styles.header}>
             <View style={{flexDirection: 'row', width: '100%', marginBottom: 16, alignItems: 'center', justifyContent: 'space-between'}}>
-                <TouchableOpacity 
-                    activeOpacity={0.8}
+                <Icon 
+                    size={30}
                     onPress={props.onBack}
-                    style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderColor: Colors.SurfaceContrast, paddingHorizontal: 4, paddingVertical: 4}}
-                >
-                    <Icon 
-                        size={30}
-                        color={Colors.SurfaceContrast}
-                        name={'arrow-left'}
-                    />
-                </TouchableOpacity>
-                <Text style={styles.title}>Workout</Text>
-                <TouchableOpacity 
-                    activeOpacity={0.8}
-                    onPress={props.onFinish}
-                    style={{borderColor: Colors.SurfaceContrast, paddingHorizontal: 4, paddingVertical: 4}}
-                >
-                     <Icon 
-                        size={30}
-                        color={Colors.SurfaceContrast}
-                        name={'check'}
-                    />
-                </TouchableOpacity>
-            </View>
-            <View style={[styles.borderedSection, {flexDirection: 'row'}]}>
-                <View style={{flexDirection: 'row'}}>
-                    <Icon
-                        onPress={props.onAddExercise}
-                        size={18}
-                        color={Colors.SurfaceContrast}
-                        name={'clipboard'}
-                    />
-                    <Text style={[styles.subtitle, {marginLeft: 8}]}>{props.options.name}</Text>
-                </View>
-                <Icon
-                    onPress={props.onAddExercise}
-                    size={18}
                     color={Colors.SurfaceContrast}
-                    name={'more-horizontal'}
+                    name={'arrow-left'}
+                />
+                <Text style={styles.title}>Details</Text>
+                <Icon 
+                    size={30}
+                    onPress={props.onFinish}
+                    color={Colors.SurfaceContrast}
+                    name={'check'}
                 />
             </View>
             <View style={[styles.borderedSection, {flexDirection: 'row'}]}>
@@ -72,7 +45,7 @@ function Header(props) {
                         color={Colors.SurfaceContrast}
                         name={'calendar'}
                     />
-                    <Text style={[styles.subtitle, {marginLeft: 8}]}>{props.options.date}</Text>
+                    <Text style={[styles.subtitle, {marginLeft: 8}]}>{props.options.created}</Text>
                 </View>
                 <Icon
                     onPress={props.onAddExercise}
@@ -112,8 +85,8 @@ export default function CoachWorkoutsDetails(props) {
             <View style={styles.container}>
                 <Header 
                     options={props.options}
-                    onBack={() => props.onCancel()}
-                    onFinish={() => props.onCreate({...props.options, assignments: props.assignments})}
+                    onBack={props.onCancel}
+                    onFinish={props.onCreate}
                 />
                 <ScrollView padding={10} style={{flex: 1, width: '100%'}}>
                 {

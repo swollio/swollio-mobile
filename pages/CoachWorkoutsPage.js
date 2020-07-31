@@ -10,6 +10,7 @@ export default function CoachWorkoutsPage(props) {
 
     const [workouts, setWorkouts] = useState(null);
     
+    
     useEffect(() => {
         if (workouts === null)
             getWorkoutsForTeam(props.user.team_id).then(data => setWorkouts(data) );
@@ -21,7 +22,10 @@ export default function CoachWorkoutsPage(props) {
                 <Text style={styles.title}>Workouts</Text>
                 <Icon onPress={() => props.push(
                     <CreateWorkoutForm
-                        onCreate={(w) => {console.log(w); props.pop()}}
+                        onCreate={(w) => {
+                            console.log(w)
+                            props.pop()
+                        }}
                         onCancel={() => props.pop()}
                         options={null}
                     />
@@ -36,9 +40,12 @@ export default function CoachWorkoutsPage(props) {
                         <Card barColor={Colors.Primary} key={workout.id}>
                             <TouchableOpacity onPress={() => props.push(
                                 <CreateWorkoutForm
-                                    onCreate={(w) => {console.log(w); props.pop()}}
+                                    onCreate={(w) => {
+                                        console.log(w)
+                                        props.pop()
+                                    }}
                                     onCancel={() => props.pop()}
-                                    options={workouts}
+                                    options={workout}
                                 />
                             
                             )}>

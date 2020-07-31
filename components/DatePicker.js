@@ -25,14 +25,14 @@ export default class ScrollPicker extends Component {
         this.setState({
             monthSelected: viewableItems[1].index,
         })
-        this.props.onChange(this.state.monthSelected + '/' + this.state.daySelected)
+        this.props.onChange(new Date(2020, this.state.monthSelected, this.state.daySelected).toISOString())
     }
 
     onViewableItemsChangedDay = ({ viewableItems, changed }) => {
         this.setState({
             daySelected: viewableItems[2].index,
         })
-        this.props.onChange(this.state.monthSelected + '/' + this.state.daySelected)
+        this.props.onChange(new Date(2020, this.state.monthSelected, this.state.daySelected).toISOString())
 
     }
     
