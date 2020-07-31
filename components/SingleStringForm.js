@@ -22,7 +22,6 @@ export default function CreateSingleStringForm(options) {
         function submitValues() {
             if (valid) {
                 props.onChange(options.field, value)
-                Keyboard.dismiss();
                 props.onCompleted()
             }
         }

@@ -128,6 +128,11 @@ export default function CreateWorkoutForm(props) {
     const [assignments, setAssignments] = useState([]);
     const [creationState, setCreationState] = useState(0)
     
+    useEffect(() => {
+        if (data === null) 
+            getAthletesForTeam(props.user.team_id).then(data => setData(data));
+    });
+
     if (options === null) {
         return (
             <FormContainer
