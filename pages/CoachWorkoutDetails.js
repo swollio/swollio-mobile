@@ -93,11 +93,9 @@ export default function CoachWorkoutsDetails(props) {
                     onFinish={props.onCreate}
                 />
                 <ScrollView padding={10} style={{flex: 1, width: '100%'}}>
-                {
-                    props.assignments.map((a, i) => {
+                    {props.assignments.map((a, i) => {
                         return <Assignment key={i} assignment={a} />;
-                    })
-                }
+                    })}
                 <View style={{height: 125}}></View>
                 </ScrollView >
                 <LinearGradient
