@@ -61,7 +61,6 @@ export default function DataCard() {
         },
     ];
     
-
     const WeightGradient = ({index}) =>
         <Defs key={index}>
             <LinearGradient id='weightGradient' x1='0%' x2='0%' y1='100%' y2='0%'>
