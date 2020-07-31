@@ -6,6 +6,8 @@ import { getWorkoutsForTeam } from '../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
 import CoachWorkoutDetails from './CoachWorkoutDetails'
 import CreateWorkoutForm from './CreateWorkoutForm'
+import { postWorkoutForTeam } from '../utilities/api'
+
 export default function CoachWorkoutsPage(props) {
 
     const [workouts, setWorkouts] = useState(null);
@@ -23,8 +25,11 @@ export default function CoachWorkoutsPage(props) {
                 <Icon onPress={() => props.push(
                     <CreateWorkoutForm
                         onCreate={(w) => {
-                            console.log(w)
-                            props.pop()
+                            postWorkoutForTeam(props.user.team_id, w).then(() => {
+                                props.pop()
+                            }).catch(() => {
+                                props.pop()
+                            })
                         }}
                         onCancel={() => props.pop()}
                         options={null}
