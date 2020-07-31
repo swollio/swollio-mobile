@@ -96,7 +96,7 @@ export default function CoachWorkoutsDetails(props) {
                     {props.assignments.map((a, i) => {
                         return <Assignment key={i} assignment={a} />;
                     })}
-                <View style={{height: 125}}></View>
+                    <View style={{height: 125}}></View>
                 </ScrollView >
                 <LinearGradient
                     colors={['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 0.7)']}
@@ -110,19 +110,20 @@ export default function CoachWorkoutsDetails(props) {
                         justifyContent: 'flex-end',
                         position: 'absolute',
                         bottom: 0,
-                        right: 10}}
-            >
-                <TouchableOpacity 
-                    activeOpacity={0.8}
-                    style={[styles.optionButton]}
+                        right: 10
+                    }}
                 >
-                    <Icon
-                        onPress={props.onAddExercises}
-                        size={30}
-                        color={Colors.PrimaryContrast}
-                        name={'plus'}
-                    />
-                </TouchableOpacity>
+                    <TouchableOpacity 
+                        activeOpacity={0.8}
+                        style={[styles.optionButton]}
+                    >
+                        <Icon
+                            onPress={props.onAddExercises}
+                            size={30}
+                            color={Colors.PrimaryContrast}
+                            name={'plus'}
+                        />
+                    </TouchableOpacity>
                 </LinearGradient>                   
             </View>
         </>
