@@ -3,11 +3,30 @@ import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, Scro
 import Colors from '../utilities/Colors'
 import { searchExercisesByName } from '../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
-import ScrollWheel from '../components/ScrollWheel'
+import ScrollPicker from '../components/ScrollPicker';
 
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
+
+function Header(props) {
+    return (
+        <View style={styles.header}>
+            <View style={{flexDirection: 'row', width: '100%', marginBottom: 8, alignItems: 'center', justifyContent: 'space-between'}}>
+                <Icon 
+                    onPress={props.onCancel}
+                    size={40}
+                    color={Colors.SurfaceContrast}
+                    name={'arrow-left'}
+                />
+                <Text style={styles.title}>Exercises</Text>
+                <View style={{width: 50}}></View>
+            </View>
+        </View>
+        
+    );
+}
+
 function SelectExercise(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -18,15 +37,15 @@ function SelectExercise(props) {
         });
     }, [searchTerm]);
 
-    return <View style={{height: '100%', backgroundColor: Colors.Surface, borderTopRightRadius: 20, borderTopLeftRadius: 20}}>
+    return <View style={{height: '100%', backgroundColor: Colors.Surface}}>
         <View style={{flexDirection: 'column', padding: 16}}>
-            <View style={{flexDirection: 'row', borderColor: Colors.Primary, borderBottomWidth: 1, width: '100%', overflow: 'hidden'}}>
+            <View style={{flexDirection: 'row', backgroundColor: Colors.Background, borderRadius: 25, width: '100%', overflow: 'hidden'}}>
                 <View style={{height: 50, alignItems: 'center', justifyContent: 'center', width: 50}}>
                 <Icon 
                     name={'search'}
                     onPress={() => props.onSelect(exercise)}
                     size={30}
-                    color={Colors.Primary}
+                    color={Colors.SurfaceContrast2}
                 />
                 </View>
                 <TextInput
@@ -43,9 +62,9 @@ function SelectExercise(props) {
             <View key={exercise.id} style={styles.section}>
                 <Text style={styles.content}>{exercise.name}</Text>
                 <Icon 
-                    name={'chevron-right'}
+                    name={'plus'}
                     onPress={() => props.onSelect(exercise)}
-                    size={40}
+                    size={30}
                     color={Colors.Primary}
                 />
             </View>
@@ -56,32 +75,42 @@ function SelectExercise(props) {
 
 function SelectWeightAndSets(props) {
     const [weightScheme, setWeightScheme] = useState('');
+    const [setCount, setSetCount] = useState(0);
 
     return <View style={{flex: 1, padding: 24, justifyContent: 'space-between', backgroundColor: Colors.Surface, borderTopRightRadius: 20, borderTopLeftRadius: 20, alignItems: 'center'}}>
         <View style={{width: '100%', alignItems: 'center'}}>
             <Text style={styles.surfaceTitle}>{capitalize(props.exercise.name)}</Text>
-            <Text style={{textAlign: 'center'}}>What weight should your athletes use?</Text>
-            <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 24}}>
-                <TouchableOpacity 
-                    activeOpacity={0.8}
-                    style={styles.weightButton}
-                >
-                    <Text style={{fontSize: 18, color: Colors.Primary}}>Constant</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    activeOpacity={0.8}
-                    style={styles.weightButton}
-                >
-                    <Text style={{fontSize: 18, color: Colors.Primary}}>Increasing</Text>
-                </TouchableOpacity>
-            </View>
-            <Text style={{textAlign: 'center'}}>How many reps should your athletes complete?</Text>
+            <Text style={{textAlign: 'center', marginVertical: 16}}>How many reps should your athletes complete?</Text>
+            <View style={{alignItems: 'flex-start'}}>
             {
-                ([...Array(5).keys()].map((_, i) => 
-                <View key={i} style={{marginVertical: 8}}>
-                    <ScrollWheel vals={[0, 5, 1]}></ScrollWheel>
+                ([...Array(setCount).keys()].map((_, i) => 
+                <View key={i} style={{marginVertical: 4, width: 300, flexDirection: 'row', alignItems: "center", overflow: 'hidden', borderColor: Colors.Primary, borderWidth: 1, borderRadius: 25}}>
+                      <View style={{alignItems: 'center', justifyContent: 'center', width: 50, height: 50}}>
+                          <Icon 
+                            onPress={() => setSetCount(setCount - 1)}
+                            name={'x'}
+                            size={20}
+                            color={Colors.Primary}
+                        />
+                        </View>
+                      <ScrollPicker
+                        data={[...Array(50).keys()]}
+                        />
                 </View>))
             }
+            <View style={{flexDirection: 'row', alignItems: 'flex-start',  marginVertical: 4}}>
+                <TouchableOpacity 
+                        activeOpacity={0.8}
+                        onPress={() => { if (setCount <= 4) setSetCount(setCount + 1) }}
+                        style={[styles.weightButton, setCount >= 5 ? {display: 'none'}: {}, {flexDirection: 'row', justifyContent: 'flex-start', width: 300, marginHorizontal: 0}]}
+                    >
+                    <Icon size={20} color={Colors.Primary} name='plus'></Icon>
+                    <Text style={{fontSize: 18, marginHorizontal: 16, color: Colors.Primary}}>Add set</Text>
+                </TouchableOpacity>
+            </View>
+            </View>
+
+
         </View>
         <TouchableOpacity 
             activeOpacity={0.8}
@@ -115,12 +144,8 @@ export default function CreateAssignmentForm(props) {
     return <>
         <SafeAreaView style={styles.safeAreaTop} />
         <SafeAreaView style={styles.safeAreaBottom}>
-            <View style={styles.header}>
-                <TouchableOpacity activeOpacity={0.8} style={styles.backButton} onPress={props.onCancel}>
-                    <Icon size={30} color={Colors.Primary} name='arrow-left'></Icon>
-                </TouchableOpacity>
-            </View>
-            <View style={{backgroundColor: Colors.Primary, flex: 1}}>
+            <Header onCancel={props.onCancel}></Header>
+            <View style={{backgroundColor: Colors.Background, flex: 1}}>
                 {exercise === null
                 ? <SelectExercise
                     onCancel={props.onCancel}
@@ -139,7 +164,7 @@ export default function CreateAssignmentForm(props) {
 const styles = StyleSheet.create({
     safeAreaTop: {
         flex: 0,
-        backgroundColor: Colors.Primary
+        backgroundColor: Colors.Surface
     },
     safeAreaBottom: {
         flex: 1,
@@ -157,11 +182,10 @@ const styles = StyleSheet.create({
         color: Colors.BackgroundContrast,
     },
     title: {
-        fontSize: 24,
-        color: Colors.BackgroundContrast,
+        fontSize: 30,
+        color: Colors.SurfaceContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
-        margin: 16,
     },
     surfaceTitle: {
         fontSize: 24,
@@ -174,11 +198,15 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Surface,
         padding: 10,
         height: 50,
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        width: 100,
-        borderTopRightRadius: 25,
-        borderBottomRightRadius: 25,
+        width: '95%',
+        borderTopLeftRadius: 25,
+        borderBottomLeftRadius: 25,
+        borderRightColor: Colors.Primary,
+        borderTopColor: Colors.Primary,
+        borderBottomColor: Colors.Primary,
         shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,
@@ -187,9 +215,11 @@ const styles = StyleSheet.create({
     },
     header: {
         width: '100%',
-        paddingTop: 10,
-        paddingBottom: 30,
-        backgroundColor: Colors.Primary
+        padding: 15,
+        borderColor: Colors.Primary,
+        borderBottomWidth: 2,
+        backgroundColor: Colors.Surface,
+        alignItems: 'flex-start',
     },
     weightButton: {
         borderColor: Colors.Primary,

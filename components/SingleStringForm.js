@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Keyboard, TouchableOpacity, Text, View, TextInput, ScrollView } from 'react-native';
 import Colors from '../utilities/Colors';
 
 /**
@@ -22,6 +22,7 @@ export default function CreateSingleStringForm(options) {
         function submitValues() {
             if (valid) {
                 props.onChange(options.field, value)
+                Keyboard.dismiss();
                 props.onCompleted()
             }
         }
@@ -35,6 +36,7 @@ export default function CreateSingleStringForm(options) {
                     onChangeText={(text) => setValue(text)}
                     autoCorrect={false}
                     keyboardAppearance='light'
+                    enablesReturnKeyAutomatically={true}
                     autoCapitalize={options.noCaps ? 'none' : 'sentences'}
                     onSubmitEditing={submitValues}
                 />
