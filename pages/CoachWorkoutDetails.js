@@ -13,7 +13,11 @@ function Assignment(props) {
                 <View>
                     <Text style={{fontSize: 18}}>{props.assignment.name}</Text>
                 </View>
-                <Icon size={30} color={Colors.Primary} name={'more-horizontal'}/>
+                <Icon 
+                    name={'more-horizontal'}
+                    size={30}
+                    color={Colors.Primary}
+                />
             </View>
         </View>
     )
@@ -24,51 +28,51 @@ function Header(props) {
         <View style={styles.header}>
             <View style={{flexDirection: 'row', width: '100%', marginBottom: 16, alignItems: 'center', justifyContent: 'space-between'}}>
                 <Icon 
+                    name={'arrow-left'}
                     size={30}
                     onPress={props.onBack}
                     color={Colors.SurfaceContrast}
-                    name={'arrow-left'}
                 />
                 <Text style={styles.title}>Details</Text>
                 <Icon 
+                    name={'check'}
                     size={30}
                     onPress={props.onFinish}
                     color={Colors.SurfaceContrast}
-                    name={'check'}
                 />
             </View>
             <View style={[styles.borderedSection, {flexDirection: 'row'}]}>
                 <View  style={{flexDirection: 'row'}}>
                     <Icon
+                        name={'calendar'}
                         onPress={props.onAddExercise}
                         size={18}
                         color={Colors.SurfaceContrast}
-                        name={'calendar'}
                     />
                     <Text style={[styles.subtitle, {marginLeft: 8}]}>{props.options.created}</Text>
                 </View>
                 <Icon
+                    name={'more-horizontal'}
                     onPress={props.onAddExercise}
                     size={18}
                     color={Colors.SurfaceContrast}
-                    name={'more-horizontal'}
                 />
             </View>
             <View style={[styles.section, {flexDirection: 'row'}]}>
                 <View  style={{flexDirection: 'row'}}>
                     <Icon
+                        name={'repeat'}
                         onPress={props.onAddExercise}
                         size={18}
                         color={Colors.SurfaceContrast}
-                        name={'repeat'}
                     />
                     <Text style={[styles.subtitle, {marginLeft: 8}]}>{props.options.repeat}</Text>
                 </View>
                 <Icon
+                    name={'more-horizontal'}
                     onPress={props.onAddExercise}
                     size={18}
                     color={Colors.SurfaceContrast}
-                    name={'more-horizontal'}
                 />
             </View>
         </View>
