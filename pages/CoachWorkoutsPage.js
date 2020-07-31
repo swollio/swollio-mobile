@@ -6,7 +6,6 @@ import { getWorkoutsForTeam } from '../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
 import CoachWorkoutDetails from './CoachWorkoutDetails'
 import CreateWorkoutForm from './CreateWorkoutForm'
-
 export default function CoachWorkoutsPage(props) {
 
     const [workouts, setWorkouts] = useState(null);
@@ -20,7 +19,15 @@ export default function CoachWorkoutsPage(props) {
         <>
             <View style={styles.header}>
                 <Text style={styles.title}>Workouts</Text>
-                <Icon onPress={() => props.push(<CreateWorkoutForm onCreate={(w) => {console.log(w); props.pop()}} onCancel={() => props.pop()}></CreateWorkoutForm>)} size={40} color={Colors.PrimaryContrast} name={'plus'}/>
+                <Icon onPress={() => props.push(
+                    <CreateWorkoutForm
+                        onCreate={(w) => {console.log(w); props.pop()}}
+                        onCancel={() => props.pop()}
+                        options={null}
+                    />
+ 
+                    )}
+                    size={40} color={Colors.PrimaryContrast} name={'plus'}/>
             </View>
             <ScrollView padding={10}>
                 {  (workouts === null && <Text style={styles.watermark}>Loading...</Text>)
@@ -28,12 +35,12 @@ export default function CoachWorkoutsPage(props) {
                 || (workouts.map((workout) =>
                         <Card barColor={Colors.Primary} key={workout.id}>
                             <TouchableOpacity onPress={() => props.push(
-                                <CoachWorkoutDetails 
-                                    pop={() => props.pop()}
-                                    push={(x) => props.push(x)}
-                                    user={props.user}
-                                    workout={workout}
+                                <CreateWorkoutForm
+                                    onCreate={(w) => {console.log(w); props.pop()}}
+                                    onCancel={() => props.pop()}
+                                    options={workouts}
                                 />
+                            
                             )}>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <View style={{justifyContent: 'space-around'}}>
