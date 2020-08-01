@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, ScrollView } from 'react-native';
-import Colors from '../utilities/Colors';
-import { Card } from '../components/Components'
-import { getWorkoutsForTeam } from '../utilities/api'
+import Colors from '../../utilities/Colors';
+import { Card } from '../../components/Components'
+import { getWorkoutsForTeam } from '../../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
-import CoachWorkoutDetails from './CoachWorkoutDetails'
 import CreateWorkoutForm from './CreateWorkoutForm'
-import { postWorkoutForTeam } from '../utilities/api'
+import { postWorkoutForTeam } from '../../utilities/api'
 
-export default function CoachWorkoutsPage(props) {
+export default function WorkoutsPage(props) {
 
     const [workouts, setWorkouts] = useState(null);
     

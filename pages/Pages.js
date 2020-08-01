@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
-import UserPage from './UserPage'
-import CoachPage from './CoachPage'
-import CoachWorkoutsPage from './CoachWorkoutsPage'
-import WorkoutsPage from './WorkoutsPage'
+
+import AthletePage from './athletes/UserPage'
+import CoachPage from './coach/AthletesPage'
+
+import CoachWorkoutsPage from './coach/WorkoutsPage'
+import AthleteWorkoutsPage from './athletes/WorkoutsPage'
+
 import StatisticsPage from './StatisticsPage'
+
 import PageView from '../containers/PageView'
-import Colors from '../utilities/Colors';
+
 import { current_user } from '../utilities/api'
 
 export default function UserPageView(props) {
@@ -21,6 +25,8 @@ export default function UserPageView(props) {
         props.onNeedsAccountSetup();
     }
     
+    console.log(data)
+    
     return data === null && <View><Text>Loading...</Text></View>
         || data.athlete_id && <AthletePageView user={data} />
         || data.team_id && <CoachPageView user={data} />
@@ -30,10 +36,10 @@ export default function UserPageView(props) {
 function AthletePageView(props) {
     return (
         <PageView user={props.user} pages={[{
-            content: UserPage,
+            content: AthletePage,
             icon: 'user'
         }, {
-            content: WorkoutsPage,
+            content: AthleteWorkoutsPage,
             icon: 'clipboard'
         }, {
             content: StatisticsPage,

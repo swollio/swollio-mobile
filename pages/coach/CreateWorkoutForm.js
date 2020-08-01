@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType, ScrollView} from 'react-native';
-import Colors from '../utilities/Colors';
+import Colors from '../../utilities/Colors';
 
 import CreateAssignmentForm from './CreateAssignmentForm'
-import DatePicker from '../components/DatePicker';
+import DatePicker from '../../components/DatePicker';
 
-import { CreateSingleStringForm } from '../components/Components';
-import FormContainer from '../containers/FormContainer'
-import CoachWorkoutsDetails from './CoachWorkoutDetails'
+import { CreateSingleStringForm } from '../../components/Components';
+import FormContainer from '../../containers/FormContainer'
+import WorkoutDetails from './WorkoutDetails'
+
 export const WorkoutNameForm = CreateSingleStringForm({
     title: 'Choose Name.',
     subtitle: 'Enter the workout name.',
@@ -51,10 +52,10 @@ function SolidButton(props) {
                 margin: 5,
                 justifyContent: 'center',
                 borderRadius: 25
-            }, !props.enabled ? {
+            }, props.disabled ? {
                 backgroundColor: Colors.Background,
             }: {}]}
-            onPress={() => props.enabled && props.onPress()}
+            onPress={() => !props.disabled && props.onPress()}
         >
             <Text style={{fontSize: 16, color: Colors.PrimaryContrast}}>{props.text}</Text>
         </TouchableOpacity>
@@ -68,7 +69,6 @@ function WorkoutDateForm(props) {
                 <SolidButton 
                     width={200}
                     text={'Continue'}
-                    enabled={true}
                     onPress={() => props.onCompleted()}
                 />
             </View>
@@ -115,7 +115,6 @@ export function WorkoutCreatedForm(props) {
             <Text style={[styles.title, {marginBottom: 20}]}>Your workout has been created.</Text>
             <Text style={styles.subtitle}>You can now add exercises to the workout</Text>
             <SolidButton
-                enabled={true}
                 text={"Continue"}
                 onPress={props.onCompleted}
             />
@@ -127,12 +126,7 @@ export default function CreateWorkoutForm(props) {
     const [options, setOptions] = useState(props.options);
     const [assignments, setAssignments] = useState([]);
     const [creationState, setCreationState] = useState(0)
-    
-    useEffect(() => {
-        if (data === null) 
-            getAthletesForTeam(props.user.team_id).then(data => setData(data));
-    });
-
+  
     if (options === null) {
         return (
             <FormContainer
@@ -147,13 +141,13 @@ export default function CreateWorkoutForm(props) {
         );
     } else {
         return creationState == 0 ?
-        <CoachWorkoutsDetails 
+        <WorkoutDetails 
             options={options}
             assignments={assignments}
             onCreate={() => props.onCreate({...options, assignments})}
             onCancel={() => props.onCancel()}
             onAddExercises={() => setCreationState(1)}>
-        </CoachWorkoutsDetails> :
+        </WorkoutDetails> :
         <CreateAssignmentForm
             onCancel={() => setCreationState(0)}
             onCreate={(assignment) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType, ScrollView} from 'react-native';
-import Colors from '../utilities/Colors';
-import { searchExercisesByName } from '../utilities/api'
+import Colors from '../../utilities/Colors';
+import { searchExercisesByName } from '../../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
 
 function Header(props) {

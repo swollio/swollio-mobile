@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import Colors from '../utilities/Colors';
-import { Card } from '../components/Components'
-import { getWorkoutsForAthlete } from '../utilities/api'
+import Colors from '../../utilities/Colors';
+import { Card } from '../../components/Components'
+import { getWorkoutsForAthlete } from '../../utilities/api'
 
 export default function WorkoutsPage(props) {
 

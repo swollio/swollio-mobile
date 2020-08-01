@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native'
-import Colors from '../utilities/Colors'
-import { searchExercisesByName } from '../utilities/api'
+import Colors from '../../utilities/Colors'
+import { searchExercisesByName } from '../../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
-import ScrollPicker from '../components/ScrollPicker';
+import ScrollPicker from '../../components/ScrollPicker';
 
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
