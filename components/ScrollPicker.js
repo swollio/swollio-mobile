@@ -27,6 +27,13 @@ export default class ScrollPicker extends Component {
             ref={(ref) => { this.flatListRef = ref; }}
             initialScrollIndex={5}
             onViewableItemsChanged={this.onViewableItemsChanged}
+            showsHorizontalScrollIndicator={false}
+            viewabilityConfig={this.viewabilityConfig}
+            pagingEnabled={true}
+            horizontal={true}
+            bounces={false}
+            keyExtractor={(data, index) => index.toString()}
+            getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
             renderItem={({ item, index }) => 
             <TouchableOpacity 
                 activeOpacity={0.8}
@@ -42,11 +49,6 @@ export default class ScrollPicker extends Component {
                 </View>
             </TouchableOpacity>
             }
-            showsHorizontalScrollIndicator={false}
-            viewabilityConfig={this.viewabilityConfig}
-            pagingEnabled={true}
-            horizontal={true}
-            getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
             />
     }
 }
