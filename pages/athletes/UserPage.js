@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
         padding: 15,
         paddingLeft: 20,
         paddingBottom: 20,
-        backgroundColor: Colors.Red,
+        backgroundColor: Colors.Primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
     },
     title: {
         fontSize: 32,
-        color: Colors.White,
+        color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
     }

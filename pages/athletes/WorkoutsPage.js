@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Colors from '../../utilities/Colors';
-import { Card } from '../../components/Components'
+import { Card, WorkoutCover } from '../../components/Components'
 import { getWorkoutsForAthlete } from '../../utilities/api'
+import WorkoutProgress from './WorkoutProgress'
 
 export default function WorkoutsPage(props) {
 
@@ -10,7 +11,30 @@ export default function WorkoutsPage(props) {
     
     useEffect(() => {
         if (workouts === null)
-            getWorkoutsForAthlete(props.user.athlete_id).then(data => setWorkouts(data) );
+            getWorkoutsForAthlete(props.user.athlete_id).then(data => {
+                setWorkouts(data);
+            });
+    });
+    console.log(workouts)
+
+    // This makes a list of WorkoutCover Cards that tell the user metadat
+    // about the workout
+    const WorkoutCovers = (workouts || []).map((workout, index) => {
+        return (
+            <WorkoutCover 
+                key={index} 
+                color={Colors.Primary} 
+                title={workout.workout_name} 
+                repeat={workout.repeat}
+                created={workout.created}
+                onStartWorkout={() => props.push(() => <WorkoutProgress 
+                    pop={props.pop}
+                    push={props.push}
+                    workout={workout}
+                    user={props.user}
+                />)}
+            />
+        );
     });
 
     return (
@@ -18,20 +42,19 @@ export default function WorkoutsPage(props) {
             <View style={styles.header}>
                 <Text style={styles.title}>Workouts</Text>
             </View>
-            <ScrollView>
+            <ScrollView padding={10} >
                 {  (workouts === null && <Text style={styles.watermark}>Loading...</Text>)
-                || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
-                || (workouts.map((workout) =>
-                        <Card barColor={Colors.Green} key={workout.id}>
-                            <Text>{workout.workout_name}</Text>
-                            <Text>Team: {workout.team_name}</Text>
-                            <Text>Repeat: {workout.repeat}</Text>
-                        </Card>
-                ))}
+                    || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
+                    || WorkoutCovers 
+                }
             </ScrollView>
         </>
     )
 }
+
+/*
+
+*/
 
 const styles = StyleSheet.create({
     header: {
@@ -39,19 +62,19 @@ const styles = StyleSheet.create({
         padding: 15,
         paddingLeft: 20,
         paddingBottom: 20,
-        backgroundColor: Colors.Green,
+        backgroundColor: Colors.Primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
     },
     watermark: {
         textAlign: 'center',
         fontSize: 24,
-        color: Colors.Grey,
+        color: Colors.SurfaceContrast2,
         margin: 50,
     },
     title: {
         fontSize: 32,
-        color: Colors.White,
+        color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
     }

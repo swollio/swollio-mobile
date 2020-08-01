@@ -7,3 +7,5 @@ export { default as Card } from './Cards/Card';
 export { default as WorkoutCard } from './Cards/WorkoutCard';
 export { default as DataCard } from './Cards/DataCard';
 export { default as ProgressBar } from './ProgressBar';
+export { default as WorkoutCover } from './Cards/WorkoutCover';
+export { default as OptionButton } from './OptionButton';

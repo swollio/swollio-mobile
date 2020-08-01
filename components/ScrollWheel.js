@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         height: 46,
         borderRadius: 23,
         borderWidth: 1, 
-        borderColor: Colors.SurfaceContrast,
+        borderColor: Colors.Primary,
         justifyContent: 'center', 
         alignItems: 'center',
         alignContent: 'center'
@@ -123,12 +123,12 @@ const styles = StyleSheet.create({
     },
     selectedScrollText: {
         textAlign: "center", 
-        color: Colors.SurfaceContrast,
+        color: Colors.PrimaryContrast,
         fontSize: 24,
     },
     unselectedScrollText: {
         textAlign: "center", 
-        color: Colors.Background,
+        color: Colors.SurfaceContrast,
         fontSize: 20
     },
     nextSelectedScrollText: {
