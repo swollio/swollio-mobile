@@ -18,13 +18,28 @@ import React, { Component } from 'react'
  */
 export default class StackContainer extends Component {
 
-    state = {
-        stack: [this.props.rootView]
+    constructor(props) {
+        super(props);
+        const RootView = this.props.rootView;
+        this.state = {
+            stack: [
+                <RootView 
+                    push={(CustomElement) => this.push(CustomElement)}
+                    pop={() => this.pop()}
+                />
+            ] 
+        };
     }
 
     push(CustomElement) {
         this.setState({
-            stack: [CustomElement, ...this.state.stack]
+            stack: [
+                <CustomElement
+                    push={(CustomElement) => this.push(CustomElement)}
+                    pop={() => this.pop()}
+                />,
+                ...this.state.stack
+            ]
         })
     };
 
@@ -37,13 +52,7 @@ export default class StackContainer extends Component {
     }
 
     render() {
-        const CustomElement = this.state.stack[0];
-        return (
-            <CustomElement
-                push={(CustomElement) => this.push(CustomElement)}
-                pop={() => (this.pop())}
-            />
-        )
+        return this.state.stack[0];
     }
    
 }
