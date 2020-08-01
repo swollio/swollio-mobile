@@ -19,7 +19,6 @@ export default function SelectExercises(props) {
     
     useEffect(() => {
         searchExercisesByName(searchTerm).then(data => {
-            console.log(data)
             setExerciseResults(data)
         });
     }, [searchTerm]);

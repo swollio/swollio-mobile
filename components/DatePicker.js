@@ -11,7 +11,6 @@ export default class ScrollPicker extends Component {
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
         var day = dateObj.getUTCDate();
 
-        console.log({month, day})
         this.state = {
             monthSelected: month,
             daySelected: day
