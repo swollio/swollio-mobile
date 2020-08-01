@@ -116,6 +116,7 @@ export default class FormContainer extends Component {
 const styles = StyleSheet.create({
     formContainer: {
         alignItems: 'center',
+        backgroundColor: Colors.Surface,
         justifyContent: 'space-between',
         height: '100%',
         paddingVertical: 48,

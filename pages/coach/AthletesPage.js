@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import Colors from '../utilities/Colors';
-import { getAthletesForTeam } from '../utilities/api'
-import Card from '../components/Cards/Card'
+import Colors from '../../utilities/Colors';
+import { getAthletesForTeam } from '../../utilities/api'
+import Card from '../../components/Cards/Card'
 import Icon from 'react-native-vector-icons/Feather';
 
 function getFullName(user) {

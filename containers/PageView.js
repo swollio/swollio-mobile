@@ -20,8 +20,6 @@ function Navigation(props) {
 export default function PageView(props) {
 
     const [pageIndex, switchPage] = useState(0);
-    const [stack, setStack] = useState([]);
- 
     const currentPage = props.pages[pageIndex]
     const Content = currentPage.content;
 
@@ -31,15 +29,10 @@ export default function PageView(props) {
             <SafeAreaView style={styles.safeAreaBottom}>
                 <StatusBar barStyle="light-content" />
                 <View style={styles.container}>
-                    {
-                        stack.length !== 0 ? stack[0]:
+                   
                         <>
                             <View  style={{flex: 1}}>
-                                <Content 
-                                    push={(x) => setStack([x, ...stack])}
-                                    pop={() => setStack(stack.slice(1))}
-                                    user={props.user}
-                                />
+                                <Content {...props}/>
                             </View>
                             <Navigation
                                 currentIndex={pageIndex}
@@ -47,7 +40,7 @@ export default function PageView(props) {
                                 pages={props.pages}
                             />
                         </>
-                    }
+     
                 </View>
             </SafeAreaView>
         </>

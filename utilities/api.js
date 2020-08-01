@@ -169,3 +169,8 @@ export function getAthletesForTeam(team_id) {
 export function searchExercisesByName(name) {
     return get(`exercises?search=${name}`).then(result => result.json())
 }
+
+
+export function postWorkoutForTeam(team_id, workout) {
+    return post(`teams/${team_id}/workouts`, workout)
+}
