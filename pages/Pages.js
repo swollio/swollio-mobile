@@ -22,9 +22,7 @@ export default function UserPageView(props) {
     if (data !== null && !data.athlete_id && !data.team_id) {
         props.onNeedsAccountSetup();
     }
-    
-    console.log(data)
-    
+        
     if (data === null) {
         return <View><Text>Loading...</Text></View>
     } else if (data.athlete_id !== null) {

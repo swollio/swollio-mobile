@@ -11,7 +11,6 @@ export default function WorkoutsPage(props) {
 
     const [workouts, setWorkouts] = useState(null);
     
-    
     useEffect(() => {
         if (workouts === null)
             getWorkoutsForTeam(props.user.team_id).then(data => setWorkouts(data) );
@@ -21,7 +20,7 @@ export default function WorkoutsPage(props) {
         <>
             <View style={styles.header}>
                 <Text style={styles.title}>Workouts</Text>
-                <Icon onPress={() => props.push((props) =>
+                <Icon onPress={() => props.push(() =>
                     <CreateWorkoutForm {...props}
                         onCreate={(w) => {
                             postWorkoutForTeam(props.user.team_id, w).then(() => {

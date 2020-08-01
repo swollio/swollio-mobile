@@ -127,6 +127,7 @@ export default function CreateWorkoutForm(props) {
     const [assignments, setAssignments] = useState([]);
     const [creationState, setCreationState] = useState(0)
   
+
     if (options === null) {
         return (
             <FormContainer
@@ -139,22 +140,22 @@ export default function CreateWorkoutForm(props) {
                 ]}
             />
         );
-    } else {
-        return creationState == 0 ?
-        <WorkoutDetails 
+    } else if (creationState === 0) {
+        return (<WorkoutDetails 
             options={options}
             assignments={assignments}
             onCreate={() => props.onCreate({...options, assignments})}
             onCancel={() => props.onCancel()}
             onAddExercises={() => setCreationState(1)}>
-        </WorkoutDetails> :
-        <CreateAssignmentForm
+        </WorkoutDetails>);
+    } else {
+        return (<CreateAssignmentForm
             onCancel={() => setCreationState(0)}
             onCreate={(assignment) => {
                 setAssignments([...assignments, assignment])
                 setCreationState(0);
             }}
-        />
+        />);
     }
 }
 

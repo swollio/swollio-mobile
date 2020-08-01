@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { View } from 'react-native'
+import React, { Component } from 'react'
 
 /**
  * StackContainer handles the logic of using stack based navigation.
@@ -17,10 +16,43 @@ import { View } from 'react-native'
  * 
  * ``` pop() ```
  */
-export default function StackContainer (props) {
-    const [stack, setStack] = useState([props.rootView])
-    const Current = stack[0];
-    const push = (CustomElement) => setStack([CustomElement, ...stack]);
-    const pop = () => stack.length > 1 && setStack(stack.slice(1));
-    return <Current push={push} pop={pop} />
+export default class StackContainer extends Component {
+
+    constructor(props) {
+        super(props);
+        const RootView = this.props.rootView;
+        this.state = {
+            stack: [
+                <RootView 
+                    push={(CustomElement) => this.push(CustomElement)}
+                    pop={() => this.pop()}
+                />
+            ] 
+        };
+    }
+
+    push(CustomElement) {
+        this.setState({
+            stack: [
+                <CustomElement
+                    push={(CustomElement) => this.push(CustomElement)}
+                    pop={() => this.pop()}
+                />,
+                ...this.state.stack
+            ]
+        })
+    };
+
+    pop() {
+        if (this.state.stack.length > 1) {
+            this.setState({
+                stack: this.state.stack.slice(1)
+            })
+        }
+    }
+
+    render() {
+        return this.state.stack[0];
+    }
+   
 }
