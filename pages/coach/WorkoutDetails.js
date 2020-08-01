@@ -24,7 +24,7 @@ import Colors from '../../utilities/Colors';
  *      weight_scheme: string
  *   }[]
  */
-export default function WorkoutsDetails(props) {
+export default function WorkoutDetails(props) {
     
     return (
         <>

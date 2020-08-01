@@ -15,7 +15,7 @@ function Assignment(props) {
 
 export default function WorkoutDetailsAssignments(props) {
     return (
-        <ScrollView style={{paddingBottom: 100}}>
+        <ScrollView style={{width: '100%', paddingBottom: 100}}>
             {props.assignments.map((a, i) =>
                 <Assignment key={i} assignment={a} />
             )}
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     assignmentText: {
         fontSize: 18,
-        Colors: Colors.SurfaceContrast,
+        color: Colors.SurfaceContrast,
     },
     assignment: {
         flexDirection: 'row',

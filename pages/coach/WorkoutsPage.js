@@ -21,8 +21,8 @@ export default function WorkoutsPage(props) {
         <>
             <View style={styles.header}>
                 <Text style={styles.title}>Workouts</Text>
-                <Icon onPress={() => props.push(
-                    <CreateWorkoutForm
+                <Icon onPress={() => props.push((props) =>
+                    <CreateWorkoutForm {...props}
                         onCreate={(w) => {
                             postWorkoutForTeam(props.user.team_id, w).then(() => {
                                 props.pop()
@@ -42,8 +42,8 @@ export default function WorkoutsPage(props) {
                 || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
                 || (workouts.map((workout) =>
                         <Card barColor={Colors.Primary} key={workout.id}>
-                            <TouchableOpacity onPress={() => props.push(
-                                <CreateWorkoutForm
+                            <TouchableOpacity onPress={() => props.push((props) =>
+                                <CreateWorkoutForm {...props}
                                     onCreate={(w) => {
                                         console.log(w)
                                         props.pop()

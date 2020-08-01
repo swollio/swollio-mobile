@@ -20,7 +20,7 @@ import { View } from 'react-native'
 export default function StackContainer (props) {
     const [stack, setStack] = useState([props.rootView])
     const Current = stack[0];
-    const push = (V) => setStack([V, ...stack]);
-    const pop = (V) => stack.length > 1 && setStack(stack.slice(1));
+    const push = (CustomElement) => setStack([CustomElement, ...stack]);
+    const pop = () => stack.length > 1 && setStack(stack.slice(1));
     return <Current push={push} pop={pop} />
 }
