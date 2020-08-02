@@ -1,14 +1,35 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Colors from '../../utilities/Colors';
-import ScrollWheel from '../ScrollWheel';
 import Card from './Card';
+import DecrementButton from '../DecrementButton';
 import CircularButton, { CircularTextButton } from '../CircularButton'
 import Icon from 'react-native-vector-icons/Feather';
 import ScrollPicker from '../ScrollPicker'
 
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+}
+
+/**
+ * This component is a controller for a single 'row' in the WorkoutCard
+ * container. It allows users to mark a set completed, change the weight,
+ * and change the reps.
+ */
+function SingleSetRow(props) {
+
+    return (
+    <View style={[styles.rows, {justifyContent: 'space-between', alignItems: 'center'}]}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <DecrementButton onChange={props.onChangeReps} style={{ paddingHorizontal: 8, backgroundColor: Colors.Primary }} val={props.reps} />
+            <Icon style={{marginHorizontal: 8}} size={24} name={'x'}></Icon>
+            <TouchableOpacity onPress={props.onEdit} style={{borderColor: Colors.Primary, borderWidth: 1, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16}}>
+                <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>{props.weight} lbs.</Text>
+            </TouchableOpacity>
+        </View>
+        <CircularButton onPress={() => {}} radius={25} toggle={true} fontSize={20} icon={'check'}></CircularButton>
+    </View>
+    )
 }
 
 /**
@@ -20,65 +41,36 @@ function capitalize(text) {
  */
 export default function WorkoutCard(props) {
 
-    const [edit, setEdit] = useState(false);
+    const defaultWeight = 60;
+    const [repsCompleted, setRepsCompleted] = useState(props.sets);
+    const [weights, setWeights] = useState(props.sets.map((set => defaultWeight)));
+    const [editedSetIndex, setEditedSetIndex] = useState(-1);
     const [chooseAlternatives, setChooseAlternatives] = useState(false);
-    const [completed, setCompleted] = useState(0);
 
     // Defining a constant which will make the appropriate amount
     // of scroll wheel rows
-    
-    let alternatives = []
-    
-    let rows;
+    const rowsView = props.sets.map((set, index) => {
+        return <SingleSetRow 
+            key={index}
+            weight={weights[index]}
+            reps={repsCompleted[index]}
+            onChangeReps={(reps) => {
+                console.log(reps)
+                repsCompleted[index] = reps;
+                setRepsCompleted(repsCompleted);
+            }}
+            onEdit={() => setEditedSetIndex(index)}
+        />
+    });
 
-    if (!edit) {
-
-        rows = props.scrollVals.map((arr, index) => {
-
-       
-            return (
-                <View key={index} style={[styles.rows, {justifyContent: 'space-between', alignItems: 'center'}]}>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={{backgroundColor: Colors.Primary, height: 50, width: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8}}>
-                        <Text style={{fontSize: 22, color: Colors.PrimaryContrast, textAlign: 'center'}}>10</Text>
-                    </View>
-                    <Icon style={{marginHorizontal: 8}} size={24} name={'x'}></Icon>
-                    <TouchableOpacity onPress={() => setEdit(!edit)} style={{borderColor: Colors.Primary, borderWidth: 1, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16}}>
-                        <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>45 lbs.</Text>
-                    </TouchableOpacity>
-                    </View>
-
-                    <CircularButton onPress={() => setCompleted(completed + 1)} radius={25} toggle={true} fontSize={20} icon={'check'}></CircularButton>
-                </View>
-            );
-        });
-
-    } else {
-        rows = <View style={{width: '100%', alignItems: 'center', paddingVertical: 20}}>
-            <ScrollPicker data={[...Array(100).keys()].map(x => (x + 1) * 5)}/>
-            <TouchableOpacity onPress={() => setEdit(!edit)} style={{marginTop: 20, borderColor: Colors.Primary, borderWidth: 1, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16}}>
-                        <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Set Weight</Text>
-                    </TouchableOpacity>
-            </View>
-        /*
-        return (
-            <View key={index} style={[styles.rows, {justifyContent: 'space-between'}]}>
-                <CircularTextButton radius={22} title={'10x'}></CircularTextButton>
-                <ScrollWheel vals={arr} selectColor={props.selectColor} onChange={props.onChange} />
-                <CircularButton onPress={() => {}} radius={20} toggle={true} fontSize={20} icon={'check'}></CircularButton>
-            </View>
-        );*/
-        }
-        /**/
-        /*
-        return (
-            <View key={index} style={styles.rows}>
-                <CircularTextButton radius={24} title={10}></CircularTextButton>
-                <View style={{width: 16}}></View>
-                <ScrollWheel vals={arr} selectColor={props.selectColor} onChange={props.onChange} />
-            </View>
-        );*/
-   
+    const editView = editedSetIndex === -1 ? <></> :
+    <View style={{width: '100%', alignItems: 'center', paddingVertical: 20}}>
+        <ScrollPicker initialValue={weights[editedSetIndex]} onChange={weight => {weights[editedSetIndex] = weight; setWeights(weights)}} data={[...Array(100).keys()].map(x => (x + 1) * 5)}/>
+        <TouchableOpacity onPress={() => setEditedSetIndex(-1)} style={styles.setWeight}>
+            <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Set Weight</Text>
+        </TouchableOpacity>
+    </View>
+  
 
     return(
         <Card barColor={props.barColor}>
@@ -90,7 +82,7 @@ export default function WorkoutCard(props) {
                     <Icon onPress={() => setChooseAlternatives(!chooseAlternatives)} style={{width: 60, textAlign: 'center'}} size={24} name={'menu'}></Icon>
                 }
             </View>
-            { chooseAlternatives ? alternatives: rows}
+            { editedSetIndex == -1 ? rowsView: editView}
         </Card>
     );
 }
@@ -108,5 +100,15 @@ const styles = StyleSheet.create({
         borderColor: '#EEE',
         borderTopWidth: 1,
         padding: 5,
+    },
+    setWeight: {
+        marginTop: 20, 
+        borderColor: Colors.Primary, 
+        borderWidth: 1, 
+        height: 50, 
+        borderRadius: 25, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        paddingHorizontal: 16
     }
 });

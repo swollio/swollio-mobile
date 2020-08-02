@@ -6,9 +6,11 @@ export default class ScrollPicker extends Component {
     
     constructor(props) {
         super(props);
+
         this.state = {
-            selected: 5
+            selected: this.props.data.findIndex((weight) => weight == this.props.initialValue)
         }
+
         this.viewabilityConfig = {
             itemVisiblePercentThreshold: 50
         };
@@ -18,6 +20,7 @@ export default class ScrollPicker extends Component {
         this.setState({
             selected: viewableItems[2].index,
         })
+        this.props.onChange(viewableItems[2].item)
     }
     
     render() {
@@ -25,12 +28,12 @@ export default class ScrollPicker extends Component {
             style={{width: 300, height: 60, overflow: 'hidden'}}
             data={['', '', ...this.props.data, '', '']}
             ref={(ref) => { this.flatListRef = ref; }}
-            initialScrollIndex={5}
+            initialScrollIndex={this.state.selected}
             onViewableItemsChanged={this.onViewableItemsChanged}
             showsHorizontalScrollIndicator={false}
             viewabilityConfig={this.viewabilityConfig}
-            pagingEnabled={true}
             horizontal={true}
+            snapToInterval={60}
             bounces={false}
             keyExtractor={(data, index) => index.toString()}
             getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}

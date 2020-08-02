@@ -27,10 +27,9 @@ export default function ButtonRow(props) {
         
         // If not, go back to an allButtonsOff array
         // and only turn the button that is pressed on
-        const newStates = allButtonsOff;
-        newStates[index] = true;
+        allButtonsOff[index] = true;
 
-        setStates(newStates);
+        setStates(allButtonsOff);
 
         // Since the button is toggled, and if there is an onChange
         // action passed into this component, execute it at the change

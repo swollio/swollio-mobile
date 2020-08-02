@@ -22,12 +22,9 @@ export default function WorkoutProgress(props) {
         return (
             <WorkoutCard 
                 key = {index}
-                scrollVals = {
-                    [[5, 35, 5, 2],
-                    [5, 35, 5, 2],
-                    [5, 35, 5, 2],
-                    [5, 35, 5, 2],
-                    [5, 35, 5, 2],]}
+                sets = {[
+                    10, 10, 10, 10, 10
+                ]}
                 selectColor = {Colors.Primary}
                 barColor = {Colors.Primary}
                 title={assignment.name}
