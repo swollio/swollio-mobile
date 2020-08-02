@@ -44,7 +44,7 @@ export default function WorkoutProgress(props) {
                 />
                 <Text style={styles.headerText}>Workout</Text>
                 <Icon 
-                    name={'star'}
+                    name={'check'}
                     style={styles.headerIcon}
                     onPress={props.pop}
                 />

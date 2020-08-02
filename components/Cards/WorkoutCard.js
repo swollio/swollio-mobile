@@ -71,7 +71,6 @@ export default function WorkoutCard(props) {
         </TouchableOpacity>
     </View>
   
-
     return(
         <Card barColor={props.barColor}>
             <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
