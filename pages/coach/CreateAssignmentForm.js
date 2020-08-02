@@ -74,8 +74,8 @@ function SelectExercise(props) {
 }
 
 function SelectWeightAndSets(props) {
-    const [weightScheme, setWeightScheme] = useState('');
-    const [setCount, setSetCount] = useState(0);
+    
+    const [reps, setReps] = useState([])
 
     return <View style={{flex: 1, padding: 24, justifyContent: 'space-between', backgroundColor: Colors.Surface, borderTopRightRadius: 20, borderTopLeftRadius: 20, alignItems: 'center'}}>
         <View style={{width: '100%', alignItems: 'center'}}>
@@ -83,26 +83,30 @@ function SelectWeightAndSets(props) {
             <Text style={{textAlign: 'center', marginVertical: 16}}>How many reps should your athletes complete?</Text>
             <View style={{alignItems: 'flex-start'}}>
             {
-                ([...Array(setCount).keys()].map((_, i) => 
-                <View key={i} style={{marginVertical: 4, width: 300, flexDirection: 'row', alignItems: "center", overflow: 'hidden', borderColor: Colors.Primary, borderWidth: 1, borderRadius: 25}}>
-                      <View style={{alignItems: 'center', justifyContent: 'center', width: 50, height: 50}}>
+                (reps.map((repCount, i) => 
+                <View key={i + '-' + repCount} style={{marginVertical: 4, width: 355, flexDirection: 'row', alignItems: "center", overflow: 'hidden', borderColor: Colors.Primary, borderWidth: 1, borderRadius: 30}}>
+                      <TouchableOpacity 
+                      activeOpacity={0.8}
+                        onPress={() => {setReps([...reps.slice(0, i), ...reps.slice(i + 1, reps.length)])}}
+                        style={{alignItems: 'center', justifyContent: 'center', width: 50, height: 60}}>
                           <Icon 
-                            onPress={() => setSetCount(setCount - 1)}
                             name={'x'}
                             size={20}
                             color={Colors.Primary}
                         />
-                        </View>
+                        </TouchableOpacity>
                       <ScrollPicker
-                        data={[...Array(50).keys()]}
-                        />
+                        initialValue={repCount}
+                        data={[...Array(100).keys()]}
+                        onChange={x => {reps[i] = x; setReps(reps)}}
+                    />
                 </View>))
             }
             <View style={{flexDirection: 'row', alignItems: 'flex-start',  marginVertical: 4}}>
                 <TouchableOpacity 
                         activeOpacity={0.8}
-                        onPress={() => { if (setCount <= 4) setSetCount(setCount + 1) }}
-                        style={[styles.weightButton, setCount >= 5 ? {display: 'none'}: {}, {flexDirection: 'row', justifyContent: 'flex-start', width: 300, marginHorizontal: 0}]}
+                        onPress={() => { if (reps.length <= 4) setReps([...reps, 5]) }}
+                        style={[styles.weightButton, reps.length >= 5 ? {display: 'none'}: {}, {flexDirection: 'row', justifyContent: 'flex-start', width: 300, marginHorizontal: 0}]}
                     >
                     <Icon size={20} color={Colors.Primary} name='plus'></Icon>
                     <Text style={{fontSize: 18, marginHorizontal: 16, color: Colors.Primary}}>Add set</Text>
@@ -119,7 +123,7 @@ function SelectWeightAndSets(props) {
                 exercise_id: props.exercise.id,
                 name: props.exercise.name,
                 weight_scheme: 'constant',
-                rep_count: []
+                rep_count: reps
             })}
         >
             <Text style={{color: Colors.PrimaryContrast}}>Add to Workout</Text>
