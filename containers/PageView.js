@@ -31,7 +31,7 @@ export default function PageView(props) {
                 <View style={styles.container}>
                    
                         <>
-                            <View  style={{flex: 1}}>
+                            <View  style={{flex: 1, height: '100%'}}>
                                 <Content {...props}/>
                             </View>
                             <Navigation

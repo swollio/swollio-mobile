@@ -4,6 +4,7 @@ import Colors from '../../utilities/Colors';
 import { Card, WorkoutCover } from '../../components/Components'
 import { getWorkoutsForAthlete } from '../../utilities/api'
 import WorkoutProgress from './WorkoutProgress'
+import LoadingPage from '../LoadingPage';
 
 export default function WorkoutsPage(props) {
 
@@ -38,17 +39,16 @@ export default function WorkoutsPage(props) {
     });
 
     return (
-        <>
+        <View style={{flex: 1}}>
             <View style={styles.header}>
                 <Text style={styles.title}>Workouts</Text>
             </View>
-            <ScrollView padding={10} >
-                {  (workouts === null && <Text style={styles.watermark}>Loading...</Text>)
-                    || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
-                    || WorkoutCovers 
-                }
-            </ScrollView>
-        </>
+            {
+                workouts === null && <LoadingPage /> ||
+                workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text> ||
+                <ScrollView padding={10}>{WorkoutCovers}</ScrollView>
+            }
+        </View>
     )
 }
 

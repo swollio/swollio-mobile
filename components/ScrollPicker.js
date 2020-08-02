@@ -22,7 +22,7 @@ export default class ScrollPicker extends Component {
     
     render() {
         return <FlatList             
-            style={{width: 250, height: 50, overflow: 'hidden'}}
+            style={{width: 300, height: 60, overflow: 'hidden'}}
             data={['', '', ...this.props.data, '', '']}
             ref={(ref) => { this.flatListRef = ref; }}
             initialScrollIndex={5}
@@ -33,11 +33,11 @@ export default class ScrollPicker extends Component {
             horizontal={true}
             bounces={false}
             keyExtractor={(data, index) => index.toString()}
-            getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
+            getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
             renderItem={({ item, index }) => 
             <TouchableOpacity 
                 activeOpacity={0.8}
-                style={{width: 50, height: 50, alignItems: 'center', justifyContent: 'center'}}
+                style={{width: 60, height: 60, alignItems: 'center', justifyContent: 'center'}}
                 onPress={() => this.flatListRef.scrollToIndex({index, viewPosition: 0.5})}
             >
                 <View style={[
@@ -45,7 +45,7 @@ export default class ScrollPicker extends Component {
                         (item === '' && styles.emptyItem) || {},
                         (index === this.state.selected && styles.selectedItem) || {}]
                     }>
-                     <Text style={{color: Colors.PrimaryContrast}}>{item}</Text>
+                     <Text style={{fontSize: 20, color: index === this.state.selected ? Colors.PrimaryContrast: Colors.SurfaceContrast2}}>{item}</Text>
                 </View>
             </TouchableOpacity>
             }
@@ -55,11 +55,11 @@ export default class ScrollPicker extends Component {
 
 const styles = StyleSheet.create({
     item: {
-        width: 40,
-        height: 40,
+        width: 50,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 20,
+        borderRadius: 25,
         backgroundColor: Colors.Background
     },
     emptyItem: {

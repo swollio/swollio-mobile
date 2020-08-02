@@ -1,15 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../../utilities/Colors';
+import LogoOutline from '../LoadingPage'
+import LoadingPage from '../LoadingPage';
 
 export default function UserPage(props) {
 
     return (
-        <View>
+        <View style={{flex: 1}}>
             <View style={styles.header}>
                 <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
             </View>
-            <View style={{margin: 10}}>
+            <View style={{margin: 10, flex: 1}}>
+                <LoadingPage></LoadingPage>
             </View>
         </View>
     );

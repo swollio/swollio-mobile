@@ -1,19 +1,52 @@
-import React from 'react';
-import { TouchableOpacity, StyleSheet} from 'react-native'
+import React, { useState } from 'react';
+import { TouchableOpacity, Text, StyleSheet} from 'react-native'
 import Colors from '../utilities/Colors'
 import Icon from 'react-native-vector-icons/Feather';
 
 export default function CircularButton(props) {
+
+    const [toggled, setToggled] = useState(false);
+
     return (<TouchableOpacity
         activeOpacity={0.8}
-        onPress={props.onPress}
-        style={styles.circularButton}
+        onPress={() => {
+            if (props.toggle) {
+                if (!toggled) {
+                    setToggled(true)
+                    props.onPress();
+                }
+            } else {
+                props.onPress();
+            }
+        }}
+        style={[styles.circularButton, {
+            width: 2 * props.radius || 60,
+            height: 2 * props.radius || 60,
+            borderRadius: props.radius || 30,
+            backgroundColor: (!props.toggle || toggled) ? Colors.Primary: Colors.SurfaceContrast2
+        }]}
     >
         <Icon
             name={props.icon}
-            style={styles.circularButtonIcon}
+            style={[styles.circularButtonIcon, {fontSize: props.fontSize || 30}]}
             color={Colors.PrimaryContrast}
         />
+    </TouchableOpacity>);
+}
+
+
+
+export function CircularTextButton(props) {
+    return (<TouchableOpacity
+        activeOpacity={0.8}
+        onPress={props.onPress}
+        style={[styles.circularButton, {
+            width: 2 * props.radius || 60,
+            height: 2 * props.radius || 60,
+            borderRadius: props.radius || 30,
+        }]}
+    >
+        <Text style={[styles.circularButtonIcon, {fontSize: 20}]}>{props.title}</Text>
     </TouchableOpacity>);
 }
 
@@ -25,9 +58,6 @@ const styles = StyleSheet.create({
     circularButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 60,
-        height: 60,
-        borderRadius: 30,
         backgroundColor: Colors.Primary,
     }
 })

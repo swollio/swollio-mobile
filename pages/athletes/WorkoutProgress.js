@@ -25,6 +25,8 @@ export default function WorkoutProgress(props) {
                 scrollVals = {
                     [[5, 35, 5, 2],
                     [5, 35, 5, 2],
+                    [5, 35, 5, 2],
+                    [5, 35, 5, 2],
                     [5, 35, 5, 2],]}
                 selectColor = {Colors.Primary}
                 barColor = {Colors.Primary}
