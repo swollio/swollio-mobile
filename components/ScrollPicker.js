@@ -8,7 +8,7 @@ export default class ScrollPicker extends Component {
         super(props);
 
         this.state = {
-            selected: this.props.data.findIndex((weight) => weight == this.props.initialValue)
+            selected: this.props.data.findIndex((weight) => weight == this.props.initialValue) + 2
         }
 
         this.viewabilityConfig = {
@@ -17,25 +17,29 @@ export default class ScrollPicker extends Component {
     }
 
     onViewableItemsChanged = ({ viewableItems, changed }) => {
-        this.setState({
-            selected: viewableItems[2].index,
-        })
-        this.props.onChange(viewableItems[2].item)
+        if (viewableItems[2]) {
+            this.setState({
+                selected: viewableItems[2].index,
+            })
+            this.props.onChange(viewableItems[2].item)
+        }
+
     }
     
     render() {
-        return <FlatList             
+        return <FlatList     
             style={{width: 300, height: 60, overflow: 'hidden'}}
             data={['', '', ...this.props.data, '', '']}
             ref={(ref) => { this.flatListRef = ref; }}
-            initialScrollIndex={this.state.selected}
+            initialScrollIndex={this.state.selected - 2}
             onViewableItemsChanged={this.onViewableItemsChanged}
             showsHorizontalScrollIndicator={false}
             viewabilityConfig={this.viewabilityConfig}
             horizontal={true}
             snapToInterval={60}
+            decelerationRate="fast"
             bounces={false}
-            keyExtractor={(data, index) => index.toString()}
+            keyExtractor={(data, index) => index}
             getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
             renderItem={({ item, index }) => 
             <TouchableOpacity 
