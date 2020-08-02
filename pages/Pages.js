@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 
 import StackContainer from './StackContainer'
-import AthletePage from './athletes/UserPage'
+import AthletePage from './athletes/UserTab'
 import CoachPage from './coach/AthletesPage'
-import CoachWorkoutsPage from './coach/WorkoutsPage'
-import AthleteWorkoutsPage from './athletes/WorkoutsPage'
+import CoachWorkoutsPage from './coach/WorkoutTab'
+import AthleteWorkoutsPage from './athletes/WorkoutTab'
 import StatisticsPage from './StatisticsPage'
 import PageView from '../containers/PageView'
 

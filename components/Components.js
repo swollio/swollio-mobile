@@ -9,3 +9,4 @@ export { default as ProgressBar } from './ProgressBar';
 export { default as WorkoutCover } from './Cards/WorkoutCover';
 export { default as OptionButton } from './OptionButton';
 export { default as DecrementButton } from './DecrementButton';
+export { default as ScrollPicker } from './ScrollPicker';

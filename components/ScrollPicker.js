@@ -8,7 +8,7 @@ export default class ScrollPicker extends Component {
         super(props);
 
         this.state = {
-            selected: this.props.data.findIndex((weight) => weight == this.props.initialValue) + 2
+            selected: this.props.data.findIndex((number) => number === this.props.initialValue) + 2
         }
 
         this.viewabilityConfig = {

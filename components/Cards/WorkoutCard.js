@@ -27,7 +27,7 @@ function SingleSetRow(props) {
                 <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>{props.weight} lbs.</Text>
             </TouchableOpacity>
         </View>
-        <CircularButton onPress={() => {}} radius={25} toggle={true} fontSize={20} icon={'check'}></CircularButton>
+        <CircularButton icon={'check'} onPress={() => {}} radius={25} toggle={true} fontSize={20}></CircularButton>
     </View>
     )
 }
@@ -41,10 +41,12 @@ function SingleSetRow(props) {
  */
 export default function WorkoutCard(props) {
 
-    const defaultWeight = 60;
-    const [repsCompleted, setRepsCompleted] = useState(props.sets);
-    const [weights, setWeights] = useState(props.sets.map((set => defaultWeight)));
-    const [editedSetIndex, setEditedSetIndex] = useState(-1);
+    // Stores the index of the set for which the weight is currently being
+    // edited. If no sets are currently being edited, then the editedSetIndex 
+    // should be -1.
+    const NotCurrentlyEditingWeight = -1;
+    const [editedSetIndex, setEditedSetIndex] = useState(NotCurrentlyEditingWeight);
+
     const [chooseAlternatives, setChooseAlternatives] = useState(false);
 
     // Defining a constant which will make the appropriate amount
@@ -52,24 +54,29 @@ export default function WorkoutCard(props) {
     const rowsView = props.sets.map((set, index) => {
         return <SingleSetRow 
             key={index}
-            weight={weights[index]}
-            reps={repsCompleted[index]}
+            weight={props.results[index].weight}
+            reps={props.results[index].reps}
             onChangeReps={(reps) => {
-                console.log(reps)
-                repsCompleted[index] = reps;
-                setRepsCompleted(repsCompleted);
+                props.results[index].reps = reps;
+                props.onChange(props.results)
             }}
             onEdit={() => setEditedSetIndex(index)}
         />
     });
 
-    const editView = editedSetIndex === -1 ? <></> :
-    <View style={{width: '100%', alignItems: 'center', paddingVertical: 20}}>
-        <ScrollPicker initialValue={weights[editedSetIndex]} onChange={weight => {weights[editedSetIndex] = weight; setWeights(weights)}} data={[...Array(100).keys()].map(x => (x + 1) * 5)}/>
-        <TouchableOpacity onPress={() => setEditedSetIndex(-1)} style={styles.setWeight}>
-            <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Set Weight</Text>
-        </TouchableOpacity>
-    </View>
+    const editView = editedSetIndex === NotCurrentlyEditingWeight ? <></> :
+        <View style={{width: '100%', alignItems: 'center', paddingVertical: 20}}>
+            <ScrollPicker 
+                initialValue={weights[editedSetIndex]} 
+                onChange={weight => {
+                    props.results[editedSetIndex].weight = weight; 
+                    props.onChange(props.results)
+                }} 
+                data={[...Array(100).keys()].map(x => (x + 1) * 5)}/>
+            <TouchableOpacity onPress={() => setEditedSetIndex(NotCurrentlyEditingWeight)} style={styles.setWeight}>
+                <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Set Weight</Text>
+            </TouchableOpacity>
+        </View>
   
     return(
         <Card barColor={props.barColor}>
@@ -81,7 +88,7 @@ export default function WorkoutCard(props) {
                     <Icon onPress={() => setChooseAlternatives(!chooseAlternatives)} style={{width: 60, textAlign: 'center'}} size={24} name={'menu'}></Icon>
                 }
             </View>
-            { editedSetIndex == -1 ? rowsView: editView}
+            { editedSetIndex == NotCurrentlyEditingWeight ? rowsView: editView}
         </Card>
     );
 }

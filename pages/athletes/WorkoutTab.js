@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Colors from '../../utilities/Colors';
 import { Card, WorkoutCover } from '../../components/Components'
 import { getWorkoutsForAthlete } from '../../utilities/api'
-import WorkoutProgress from './WorkoutProgress'
+import WorkoutProgress from './WorkoutPage'
 import LoadingPage from '../LoadingPage';
 
 export default function WorkoutsPage(props) {

@@ -145,7 +145,7 @@ export function getWorkoutsForAthlete(athlete_id) {
     return get(`athletes/${athlete_id}/workouts`).then(result => result.json())
 }
 
-export function getWorkoutForAthlete(athlete_id, workout_id) {
+export function getAssignmentsForWorkout(athlete_id, workout_id) {
     return get(`athletes/${athlete_id}/workouts/${workout_id}`).then(result => result.json())
 }
 

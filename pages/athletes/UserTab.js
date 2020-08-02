@@ -4,7 +4,7 @@ import Colors from '../../utilities/Colors';
 import LogoOutline from '../LoadingPage'
 import LoadingPage from '../LoadingPage';
 
-export default function UserPage(props) {
+export default function UserTab(props) {
 
     return (
         <View style={{flex: 1}}>

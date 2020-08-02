@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
-import { CreateTwoOptionForm, ButtonRow, ScrollWheel } from '../components/Components';
+import { CreateTwoOptionForm, ButtonRow, ScrollPicker } from '../components/Components';
 
 export function AgeForm(props) {
     return (
@@ -57,10 +57,11 @@ export function HeightForm(props) {
                 buttons={['4\'', '5\'', '6\'']} 
                 onChange={props.onChange} 
             />
-            <ScrollWheel 
+            <ScrollPicker 
                 field='inches'
                 selectColor = {Colors.Primary}
-                vals={[0, 11, 1, 0]}
+                data={[...Array(12).keys()]}
+                initialValue={6}
                 onChange={props.onChange}
             />
             <TouchableOpacity 

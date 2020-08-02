@@ -47,19 +47,19 @@ export default function ButtonRow(props) {
                 style = {[
                     styles.toggleButton, states[index] ? 
                     {
-                        backgroundColor: Colors.Red,
-                        borderColor: Colors.White,
+                        backgroundColor: Colors.Primary,
+                        borderColor: Colors.PrimaryContrast,
                     } : 
                     {
-                        backgroundColor: Colors.White,
-                        borderColor: Colors.Red,
+                        backgroundColor: Colors.PrimaryContrast,
+                        borderColor: Colors.Primary,
                 }]}
                 onPress={() => stateController(index)}>
                     <Text 
                         style={[
                             styles.buttonText, states[index] ? 
-                            { color: Colors.White } : 
-                            { color: Colors.Red }
+                            { color: Colors.PrimaryContrast } : 
+                            { color: Colors.Primary }
                         ]} >
                         {button}
                     </Text>
