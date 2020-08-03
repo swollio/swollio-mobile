@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Colors from '../../utilities/Colors';
 import Card from './Card';
 import DecrementButton from '../DecrementButton';
-import CircularButton, { CircularTextButton } from '../CircularButton'
+import CompleteSetButton, { CircularTextButton } from '../CompleteSetButton'
 import Icon from 'react-native-vector-icons/Feather';
 import ScrollPicker from '../ScrollPicker'
+import moment from 'moment'
 
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
@@ -27,7 +28,13 @@ function SingleSetRow(props) {
                 <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>{props.weight} lbs.</Text>
             </TouchableOpacity>
         </View>
-        <CircularButton icon={'check'} onPress={() => {}} radius={25} toggle={true} fontSize={20}></CircularButton>
+        <CompleteSetButton
+            icon={'check'}
+            onPress={() => props.onCompleted(moment(new Date()).toISOString())}
+            radius={25}
+            completed={props.completed}
+            fontSize={20}
+        />
     </View>
     )
 }
@@ -52,13 +59,23 @@ export default function WorkoutCard(props) {
     // Defining a constant which will make the appropriate amount
     // of scroll wheel rows
     const rowsView = (props.results || []).map((result, index) => {
+        
+        const enabled = (index === 0) || (props.results[index - 1].created !== null);
+
         return <SingleSetRow 
             key={index}
             weight={result.weight}
             reps={result.reps}
+            completed={result.created !== null}
             onChangeReps={(reps) => {
-                if (!props.results) return;
+                if (!props.results || !enabled) return;
                 props.results[index].reps = reps;
+                props.onChange(props.results)
+            }}
+            onCompleted={(timestamp) => {
+
+                if (!props.results || !enabled) return;
+                props.results[index].created = timestamp;
                 props.onChange(props.results)
             }}
             onEdit={() => setEditedSetIndex(index)}
@@ -73,7 +90,7 @@ export default function WorkoutCard(props) {
                     if (!props.results) return;
                     props.results[editedSetIndex].weight = weight; 
                     props.onChange(props.results)
-                }} 
+                }}
                 data={[...Array(100).keys()].map(x => (x + 1) * 5)}/>
             <TouchableOpacity onPress={() => setEditedSetIndex(NotCurrentlyEditingWeight)} style={styles.setWeight}>
                 <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Set Weight</Text>
