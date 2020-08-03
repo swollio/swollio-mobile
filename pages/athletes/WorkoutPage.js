@@ -65,10 +65,9 @@ export default function WorkoutPage(props) {
                 key = {index}
                 results = {results === null ? null: results[index]}
                 onChange = {(resultObj) => {
-                    // if (!results) return;
-                    console.log(resultObj);
+                    if (!results) return;
                     results[index] = resultObj;
-                    setResults(results);
+                    setResults([...results]);
                 }}
                 selectColor = {Colors.Primary}
                 barColor = {Colors.Primary}
@@ -95,7 +94,7 @@ export default function WorkoutPage(props) {
                         postAthleteWorkoutResult(
                             props.user.athlete_id,
                             props.workout.id,
-                            results.flat()
+                            results.flat().filter(x => x.created !== null)
                         ).then(() => {
                             props.pop()
                         })
