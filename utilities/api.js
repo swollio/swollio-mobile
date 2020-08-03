@@ -178,5 +178,5 @@ export function postWorkoutForTeam(team_id, workout) {
 }
 
 export function postAthleteWorkoutResult(athlete_id, workout_id, results) {
-    return post(`athletes/${athlete_id}/workouts/${workout_id}`, results);
+    return post(`athletes/${athlete_id}/results/${workout_id}`, results);
 }

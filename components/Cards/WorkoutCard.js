@@ -51,12 +51,13 @@ export default function WorkoutCard(props) {
 
     // Defining a constant which will make the appropriate amount
     // of scroll wheel rows
-    const rowsView = props.sets.map((set, index) => {
+    const rowsView = (props.results || []).map((result, index) => {
         return <SingleSetRow 
             key={index}
-            weight={props.results[index].weight}
-            reps={props.results[index].reps}
+            weight={result.weight}
+            reps={result.reps}
             onChangeReps={(reps) => {
+                if (!props.results) return;
                 props.results[index].reps = reps;
                 props.onChange(props.results)
             }}
@@ -67,8 +68,9 @@ export default function WorkoutCard(props) {
     const editView = editedSetIndex === NotCurrentlyEditingWeight ? <></> :
         <View style={{width: '100%', alignItems: 'center', paddingVertical: 20}}>
             <ScrollPicker 
-                initialValue={weights[editedSetIndex]} 
+                initialValue={props.results[editedSetIndex].weight} 
                 onChange={weight => {
+                    if (!props.results) return;
                     props.results[editedSetIndex].weight = weight; 
                     props.onChange(props.results)
                 }} 

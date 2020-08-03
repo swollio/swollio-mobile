@@ -34,7 +34,6 @@ export default function WorkoutPage(props) {
      */
     const [results, setResults] = useState(null);
     
-    const resultsForServer = () => results.flat();
 
     // Load the list of assignments
     useEffect(() => {
@@ -52,7 +51,8 @@ export default function WorkoutPage(props) {
                         assignment_id: assignment.id,
                         exercise_id: assignment.exercise_id,
                         reps: reps,
-                        weight: defaultWeight
+                        weight: defaultWeight,
+                        created: null,
                     }))
                 ));
             });
@@ -63,8 +63,9 @@ export default function WorkoutPage(props) {
         return (
             <WorkoutCard 
                 key = {index}
-                results = {results[index]}
+                results = {results === null ? null: results[index]}
                 onChange = {(resultObj) => {
+                    // if (!results) return;
                     console.log(resultObj);
                     results[index] = resultObj;
                     setResults(results);
@@ -92,8 +93,8 @@ export default function WorkoutPage(props) {
                     style={styles.headerIcon}
                     onPress={() => {
                         postAthleteWorkoutResult(
-                            user.athlete_id,
-                            workout.id,
+                            props.user.athlete_id,
+                            props.workout.id,
                             results.flat()
                         ).then(() => {
                             props.pop()
