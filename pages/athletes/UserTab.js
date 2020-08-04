@@ -18,10 +18,14 @@ export default function UserTab(props) {
                     'High Plank',
                     'Low Plank',
                     'Russian Twists',
-                    'Low Plank',
+                    'Pidgeon Crunches',
                     'Iron Cross',
                     'Side Plank',
                     'Penguins',
+                    'Crunches',
+                    'In-and-outs',
+                    'Reverse Crunches',
+                    'V-Ups'
                 ]}/>
             </View>
         </View>

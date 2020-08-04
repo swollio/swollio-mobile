@@ -2,13 +2,17 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet} from 'react-native'
 import Colors from '../utilities/Colors'
 import Icon from 'react-native-vector-icons/Feather';
+import * as Haptics from 'expo-haptics';
 
 export default function CircularButton(props) {
     return (
     <TouchableOpacity
         activeOpacity={0.8}
-        onPress={props.onPress}
-        style={styles.circularButton}
+        onPress={() => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
+            props.onPress()
+        }}
+        style={[styles.circularButton, props.style]}
     >
         <Icon
             name={props.icon}

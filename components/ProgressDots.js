@@ -13,12 +13,13 @@ import Colors from '../utilities/Colors';
 export default function ProgressDots(props) {
 
     const DotRow = [...Array(props.numDots).keys()].map(index => 
-        <View style={[
+        <View 
+            key={index}
+            style={[
             styles.dot, 
             { backgroundColor: 
-                index < props.numEnabled ? 
-                props.color || Colors.PrimaryColor : 
-                Colors.Background}]} 
+                index < props.numEnabled ? Colors.Primary : Colors.Background
+            }, props.style]} 
         />);
 
     return (
