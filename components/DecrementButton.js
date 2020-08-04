@@ -10,19 +10,15 @@ import Colors from '../utilities/Colors'
  */
 export default function DecrementButton(props) {
 
-    const [buttonVal, setButtonVal] = useState(props.val);
-
     function onPress() {
-        if (buttonVal > 1) setButtonVal(buttonVal - 1);
-        else setButtonVal(props.val);
-
-        if (props.onChange) props.onChange(buttonVal);
+        if (props.value > 1) props.onChange(props.value - 1);
+        else props.onChange(props.maxValue);
     }
 
     return(
         <TouchableOpacity activeOpacity={0.8} style={[styles.button, props.style]} onPress={onPress}>
             <Text style={styles.buttonText}>
-                {buttonVal}
+                {props.value}
             </Text>
         </TouchableOpacity>
     );
