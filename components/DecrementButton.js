@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../utilities/Colors'
-
+import * as Haptics from 'expo-haptics';
 /**
  * This functional component is a button decrementer that will
  * be used in places like rep counter. The props will be: 
@@ -11,6 +11,7 @@ import Colors from '../utilities/Colors'
 export default function DecrementButton(props) {
 
     function onPress() {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy)
         if (props.value > 1) props.onChange(props.value - 1);
         else props.onChange(props.maxValue);
     }
