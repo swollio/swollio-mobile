@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Colors } from '../utilities/Colors';
+import Colors from '../utilities/Colors';
 
 /**
  * This component creates a row of dots at the bottom to show progress.

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import Colors from '../../utilities/Colors';
 import ProgressDots from '../ProgressDots';
+import Card from '../Cards/Card'
 
 /**
  * This function will return a timer card that has the following props:
@@ -34,10 +35,10 @@ const styles = StyleSheet.create({
     },
     timer: {
         fontSize: 69,
-        fontFamily: 'Comfortaa_Regular400'
+        fontFamily: 'Comfortaa_400Regular'
     },
     exercise: {
         fontSize: 24,
-        fontFamily: "Comfortaa_Regular400"
+        fontFamily: "Comfortaa_400Regular"
     }
 });

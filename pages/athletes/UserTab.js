@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../../utilities/Colors';
 import LogoOutline from '../LoadingPage'
 import LoadingPage from '../LoadingPage';
-
+import AbCard from '../../components/Cards/AbCard'
+ 
 export default function UserTab(props) {
 
     return (
@@ -12,7 +13,16 @@ export default function UserTab(props) {
                 <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
             </View>
             <View style={{margin: 10, flex: 1}}>
-                <LoadingPage></LoadingPage>
+                <AbCard exercises={[
+                    'Bicycle Kicks',
+                    'High Plank',
+                    'Low Plank',
+                    'Russian Twists',
+                    'Low Plank',
+                    'Iron Cross',
+                    'Side Plank',
+                    'Penguins',
+                ]}/>
             </View>
         </View>
     );
