@@ -34,7 +34,7 @@ export default function ButtonRow(props) {
         // Since the button is toggled, and if there is an onChange
         // action passed into this component, execute it at the change
         if (props.onChange)
-            props.onChange(props.field, props.buttons[index])
+            props.onChange(props.buttons[index])
     }
 
     // Since we want a variable amount of buttons in a button row, we

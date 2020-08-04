@@ -48,11 +48,17 @@ export default function WorkoutPage(props) {
                     // make each element of the inner array an object that defaults to
                     // the rep_count as that index, a default weight, and the exercise id
                     assignment => assignment.rep_count.map(reps => ({
+                        
+                        // These fields are constant and will never be changed by the athlete
                         assignment_id: assignment.id,
                         exercise_id: assignment.exercise_id,
+                        initalReps: reps,
+
+                        // These fields will be changed by the athlete as they complete the workout
                         reps: reps,
                         weight: defaultWeight,
                         created: null,
+                        
                     }))
                 ));
             });

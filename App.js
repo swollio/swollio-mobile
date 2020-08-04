@@ -83,7 +83,12 @@ export default function App(props) {
             <Forms.CreateAthleteForm
                 onCancel={() => setAuthentiationState(State.SELECT_ROLE)}
                 onCompleted={(form) => {
-                    createAthlete({age: form.age, height: 60, weight: 150, gender: form.gender}).then(() => {
+                    createAthlete({
+                        age: form.age,
+                        height: form.height,
+                        weight: form.weight,
+                        gender: form.gender
+                    }).then(() => {
                         setAuthentiationState(State.LOGGED_IN)
                     })
                 }}

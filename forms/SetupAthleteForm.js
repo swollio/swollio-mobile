@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
 import { CreateTwoOptionForm, ButtonRow, ScrollPicker } from '../components/Components';
 
 export function AgeForm(props) {
+    const DEFAULT_AGE = 20;
+    const MIN_AGE = 14;
+    const MAX_AGE = 99;
     return (
         <View style={styles.form}>
-            <Text style={styles.title}>How old are you?</Text>
-            <TextInput 
-                style={styles.textInput} 
-                onChangeText={(text) => props.onChange('age', text)} 
-                keyboardType={'numeric'}
-                keyboardAppearance='light' 
-                placeholder='69' />
-            <Text style={styles.subtitle}>Enter your age.</Text>
+            <Text style={[styles.title, {marginBottom: 45}]}>How old are you?</Text>
+            <ScrollPicker 
+                data={[...Array(MAX_AGE - MIN_AGE).keys()].map(n => n + MIN_AGE)}
+                initialValue={DEFAULT_AGE}
+                onChange={(age) => props.onChange('age', age)}
+            />
+            <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted(true)}>
+                <Text style={{color: Colors.PrimaryContrast}}>Continue</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+
+export function WeightForm(props) {
+    const DEFAULT_WEIGHT = 180;
+    const MIN_WEIGHT = 80;
+    const MAX_WEIGHT = 350;
+    return (
+        <View style={styles.form}>
+            <Text style={[styles.title, {marginBottom: 45}]}>How much do you weigh?</Text>
+            <ScrollPicker 
+                data={[...Array(MAX_WEIGHT - MIN_WEIGHT).keys()].map(n => n + MIN_WEIGHT)}
+                initialValue={DEFAULT_WEIGHT}
+                onChange={(age) => props.onChange('weight', age)}
+            />
             <TouchableOpacity activeOpacity={0.8} style={styles.optionButton} onPress={() => props.onCompleted(true)}>
                 <Text style={{color: Colors.PrimaryContrast}}>Continue</Text>
             </TouchableOpacity>
@@ -49,26 +70,35 @@ export const WorkoutEquipmentForm = CreateTwoOptionForm({
 });
 
 export function HeightForm(props) {
+
+    const [feet, setFeet] = useState(null);
+    const [inches, setInches] = useState(6);
+
     return (
         <View style={styles.form}>
             <Text style={[styles.title, {padding: 10}]}>What is your height?</Text>
             <ButtonRow 
                 field='feet' 
-                buttons={['4\'', '5\'', '6\'']} 
-                onChange={props.onChange} 
+                buttons={[4, 5, 6]} 
+                onChange={(f) => setFeet(f)} 
             />
             <ScrollPicker 
                 field='inches'
                 selectColor = {Colors.Primary}
                 data={[...Array(12).keys()]}
                 initialValue={6}
-                onChange={props.onChange}
+                onChange={(i) => setInches(i)}
             />
             <TouchableOpacity 
                 activeOpacity={0.8} 
-                style={[styles.optionButton, 
-                {marginTop: 50}]} 
-                onPress={() => props.onCompleted()}>
+                style={[styles.optionButton, {marginTop: 50}]} 
+                onPress={() => { 
+                    if (feet !== null) {
+                        console.log('height', 12 * feet + inches)
+                        props.onChange('height', 12 * feet + inches);
+                        props.onCompleted()
+                    }
+                }}>
                 <Text style={{color: Colors.PrimaryContrast}}>Continue</Text>
             </TouchableOpacity>
         </View>

@@ -22,7 +22,7 @@ function SingleSetRow(props) {
     return (
     <View style={[styles.rows, {justifyContent: 'space-between', alignItems: 'center'}]}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <DecrementButton onChange={props.onChangeReps} style={{ paddingHorizontal: 8, backgroundColor: Colors.Primary }} val={props.reps} />
+            <DecrementButton onChange={props.onChangeReps} style={{ paddingHorizontal: 8, backgroundColor: Colors.Primary }} maxValue={props.initialReps} value={props.reps} />
             <Icon style={{marginHorizontal: 8}} size={24} name={'x'}></Icon>
             <TouchableOpacity onPress={props.onEdit} style={{borderColor: Colors.Primary, borderWidth: 1, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16}}>
                 <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>{props.weight} lbs.</Text>
@@ -66,6 +66,7 @@ export default function WorkoutCard(props) {
             key={index}
             weight={result.weight}
             reps={result.reps}
+            initialReps={result.initalReps}
             completed={result.created !== null}
             onChangeReps={(reps) => {
                 if (!props.results || !enabled) return;
