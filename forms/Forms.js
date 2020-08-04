@@ -31,6 +31,7 @@ export function CreateAthleteForm(props) {
             forms={[
                 CreateAthleteForms.AgeForm,
                 CreateAthleteForms.HeightForm,
+                CreateAthleteForms.WeightForm,
                 CreateAthleteForms.GenderForm,
                 CreateAthleteForms.GymAccessForm,
                 CreateAthleteForms.WorkoutEquipmentForm
