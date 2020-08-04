@@ -10,7 +10,7 @@ import Colors from '../../utilities/Colors';
  */
 export default function Card(props) {
     return (
-        <View style = {styles.card}>
+        <View style = {[styles.card, { borderLeftColor: props.barColor || Colors.Primary }]}>
             { props.children }
         </View>
     );
@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     card: {
         width: '100%',
         backgroundColor: Colors.Surface,
-        borderLeftColor: Colors.Primary,
         borderRadius: 4,
         borderLeftWidth: 10,
         padding: 10,
