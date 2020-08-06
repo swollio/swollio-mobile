@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType, ScrollView} from 'react-native';
 import Colors from '../../utilities/Colors';
+import Icon from 'react-native-vector-icons/Feather';
 
 import CreateAssignmentForm from './CreateAssignmentForm'
 import DatePicker from '../../components/DatePicker';
@@ -64,8 +65,11 @@ function SolidButton(props) {
 function WorkoutDateForm(props) {
     return (
             <View style={styles.form}>
-                <Text style={[styles.formTitle, {marginBottom: 8}]}>What day is your workout?</Text>
-                <DatePicker onChange={(date) => props.onChange('created', date)}/>
+                <Text style={[styles.formTitle, {marginBottom: 16}]}>{props.title}</Text>
+                <DatePicker onChange={(date) => {
+                    props.onChange(props.field, date)}
+                }/>
+                <View style={{height: 16}} />
                 <SolidButton 
                     width={200}
                     text={'Continue'}
@@ -76,32 +80,58 @@ function WorkoutDateForm(props) {
 }
 
 function WorkoutRepeatForm(props) {
+    
+    const [repeatDays, setRepeatDays] = useState({
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+    });
+
+    const days = [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+    ];
+
     return (
             <View style={styles.form}>
-                <Text style={[styles.formTitle, {marginBottom: 32}]}>How often should the workout repeat.</Text>
-                <OutlinedButton 
+                <Text style={[styles.formTitle, {marginBottom: 32}]}>Which days should this workout be assigned on?</Text>
+                {days.map(x => {
+                    return (
+                        <TouchableOpacity
+                            activeOpacity={0.8} 
+                            style={{padding: 16, flexDirection: 'row', alignItems: 'center', width: '90%', borderBottomColor: '#DDD', borderBottomWidth: 1}}
+                            onPress={() => {
+                                repeatDays[x] = !repeatDays[x]
+                                setRepeatDays({...repeatDays})
+                            }}
+                        >
+                            <Icon 
+                                name={'check'}
+                                size={20}
+                                style={{marginRight: 16, color: repeatDays[x] ? Colors.Primary: '#EEE'}}
+                                onPress={props.onBack}
+                            />
+                            <Text>{x}</Text>
+                        </TouchableOpacity>
+                    )
+                })}
+                <View style={{height: 20}} />
+                <SolidButton 
+                    width={200}
+                    text={'Continue'}
                     onPress={() => {
-                        props.onChange('repeat', 'none')
+                        props.onChange('repeat', days.filter(d => repeatDays[d]).join(' '))
                         props.onCompleted()
                     }}
-                    width={200}
-                    text={'None'}
-                />
-                <OutlinedButton 
-                    onPress={() => {
-                        props.onChange('repeat', 'weekly')
-                        props.onCompleted()
-                    }}
-                    width={200}
-                    text={'Weekly'}
-                />
-                <OutlinedButton 
-                    onPress={() => {
-                        props.onChange('repeat', 'daily')
-                        props.onCompleted()
-                    }}
-                    width={200}
-                    text={'Daily'}
                 />
             </View>
         );
@@ -132,11 +162,22 @@ export default function CreateWorkoutForm(props) {
         return (
             <FormContainer
                 onCancel={() => props.onCancel()}
-                onCompleted={(options) => { setOptions(options); }}
+                onCompleted={(options) => { 
+                    console.log(options)
+                    setOptions(options);
+                }}
                 forms={[
-                    WorkoutDateForm,
+                    (props) => <
+                        WorkoutDateForm {...props}
+                        field="start_date"
+                        title="Select start date."
+                    />,
                     WorkoutRepeatForm,
-                    WorkoutCreatedForm
+                    (props) => <
+                        WorkoutDateForm {...props}
+                        title="Select end date."
+                    />,
+                    WorkoutCreatedForm,
                 ]}
             />
         );

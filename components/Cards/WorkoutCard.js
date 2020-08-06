@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Colors from '../../utilities/Colors';
 import Card from './Card';
@@ -7,6 +7,7 @@ import CompleteSetButton, { CircularTextButton } from '../CompleteSetButton'
 import Icon from 'react-native-vector-icons/Feather';
 import ScrollPicker from '../ScrollPicker'
 import moment from 'moment'
+import { getAlternativesForExercises } from '../../utilities/api'
 
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
@@ -48,6 +49,17 @@ function SingleSetRow(props) {
  */
 export default function WorkoutCard(props) {
 
+    const [alternatives, setAlternatives] = useState(null);
+
+    useEffect(() => {
+        if (alternatives === null) {
+            getAlternativesForExercises(props.exercise_id).then(data => {
+                setAlternatives(data);
+            });
+        }
+        return () => {} 
+    });
+    
     // Stores the index of the set for which the weight is currently being
     // edited. If no sets are currently being edited, then the editedSetIndex 
     // should be -1.
@@ -83,7 +95,7 @@ export default function WorkoutCard(props) {
         />
     });
 
-    const editView = editedSetIndex === NotCurrentlyEditingWeight ? <></> :
+    const editView = editedSetIndex === NotCurrentlyEditingWeight ? rowsView :
         <View style={{width: '100%', alignItems: 'center', paddingVertical: 20}}>
             <ScrollPicker 
                 initialValue={props.results[editedSetIndex].weight} 
@@ -98,6 +110,21 @@ export default function WorkoutCard(props) {
             </TouchableOpacity>
         </View>
   
+    const alternativesView = 
+        <View style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: "100%",
+        }}>
+            {(alternatives || []).map(a => 
+                <TouchableOpacity onPress={props.onEdit} style={{marginVertical: 6, borderColor: Colors.Primary, borderWidth: 1, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24}}>
+                    <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>{a.name}</Text>
+                </TouchableOpacity>
+            )}
+        </View>
+    
     return(
         <Card barColor={props.barColor}>
             <View style={{flexDirection: 'row',justifyContent: 'space-between'}}>
@@ -108,7 +135,7 @@ export default function WorkoutCard(props) {
                     <Icon onPress={() => setChooseAlternatives(!chooseAlternatives)} style={{width: 60, textAlign: 'center'}} size={24} name={'menu'}></Icon>
                 }
             </View>
-            { editedSetIndex == NotCurrentlyEditingWeight ? rowsView: editView}
+            { chooseAlternatives ? alternativesView: editView}
         </Card>
     );
 }

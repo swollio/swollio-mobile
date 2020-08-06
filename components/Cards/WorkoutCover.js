@@ -9,7 +9,7 @@ import moment from 'moment';
 const repeatResponse = {
     daily: "This workout repeats daily",
     weekly: "This workout repeats weekly",
-    never: "This workout does not repeat"
+    none: "This workout does not repeat"
 }
 
 export default function WorkoutCover (props) {
@@ -18,9 +18,16 @@ export default function WorkoutCover (props) {
         <Card barColor = {props.color} >
             <View>
                 <Text style={styles.workoutTitle}>{props.title}</Text>
-                <Text style={styles.workoutSubtitle}>{moment(props.created).format('MM-DD-YYYY')}</Text>
                 <Text style={styles.workoutSubtitle}>{repeatResponse[props.repeat]}</Text>
-                <Text style={styles.workoutSubtitle}>Estimated Time: 45</Text>
+                <Text style={styles.workoutSubtitle}>{
+                    moment(props.created).calendar(null,{
+                        lastDay : '[Yesterday]',
+                        sameDay : '[Today]',
+                        nextDay : '[Tomorrow]',
+                        lastWeek : '[last] dddd',
+                        nextWeek : 'dddd',
+                        sameElse : 'L'
+                    })}</Text>
                 <View style={{alignItems: 'center'}}>
                     <OptionButton style = {[styles.optionButton, { borderColor: props.color }]} onPress={props.onStartWorkout}>
                         <Text style={[styles.buttonText, { color: props.color }]}>Start</Text>

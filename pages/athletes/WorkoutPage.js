@@ -69,6 +69,7 @@ export default function WorkoutPage(props) {
         return (
             <WorkoutCard 
                 key = {index}
+                exercise_id = {assignment.exercise_id}
                 results = {results === null ? null: results[index]}
                 onChange = {(resultObj) => {
                     if (!results) return;

@@ -16,7 +16,7 @@ export default function Timer(props) {
     useEffect(() => {
         const interval = setInterval(() => {
             if (props.paused) return;
-            if (timeLeft <= 0) {
+            if (timeLeft <= 1) {
                 props.onFinish();
                 Vibration.vibrate()
             } else setTimeLeft(timeLeft - 1);

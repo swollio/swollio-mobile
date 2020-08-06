@@ -5,28 +5,29 @@ import LogoOutline from '../LoadingPage'
 import LoadingPage from '../LoadingPage';
 import AbCard from '../../components/Cards/AbCard'
  
-export default function UserTab(props) {
 
+export default function UserTab(props) {
+    console.log([
+        'Bicycle Kicks',
+        'Low Plank',
+        'Crunches',
+        'Russian Twists',
+        'Pidgeon Crunches',
+        'Reverse Crunches',
+        'Iron Cross',
+        'High Plank',
+        'Side Plank',
+        'Penguins',
+        'Crunchy Frogs',
+        'V-Ups'
+    ])
     return (
         <View style={{flex: 1}}>
             <View style={styles.header}>
                 <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
             </View>
             <View style={{margin: 10, flex: 1}}>
-                <AbCard exercises={[
-                    'Bicycle Kicks',
-                    'High Plank',
-                    'Low Plank',
-                    'Russian Twists',
-                    'Pidgeon Crunches',
-                    'Iron Cross',
-                    'Side Plank',
-                    'Penguins',
-                    'Crunches',
-                    'In-and-outs',
-                    'Reverse Crunches',
-                    'V-Ups'
-                ]}/>
+                <AbCard exercises={[]}/>
             </View>
         </View>
     );

@@ -180,3 +180,7 @@ export function postWorkoutForTeam(team_id, workout) {
 export function postAthleteWorkoutResult(athlete_id, workout_id, results) {
     return post(`athletes/${athlete_id}/results/${workout_id}`, results);
 }
+
+export function getAlternativesForExercises(exercise_id) {
+    return get(`exercises/${exercise_id}/similar`).then(result => result.json());
+}

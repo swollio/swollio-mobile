@@ -87,7 +87,14 @@ export default function AbCard(props) {
                     if (index < MAX_INDEX) setIndex(index + 1) 
                     if (index === MAX_INDEX) setProgressState('completed')
                 }}
-                onRewind={() => { if (index > 0) setIndex(index - 1) }}
+                onRewind={() => { 
+                    if (index > 0) setIndex(index - 1)
+                    if (index === 0) {
+                        console.log(index)
+                        setProgressState('setup')
+                    }
+
+                }}
                 onFastForward={() => { 
                     if (index < MAX_INDEX) setIndex(index + 1);
                     if (index === MAX_INDEX) setProgressState('completed')

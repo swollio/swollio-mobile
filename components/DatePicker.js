@@ -1,109 +1,60 @@
-import React, { Component } from 'react'
+import React, { useState  } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import VerticalScrollPicker from './VerticalScrollPicker'
 import Colors from '../utilities/Colors'
+import moment from 'moment'
 
-export default class ScrollPicker extends Component {
+const months = [
+    "january", "february", "march",
+    "april", "may", "june",
+    "july", "august", "september",
+    "october", "november", "decemeber"
+];
+
+const daysInMonth = (month, year) => {
+    const days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (month != 1) return days_in_month[month];
+    else if (year % 4 !== 0) return days_in_month[month];
+    else if (year % 100 !== 0) return 29;
+    else return 28;
+}
+
+export default function ScrollPicker (props) {
     
-    constructor(props) {
-        super(props);
+    const [month, setMonth] = useState(moment().month())
+    const [day, setDay] = useState(moment().date())
+    const [year, setYear] = useState(moment().year())
 
-        var dateObj = new Date();
-        var month = dateObj.getUTCMonth() + 1; //months from 1-12
-        var day = dateObj.getUTCDate();
-
-        this.state = {
-            monthSelected: month,
-            daySelected: day
-        }
-        this.viewabilityConfig = {
-            itemVisiblePercentThreshold: 50
-        };
-    }
-
-    onViewableItemsChangedMonth = ({ viewableItems, changed }) => {
-        this.setState({
-            monthSelected: viewableItems[1].index,
-        })
-        this.props.onChange(new Date(2020, this.state.monthSelected, this.state.daySelected).toISOString())
-    }
-
-    onViewableItemsChangedDay = ({ viewableItems, changed }) => {
-        this.setState({
-            daySelected: viewableItems[2].index,
-        })
-        this.props.onChange(new Date(2020, this.state.monthSelected, this.state.daySelected).toISOString())
-
-    }
-    
-    render() {
-        return <View style={{alignItems: 'center', marginVertical: 16, height: 150}}>
-            <FlatList 
-                style={{width: 300, marginVertical: 8, overflow: 'hidden'}}
-                horizontal={true}
-                data={['', 'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December', '']}
-                ref={(ref) => { this.monthFlatListRef = ref; }}
-                initialScrollIndex={this.state.monthSelected - 1}
-                onViewableItemsChanged={this.onViewableItemsChangedMonth}
-                renderItem={({ item, index }) => 
-                <TouchableOpacity 
-                    activeOpacity={0.8}
-                    style={{width: 100, alignItems: 'center', justifyContent: 'center'}}
-                    onPress={() => this.monthFlatListRef.scrollToIndex({index, viewPosition: 0.5})}
-                >
-                    <View style={[
-                            styles.item,
-                            {width: 90},
-                            (item === '' && styles.emptyItem) || {},
-                            (index === this.state.monthSelected && styles.selectedItem) || {}]
-                        }>
-                        <Text style={{color: Colors.PrimaryContrast}}>{item}</Text>
-                    </View>
-                </TouchableOpacity>
-                }
-                viewabilityConfig={this.viewabilityConfig}
-                pagingEnabled={true}
-                getItemLayout={(data, index) => ({ length: 100, offset: 100 * index, index })}
-            />
-                        <FlatList 
-                style={{width: 300, marginVertical: 8, overflow: 'hidden'}}
-                data={['', '', ...[...Array(31).keys()].map(x => x + 1), '', '']}
-                ref={(ref) => { this.dayFlatListRef = ref; }}
-                initialScrollIndex={this.state.daySelected - 1}
-                horizontal={true}
-                onViewableItemsChanged={this.onViewableItemsChangedDay}
-                renderItem={({ item, index }) => 
-                <TouchableOpacity 
-                    activeOpacity={0.8}
-                    style={{width: 60, alignItems: 'center', justifyContent: 'center'}}
-                    onPress={() => this.dayFlatListRef.scrollToIndex({index, viewPosition: 0.5})}
-                >
-                    <View style={[
-                            styles.item,
-                            {width: 50},
-                            (item === '' && styles.emptyItem) || {},
-                            (index === (this.state.daySelected) && styles.selectedItem) || {}]
-                        }>
-                        <Text style={{color: Colors.PrimaryContrast}}>{item}</Text>
-                    </View>
-                </TouchableOpacity>
-                }
-                viewabilityConfig={this.viewabilityConfig}
-                pagingEnabled={true}
-                getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
-            />
-        </View>
-    }
+    return (
+    <View style={{flexDirection: "row", width: 380, padding: 16, alignItems: "center"}}>
+        <VerticalScrollPicker
+            data={months}
+            width={150}
+            initialValue={months[moment().month()]}
+            onChange={(x) => {
+                setMonth(months.indexOf(x))
+                props.onChange(moment().year(year).month(x).date(day).format("YYYY-MM-DD"))
+            }}
+        />
+        <VerticalScrollPicker
+            data={[...Array(daysInMonth(month, year)).keys()].map(x => x + 1)}
+            width={50}
+            initialValue={moment().date()}
+            onChange={(x) => {
+                setDay(x)
+                props.onChange(moment().year(year).month(month).date(x).format("YYYY-MM-DD"))
+            }}
+        />
+        <VerticalScrollPicker
+            data={[...Array(10).keys()].map(x => x + moment().year() - 4)}
+            width={100}
+            initialValue={moment().year()}
+            onChange={(x) => {
+                setYear(x)
+                props.onChange(moment().year(x).month(month).date(day).format("YYYY-MM-DD"))
+            }}
+        />
+    </View>)
 }
 
 const styles = StyleSheet.create({
