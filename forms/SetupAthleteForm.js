@@ -51,24 +51,6 @@ export const GenderForm = CreateTwoOptionForm({
     showValue2: 'Female'
 });
 
-export const GymAccessForm = CreateTwoOptionForm({
-    title: 'Do you have gym access?',
-    field: 'hasAccess',
-    storeValue1: true,
-    storeValue2: false,
-    showValue1: "Yes",
-    showValue2: "No"
-});
-
-export const WorkoutEquipmentForm = CreateTwoOptionForm({
-    title: 'Do you have workout equipment?',
-    field: 'hasEquipment',
-    storeValue1: true,
-    storeValue2: false,
-    showValue1: "Yes",
-    showValue2: "No"
-});
-
 export function HeightForm(props) {
 
     const [feet, setFeet] = useState(null);

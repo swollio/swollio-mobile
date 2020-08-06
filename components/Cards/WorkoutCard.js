@@ -118,8 +118,8 @@ export default function WorkoutCard(props) {
             alignItems: 'center',
             width: "100%",
         }}>
-            {(alternatives || []).map(a => 
-                <TouchableOpacity onPress={props.onEdit} style={{marginVertical: 6, borderColor: Colors.Primary, borderWidth: 1, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24}}>
+            {(alternatives || []).map((a, i) => 
+                <TouchableOpacity key={i} onPress={props.onEdit} style={{marginVertical: 6, borderColor: Colors.Primary, borderWidth: 1, height: 50, borderRadius: 25, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24}}>
                     <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>{a.name}</Text>
                 </TouchableOpacity>
             )}

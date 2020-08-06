@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Keyboard, Text, View, TextInput, Animated, Button, Dimensions} from 'react-native';
+import { StyleSheet, TouchableOpacity, Keyboard, Text, View, SafeAreaView, TextInput, Animated, Button, Dimensions, KeyboardAvoidingView} from 'react-native';
 import Colors from '../utilities/Colors';
 import * as constants from '../utilities/constants';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 /**
  * This class is a container which will manage forms in the app. An
@@ -82,6 +83,8 @@ export default class FormContainer extends Component {
 
     render() {
         return (
+            <SafeAreaView>
+            <KeyboardAvoidingView behavior={'padding'}>
             <View style={styles.formContainer}>
                 <View style={styles.header}>
                     <TouchableOpacity activeOpacity={0.8} style={styles.backButton} onPress={() => this.goBackward()}>
@@ -107,8 +110,10 @@ export default class FormContainer extends Component {
                 </Animated.View>
                 <View style={styles.progressContainer}>
                     {this.props.forms.map((_ , index) => <View key={index} style={[styles.circle, index > this.state.page ? {backgroundColor: Colors.Background}: {backgroundColor: Colors.Primary}]}/>)}
-                </View>
             </View>
+            </View>
+            </KeyboardAvoidingView>
+            </SafeAreaView>
         )
     }
 }
@@ -119,13 +124,13 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Surface,
         justifyContent: 'space-between',
         height: '100%',
-        paddingVertical: 48,
         width: '100%',
         overflow: 'hidden',
     },
     progressContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        height: 50,
     },
     circle: {
         width: 10,

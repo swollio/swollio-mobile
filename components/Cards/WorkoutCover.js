@@ -5,6 +5,7 @@ import OptionButton from '../OptionButton';
 import { getWorkoutsForAthlete } from '../../utilities/api';
 import Colors from '../../utilities/Colors';
 import moment from 'moment';
+import Icon from 'react-native-vector-icons/Feather';
 
 const repeatResponse = {
     daily: "This workout repeats daily",
@@ -18,20 +19,15 @@ export default function WorkoutCover (props) {
         <Card barColor = {props.color} >
             <View>
                 <Text style={styles.workoutTitle}>{props.title}</Text>
-                <Text style={styles.workoutSubtitle}>{repeatResponse[props.repeat]}</Text>
-                <Text style={styles.workoutSubtitle}>{
-                    moment(props.created).calendar(null,{
-                        lastDay : '[Yesterday]',
-                        sameDay : '[Today]',
-                        nextDay : '[Tomorrow]',
-                        lastWeek : '[last] dddd',
-                        nextWeek : 'dddd',
-                        sameElse : 'L'
-                    })}</Text>
+                <Text style={styles.workoutSubtitle}>{props.team_name}</Text>
                 <View style={{alignItems: 'center'}}>
+                    {props.completed ? <View style={{width: 60, height: 60, alignItems: 'center', justifyContent: 'center', borderWidth: 3, borderRadius: 30,borderColor: Colors.Primary}}>
+                <Icon name={'check'} size={40} style={{color: Colors.Primary}}/>
+            </View>:
                     <OptionButton style = {[styles.optionButton, { borderColor: props.color }]} onPress={props.onStartWorkout}>
                         <Text style={[styles.buttonText, { color: props.color }]}>Start</Text>
                     </OptionButton>
+                    }
                 </View>
             </View>
         </Card>
@@ -47,9 +43,9 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     workoutSubtitle: {
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: "Comfortaa_400Regular",
-        margin: 5,
+        color: Colors.SurfaceContrast2,
         marginLeft: 10,
     },
     optionButton: {

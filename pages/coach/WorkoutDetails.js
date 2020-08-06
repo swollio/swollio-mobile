@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar, SafeAreaView, StyleSheet, View } from 'react-native';
-import WorkoutDetailsHeader from './WorkoutDetailsHeader'
+import WorkoutDetailsHeader from './WorkoutDetailHeader'
 import WorkoutDetailsAssignments from './WorkoutDetailsAssignments'
 import CircularButton from '../../components/CircularButton'
 import Colors from '../../utilities/Colors';

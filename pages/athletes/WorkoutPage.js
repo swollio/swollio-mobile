@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import Colors from '../../utilities/Colors';
 import Icon from 'react-native-vector-icons/Feather';
 import { getAssignmentsForWorkout, postAthleteWorkoutResult } from '../../utilities/api';
@@ -34,6 +34,7 @@ export default function WorkoutPage(props) {
      */
     const [results, setResults] = useState(null);
     
+    const [complete, setComplete] = useState(false);
 
     // Load the list of assignments
     useEffect(() => {
@@ -53,6 +54,7 @@ export default function WorkoutPage(props) {
                         assignment_id: assignment.id,
                         exercise_id: assignment.exercise_id,
                         initalReps: reps,
+                        date: props.workout.date,
 
                         // These fields will be changed by the athlete as they complete the workout
                         reps: reps,
@@ -83,8 +85,41 @@ export default function WorkoutPage(props) {
         );
     })
 
-
-    return (
+    if (complete) {
+        return (
+            <SafeAreaView>
+                <View style={{height: "100%"}}>
+                <View>
+                    <Icon 
+                        name={'arrow-left'}
+                        style={{fontSize: 30, padding: 16}}
+                        onPress={() => setComplete(false)}
+                    />
+                </View>
+                <View style={{
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flex: 1,
+                }}>
+                    <Text style={[styles.megaText]}>Workout Complete</Text>
+                    <Text style={[styles.bodyText, {padding: 24}]}>Once you proceed, you will be unable to make any changes.</Text>
+                    <TouchableOpacity onPress={() => {        
+                        postAthleteWorkoutResult(
+                            props.user.athlete_id,
+                            props.workout.id,
+                            results.flat().filter(x => x.created !== null)
+                        ).then(() => {
+                            props.pop();
+                        })
+                    }} style={styles.submitButton}>
+                        <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Submit Workout</Text>
+                    </TouchableOpacity>
+                </View>
+                </View>
+            </SafeAreaView>
+        )
+    } else return (
         <>
             <SafeAreaView style={styles.safeAreaTop} />
             <View style={styles.header}>
@@ -98,13 +133,7 @@ export default function WorkoutPage(props) {
                     name={'check'}
                     style={styles.headerIcon}
                     onPress={() => {
-                        postAthleteWorkoutResult(
-                            props.user.athlete_id,
-                            props.workout.id,
-                            results.flat().filter(x => x.created !== null)
-                        ).then(() => {
-                            props.pop()
-                        })
+                        setComplete(true);
                     }}
                 />
             </View>
@@ -131,6 +160,27 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
+    },
+    submitButton: {
+        borderColor: Colors.Primary, 
+        borderWidth: 1, 
+        height: 50, 
+        borderRadius: 25, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        paddingHorizontal: 32,
+    },
+    megaText: {
+        fontSize: 30,
+        textAlign: 'center',
+        color: Colors.SurfaceContrast,
+        fontFamily: 'Comfortaa_400Regular',
+    },
+    bodyText: {
+        fontSize: 18,
+        textAlign: 'center',
+        color: Colors.SurfaceContrast,
+        fontFamily: 'Comfortaa_400Regular',
     },
     headerIcon: {
         fontSize: 30,

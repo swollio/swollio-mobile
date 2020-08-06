@@ -33,8 +33,8 @@ export default function WorkoutDetailsHeader(props) {
                     onPress={props.onFinish}
                 />
             </View>
-            <WorkoutDetailsItem icon={'calendar'} value={props.options.created}/>
-            <WorkoutDetailsItem icon={'repeat'} value={props.options.repeat}/>
+            <WorkoutDetailsItem icon={'calendar'} value={props.options.start_date}/>
+            <WorkoutDetailsItem icon={'repeat'} value={props.options.repeat.join(" ")}/>
         </View>
         
     );

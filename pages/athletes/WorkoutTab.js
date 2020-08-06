@@ -5,7 +5,7 @@ import { Card, WorkoutCover } from '../../components/Components'
 import { getWorkoutsForAthlete } from '../../utilities/api'
 import WorkoutProgress from './WorkoutPage'
 import LoadingPage from '../LoadingPage';
-
+import moment from 'moment'
 export default function WorkoutsPage(props) {
 
     const [workouts, setWorkouts] = useState(null);
@@ -20,23 +20,32 @@ export default function WorkoutsPage(props) {
     });
     console.log(workouts)
 
+
     // This makes a list of WorkoutCover Cards that tell the user metadat
     // about the workout
-    const WorkoutCovers = (workouts || []).map((workout, index) => {
+    const WorkoutCovers = (workouts || []).map((workoutsForDay, index1) => {
         return (
-            <WorkoutCover 
-                key={index} 
-                color={Colors.Primary} 
-                title={workout.workout_name} 
-                repeat={workout.repeat}
-                created={workout.created}
-                onStartWorkout={() => props.push(() => <WorkoutProgress 
-                    pop={props.pop}
-                    push={props.push}
-                    workout={workout}
-                    user={props.user}
-                />)}
-            />
+            <View key={index1}>
+                <Text style={styles.sectionLabel}>{moment(workoutsForDay.date).format("dddd MMM D")}</Text>
+                {
+                    workoutsForDay.workouts.map((workout, index2) => {
+                        return (<WorkoutCover 
+                            key={index2} 
+                            completed={workout.completed}
+                            color={Colors.Primary} 
+                            title={workout.workout_name} 
+                            team_name={workout.team_name}
+                            created={workout.created}
+                            onStartWorkout={() => props.push(() => <WorkoutProgress 
+                                pop={props.pop}
+                                push={props.push}
+                                workout={workout}
+                                user={props.user}
+                            />)}
+                        />)
+                    })
+                }
+            </View>
         );
     });
 
@@ -67,6 +76,13 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.Primary,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
+    },
+    sectionLabel: {
+        fontSize: 18,
+        fontFamily: "Comfortaa_400Regular",
+        color: Colors.SurfaceContrast,
+        marginTop: 12,
+        marginBottom: 12,
     },
     watermark: {
         textAlign: 'center',

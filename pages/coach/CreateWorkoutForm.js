@@ -107,6 +107,7 @@ function WorkoutRepeatForm(props) {
                 {days.map(x => {
                     return (
                         <TouchableOpacity
+                            key={x}
                             activeOpacity={0.8} 
                             style={{padding: 16, flexDirection: 'row', alignItems: 'center', width: '90%', borderBottomColor: '#DDD', borderBottomWidth: 1}}
                             onPress={() => {
@@ -129,7 +130,7 @@ function WorkoutRepeatForm(props) {
                     width={200}
                     text={'Continue'}
                     onPress={() => {
-                        props.onChange('repeat', days.filter(d => repeatDays[d]).join(' '))
+                        props.onChange('repeat', days.filter(d => repeatDays[d]).map(d => days.indexOf(d)))
                         props.onCompleted()
                     }}
                 />
@@ -175,6 +176,7 @@ export default function CreateWorkoutForm(props) {
                     WorkoutRepeatForm,
                     (props) => <
                         WorkoutDateForm {...props}
+                        field="end_date"
                         title="Select end date."
                     />,
                     WorkoutCreatedForm,

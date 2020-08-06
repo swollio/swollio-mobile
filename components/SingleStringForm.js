@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Keyboard, TouchableOpacity, Text, View, TextInput, ScrollView } from 'react-native';
 import Colors from '../utilities/Colors';
-
 /**
  * This function returns a fully created form that has a single text input field.
  * The parameter options contains the data necessary to distinguish SingleStringForms from each other.
@@ -98,7 +97,6 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         marginTop: 15,
-        marginBottom: 10
     },
     disabledButton: {
         backgroundColor: Colors.Background,
@@ -110,6 +108,5 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 25,
         marginTop: 15,
-        marginBottom: 10
     },
 });
