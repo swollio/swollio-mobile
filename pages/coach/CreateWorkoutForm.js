@@ -163,10 +163,7 @@ export default function CreateWorkoutForm(props) {
         return (
             <FormContainer
                 onCancel={() => props.onCancel()}
-                onCompleted={(options) => { 
-                    console.log(options)
-                    setOptions(options);
-                }}
+                onCompleted={(options) => setOptions(options) }
                 forms={[
                     (props) => <
                         WorkoutDateForm {...props}

@@ -4,6 +4,7 @@ import Colors from '../../utilities/Colors';
 import Icon from 'react-native-vector-icons/Feather';
 import { getAssignmentsForWorkout, postAthleteWorkoutResult } from '../../utilities/api';
 import { WorkoutCard } from '../../components/Components';
+import PostWorkoutSurvey from '../../forms/PostWorkoutSurvey';
 
 /**
  * The WorkoutPage component is the root level container which displays
@@ -100,17 +101,30 @@ export default function WorkoutPage(props) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flex: 1,
+                    flex: 0.9,
                 }}>
-                    <Text style={[styles.megaText]}>Workout Complete</Text>
-                    <Text style={[styles.bodyText, {padding: 24}]}>Once you proceed, you will be unable to make any changes.</Text>
-                    <TouchableOpacity onPress={() => {        
+                    <Text style={[styles.megaText]}>Workout Complete!</Text>
+                    <Text style={[styles.bodyText, { marginBottom: 24 }]}>
+                        Once you proceed, you will be not be able to make any changes.
+                    </Text>
+                    <Text style={[styles.bodyText, { marginBottom: 36 }]}>
+                        If you are done, press submit and continue on to the post-workout survey.
+                    </Text>
+                    <TouchableOpacity onPress={() => 
+                    {        
                         postAthleteWorkoutResult(
                             props.user.athlete_id,
                             props.workout.id,
                             results.flat().filter(x => x.created !== null)
                         ).then(() => {
-                            props.pop();
+                            props.push(() => // Push the PostWorkoutSurvey onto the stack
+                                <PostWorkoutSurvey
+                                    pop={ num => props.pop(num) }
+                                    workout={props.workout}
+                                    user={props.user}
+                                    push={props.push}
+                                />
+                            );
                         })
                     }} style={styles.submitButton}>
                         <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Submit Workout</Text>
@@ -119,7 +133,8 @@ export default function WorkoutPage(props) {
                 </View>
             </SafeAreaView>
         )
-    } else return (
+    } else 
+    return (
         <>
             <SafeAreaView style={styles.safeAreaTop} />
             <View style={styles.header}>
@@ -174,13 +189,16 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         color: Colors.SurfaceContrast,
-        fontFamily: 'Comfortaa_400Regular',
+        fontFamily: 'Comfortaa_600SemiBold',
+        marginBottom: 24,
     },
     bodyText: {
         fontSize: 18,
         textAlign: 'center',
         color: Colors.SurfaceContrast,
         fontFamily: 'Comfortaa_400Regular',
+        paddingLeft: 28,
+        paddingRight: 28
     },
     headerIcon: {
         fontSize: 30,

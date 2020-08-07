@@ -89,10 +89,8 @@ export default function AbCard(props) {
                 }}
                 onRewind={() => { 
                     if (index > 0) setIndex(index - 1)
-                    if (index === 0) {
-                        console.log(index)
+                    if (index === 0)
                         setProgressState('setup')
-                    }
 
                 }}
                 onFastForward={() => { 

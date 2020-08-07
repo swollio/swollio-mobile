@@ -11,7 +11,6 @@ export default class ScrollPicker extends Component {
             selected: this.props.data.findIndex((number) => number == this.props.initialValue) + 1
         }
 
-        console.log(this.state.selected)
         this.viewabilityConfig = {
             itemVisiblePercentThreshold: 50
         };
@@ -37,37 +36,40 @@ export default class ScrollPicker extends Component {
     }
     
     render() {
-        return <FlatList     
-            style={{height: 180, maxHeight: 180, width: this.props.width, overflow: 'hidden'}}
-            data={['', ...this.props.data, '']}
-            ref={(ref) => { this.flatListRef = ref; }}
-            initialScrollIndex={this.state.selected - 1}
-            onViewableItemsChanged={this.onViewableItemsChanged}
-            showsVerticalScrollIndicator={false}
-            viewabilityConfig={this.viewabilityConfig}
-            snapToInterval={60}
-            decelerationRate="fast"
-            bounces={false}
-            keyExtractor={(data, index) => index}
-            getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
-            renderItem={({ item, index }) => 
-            <TouchableOpacity 
-                activeOpacity={0.8}
-                style={{width: this.props.width, height: 60, alignItems: 'center', justifyContent: 'center'}}
-                onPress={() => this.flatListRef.scrollToIndex({index, viewPosition: 0.5})}
-            >
-                <View style={[
-                        styles.item,
-                        {width: this.props.width},
-                        (item === '' && styles.emptyItem) || {},
-                        (index === this.state.selected && styles.selectedItem) || {}]
-                    }>
-                     <Text style={{fontSize: 20, color: index === this.state.selected ? Colors.PrimaryContrast: Colors.SurfaceContrast2}}>{item}</Text>
-                </View>
-            </TouchableOpacity>
-            }
-            />
-    }
+        return (
+            <View style={[this.props.style, { width: this.props.width }, styles.scrollView ]} >
+                <FlatList
+                    style={{overflow: 'hidden', borderRadius: 20 }}
+                    data={['', ...this.props.data, '']}
+                    ref={(ref) => { this.flatListRef = ref; }}
+                    initialScrollIndex={this.state.selected - 1}
+                    onViewableItemsChanged={this.onViewableItemsChanged}
+                    showsVerticalScrollIndicator={false}
+                    viewabilityConfig={this.viewabilityConfig}
+                    snapToInterval={60}
+                    decelerationRate="fast"
+                    bounces={false}
+                    keyExtractor={(data, index) => index.toString()}
+                    getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
+                    renderItem={({ item, index }) => 
+                    <TouchableOpacity 
+                        activeOpacity={0.8}
+                        style={{width: this.props.width, height: 60, alignItems: 'center', justifyContent: 'center'}}
+                        onPress={() => this.flatListRef.scrollToIndex({index, viewPosition: 0.5})}
+                    >
+                        <View style={[
+                                styles.item,
+                                {width: this.props.width},
+                                (item === '' && styles.emptyItem) || {},
+                                (index === this.state.selected && styles.selectedItem) || {}]
+                            }>
+                            <Text style={{fontSize: 20, color: index === this.state.selected ? Colors.PrimaryContrast: Colors.SurfaceContrast2}}>{item}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    }
+                />
+            </View>
+        )};
 }
 
 const styles = StyleSheet.create({
@@ -83,5 +85,9 @@ const styles = StyleSheet.create({
     },
     selectedItem: {
         backgroundColor: Colors.Primary
+    },
+    scrollView: {
+        height: 180, 
+        maxHeight: 180
     }
 })

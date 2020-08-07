@@ -29,7 +29,7 @@ export default function ButtonRow(props) {
         // and only turn the button that is pressed on
         allButtonsOff[index] = true;
 
-        setStates(allButtonsOff);
+        setStates([...allButtonsOff]);
 
         // Since the button is toggled, and if there is an onChange
         // action passed into this component, execute it at the change
@@ -45,7 +45,7 @@ export default function ButtonRow(props) {
             <TouchableOpacity 
                 key={index}
                 style = {[
-                    styles.toggleButton, states[index] ? 
+                    states[index] ? 
                     {
                         backgroundColor: Colors.Primary,
                         borderColor: Colors.PrimaryContrast,
@@ -53,7 +53,7 @@ export default function ButtonRow(props) {
                     {
                         backgroundColor: Colors.PrimaryContrast,
                         borderColor: Colors.Primary,
-                }]}
+                }, props.style]}
                 onPress={() => stateController(index)}>
                     <Text 
                         style={[
