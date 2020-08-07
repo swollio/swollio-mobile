@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput, SafeAreaView } from 'react-native';
-import Icon from 'react-native-vector-icons/Feather';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Colors from '../utilities/Colors';
 import { ButtonRow, ScrollPicker, OptionButton } from "../components/Components";
+import { postPostWorkoutSurvey } from "../utilities/api";
 
 
 export default function PostWorkoutSurvey(props) {
+    const [workoutRating, setWorkoutRating] = useState(-1);
     const [hoursSleep, setHoursSleep] = useState(6);
+    const [wellnessVal, setWellnessVal] = useState(-1);
 
     return (
         <>
@@ -16,7 +18,11 @@ export default function PostWorkoutSurvey(props) {
             </View>
             <View style={styles.form}>
                 <Text style={styles.question}>Give this workout a rating: </Text>
-                <ButtonRow style={styles.toggleButton} buttons={[1, 2, 3, 4, 5]} />
+                <ButtonRow 
+                    style={styles.toggleButton} 
+                    buttons={[1, 2, 3, 4, 5]}
+                    onChange={(val) => setWorkoutRating(val)} 
+                />
                 <Text style={styles.question}>How many hours of sleep did you get?</Text>
                 <ScrollPicker
                     style={styles.scrollPicker}
@@ -27,10 +33,27 @@ export default function PostWorkoutSurvey(props) {
                     onChange={(i) => setHoursSleep(i)}
                 />
                 <Text style={styles.question}>Please rank how you are feeling today: </Text>
-                <ButtonRow style={styles.toggleButton} buttons={[1, 2, 3, 4, 5]} />
+                <ButtonRow 
+                    style={styles.toggleButton} 
+                    buttons={[1, 2, 3, 4, 5]} 
+                    onChange={(val) => setWellnessVal(val)}
+                />
             </View>
             <View style={{alignItems: 'center', marginBottom: 150}}>
-                <OptionButton style={{backgroundColor: Colors.Primary, height: 50}} onPress={() => { props.pop(2) }}>
+                <OptionButton 
+                    style={{backgroundColor: Colors.Primary, height: 50}} 
+                    onPress={() => { 
+                    postPostWorkoutSurvey(props.user.athlete_id, props.workout.workout_id,
+                    {
+                        athlete_id: props.user.athlete_id, 
+                        workout_id: props.workout.workout_id,
+                        due_date: props.workout.date,
+                        rating: workoutRating,
+                        hours_sleep: hoursSleep,
+                        wellness: wellnessVal
+                    })
+                    .then(_ => props.pop(2));
+                }}>
                     <Text style={{color: Colors.PrimaryContrast, fontSize: 22 }}>Finish Workout</Text>
                 </OptionButton>
             </View>

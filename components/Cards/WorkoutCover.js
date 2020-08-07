@@ -21,22 +21,21 @@ export default function WorkoutCover (props) {
                 <Text style={styles.workoutTitle}>{props.title}</Text>
                 <Text style={styles.workoutSubtitle}>{props.team_name}</Text>
                 <View style={{alignItems: 'center'}}>
-                    {props.completed ?
-                    <View style={{
-                        flexDirection: 'row', 
-                        alignItems: 'center'
-                    }}>
-                        <Text style={{
-                            fontSize: 24,
-                            fontFamily: "Comfortaa_400Regular",
-                            marginHorizontal: 8,
-                        }}>Completed</Text>
-                        <View style={{marginVertical: 20, width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderRadius: 20,borderColor: Colors.Primary}}>
-                            <Icon name={'check'} size={24} style={{color: Colors.Primary}}/>
+                    {
+                    props.completed ?
+                        <View style={{ flexDirection: 'row',  alignItems: 'center' }} >
+                            <Text style={styles.completedText}>
+                                Completed
+                            </Text>
+                            <View style={styles.iconView}>
+                                <Icon name={'check'} size={24} style={{color: Colors.Primary}}/>
+                            </View>
                         </View>
-                    </View>:
+                    :
                     <OptionButton style = {[styles.optionButton, { borderColor: props.color }]} onPress={props.onStartWorkout}>
-                        <Text style={[styles.buttonText, { color: props.color }]}>Start</Text>
+                        <Text style={[styles.buttonText, { color: props.color }]}>
+                            Start
+                        </Text>
                     </OptionButton>
                     }
                 </View>
@@ -74,5 +73,20 @@ const styles = StyleSheet.create({
         fontFamily: "Comfortaa_400Regular",
         fontSize: 18,
         textAlign: 'center',
+    },
+    iconView: {
+        marginVertical: 20, 
+        width: 40, 
+        height: 40, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        borderWidth: 2, 
+        borderRadius: 20,
+        borderColor: Colors.Primary
+    },
+    completedText: {
+        fontSize: 24,
+        fontFamily: "Comfortaa_400Regular",
+        marginHorizontal: 8,
     }
 });

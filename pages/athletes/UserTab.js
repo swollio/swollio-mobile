@@ -28,14 +28,16 @@ export default function UserTab(props) {
                 <Text style={styles.sectionLabel}>Today</Text>
                 {
                     (todaysWorkouts || []).map((workout, index) => {
-                        return (<WorkoutCover 
+                        return (
+                        <WorkoutCover 
                             key={index} 
                             color={Colors.Primary} 
                             completed={workout.completed}
                             title={workout.workout_name} 
                             team_name={workout.team_name}
                             created={workout.created}
-                            onStartWorkout={() => props.push(() => <WorkoutProgress 
+                            onStartWorkout={() => props.push(() => 
+                            <WorkoutProgress 
                                 pop={props.pop}
                                 push={props.push}
                                 workout={workout}

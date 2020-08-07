@@ -133,7 +133,8 @@ export default function WorkoutPage(props) {
                 </View>
             </SafeAreaView>
         )
-    } else return (
+    } else 
+    return (
         <>
             <SafeAreaView style={styles.safeAreaTop} />
             <View style={styles.header}>
