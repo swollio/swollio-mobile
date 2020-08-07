@@ -43,11 +43,8 @@ export default function WorkoutsPage(props) {
                         <Card barColor={Colors.Primary} key={workout.id}>
                             <TouchableOpacity onPress={() => props.push((props) =>
                                 <CreateWorkoutForm {...props}
-                                    onCreate={(w) => {
-                                        console.log(w)
-                                        props.pop()
-                                    }}
-                                    onCancel={() => props.pop()}
+                                    onCreate={ () => props.pop() }
+                                    onCancel={ () => props.pop() }
                                     options={workout}
                                 />
                             

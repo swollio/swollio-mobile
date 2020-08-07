@@ -25,7 +25,7 @@ export default class StackContainer extends Component {
             stack: [
                 <RootView 
                     push={(CustomElement) => this.push(CustomElement)}
-                    pop={() => this.pop()}
+                    pop={ num => this.pop(num) }
                 />
             ] 
         };
@@ -43,10 +43,13 @@ export default class StackContainer extends Component {
         })
     };
 
-    pop() {
+    pop(num) {
+        if ((typeof num) !== 'number')
+            num = 1;
+        
         if (this.state.stack.length > 1) {
             this.setState({
-                stack: this.state.stack.slice(1)
+                stack: this.state.stack.slice(num)
             })
         }
     }

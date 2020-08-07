@@ -1,12 +1,26 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function OptionButton (props) {
     return(
         <TouchableOpacity
-            style={props.style}
+            style={[styles.optionButton, props.style]}
             onPress={props.onPress}>
             { props.children }
         </TouchableOpacity>
     );
 }
+
+const styles = StyleSheet.create({
+    optionButton: {
+        width: "80%",
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        borderWidth: 1,
+        borderRadius: 25,
+        marginTop: 15,
+        marginBottom: 10
+    },
+});

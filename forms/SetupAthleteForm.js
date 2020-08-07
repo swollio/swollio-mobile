@@ -60,6 +60,7 @@ export function HeightForm(props) {
         <View style={styles.form}>
             <Text style={[styles.title, {padding: 10}]}>What is your height?</Text>
             <ButtonRow 
+                style={styles.toggleButton}
                 field='feet' 
                 buttons={[4, 5, 6]} 
                 onChange={(f) => setFeet(f)} 
@@ -76,7 +77,6 @@ export function HeightForm(props) {
                 style={[styles.optionButton, {marginTop: 50}]} 
                 onPress={() => { 
                     if (feet !== null) {
-                        console.log('height', 12 * feet + inches)
                         props.onChange('height', 12 * feet + inches);
                         props.onCompleted()
                     }
@@ -135,5 +135,18 @@ const styles = StyleSheet.create({
         elevation: 5,
         marginTop: 15,
         marginBottom: 10
-    }
+    },
+    toggleButton: {
+        padding: 10,
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        marginRight: 10,
+        marginLeft: 10,
+        marginTop: 30,
+        marginBottom: 30,
+    },
 });

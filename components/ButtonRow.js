@@ -45,7 +45,7 @@ export default function ButtonRow(props) {
             <TouchableOpacity 
                 key={index}
                 style = {[
-                    styles.toggleButton, states[index] ? 
+                    states[index] ? 
                     {
                         backgroundColor: Colors.Primary,
                         borderColor: Colors.PrimaryContrast,
@@ -53,7 +53,7 @@ export default function ButtonRow(props) {
                     {
                         backgroundColor: Colors.PrimaryContrast,
                         borderColor: Colors.Primary,
-                }]}
+                }, props.style]}
                 onPress={() => stateController(index)}>
                     <Text 
                         style={[

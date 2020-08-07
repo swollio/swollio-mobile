@@ -27,37 +27,41 @@ export default class ScrollPicker extends Component {
     }
     
     render() {
-        return <FlatList     
-            style={{width: 300, height: 60, overflow: 'hidden'}}
-            data={['', '', ...this.props.data, '', '']}
-            ref={(ref) => { this.flatListRef = ref; }}
-            initialScrollIndex={this.state.selected - 2}
-            onViewableItemsChanged={this.onViewableItemsChanged}
-            showsHorizontalScrollIndicator={false}
-            viewabilityConfig={this.viewabilityConfig}
-            horizontal={true}
-            snapToInterval={60}
-            decelerationRate="fast"
-            bounces={false}
-            keyExtractor={(data, index) => index}
-            getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
-            renderItem={({ item, index }) => 
-            <TouchableOpacity 
-                activeOpacity={0.8}
-                style={{width: 60, height: 60, alignItems: 'center', justifyContent: 'center'}}
-                onPress={() => this.flatListRef.scrollToIndex({index, viewPosition: 0.5})}
-            >
-                <View style={[
-                        styles.item,
-                        (item === '' && styles.emptyItem) || {},
-                        (index === this.state.selected && styles.selectedItem) || {}]
-                    }>
-                     <Text style={{fontSize: 20, color: index === this.state.selected ? Colors.PrimaryContrast: Colors.SurfaceContrast2}}>{item}</Text>
-                </View>
-            </TouchableOpacity>
-            }
+        return (
+        <View style={[this.props.style, { width: 302, height: 60 } ]} >
+            <FlatList     
+                style={{width: 300, height: 60, overflow: 'hidden', borderRadius: 30}}
+                data={['', '', ...this.props.data, '', '']}
+                ref={(ref) => { this.flatListRef = ref; }}
+                initialScrollIndex={this.state.selected - 2}
+                onViewableItemsChanged={this.onViewableItemsChanged}
+                showsHorizontalScrollIndicator={false}
+                viewabilityConfig={this.viewabilityConfig}
+                horizontal={true}
+                snapToInterval={60}
+                decelerationRate="fast"
+                bounces={false}
+                keyExtractor={(data, index) => index.toString()}
+                getItemLayout={(data, index) => ({ length: 60, offset: 60 * index, index })}
+                renderItem={({ item, index }) => 
+                    <TouchableOpacity 
+                        activeOpacity={0.8}
+                        style={{width: 60, height: 60, alignItems: 'center', justifyContent: 'center'}}
+                        onPress={() => this.flatListRef.scrollToIndex({index, viewPosition: 0.5})}
+                    >
+                        <View style={[
+                                styles.item,
+                                (item === '' && styles.emptyItem) || {},
+                                (index === this.state.selected && styles.selectedItem) || {}]
+                            }>
+                            <Text style={{fontSize: 20, color: index === this.state.selected ? Colors.PrimaryContrast: Colors.SurfaceContrast2}}>{item}</Text>
+                        </View>
+                    </TouchableOpacity>
+                }
             />
-    }
+        </View>
+        
+        )};
 }
 
 const styles = StyleSheet.create({

@@ -9,29 +9,12 @@ import { Card, WorkoutCover } from '../../components/Components'
 import WorkoutProgress from './WorkoutPage'
 
 export default function UserTab(props) {
-    console.log([
-        'Bicycle Kicks',
-        'Low Plank',
-        'Crunches',
-        'Russian Twists',
-        'Pidgeon Crunches',
-        'Reverse Crunches',
-        'Iron Cross',
-        'High Plank',
-        'Side Plank',
-        'Penguins',
-        'Crunchy Frogs',
-        'V-Ups'
-    ])
 
     const [todaysWorkouts, setTodaysWorkouts] = useState(null);
 
     useEffect(() => {
         if (todaysWorkouts === null) {
-            getTodaysWorkoutsForAthlete(props.user.athlete_id).then(data => {
-                console.log(data);
-                setTodaysWorkouts(data);
-            });
+            getTodaysWorkoutsForAthlete(props.user.athlete_id).then( data => setTodaysWorkouts(data) );
         }
         return () => {} 
     });
