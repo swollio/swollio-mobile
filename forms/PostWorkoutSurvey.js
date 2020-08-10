@@ -27,7 +27,7 @@ export default function PostWorkoutSurvey(props) {
                 <ScrollPicker
                     style={styles.scrollPicker}
                     field='hours_sleep'
-                    selectColor = {Colors.Primary}
+                    selectColor={Colors.Primary}
                     data={[...Array(12).keys(), "12+"]}
                     initialValue={6}
                     onChange={(i) => setHoursSleep(i)}
