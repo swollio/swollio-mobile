@@ -194,3 +194,7 @@ export function getAlternativesForExercises(exercise_id) {
 export function postPostWorkoutSurvey(athlete_id, workout_id, surveyResult) {
     return post(`athletes/${athlete_id}/surveys/${workout_id}`, surveyResult).then(result => result.text());
 }
+ 
+export function getStatisticsForAthlete(athlete_id) {
+    return get(`athletes/${athlete_id}/exercises`).then(result => result.json());
+}
