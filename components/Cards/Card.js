@@ -10,7 +10,7 @@ import Colors from '../../utilities/Colors';
  */
 export default function Card(props) {
     return (
-        <View style = {[styles.card, { borderLeftColor: props.barColor || Colors.Primary }]}>
+        <View style = {[styles.card, { borderLeftColor: props.barColor || Colors.Primary }, props.style]}>
             { props.children }
         </View>
     );

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Colors from '../../utilities/Colors';
 import LogoOutline from '../LoadingPage'
 import LoadingPage from '../LoadingPage';
-import AbCard from '../../components/Cards/AbCard'
 import { getTodaysWorkoutsForAthlete } from '../../utilities/api'
-import { Card, WorkoutCover } from '../../components/Components'
+import { Card, WorkoutCover, AbCard, AbSetup } from '../../components/Components'
 import WorkoutProgress from './WorkoutPage'
 
 export default function UserTab(props) {
@@ -24,7 +23,10 @@ export default function UserTab(props) {
             <View style={styles.header}>
                 <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
             </View>
-            <View style={{margin: 10, flex: 1}}>
+            <ScrollView 
+                style={{ padding: 10, flex: 1}}
+                showsVerticalScrollIndicator={false}
+            >
                 <Text style={styles.sectionLabel}>Today</Text>
                 {
                     (todaysWorkouts || []).map((workout, index) => {
@@ -48,7 +50,7 @@ export default function UserTab(props) {
                 }
                 <Text style={styles.sectionLabel}>Featured</Text>
                 <AbCard exercises={[]}/>
-            </View>
+            </ScrollView>
         </View>
     );
 }

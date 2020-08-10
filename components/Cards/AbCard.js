@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import OutlinedButton from '../OutlinedButton'
 import Colors from '../../utilities/Colors';
 import ProgressDots from '../ProgressDots';
@@ -7,6 +7,7 @@ import Card from '../Cards/Card'
 import Icon from 'react-native-vector-icons/Feather';
 import Timer from '../Timer';
 import CircularButton from '../CircularButton';
+import AbSetup from "./AbSetup";
 
 function AbstructionStartCard(props) {
     return (
@@ -64,23 +65,46 @@ export function AbTimerCard(props) {
                         onPress={() => props.onFastForward()}
                     />
                 </View>
-                <ProgressDots style={{ marginTop: 20 }}numDots = {props.exerciseCount} numEnabled={props.exerciseIndex + 1}/>
+                <ProgressDots style={{ margin: 80 / props.exerciseCount , marginTop: 20 }} numDots = {props.exerciseCount} numEnabled={props.exerciseIndex + 1}/>
             </View>
         </Card>
     );
 }
 
 export default function AbCard(props) {
+    const [duration, setDuration] = useState(0);
+    const [numExercises, setNumExercises] = useState(0);
+
     const [progressState, setProgressState] = useState('setup');
-    const MAX_INDEX = props.exercises.length - 1;
+    const MAX_INDEX = numExercises - 1;
     const [index, setIndex] = useState(0);
+
+    const [totalTime, setTotalTime] = useState("");
+    
+    useEffect(() => {
+        const totalSeconds = duration * numExercises;
+        const minutes = Number.parseInt(totalSeconds / 60);
+        const seconds = totalSeconds - minutes * 60;
+        if (minutes < 10)
+            setTotalTime("0" + minutes + ":" + (seconds === 0 ? "00" : seconds));
+        else
+            setTotalTime(minutes + ":" + (seconds === 0 ? "00" : seconds));
+    }, [duration, numExercises]);
 
     switch (progressState) {
         case 'setup':
-            return <AbstructionStartCard onPress={() => setProgressState('in_progress')}/>
-
+            return <AbSetup
+                        totalTime={totalTime}
+                        onPress={(button) => setDuration(button)}
+                        onChange={(val) => setNumExercises(val)}
+                        onFinish={() => { 
+                            if (duration !== 0) setProgressState('in_progress')
+                            else alert("Please enter a duration!");
+                        }} 
+                    />;
         case 'in_progress':
-            return (<AbTimerCard 
+            return (
+            <AbTimerCard 
                 key={index}
                 title="Abstruction"
                 onFinish={() => {
@@ -98,8 +122,8 @@ export default function AbCard(props) {
                     if (index === MAX_INDEX) setProgressState('completed')
                  }}
                 exercise={props.exercises[index]}
-                exerciseCount={props.exercises.length}
-                duration={45}
+                exerciseCount={numExercises}
+                duration={duration}
                 exerciseIndex={index}
             />)
         case 'completed':
