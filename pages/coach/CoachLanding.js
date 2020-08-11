@@ -21,7 +21,9 @@ function Header(props) {
             {props.data &&
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <View style={styles.athleteCount}>
-                    <Text style={[styles.subtitle, {color: Colors.Red}]}>{props.data === null ? '0': props.data.length}</Text>
+                    <Text style={[styles.subtitle, {color: Colors.Red}]}>
+                        {props.data === null ? '0': props.data.length}
+                    </Text>
                 </View>
                 <Text style={styles.subtitle}>Athletes</Text>
             </View>
@@ -32,6 +34,12 @@ function Header(props) {
 }
 
 function AthleteElement(props) {
+    
+    let tags= [];
+    // The array of all the tags an athlete has for a given team
+    if (props.athlete.tags[0] !== null)
+        tags = props.athlete.tags.map((tag, index) => <Tag key={index} tag={tag} />);
+    
     return (
         <Card barColor={Colors.Primary}>
             <TouchableOpacity activeOpacity={0.2} onPress={() => props.onPress()}>
@@ -39,8 +47,7 @@ function AthleteElement(props) {
                     <View style={{flexDirection: 'column'}}>
                         <Text style={styles.athleteText}>{getFullName(props.athlete)}</Text>
                         <View style={{ flexDirection: 'row'}}>
-                            <Tag tag="Sprint"/>
-                            <Tag tag="Taper"/>
+                            {tags}
                         </View>
                     </View>
                     <Icon size={40} color={Colors.Primary} name={'chevron-right'}/>
@@ -111,10 +118,11 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.PrimaryContrast
     },
     athleteText: {
-        fontSize: 20,
+        fontSize: 24,
         fontFamily: "Comfortaa_600SemiBold",
         marginTop: 5,
         marginBottom: 10,
+        marginLeft: 5
     }
 
 })
