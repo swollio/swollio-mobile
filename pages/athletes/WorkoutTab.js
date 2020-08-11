@@ -7,7 +7,7 @@ import WorkoutProgress from './WorkoutPage'
 import LoadingPage from '../LoadingPage';
 import moment from 'moment'
 
-export default function WorkoutsPage(props) {
+export default function WorkoutsTab(props) {
 
     const [workouts, setWorkouts] = useState(null);
     
@@ -65,10 +65,6 @@ export default function WorkoutsPage(props) {
         </View>
     )
 }
-
-/*
-
-*/
 
 const styles = StyleSheet.create({
     header: {
