@@ -19,3 +19,4 @@ export { default as CompleteSetButton } from './CompleteSetButton';
 export { default as DatePicker } from './DatePicker';
 export { default as Timer } from './Timer';
 export { default as VerticalScrollPicker } from './VerticalScrollPicker';
+export { default as Tag } from "./Tag";

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Keyboard, TouchableOpacity, Text, View, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Keyboard, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
 /**
  * This function returns a fully created form that has a single text input field.
@@ -11,6 +11,7 @@ import Colors from '../utilities/Colors';
  */
 export default function CreateSingleStringForm(options) {
     return (props) => {
+
         // value is going to be a stateful property keeping track of the
         // text in the text box
         const [value, setValue] = useState('');
@@ -19,6 +20,9 @@ export default function CreateSingleStringForm(options) {
         // When the submit button is pressed, call the onChange and complete 
         // functions passed in as props to confirm values
         function submitValues() {
+            if (options.dismissKeyboard)
+                Keyboard.dismiss();
+
             if (valid) {
                 props.onChange(options.field, value)
                 props.onCompleted()

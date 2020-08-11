@@ -22,9 +22,10 @@ export default function StatisticsPage(props) {
                 <Text style={styles.title}>Statistics</Text>
             </View>
             <ScrollView padding={10} style={{height: '100%'}}>
-                {(weightSeries || []).map(e => {
+                {(weightSeries || []).map((e, index) => {
                     return (
                         <DataCard 
+                        key={index}
                         exercise_name={e.exercise_name}
                         data={e.weight_series.map(x => ({
                             value: x.avg_weight,
@@ -44,6 +45,8 @@ const styles = StyleSheet.create({
         borderColor: Colors.BackgroundContrast,
         borderBottomWidth: 3,
         backgroundColor: Colors.Primary,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20
     },
     title: {
         fontSize: 32,

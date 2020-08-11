@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import StackContainer from './StackContainer'
 import AthletePage from './athletes/UserTab'
-import CoachPage from './coach/AthletesPage'
+import CoachPage from './coach/CoachLanding'
 import CoachWorkoutsPage from './coach/WorkoutTab'
 import AthleteWorkoutsPage from './athletes/WorkoutTab'
 import StatisticsPage from './StatisticsPage'

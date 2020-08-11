@@ -10,7 +10,6 @@ import moment from 'moment'
 
 export default function DataCard(props) {
 
-    console.log(props.data)
     const WeightGradient = ({index}) =>
         <Defs key={index}>
             <LinearGradient id='weightGradient' x1='0%' x2='0%' y1='100%' y2='0%'>

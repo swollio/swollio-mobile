@@ -15,30 +15,9 @@ export const WorkoutNameForm = CreateSingleStringForm({
     subtitle: 'Enter the workout name.',
     keyboardType: 'default',
     validator: (value) => value !== '',
-    field: 'name'
+    field: 'name',
+    dismissKeyboard: true
 });
-
-function OutlinedButton(props) {
-    return (
-        <TouchableOpacity 
-            activeOpacity={0.8}
-            style={{
-                paddingHorizontal: 24,
-                height: 50,
-                width: props.width || 'auto',
-                alignItems: 'center',
-                margin: 5,
-                justifyContent: 'center',
-                borderColor: Colors.Primary,
-                borderWidth: 1,
-                borderRadius: 25
-            }}
-            onPress={props.onPress}
-        >
-            <Text style={{fontSize: 16, color: Colors.Primary}}>{props.text}</Text>
-        </TouchableOpacity>
-    )
-}
 
 function SolidButton(props) {
     return (
@@ -165,6 +144,7 @@ export default function CreateWorkoutForm(props) {
                 onCancel={() => props.onCancel()}
                 onCompleted={(options) => setOptions(options) }
                 forms={[
+                    WorkoutNameForm,
                     (props) => <
                         WorkoutDateForm {...props}
                         field="start_date"
@@ -204,6 +184,7 @@ export default function CreateWorkoutForm(props) {
 const styles = StyleSheet.create({
     form: {
         alignItems: 'center',
+        alignContent: 'center',
         justifyContent: 'center',
         width: '100%',
         height: '100%'
