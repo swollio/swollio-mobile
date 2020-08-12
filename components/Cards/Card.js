@@ -18,7 +18,6 @@ export default function Card(props) {
 
 const styles = StyleSheet.create({
     card: {
-        width: '100%',
         backgroundColor: Colors.Surface,
         borderRadius: 4,
         borderLeftWidth: 10,
