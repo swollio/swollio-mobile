@@ -25,7 +25,7 @@ function Header(props) {
                         {props.data === null ? '0': props.data.length}
                     </Text>
                 </View>
-                <Text style={styles.subtitle}>Athletes</Text>
+                <Text style={[styles.subtitle, {fontSize: 28}]}>Athletes</Text>
             </View>
             || <></>
             }
@@ -74,7 +74,8 @@ export default function CoachPage(props) {
                     key={athlete.id} 
                     athlete={athlete} 
                     onPress={() => props.push(() => 
-                        <AthletePage 
+                        <AthletePage
+                            teamId={props.user.team_id}
                             athlete={athlete}
                             pop={props.pop}
                             push={props.push}
@@ -109,10 +110,10 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     athleteCount: {
-        width: 44, 
-        height: 44, 
+        width: 38, 
+        height: 38, 
         marginRight: 12, 
-        borderRadius: 22, 
+        borderRadius: 19, 
         alignItems: "center", 
         justifyContent: "center", 
         backgroundColor: Colors.PrimaryContrast

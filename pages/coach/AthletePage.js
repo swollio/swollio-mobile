@@ -4,6 +4,7 @@ import Colors from '../../utilities/Colors';
 import { getAthletesForTeam, getStatisticsForAthlete } from '../../utilities/api'
 import { DataCard } from "../../components/Components"
 import Icon from 'react-native-vector-icons/Feather';
+import AthleteSettings from './AthleteSettings';
 
 export default function (props) {
 
@@ -44,6 +45,18 @@ export default function (props) {
                     <Text style={styles.title}>
                         {`${props.athlete.first_name}'s Progress`}
                     </Text>
+                    <Icon
+                        name={"settings"}
+                        style={styles.headerIcon}
+                        onPress={() => props.push(() => 
+                            <AthleteSettings 
+                                teamId={props.teamId}
+                                athlete={props.athlete}
+                                pop={props.pop}
+                                push={props.push}
+                            />
+                            )}
+                    />
                 </View>
                 <ScrollView padding={10} style={{backgroundColor: Colors.Background, height: '100%'}}>
                     {dataCards}
@@ -75,8 +88,9 @@ const styles = StyleSheet.create({
         fontSize: 32,
         color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
+        marginLeft: 10,
         textAlign: 'center',
-        marginLeft: 10
+        flex: 1
     },
     headerIcon: {
         fontSize: 30,

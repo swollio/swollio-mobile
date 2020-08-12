@@ -4,8 +4,8 @@ import Colors from '../utilities/Colors';
 
 export default function Tag (props) {
     return(
-        <View style={[styles.tagOutline, { width : props.tag.length > 8 ? 'auto' : 75} ]}>
-            <Text style={styles.tagText}>{props.tag}</Text>
+        <View style={[styles.tagOutline, props.tagStyle, { width : props.tag.length > 8 ? 'auto' : 75} ]}>
+            <Text style={[styles.tagText]}>{props.tag}</Text>
         </View>
     );
 }
