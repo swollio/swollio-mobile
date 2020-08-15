@@ -66,8 +66,9 @@ export default function CoachPage(props) {
 
     const [data, setData] = useState(null);
     useEffect(() => {
-        if (data === null)
+        if (data === null) {
             getAthletesForTeam(props.user.team_id).then(data => setData(data));
+        }
     });
 
     return (

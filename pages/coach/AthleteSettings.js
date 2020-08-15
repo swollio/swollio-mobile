@@ -3,51 +3,81 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, SafeAreaView, Tex
 import Icon from 'react-native-vector-icons/Feather';
 import Colors from '../../utilities/Colors';
 import { Tag, OptionButton } from "../../components/Components";
-import { getTagsForTeam, postAthleteTeamTag, getAthleteTags } from "../../utilities/api";
+import { getTagsForTeam, postAthleteTeamTag, getAthleteTags, postTeamTag } from "../../utilities/api";
 
 export default function AthleteSettings(props) {
-    const [tagInput, setTagInput] = useState(false);
+    const [tagInputState, setTagInputState] = useState(0);
     const [teamTags, setTeamTags] = useState(null);
     const [athleteTags, setAthleteTags] = useState(null);
-    
+    const [createTag, setCreateTag] = useState(null);
+
     useEffect(() => {
         if (!teamTags)
             getTagsForTeam(props.teamId).then(res => setTeamTags(res))
         
-        // Meaning tagInput has just changed (indicating a change in tags)
+        // Meaning tagInputState has just changed (indicating a change in tags)
         // or was just intialized
-        if (!tagInput)
+        if (!tagInputState)
             getAthleteTags(props.athlete.id, props.teamId).then(res => setAthleteTags(res))
-    }, [tagInput])
+    }, [tagInputState])
 
-    tags = (athleteTags || []).map(tag => <Tag key={tag.id} tagStyle={{marginVertical: 5}} tag={tag.tag} />);
+    const tags = (athleteTags || []).map(tag => <Tag key={tag.id} tagStyle={{marginVertical: 5}} tag={tag.tag} />);
 
-    let tagButtons = (teamTags || []).map(tag => 
-        <TouchableOpacity key={tag.id} activeOpacity={0.2} onPress={() => {
-            postAthleteTeamTag(props.teamId, props.athlete.id, tag.id)
-            setTagInput(false);
-        }}>
-            <Text style={styles.athleteText}>{tag.tag}</Text>
-        </TouchableOpacity>
+    let tagButtons = (teamTags || []).map(team_tag => 
+            <TouchableOpacity key={team_tag.id} activeOpacity={0.2} onPress={() =>
+                postAthleteTeamTag(props.athlete.id, team_tag.id).then(() => setTagInputState(false))
+            }>
+                <Text style={styles.athleteText}>{team_tag.tag}</Text>
+            </TouchableOpacity>
         )
+    
+    function submitVals() {
+        postTeamTag(props.teamId, createTag)
+        setCreateTag(null)
+    }
 
     function TagChooseView () {
+        if (createTag)
+            return (
+                <TextInput
+                    enablesReturnKeyAutomatically={true}
+                    style={styles.textInput}
+                    onChangeText={(text) => setCreateTag(text)}
+                    onSubmitEditing={submitVals}
+                />
+            );
+
         return (
             <Modal
                 animationType={"slide"}
                 transparent={true}
-                visible={tagInput}
+                visible={tagInputState}
                 >
                 <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <ScrollView 
-                            showsVerticalScrollIndicator={false}
-                            style={{height:"50%"}}
-                            >
-                            {tagButtons}
-                        </ScrollView>
-                    </View>
-                    <OptionButton style={{width: 200}} onPress={() => setTagInput(false)}>
+                    { !createTag ?
+                        <View style={styles.modalView}>
+                            <ScrollView 
+                                showsVerticalScrollIndicator={false}
+                                style={{height:"50%"}}
+                                >
+                                {tagButtons}
+                            </ScrollView>
+                        </View>
+                        :
+                        <TextInput 
+                            style={styles.textInput}
+                            onChangeText={(text) => setCreateTag(text)}
+                            onSubmitEditing={submitVals}
+                        />
+                    }
+                    <OptionButton style={{width: 200}} onPress={() => setCreateTag(true)}>
+                        <Text style={{
+                            fontSize: 24,
+                            fontFamily: "Comfortaa_600SemiBold"}}>
+                                + Add New Tag
+                            </Text>
+                    </OptionButton>
+                    <OptionButton style={{width: 200}} onPress={() => setTagInputState(false)}>
                         <Text style={{
                             fontSize: 24,
                             fontFamily: "Comfortaa_600SemiBold"}}>
@@ -80,13 +110,13 @@ export default function AthleteSettings(props) {
                         style={{ fontSize: 30, color: Colors.Primary }}
                     />
                 </View>
-                { tagInput ? <TagChooseView /> : <></> }
-                <ScrollView style={{ height: "100%", padding: 20}}>
+                { tagInputState ? <TagChooseView /> : <></> }
+                <ScrollView style={{ height: "100%", padding: 20, marginVertical: 10}}>
                     <>
                         <Text style={[styles.question, { marginBottom: 10}]}>Tags:</Text>
                         <View style={{flex: 1, flexDirection: 'row', flexWrap:'wrap'}}>
                             {tags}
-                            <TouchableOpacity onPress={() => setTagInput(true)}>
+                            <TouchableOpacity onPress={() => setTagInputState(true)}>
                                 <Tag tagStyle={{marginVertical: 5}} tag={"+ add tag"}/>
                             </TouchableOpacity>
                         </View>
@@ -150,12 +180,12 @@ const styles = StyleSheet.create({
         marginTop: 22
       },
     modalView: {
-        height:200,
+        height:150,
         width:200,
         margin: 20,
         backgroundColor: "white",
         borderRadius: 20,
-        padding: 15,
+        paddingHorizontal: 10,
         alignContent: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -166,4 +196,16 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5
       },
+      textInput: {
+        width: "55%",
+        backgroundColor: Colors.Background,
+        paddingHorizontal: 24,
+        fontSize: 16,
+        paddingVertical: 16,
+        borderRadius: 10,
+        marginTop: 25,
+        marginBottom: 10,
+        maxWidth: '80%',
+        textAlign: 'center'
+    },
 })
