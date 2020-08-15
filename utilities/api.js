@@ -1,5 +1,6 @@
 import { decode as atob, encode as btoa } from 'base-64'
 import config from '../config.json';
+import { isDuration } from 'moment';
 
 /**
  * A global variable containing the JSON web token of the user that
@@ -200,4 +201,16 @@ export function postPostWorkoutSurvey(athlete_id, workout_id, surveyResult) {
  
 export function getStatisticsForAthlete(athlete_id) {
     return get(`athletes/${athlete_id}/exercises`).then(result => result.json());
+}
+
+export function postAthleteTeamTag(team_id, athlete_id, tag_id) {
+    return post(`teams/${team_id}/addTag/${athlete_id}/${tag_id}`).then(result => result.text());
+}
+
+export function getTagsForTeam(team_id) {
+    return get(`teams/${team_id}/getTags`).then(result => result.json())
+}
+
+export function getAthleteTags(athlete_id, team_id) {
+    return get(`teams/${team_id}/getAthleteTags/${athlete_id}`).then(result => result.json())
 }

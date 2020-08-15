@@ -25,7 +25,7 @@ function Header(props) {
                         {props.data === null ? '0': props.data.length}
                     </Text>
                 </View>
-                <Text style={styles.subtitle}>Athletes</Text>
+                <Text style={[styles.subtitle, {fontSize: 28}]}>Athletes</Text>
             </View>
             || <></>
             }
@@ -38,19 +38,24 @@ function AthleteElement(props) {
     let tags= [];
     // The array of all the tags an athlete has for a given team
     if (props.athlete.tags[0] !== null)
-        tags = props.athlete.tags.map((tag, index) => <Tag key={index} tag={tag} />);
+        tags = props.athlete.tags.map((tag, index) => <Tag key={index} tagStyle={{ marginTop: 5, marginBottom: 5}} tag={tag} />);
     
     return (
         <Card barColor={Colors.Primary}>
             <TouchableOpacity activeOpacity={0.2} onPress={() => props.onPress()}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <View style={{flexDirection: 'column'}}>
                         <Text style={styles.athleteText}>{getFullName(props.athlete)}</Text>
-                        <View style={{ flexDirection: 'row'}}>
-                            {tags}
+                        <View style={{flexDirection:'row'}}>
+                            <View style={{ maxWidth: "90%", flexDirection: 'row', flexWrap:'wrap', justifyContent: 'flex-start'}}>
+                                {tags}
+                            </View>
+                            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                                <Icon name={'chevron-right'} size={40} color={Colors.Primary} style={{justifyContent: 'flex-end'}} />
+                            </View>
                         </View>
+                        
                     </View>
-                    <Icon size={40} color={Colors.Primary} name={'chevron-right'}/>
                 </View>
             </TouchableOpacity>
         </Card>
@@ -74,7 +79,8 @@ export default function CoachPage(props) {
                     key={athlete.id} 
                     athlete={athlete} 
                     onPress={() => props.push(() => 
-                        <AthletePage 
+                        <AthletePage
+                            teamId={props.user.team_id}
                             athlete={athlete}
                             pop={props.pop}
                             push={props.push}
@@ -109,10 +115,10 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     athleteCount: {
-        width: 44, 
-        height: 44, 
+        width: 38, 
+        height: 38, 
         marginRight: 12, 
-        borderRadius: 22, 
+        borderRadius: 19, 
         alignItems: "center", 
         justifyContent: "center", 
         backgroundColor: Colors.PrimaryContrast
