@@ -30,6 +30,7 @@ export default function SelectExercises(props) {
             <View style={{backgroundColor: Colors.Surface, height: '100%'}}>
                 <Header pop={props.pop} />
                 <View style={{flex: 1}}>
+                    
                     <View style={{padding: 16, borderBottomColor: Colors.SurfaceContrast2, borderBottomWidth: 1}}>
                         <TextInput onChangeText={(value) => setSearchTerm(value)} style={styles.textInput} />
                     </View>

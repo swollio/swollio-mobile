@@ -57,7 +57,7 @@ function SelectExercise(props) {
                 />
             </View>
         </View>
-        <ScrollView>
+        <ScrollView style={{flex: 1}}>
         {searchResults.map(exercise => 
             <View key={exercise.id} style={styles.section}>
                 <Text style={styles.content}>{exercise.name}</Text>
@@ -70,6 +70,9 @@ function SelectExercise(props) {
             </View>
         )}
         </ScrollView>
+        <View style={{padding: 48, justifyContent: 'center', alignItems: 'center'}}>
+            <Text >Can't find what you're looking for?</Text>
+        </View>
     </View>
 }
 
