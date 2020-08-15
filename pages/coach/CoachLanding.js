@@ -8,6 +8,8 @@ import AthletePage from "./AthletePage";
 import Tag from '../../components/Tag';
 import WorkoutDetailsItem from './WorkoutDetailsItem'
 
+import headerStyles from '../styles/Header'
+
 function getFullName(user) {
     return user.first_name.charAt(0).toUpperCase()
          + user.first_name.toLowerCase().slice(1) + ' ' 
@@ -18,14 +20,10 @@ function getFullName(user) {
 function Header(props) {
 
     return (
-        <View style={styles.header}>
-            <View style={{
-                backgroundColor: Colors.Primary,
-                paddingVertical: 16,
-                paddingHorizontal: 24,
-            }}>
-                <Text style={styles.title}>{getFullName(props.user)}</Text>
-                <Text style={styles.subtitle}>Head Coach</Text>
+        <View style={headerStyles.container}>
+            <View style={headerStyles.header}>
+                <Text style={headerStyles.title}>{getFullName(props.user)}</Text>
+                <Text style={headerStyles.subtitle}>Head Coach</Text>
             </View>
             <View style={{padding: 8}}>
             {props.teamData &&
@@ -34,7 +32,7 @@ function Header(props) {
                     <WorkoutDetailsItem icon='dumbbell' value={props.teamData.sport} />
                 </View>
                 || <></>
-                }   
+                } 
             </View>
 
         </View>
@@ -109,42 +107,3 @@ export default function CoachPage(props) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    header: {
-        width: '100%',
-        borderColor: Colors.Primary,
-        borderWidth: 2,
-        backgroundColor: Colors.Surface,
-    },
-    title: {
-        fontSize: 28,
-        color: Colors.PrimaryContrast,
-        fontFamily: 'Comfortaa_700Bold',
-        textAlign: 'left',
-        marginBottom: 8,
-    },
-    subtitle: {
-        fontSize: 20,
-        color: Colors.PrimaryContrast,
-        fontFamily: 'Comfortaa_700Bold',
-        textAlign: 'left',
-    },
-    athleteCount: {
-        width: 40, 
-        height: 40, 
-        marginRight: 12, 
-        borderRadius: 19, 
-        alignItems: "center", 
-        justifyContent: "center", 
-        backgroundColor: Colors.Primary
-    },
-    athleteText: {
-        fontSize: 24,
-        fontFamily: "Comfortaa_600SemiBold",
-        marginTop: 5,
-        marginBottom: 10,
-        marginLeft: 5
-    }
-
-})

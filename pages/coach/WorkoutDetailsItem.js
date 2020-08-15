@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 18,
         color: Colors.SurfaceContrast,
-        fontFamily: 'Comfortaa_700Bold',
+        fontFamily: 'Comfortaa_300Light',
         textAlign: 'left',
         marginLeft: 16,
     }

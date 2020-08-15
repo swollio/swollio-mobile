@@ -50,7 +50,6 @@ export default function PageView(props) {
 const styles = StyleSheet.create({
     safeAreaTop: {
         flex: 0,
-        backgroundColor: Colors.Primary
     },
     safeAreaBottom: {
         flex: 1,

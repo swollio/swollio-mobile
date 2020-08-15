@@ -36,7 +36,7 @@ export default {
 
     Surface: '#FFFFFF',
     SurfaceContrast: '#24272B',
-    SurfaceContrast2: '#CDCDCD',
+    SurfaceContrast2: '#BCBCBC',
 
     Error: '#D02235',
     ErrorContrast: '#FFFFFF'
