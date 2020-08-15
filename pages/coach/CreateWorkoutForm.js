@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, StatusBar, TouchableOpacity, SafeAreaView, Text, View, TextInput, Animated, Button, Dimensions, ColorPropType, ScrollView} from 'react-native';
 import Colors from '../../utilities/Colors';
 import Icon from 'react-native-vector-icons/Feather';
+import SolidButton from '../../components/SolidButton'
 
 import CreateAssignmentForm from './CreateAssignmentForm'
 import DatePicker from '../../components/DatePicker';
@@ -19,29 +20,6 @@ export const WorkoutNameForm = CreateSingleStringForm({
     field: 'name',
     dismissKeyboard: true
 });
-
-function SolidButton(props) {
-    return (
-        <TouchableOpacity 
-            activeOpacity={0.8}
-            style={[{
-                paddingHorizontal: 36,
-                width: props.width || 'auto',
-                backgroundColor: Colors.Primary,
-                height: 50,
-                alignItems: 'center',
-                margin: 5,
-                justifyContent: 'center',
-                borderRadius: 25
-            }, props.disabled ? {
-                backgroundColor: Colors.Background,
-            }: {}]}
-            onPress={() => !props.disabled && props.onPress()}
-        >
-            <Text style={{fontSize: 16, color: Colors.PrimaryContrast}}>{props.text}</Text>
-        </TouchableOpacity>
-    )
-}
 function WorkoutDateForm(props) {
     return (
             <View style={styles.form}>
@@ -171,6 +149,7 @@ export default function CreateWorkoutForm(props) {
         </WorkoutDetails>);
     } else {
         return (<CreateAssignmentForm
+            user={props.user}
             onCancel={() => setCreationState(0)}
             onCreate={(assignment) => {
                 setAssignments([...assignments, assignment])

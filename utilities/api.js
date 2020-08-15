@@ -218,3 +218,83 @@ export function getAthleteTags(athlete_id, team_id) {
 export function postTeamTag(team_id, tag) {
     return post(`teams/${team_id}/addTag/${tag}`).then(result => result.text())
 }
+
+export function createCustomExerciseForTeam(team_id, exercise) {
+    return post(`teams/${team_id}/exercises`, exercise).then(result => result.json())
+}
+export function getMusclesList() {
+    return [
+        {
+            "id": 1,
+            "name": "quadriceps",
+            "nickname": "quads",
+            "region": "leg"
+        },
+        {
+            "id": 2,
+            "name": "hamstrings",
+            "nickname": "hamstrings",
+            "region": "leg"
+        },
+        {
+            "id": 3,
+            "name": "calves",
+            "nickname": "calves",
+            "region": "leg"
+        },
+        {
+            "id": 4,
+            "name": "pectorals",
+            "nickname": "pecs",
+            "region": "chest"
+        },
+        {
+            "id": 5,
+            "name": "latissimus dorsi",
+            "nickname": "lats",
+            "region": "back"
+        },
+        {
+            "id": 6,
+            "name": "deltoids",
+            "nickname": "delts",
+            "region": "shoulder"
+        },
+        {
+            "id": 7,
+            "name": "trapezius",
+            "nickname": "traps",
+            "region": "shoulder"
+        },
+        {
+            "id": 8,
+            "name": "triceps",
+            "nickname": "triceps",
+            "region": "arm"
+        },
+        {
+            "id": 9,
+            "name": "gluteus",
+            "nickname": "glutes",
+            "region": "leg"
+        },
+        {
+            "id": 10,
+            "name": "biceps",
+            "nickname": "biceps",
+            "region": "arm"
+        },
+        {
+            "id": 11,
+            "name": "forearms",
+            "nickname": "forearms",
+            "region": "arm"
+        },
+        {
+            "id": 12,
+            "name": "abdominals",
+            "nickname": "abs",
+            "region": "abs"
+        }
+    ];    
+}
