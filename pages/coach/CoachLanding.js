@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
 import Colors from '../../utilities/Colors';
 import { getAthletesForTeam } from '../../utilities/api'
 import Card from '../../components/Cards/Card'
@@ -19,13 +19,22 @@ function Header(props) {
         <View style={styles.header}>
             <Text style={styles.title}>{getFullName(props.user)}</Text>
             {props.data &&
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <View style={styles.athleteCount}>
-                    <Text style={[styles.subtitle, {color: Colors.Red}]}>
-                        {props.data === null ? '0': props.data.length}
-                    </Text>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View style={styles.athleteCount}>
+                        <Text style={[styles.subtitle, {color: Colors.Red}]}>
+                            {props.data === null ? '0': props.data.length}
+                        </Text>
+                    </View>
+                <Text style={[styles.subtitle, { fontSize: 28 }]}>Athletes</Text>
                 </View>
-                <Text style={[styles.subtitle, {fontSize: 28}]}>Athletes</Text>
+                <View style={{ marginRight: 10 }}>
+                <Icon 
+                    name={"plus"}
+                    style={styles.headerIcon}
+                    onPress={props.onPress}
+                />
+                </View>
             </View>
             || <></>
             }
@@ -46,13 +55,11 @@ function AthleteElement(props) {
                 <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <View style={{flexDirection: 'column'}}>
                         <Text style={styles.athleteText}>{getFullName(props.athlete)}</Text>
-                        <View style={{flexDirection:'row'}}>
-                            <View style={{ maxWidth: "90%", flexDirection: 'row', flexWrap:'wrap', justifyContent: 'flex-start'}}>
+                        <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+                            <View style={{ maxWidth: "90%", flexDirection: 'row', flexWrap:'wrap'}}>
                                 {tags}
                             </View>
-                            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                                <Icon name={'chevron-right'} size={40} color={Colors.Primary} style={{justifyContent: 'flex-end'}} />
-                            </View>
+                            <Icon name={'chevron-right'} size={40} color={Colors.Primary} />
                         </View>
                         
                     </View>
@@ -65,15 +72,41 @@ function AthleteElement(props) {
 export default function CoachPage(props) {
 
     const [data, setData] = useState(null);
+    const [showPin, setShowPin] = useState(false);
+    
     useEffect(() => {
         if (data === null) {
             getAthletesForTeam(props.user.team_id).then(data => setData(data));
         }
     });
 
+    function PinView () {
+        return (
+            <Modal
+                animationType={"fade"}
+                transparent={true}
+                visible={showPin}
+                onRequestClose={() => setShowPin(false)}
+                >
+                    <TouchableWithoutFeedback onPress={() => setShowPin(false)}>
+                        <View style={styles.centeredView}>
+                            <TouchableWithoutFeedback onPress={() => {}}>
+                                <View style={styles.modalView}>
+                                    <Text style={styles.pinText}>Team pin:</Text>
+                                    <Text style={[styles.athleteText, { alignSelf: 'center', fontSize: 30}]}>{props.user.pin}</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    </TouchableWithoutFeedback> 
+            </Modal>
+            
+        );
+    }
+
     return (
-        <View>
-            <Header user={props.user} data={data}/>
+        <>
+            <Header user={props.user} data={data} onPress={() => setShowPin(true)}/>
+            {showPin ? <PinView /> : <></>}
             <ScrollView padding={10} style={{height: '100%'}}>
             {(data || []).map(athlete => 
                 <AthleteElement 
@@ -89,7 +122,7 @@ export default function CoachPage(props) {
                 />
             )}
             </ScrollView>
-        </View>
+        </>
     );
 }
 
@@ -130,6 +163,37 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 10,
         marginLeft: 5
+    },
+    headerIcon: {
+        fontSize: 36,
+        color: Colors.PrimaryContrast,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        alignContent: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+      },
+    pinText: {
+        fontFamily: 'Comfortaa_600SemiBold',
+        fontSize: 26,
+        color: Colors.Primary,
+        marginHorizontal: 10,
+        marginVertical: 5
     }
-
 })

@@ -90,7 +90,7 @@ export default function AthleteSettings(props) {
         );
     }   
 
-    return(
+    return (
         <SafeAreaView style={styles.safeArea}>
             <View style={{
                 backgroundColor: Colors.Surface,
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5
       },
-      textInput: {
+    textInput: {
         width: "55%",
         backgroundColor: Colors.Background,
         paddingHorizontal: 24,
