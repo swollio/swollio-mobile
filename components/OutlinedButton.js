@@ -5,9 +5,10 @@ import Colors from '../utilities/Colors'
 export default function OutlinedButton (props) {
     return(
         <TouchableOpacity
-            style={styles.optionButton}
+            activeOpacity={0.8}
+            style={[styles.optionButton, props.style]}
             onPress={props.onPress}>
-            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.title}>{props.text}</Text>
         </TouchableOpacity>
     );
 }
@@ -15,7 +16,7 @@ export default function OutlinedButton (props) {
 const styles = StyleSheet.create({
     title: {
         color: Colors.Primary,
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: "Comfortaa_400Regular",
         textAlign: 'center',
     },

@@ -1,49 +1,87 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
-import Colors from '../utilities/Colors';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-import config from '../config.json';
-import { login } from '../utilities/api';
+import { StyleSheet, SafeAreaView, KeyboardAvoidingView, Text, View, TextInput } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
+import SolidButton from '../components/SolidButton'
+import OutlinedButton from '../components/OutlinedButton'
+import ErrorMessage from '../components/ErrorMessage'
+
+import Colors from '../utilities/Colors';
+import config from '../config.json';
+
+/**
+ * The LoginForm component is a full page component that provides an interface
+ * for users to enter their email and password.
+ * 
+ * @param onLogin {(email: string, password: string) => void}
+ * @param onCreateAccount {() => void}
+ * @param errorMessage {string}
+ */
 export default function LoginForm(props) {
 
-    if (config.devMode)
-        props.onLogin(config.credentials)
+    // When devMode is enabled, the app should login by default to the user specified
+    // in the config file.
+    if (config.devMode) props.onLogin(config.credentials)
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     return (
-        <View style={styles.form}>
-            <Text style={styles.title}>Login</Text>
-            <TextInput 
-                style={styles.textInput} 
-                onChangeText={(text) => setEmail(text)}
-                placeholder='email'
-                autoCorrect={false}
-                autoCapitalize='none'
-                keyboardAppearance='light'
-                keyboardType='email-address'
-            />
-            <TextInput 
-                style={styles.textInput} 
-                onChangeText={(text) => setPassword(text)}
-                placeholder='password'
-                secureTextEntry={true}
-                autoCorrect={false}
-                keyboardAppearance='light'
-            />
+        <SafeAreaView style={{width: '100%'}}>
+            <KeyboardAvoidingView style={styles.form} behavior={'padding'}>
+                
+                <View></View>
 
-            <TouchableOpacity onPress={() => props.onLogin({email, password})} activeOpacity={0.8} style={styles.optionButton}>
-                    <Text style={{color: Colors.PrimaryContrast}}>Login</Text>
-            </TouchableOpacity>
+                <View style={{paddingHorizontal: 36, width: '100%'}}>
 
-            <View style={{height: 50}}></View>
-            <TouchableOpacity onPress={() => props.onCreateAccount()} activeOpacity={0.8} style={styles.inverseOptionButton}>
-                    <Text style={{color: Colors.Primary}}>Create Account</Text>
-            </TouchableOpacity>
+                    <Text style={styles.title}>Welcome.</Text>
+                    <Text style={styles.subtitle}>Please login to continue</Text>
 
-        </View>
+                    <ErrorMessage title={'Login Failed'} message={props.errorMessage}/>
+
+                    <View style={styles.textInput}>
+                        <Icon size={30} name={'mail'}/>
+                        <TextInput 
+                            style={{flex: 1, paddingHorizontal: 8, fontSize: 16}}
+                            onChangeText={(text) => setEmail(text)}
+                            autoCorrect={false}
+                            placeholder={'email'}
+                            autoCapitalize='none'
+                            keyboardAppearance='light'
+                            keyboardType='email-address'
+                        />
+                    </View>
+                    
+                    <View style={styles.textInput}>
+                        <Icon size={30} name={'key'}/>
+                        <TextInput 
+                            style={{flex: 1, paddingHorizontal: 8, fontSize: 16}}
+                            onChangeText={(text) => setPassword(text)}
+                            secureTextEntry={true}
+                            placeholder={'password'}
+                            autoCorrect={false}
+                            keyboardAppearance='light'
+                        />
+                    </View>
+                </View>
+
+                <View style={{width: '100%', alignItems: 'center'}}>
+
+                    <SolidButton
+                        text={'Login'}
+                        style={{margin: 8}}
+                        onPress={() => props.onLogin({email, password})}
+                    />
+
+                    <OutlinedButton
+                        text={'Create Account'}
+                        style={{margin: 8}}
+                        onPress={() => props.onCreateAccount()}
+                    />
+                </View>
+                
+            </KeyboardAvoidingView>
+        </SafeAreaView>
     );
 }
 
@@ -53,59 +91,35 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         maxWidth: '80%',
         fontFamily: 'Comfortaa_300Light',
-        color: Colors.BackgroundContrast
+        color: Colors.SurfaceContrast,
+        textAlign: 'left',
+        width: '100%'
+    },
+    subtitle: {
+        fontSize: 18,
+        textAlign: 'center',
+        maxWidth: '80%',
+        fontFamily: 'Comfortaa_300Light',
+        color: Colors.SurfaceContrast2,
+        textAlign: 'left',
+        width: '100%',
+        marginVertical: 8,
     },
     textInput: {
-        width: 350,
         color: Colors.SurfaceContrast,
         backgroundColor: Colors.Background,
-        paddingHorizontal: 24,
+        paddingHorizontal: 16,
         fontSize: 16,
-        paddingVertical: 16,
+        paddingVertical: 8,
         borderRadius: 10,
-        marginTop: 25,
-        marginBottom: 10,
-        maxWidth: '80%',
-        textAlign: 'center'
+        marginVertical: 8,
+        textAlign: 'center',
+        flexDirection: 'row'
     },
     form: {
+        alignItems: 'center',
+        justifyContent: 'space-between',
         height: '100%',
-        backgroundColor: Colors.Surface,
-        alignItems: 'center',
-        justifyContent: 'center',
         width: '100%',
-    },
-    optionButton: {
-        backgroundColor: Colors.Primary,
-        width: 350,
-        maxWidth: '80%',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        borderRadius: 25,
-        shadowColor: Colors.BackgroundContrast,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        marginTop: 15,
-        marginBottom: 10
-    },
-    inverseOptionButton: {
-        width: 350,
-        maxWidth: '80%',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        borderColor: Colors.Primary,
-        borderWidth: 1,
-        borderRadius: 25,
-        marginTop: 15,
-        marginBottom: 10
     },
 });

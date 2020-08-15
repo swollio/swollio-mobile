@@ -14,7 +14,7 @@ function AbstructionStartCard(props) {
     <Card>
         <View style={{alignItems: 'center', padding: 10}}>
         <Text style={[styles.title, {marginBottom: 40}]}>Abstruction</Text>
-        <OutlinedButton title={'Start'} onPress={props.onPress}/>
+        <OutlinedButton text={'Start'} onPress={props.onPress}/>
         </View>
     </Card>
     );

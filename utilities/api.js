@@ -146,7 +146,6 @@ export function getWorkoutsForAthlete(athlete_id) {
     return get(`athletes/${athlete_id}/workouts`).then(result => result.json())
 }
 
-
 export function getTodaysWorkoutsForAthlete(athlete_id) {
     return get(`athletes/${athlete_id}/workouts?date=today`).then(result => result.json())
 }
@@ -177,6 +176,10 @@ export function createTeam(team) {
 
 export function getAthletesForTeam(team_id) {
     return get(`teams/${team_id}/athletes`).then(result => result.json())
+}
+
+export function getTeamData(team_id) {
+    return get(`teams/${team_id}`).then(result => result.json())
 }
 
 export function searchExercisesByName(name) {

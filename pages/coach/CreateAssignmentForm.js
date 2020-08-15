@@ -78,7 +78,7 @@ function SelectExercise(props) {
         <View style={{paddingVertical: 24, justifyContent: 'center',         borderColor: Colors.Primary,
         borderTopWidth: 2, alignItems: 'center'}}>
             <Text style={{padding: 16, fontSize: 18, fontFamily: 'Comfortaa_400Regular'}}>Can't find your exercise?</Text>
-            <OutlinedButton title={'Custom Exercise'} onPress={() => props.onSelect(null)}/>
+            <OutlinedButton text={'Custom Exercise'} onPress={() => props.onSelect(null)}/>
         </View>
     </View>
 }
