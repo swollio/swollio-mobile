@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
 import Colors from '../../utilities/Colors';
-import { getAthletesForTeam } from '../../utilities/api'
+import { getAthletesForTeam, getTeamData } from '../../utilities/api'
 import Card from '../../components/Cards/Card'
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import AthletePage from "./AthletePage";
 import Tag from '../../components/Tag';
+import WorkoutDetailsItem from './WorkoutDetailsItem'
 
 function getFullName(user) {
     return user.first_name.charAt(0).toUpperCase()
@@ -15,30 +16,29 @@ function getFullName(user) {
 }
 
 function Header(props) {
+
     return (
         <View style={styles.header}>
-            <Text style={styles.title}>{getFullName(props.user)}</Text>
-            {props.data &&
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <View style={styles.athleteCount}>
-                        <Text style={[styles.subtitle, {color: Colors.Red}]}>
-                            {props.data === null ? '0': props.data.length}
-                        </Text>
-                    </View>
-                <Text style={[styles.subtitle, { fontSize: 28 }]}>Athletes</Text>
-                </View>
-                <View style={{ marginRight: 10 }}>
-                <Icon 
-                    name={"plus"}
-                    style={styles.headerIcon}
-                    onPress={props.onPress}
-                />
-                </View>
+            <View style={{
+                backgroundColor: Colors.Primary,
+                paddingVertical: 16,
+                paddingHorizontal: 24,
+            }}>
+                <Text style={styles.title}>{getFullName(props.user)}</Text>
+                <Text style={styles.subtitle}>Head Coach</Text>
             </View>
-            || <></>
-            }
+            <View style={{padding: 8}}>
+            {props.teamData &&
+                <View>
+                    <WorkoutDetailsItem icon='users' value={props.teamData.name} />
+                    <WorkoutDetailsItem icon='dumbbell' value={props.teamData.sport} />
+                </View>
+                || <></>
+                }   
+            </View>
+
         </View>
+        
     );
 }
 
@@ -73,7 +73,8 @@ export default function CoachPage(props) {
 
     const [data, setData] = useState(null);
     const [showPin, setShowPin] = useState(false);
-    
+    const [teamData, setTeamData] = useState(null);
+
     useEffect(() => {
         if (data === null) {
             getAthletesForTeam(props.user.team_id).then(data => setData(data));
@@ -129,33 +130,31 @@ export default function CoachPage(props) {
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        padding: 16,
-        borderBottomColor: Colors.BackgroundContrast,
-        backgroundColor: Colors.Primary,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20
+        borderColor: Colors.Primary,
+        borderWidth: 2,
+        backgroundColor: Colors.Surface,
     },
     title: {
-        fontSize: 32,
+        fontSize: 28,
         color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
-        marginBottom: 16, 
+        marginBottom: 8,
     },
     subtitle: {
-        fontSize: 24,
+        fontSize: 20,
         color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
     },
     athleteCount: {
-        width: 38, 
-        height: 38, 
+        width: 40, 
+        height: 40, 
         marginRight: 12, 
         borderRadius: 19, 
         alignItems: "center", 
         justifyContent: "center", 
-        backgroundColor: Colors.PrimaryContrast
+        backgroundColor: Colors.Primary
     },
     athleteText: {
         fontSize: 24,

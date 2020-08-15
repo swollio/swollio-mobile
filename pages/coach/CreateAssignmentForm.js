@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native'
 import Colors from '../../utilities/Colors'
-import { searchExercisesByName } from '../../utilities/api'
+import { searchExercisesByName, getMusclesList, createCustomExerciseForTeam } from '../../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
 import ScrollPicker from '../../components/ScrollPicker';
+import OutlinedButton from '../../components/OutlinedButton'
+import { CreateSingleStringForm } from '../../components/Components';
+import FormContainer from '../../containers/FormContainer'
+import SolidButton from '../../components/SolidButton'
+import BubbleSelect from '../../components/BubbleSelect'
 
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
@@ -70,8 +75,10 @@ function SelectExercise(props) {
             </View>
         )}
         </ScrollView>
-        <View style={{padding: 48, justifyContent: 'center', alignItems: 'center'}}>
-            <Text >Can't find what you're looking for?</Text>
+        <View style={{paddingVertical: 24, justifyContent: 'center',         borderColor: Colors.Primary,
+        borderTopWidth: 2, alignItems: 'center'}}>
+            <Text style={{padding: 16, fontSize: 18, fontFamily: 'Comfortaa_400Regular'}}>Can't find your exercise?</Text>
+            <OutlinedButton text={'Custom Exercise'} onPress={() => props.onSelect(null)}/>
         </View>
     </View>
 }
@@ -134,6 +141,74 @@ function SelectWeightAndSets(props) {
     </View>
 }
 
+const ExerciseNameForm = CreateSingleStringForm({
+    title: 'What is the exercise name?',
+    subtitle: 'Enter the exercise name.',
+    keyboardType: 'default',
+    validator: (value) => value !== '',
+    field: 'name',
+    dismissKeyboard: true,
+});
+
+function SelectPrimaryMusclesForm(props) {
+    
+    const muscles = getMusclesList();
+    return (
+        <View style={{width: '100%', alignItems: 'center'}}>
+        <Text style={styles.formTitle}>What muscles does this exercise work?</Text>
+        <BubbleSelect 
+            items={muscles}
+            id={(x) => x.id}
+            text={(x) => x.nickname}
+            onChange={(m) => props.onChange('muscles', m)}
+        />
+        <SolidButton 
+            width={200}
+            text={'Continue'}
+            onPress={() => props.onCompleted()}
+        />
+        </View>
+    );
+}
+
+
+function ExerciseCreatedForm(props) {
+    
+    const muscles = getMusclesList();
+    return (
+        <View style={{width: '100%', padding: 16, alignItems: 'center'}}>
+            <Text style={styles.formTitle}>Exercise Created.</Text>
+            <Text style={{marginVertical: 24, textAlign: 'center'}}>In the future, this exercise will show up in your search results.</Text>
+            <SolidButton 
+                width={200}
+                text={'Continue'}
+                onPress={() => props.onCompleted()}
+            />
+        </View>
+    );
+}
+
+function CreateCustomExercise(props) {
+    return (
+        <FormContainer
+            onCancel={() => props.onCancel()}
+            onCompleted={(form) => {
+                createCustomExerciseForTeam(props.team_id, form).then((id) => {
+                    console.log(id)
+                    props.onCreate(form)
+                }).catch(err => {
+                    console.log(err)
+                })
+            }}
+            forms={[
+                ExerciseNameForm,
+                SelectPrimaryMusclesForm,
+                ExerciseCreatedForm
+            ]}
+        />
+    )
+}
+
 /**
  * The CreateAssignmentForm component is a full page component
  * which allows users to create a workout assignment. This component
@@ -146,24 +221,51 @@ function SelectWeightAndSets(props) {
  */
 export default function CreateAssignmentForm(props) {
     
-    const [exercise, setExercise] = useState(null);
+    // If exercise is null, then the exercise hasnt been selected yet.
+    // If the exercise is a non empty exercise object, then the exercise has been
+    // selected, and the coach is in the process of setting weight, etc.
+    // If the the exercise is an empty exercise object, then the exercise is a custom
+    // form.
+    const [exercise, setExercise] = useState(undefined);
+
+    let content;
+    if (exercise === undefined) {
+        content = (
+            <>
+                <Header onCancel={props.onCancel}></Header>
+                <View style={{backgroundColor: Colors.Background, flex: 1}}>
+                    <SelectExercise
+                        onCancel={props.onCancel}
+                        onSelect={(exercise) => setExercise(exercise)}
+                    />
+                </View>
+            </>
+        );
+    } else if (exercise == null) {
+        content = (<CreateCustomExercise
+            team_id={props.user.team_id}
+            onCancel={props.onCancel}
+            onCreate={props.onCreate}
+        />);
+    } else {
+        content = (
+            <>
+                <Header onCancel={props.onCancel}></Header>
+                <View style={{backgroundColor: Colors.Background, flex: 1}}>
+                    <SelectWeightAndSets
+                        exercise={exercise}
+                        onCancel={props.onCancel}
+                        onCreate={props.onCreate}
+                    />
+                </View>
+            </>
+        );
+    }
 
     return <>
         <SafeAreaView style={styles.safeAreaTop} />
         <SafeAreaView style={styles.safeAreaBottom}>
-            <Header onCancel={props.onCancel}></Header>
-            <View style={{backgroundColor: Colors.Background, flex: 1}}>
-                {exercise === null
-                ? <SelectExercise
-                    onCancel={props.onCancel}
-                    onSelect={(exercise) => setExercise(exercise)}
-                />
-                : <SelectWeightAndSets
-                    exercise={exercise}
-                    onCancel={props.onCancel}
-                    onCreate={props.onCreate}
-                />}
-            </View>
+            {content}
         </SafeAreaView>
     </>
 }
@@ -187,6 +289,12 @@ const styles = StyleSheet.create({
     },
     content: {
         color: Colors.BackgroundContrast,
+    },
+    formTitle: {
+        fontSize: 30,
+        textAlign: 'center',
+        maxWidth: '80%',
+        fontFamily: 'Comfortaa_300Light'
     },
     title: {
         fontSize: 30,

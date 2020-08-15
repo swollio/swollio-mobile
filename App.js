@@ -25,6 +25,9 @@ export default function App(props) {
         Comfortaa_700Bold
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+
+
     if (!fontsLoaded) return <></>
 
     switch (authenticationState) {
@@ -34,10 +37,13 @@ export default function App(props) {
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                 <Forms.LoginForm 
+                    errorMessage={errorMessage}
                     onCreateAccount={() => setAuthentiationState(State.CREATE_USER)}
                     onLogin={(credentials) => {
                         login(credentials).then(() => {
                             setAuthentiationState(State.LOGGED_IN)
+                        }).catch(err => {
+                            setErrorMessage('invalid email or password')
                         })
                     }}
                 />

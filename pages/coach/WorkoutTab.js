@@ -82,7 +82,7 @@ export default function WorkoutsPage(props) {
                                     })
                                     })
                                 }}
-                                title={"Edit"}
+                                text={"Edit"}
                             />
                             </View>
                         </Card>
