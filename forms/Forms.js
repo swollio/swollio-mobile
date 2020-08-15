@@ -33,6 +33,7 @@ export function CreateAthleteForm(props) {
                 CreateAthleteForms.HeightForm,
                 CreateAthleteForms.WeightForm,
                 CreateAthleteForms.GenderForm,
+                CreateAthleteForms.JoinTeamForm, 
         ]}/>
     )
 };
