@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import Colors from '../../utilities/Colors';
-import { Card } from '../../components/Components'
+import { Card, OutlinedButton } from '../../components/Components'
 import { getWorkoutsForTeam } from '../../utilities/api'
 import Icon from 'react-native-vector-icons/Feather';
 import CreateWorkoutForm from './CreateWorkoutForm'
-import { postWorkoutForTeam } from '../../utilities/api'
+import { postWorkoutForTeam, getAssignmentsForTeamWorkout } from '../../utilities/api'
+import WorkoutDetailsItem from './WorkoutDetailsItem'
+import moment from 'moment'
+const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+];
+
 
 export default function WorkoutsPage(props) {
 
@@ -29,6 +41,7 @@ export default function WorkoutsPage(props) {
                                 props.pop()
                             })
                         }}
+                        assignments={[]}
                         onCancel={() => props.pop()}
                         options={null}
                     />
@@ -41,22 +54,37 @@ export default function WorkoutsPage(props) {
                 || (workouts.length == 0 && <Text style={styles.watermark}>No upcoming workouts</Text>)
                 || (workouts.map((workout) =>
                         <Card barColor={Colors.Primary} key={workout.id}>
-                            <TouchableOpacity onPress={() => props.push((props) =>
-                                <CreateWorkoutForm {...props}
-                                    onCreate={ () => props.pop() }
-                                    onCancel={ () => props.pop() }
-                                    options={workout}
-                                />
-                            
-                            )}>
-                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <View style={{justifyContent: 'space-around'}}>
-                                    <Text style={{color: Colors.SurfaceContrast, fontSize: 20}}>{workout.name}</Text>
-                                    <Text style={{color: Colors.SurfaceContrast}}>Repeat: {workout.repeat}</Text>
-                                </View>
-                                <Icon size={40} color={Colors.Primary} name={'chevron-right'}/>
+                            <View style={{flex: 1, justifyContent: 'space-around'}}>
+                                <Text style={styles.workoutTitle}>{workout.name}</Text>
+                                <WorkoutDetailsItem icon={'calendar'} value={
+                                    moment(workout.start_date).format('MM/DD/YYYY') + 
+                                    " - " +
+                                    moment(workout.end_date).format('MM/DD/YYYY')
+                                }/>
+                                <WorkoutDetailsItem icon={'repeat'} value={workout.repeat.map(i => days[i]).join(", ")}/>
                             </View>
-                            </TouchableOpacity>
+                            <View style={{alignItems: 'center', padding: 16}}>
+                            <OutlinedButton 
+                                onPress={() => {
+                                    getAssignmentsForTeamWorkout(props.user.team_id, workout.id)
+                                    .then(assignments => {
+                                        props.push(() =>
+                                        <CreateWorkoutForm
+                                            push={props.push}
+                                            pop={props.pop}
+                                            onCreate={(w) => props.pop() }
+                                            onCancel={ () => props.pop() }
+                                            options={workout}
+                                            assignments={assignments}
+                                        />
+                                    ).catch(err => {
+                                        console.log(err);
+                                    })
+                                    })
+                                }}
+                                title={"Edit"}
+                            />
+                            </View>
                         </Card>
                 ))}
             </ScrollView>
@@ -88,5 +116,12 @@ const styles = StyleSheet.create({
         color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
+    },
+    workoutTitle: {
+        fontSize: 26,
+        color: Colors.BackgroundContrast,
+        fontFamily: 'Comfortaa_700Bold',
+        textAlign: 'left',
+        marginVertical: 8,
     }
 })

@@ -9,6 +9,7 @@ import DatePicker from '../../components/DatePicker';
 import { CreateSingleStringForm } from '../../components/Components';
 import FormContainer from '../../containers/FormContainer'
 import WorkoutDetails from './WorkoutDetails'
+import { getAssignmentsForTeamWorkout } from '../../utilities/api'
 
 export const WorkoutNameForm = CreateSingleStringForm({
     title: 'Choose Name.',
@@ -133,11 +134,11 @@ export function WorkoutCreatedForm(props) {
 }
 
 export default function CreateWorkoutForm(props) {
-    const [options, setOptions] = useState(props.options);
-    const [assignments, setAssignments] = useState([]);
-    const [creationState, setCreationState] = useState(0)
-  
 
+    const [options, setOptions] = useState(props.options);
+    const [assignments, setAssignments] = useState(props.assignments);
+    const [creationState, setCreationState] = useState(0)
+    
     if (options === null) {
         return (
             <FormContainer

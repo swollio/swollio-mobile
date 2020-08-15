@@ -26,9 +26,9 @@ export default function UserPageView(props) {
     if (data === null) {
         return <View><Text>Loading...</Text></View>
     } else if (data.athlete_id !== null) {
-        return <StackContainer rootView={(props) => <AthletePageView {...props} user={data} />} />
+        return <StackContainer rootView={(props) => {console.log('created AthletePageView'); return <AthletePageView {...props} user={data} />}} />
     } else if (data.team_id !== null) {
-        return <StackContainer rootView={(props) => <CoachPageView {...props} user={data} />} />
+        return <StackContainer rootView={(props) => {console.log('created CoachPageView'); return <CoachPageView {...props} user={data} />}} />
     }
 }
 

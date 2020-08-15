@@ -49,7 +49,25 @@ export default function UserTab(props) {
                     })
                 }
                 <Text style={styles.sectionLabel}>Featured</Text>
-                <AbCard exercises={[]}/>
+                <AbCard exercises={[
+                    'High Plank',
+                    'Russian Twists',
+                    'Pidgeon Crunches',
+                    'Side Plank',
+                    'Low Plank',
+                    'Penguins',
+                    'Crunches',
+                    'In-and-outs',
+                    'Reverse Crunches',
+                    'V-Ups',
+                    "Bicycle Kicks",
+                    'Low Plank',
+                    "Flutter Kicks",
+                    "Situps",
+                    "V Sit",
+                    "Leg Lifts",
+                    "V Ups",
+                ]}/>
             </ScrollView>
         </View>
     );

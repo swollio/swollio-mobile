@@ -21,7 +21,6 @@ export default function WorkoutDetailsItem(props) {
         <View style={styles.item}>
             <Icon name={props.icon} style={styles.itemIcon}/>
             <Text style={styles.itemText}>{props.value}</Text>
-            <Icon name={'more-horizontal'} style={styles.itemIcon}/>
         </View>
     )
 }

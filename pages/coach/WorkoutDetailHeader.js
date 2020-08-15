@@ -4,6 +4,18 @@ import { Text, View, StyleSheet} from 'react-native';
 
 import WorkoutDetailsItem from './WorkoutDetailsItem'
 import Colors from '../../utilities/Colors';
+import moment from 'moment'
+
+
+const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+];
 
 /**
  * WorkoutDetailsHeader is a header component for displaying workout details.
@@ -33,8 +45,12 @@ export default function WorkoutDetailsHeader(props) {
                     onPress={props.onFinish}
                 />
             </View>
-            <WorkoutDetailsItem icon={'calendar'} value={props.options.start_date}/>
-            <WorkoutDetailsItem icon={'repeat'} value={props.options.repeat.join(" ")}/>
+            <WorkoutDetailsItem icon={'calendar'} value={
+                moment(props.options.start_date).format('MM/DD/YYYY') + 
+                " - " +
+                moment(props.options.end_date).format('MM/DD/YYYY')
+            }/>
+            <WorkoutDetailsItem icon={'repeat'} value={props.options.repeat.map(i => days[i]).join(", ")}/>
         </View>
         
     );
