@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View, TextInput } from 'react-native';
 import Colors from '../utilities/Colors';
 import { CreateTwoOptionForm, ButtonRow, ScrollPicker } from '../components/Components';
+import { CreateSingleStringForm } from "../components/Components" 
 
 export function AgeForm(props) {
     const DEFAULT_AGE = 20;
@@ -49,6 +50,15 @@ export const GenderForm = CreateTwoOptionForm({
     storeValue2: 'female',
     showValue1: 'Male',
     showValue2: 'Female'
+});
+
+export const JoinTeamForm = CreateSingleStringForm({
+    title: 'What is your team\'s pin?',
+    subtitle: 'Enter your team pin.',
+    keyboardType: 'number-pad',
+    validator: (value) => value.length === 6,
+    field: 'pin',
+    dismissKeyboard: true
 });
 
 export function HeightForm(props) {

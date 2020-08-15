@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
 import Colors from '../../utilities/Colors';
 import { getAthletesForTeam, getTeamData } from '../../utilities/api'
 import Card from '../../components/Cards/Card'
@@ -55,13 +55,11 @@ function AthleteElement(props) {
                 <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <View style={{flexDirection: 'column'}}>
                         <Text style={styles.athleteText}>{getFullName(props.athlete)}</Text>
-                        <View style={{flexDirection:'row'}}>
-                            <View style={{ maxWidth: "90%", flexDirection: 'row', flexWrap:'wrap', justifyContent: 'flex-start'}}>
+                        <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+                            <View style={{ maxWidth: "90%", flexDirection: 'row', flexWrap:'wrap'}}>
                                 {tags}
                             </View>
-                            <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                                <Icon name={'chevron-right'} size={40} color={Colors.Primary} style={{justifyContent: 'flex-end'}} />
-                            </View>
+                            <Icon name={'chevron-right'} size={40} color={Colors.Primary} />
                         </View>
                         
                     </View>
@@ -74,6 +72,7 @@ function AthleteElement(props) {
 export default function CoachPage(props) {
 
     const [data, setData] = useState(null);
+    const [showPin, setShowPin] = useState(false);
     const [teamData, setTeamData] = useState(null);
 
     useEffect(() => {
@@ -82,15 +81,33 @@ export default function CoachPage(props) {
         }
     });
 
-    useEffect(() => {
-        if (teamData === null) {
-            getTeamData(props.user.team_id).then(data => setTeamData(data));
-        }
-    });
+    function PinView () {
+        return (
+            <Modal
+                animationType={"fade"}
+                transparent={true}
+                visible={showPin}
+                onRequestClose={() => setShowPin(false)}
+                >
+                    <TouchableWithoutFeedback onPress={() => setShowPin(false)}>
+                        <View style={styles.centeredView}>
+                            <TouchableWithoutFeedback onPress={() => {}}>
+                                <View style={styles.modalView}>
+                                    <Text style={styles.pinText}>Team pin:</Text>
+                                    <Text style={[styles.athleteText, { alignSelf: 'center', fontSize: 30}]}>{props.user.pin}</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </View>
+                    </TouchableWithoutFeedback> 
+            </Modal>
+            
+        );
+    }
 
     return (
-        <View>
-            <Header user={props.user} teamData={teamData}/>
+        <>
+            <Header user={props.user} data={data} onPress={() => setShowPin(true)}/>
+            {showPin ? <PinView /> : <></>}
             <ScrollView padding={10} style={{height: '100%'}}>
             {(data || []).map(athlete => 
                 <AthleteElement 
@@ -106,7 +123,7 @@ export default function CoachPage(props) {
                 />
             )}
             </ScrollView>
-        </View>
+        </>
     );
 }
 
@@ -145,6 +162,37 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 10,
         marginLeft: 5
+    },
+    headerIcon: {
+        fontSize: 36,
+        color: Colors.PrimaryContrast,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        alignContent: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+      },
+    pinText: {
+        fontFamily: 'Comfortaa_600SemiBold',
+        fontSize: 26,
+        color: Colors.Primary,
+        marginHorizontal: 10,
+        marginVertical: 5
     }
-
 })
