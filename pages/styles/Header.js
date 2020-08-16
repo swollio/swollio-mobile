@@ -22,7 +22,7 @@ export default StyleSheet.create({
     title: {
         fontSize: 30,
         textAlign: 'center',
-        fontFamily: 'Comfortaa_300Light',
+        fontFamily: 'Comfortaa_700Bold',
         color: Colors.SurfaceContrast,
         textAlign: 'left',
     },

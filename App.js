@@ -93,7 +93,8 @@ export default function App(props) {
                         age: form.age,
                         height: form.height,
                         weight: form.weight,
-                        gender: form.gender
+                        gender: form.gender,
+                        pin: form.pin,
                     }).then(() => {
                         setAuthentiationState(State.LOGGED_IN)
                     })

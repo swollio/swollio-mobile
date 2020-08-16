@@ -27,7 +27,7 @@ export default function PageView(props) {
         <>
             <SafeAreaView style={styles.safeAreaTop} />
             <SafeAreaView style={styles.safeAreaBottom}>
-                <StatusBar barStyle="light-content" />
+                <StatusBar barStyle="dark-content" />
                 <View style={styles.container}>
                    
                         <>

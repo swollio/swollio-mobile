@@ -5,6 +5,56 @@ import { getAthletesForTeam, getStatisticsForAthlete } from '../../utilities/api
 import { DataCard } from "../../components/Components"
 import Icon from 'react-native-vector-icons/Feather';
 import AthleteSettings from './AthleteSettings';
+import WorkoutDetailsItem from './WorkoutDetailsItem'
+
+import headerStyles from '../styles/Header'
+
+
+function Header(props) {
+    return (
+        <View style={headerStyles.container}>
+            <View style={headerStyles.header}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Icon
+                        name={'arrow-left'}
+                        style={headerStyles.text}
+                        onPress={props.pop}
+                        size={36}
+                    />             
+                    <Text style={headerStyles.title}>
+                        {`${props.athlete.first_name}`}
+                    </Text>
+                    <Icon
+                        name={"settings"}
+                        style={headerStyles.text}
+                        size={36}
+
+                        onPress={() => props.push(() => 
+                            <AthleteSettings 
+                                teamId={props.teamId}
+                                athlete={props.athlete}
+                                pop={props.pop}
+                                push={props.push}
+                            />
+                            )}
+                    />
+                </View>
+            </View>
+            <View style={{padding: 8}}>
+            {props.athleteData &&
+                <View>
+                    <WorkoutDetailsItem icon='user' value={props.athleteData.first_name + ' ' + props.athleteData.last_name}  />
+                    <WorkoutDetailsItem icon='ruler' value={(props.athleteData.height / 12) + ' feet'}  />
+                    <WorkoutDetailsItem icon='balance-scale' value={(props.athleteData.weight) + ' lbs'}  />
+                </View>
+                || <></>
+                } 
+            </View>
+
+        </View>
+        
+    );
+}
 
 export default function (props) {
 
@@ -18,6 +68,7 @@ export default function (props) {
         }
     });
 
+    console.log(props.athlete)
     const dataCards = (weightSeries || []).map((e, index) => {
         return (
             <DataCard 
@@ -31,33 +82,12 @@ export default function (props) {
     })
 
     return (
-        <SafeAreaView style={styles.safeAreaTop}>
+        <SafeAreaView style={headerStyles.safeAreaTop}>
             <View style={{
                 backgroundColor: Colors.Background,
                 height: "100%"
             }}>
-                <View style={styles.header}>
-                    <Icon
-                        name={'arrow-left'}
-                        style={styles.headerIcon}
-                        onPress={props.pop}
-                    />
-                    <Text style={styles.title}>
-                        {`${props.athlete.first_name}'s Progress`}
-                    </Text>
-                    <Icon
-                        name={"settings"}
-                        style={styles.headerIcon}
-                        onPress={() => props.push(() => 
-                            <AthleteSettings 
-                                teamId={props.teamId}
-                                athlete={props.athlete}
-                                pop={props.pop}
-                                push={props.push}
-                            />
-                            )}
-                    />
-                </View>
+                <Header {...props} athleteData={props.athlete}/>
                 <ScrollView padding={10} style={{backgroundColor: Colors.Background, height: '100%'}}>
                     {dataCards}
                 </ScrollView>

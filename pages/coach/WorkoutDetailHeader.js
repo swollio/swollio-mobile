@@ -50,7 +50,7 @@ export default function WorkoutDetailsHeader(props) {
                 " - " +
                 moment(props.options.end_date).format('MM/DD/YYYY')
             }/>
-            <WorkoutDetailsItem icon={'repeat'} value={props.options.repeat.map(i => days[i]).join(", ")}/>
+            <WorkoutDetailsItem icon={'history'} value={props.options.repeat.map(i => days[i]).join(", ")}/>
         </View>
         
     );

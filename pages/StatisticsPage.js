@@ -4,6 +4,10 @@ import Colors from '../utilities/Colors';
 import DataCard from '../components/Cards/DataCard';
 import { getStatisticsForAthlete } from '../utilities/api'
 import moment from 'moment'
+import WaterMark from '../components/WaterMark'
+
+import headerStyles from './styles/Header'
+
 export default function StatisticsPage(props) {
     const [weightSeries, setWeightSeries] = useState(null);
 
@@ -17,23 +21,27 @@ export default function StatisticsPage(props) {
     });
 
     return (
-        <View>
-            <View style={styles.header}>
-                <Text style={styles.title}>Statistics</Text>
+        <View style={{height: "100%"}}>
+            <View style={[headerStyles.container, headerStyles.header]}>
+                <Text style={headerStyles.title}>Statistics</Text>
             </View>
-            <ScrollView padding={10} style={{height: '100%'}}>
-                {(weightSeries || []).map((e, index) => {
-                    return (
-                        <DataCard 
-                        key={index}
-                        exercise_name={e.exercise_name}
-                        data={e.weight_series.map(x => ({
-                            value: x.avg_weight,
-                            date: new Date(x.date)
-                        }))}/>
-                    )
-                })}
-            </ScrollView>
+            {
+                (weightSeries === null && <WaterMark title={'Loading...'}/>) ||
+                (weightSeries.length === 0 && <WaterMark title={'No Statistics'}/>) ||
+                <ScrollView padding={10} style={{height: '100%'}}>
+                    {(weightSeries).map((e, index) => {
+                        return (
+                            <DataCard 
+                            key={index}
+                            exercise_name={e.exercise_name}
+                            data={e.weight_series.map(x => ({
+                                value: x.avg_weight,
+                                date: new Date(x.date)
+                            }))}/>
+                        )
+                    })}
+                </ScrollView>
+            }
         </View>
     );
 }

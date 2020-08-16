@@ -8,7 +8,7 @@ import CreateWorkoutForm from './CreateWorkoutForm'
 import { postWorkoutForTeam, getAssignmentsForTeamWorkout } from '../../utilities/api'
 import WorkoutDetailsItem from './WorkoutDetailsItem'
 import moment from 'moment'
-
+import WaterMark from '../../components/WaterMark'
 import headerStyles from '../styles/Header'
 
 const days = [
@@ -64,13 +64,7 @@ function Header(props) {
     );
 }
 
-function WaterMark(props) {
-    return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={styles.watermark}>{props.title}</Text>
-        </View>
-    )
-}
+
 export default function WorkoutsPage(props) {
 
     const [workouts, setWorkouts] = useState(null);
@@ -98,7 +92,7 @@ export default function WorkoutsPage(props) {
                                             " - " +
                                             moment(workout.end_date).format('MM/DD/YYYY')
                                         }/>
-                                        <WorkoutDetailsItem icon={'repeat'} value={workout.repeat.map(i => days[i]).join(", ")}/>
+                                        <WorkoutDetailsItem icon={'history'} value={workout.repeat.map(i => days[i]).join(", ")}/>
                                     </View>
                                     <View style={{alignItems: 'center', padding: 16}}>
                                     <OutlinedButton 
@@ -143,13 +137,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
 
-    },
-    watermark: {
-        textAlign: 'center',
-        fontSize: 24,
-        color: Colors.SurfaceContrast2,
-        fontFamily: 'Comfortaa_500Medium',
-        margin: 50,
     },
     title: {
         fontSize: 32,

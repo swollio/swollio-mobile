@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import AthletePage from "./AthletePage";
 import Tag from '../../components/Tag';
 import WorkoutDetailsItem from './WorkoutDetailsItem'
+import WaterMark from '../../components/WaterMark'
 
 import headerStyles from '../styles/Header'
 
@@ -18,7 +19,6 @@ function getFullName(user) {
 }
 
 function Header(props) {
-
     return (
         <View style={headerStyles.container}>
             <View style={headerStyles.header}>
@@ -50,17 +50,16 @@ function AthleteElement(props) {
     return (
         <Card barColor={Colors.Primary}>
             <TouchableOpacity activeOpacity={0.2} onPress={() => props.onPress()}>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
                     <View style={{flexDirection: 'column'}}>
                         <Text style={styles.athleteText}>{getFullName(props.athlete)}</Text>
                         <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
                             <View style={{ maxWidth: "90%", flexDirection: 'row', flexWrap:'wrap'}}>
                                 {tags}
                             </View>
-                            <Icon name={'chevron-right'} size={40} color={Colors.Primary} />
-                        </View>
-                        
+                        </View>                        
                     </View>
+                    <Icon name={'chevron-right'} size={36} color={Colors.Primary} />
                 </View>
             </TouchableOpacity>
         </Card>
@@ -76,6 +75,12 @@ export default function CoachPage(props) {
     useEffect(() => {
         if (data === null) {
             getAthletesForTeam(props.user.team_id).then(data => setData(data));
+        }
+    });
+
+    useEffect(() => {
+        if (teamData === null) {
+            getTeamData(props.user.team_id).then(data => setTeamData(data));
         }
     });
 
@@ -104,23 +109,39 @@ export default function CoachPage(props) {
 
     return (
         <>
-            <Header user={props.user} data={data} onPress={() => setShowPin(true)}/>
+            <Header user={props.user} teamData={teamData} onPress={() => setShowPin(true)}/>
             {showPin ? <PinView /> : <></>}
-            <ScrollView padding={10} style={{height: '100%'}}>
-            {(data || []).map(athlete => 
-                <AthleteElement 
-                    key={athlete.id} 
-                    athlete={athlete} 
-                    onPress={() => props.push(() => 
-                        <AthletePage
-                            teamId={props.user.team_id}
-                            athlete={athlete}
-                            pop={props.pop}
-                            push={props.push}
-                        />)}
-                />
-            )}
-            </ScrollView>
+            {
+                (data === null && <WaterMark title={'Loading'} />) ||
+                (data.length === 0 && 
+                    <WaterMark title={'No Athletes'}>
+                        <Text style={{fontSize: 16, textAlign: 'center', padding: 24, color: Colors.SurfaceContrast2}}>Instruct your athletes to enter the following team pin during signup</Text>
+                        <View style={{flexDirection: 'row'}}>
+                        {teamData && teamData.pin.toString().split('').map((x, i) => 
+                            <View style={{padding: 8, backgroundColor: Colors.Surface, margin: 2, borderRadius: 8}}>
+                                <Text style={{fontSize: 28, color: Colors.SurfaceContrast2}} key={i}>{x}</Text>
+                            </View>
+                        )}
+                        </View>
+                    </WaterMark>) ||
+                <ScrollView padding={10} style={{height: '100%'}}>
+                    {data.map(athlete => 
+                        <AthleteElement 
+                            key={athlete.id} 
+                            athlete={athlete} 
+                            onPress={() => props.push(() => 
+                                <AthletePage
+                                    teamId={props.user.team_id}
+                                    athlete={athlete}
+                                    pop={props.pop}
+                                    push={props.push}
+                                />
+                            )}
+                        />
+                    )}
+                </ScrollView>
+            }
+
         </>
     );
 }
@@ -158,5 +179,12 @@ const styles = StyleSheet.create({
         color: Colors.Primary,
         marginHorizontal: 10,
         marginVertical: 5
-    }
+    },
+    athleteText: {
+        fontSize: 20,
+        textAlign: 'center',
+        fontFamily: 'Comfortaa_300Light',
+        color: Colors.SurfaceContrast,
+        textAlign: 'left',
+    },
 })

@@ -25,7 +25,7 @@
  * - Error
  */
 export default {
-    Primary: '#07163f',
+    Primary: '#D02235', //'#07163f',
     PrimaryContrast: '#FFFFFF',
 
     Secondary: '#D02235',

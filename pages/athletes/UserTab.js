@@ -5,7 +5,8 @@ import LogoOutline from '../LoadingPage'
 import LoadingPage from '../LoadingPage';
 import { getTodaysWorkoutsForAthlete } from '../../utilities/api'
 import { Card, WorkoutCover, AbCard, AbSetup } from '../../components/Components'
-import WorkoutProgress from './WorkoutPage'
+import WorkoutPage from './WorkoutPage'
+import headerStyles from '../styles/Header'
 
 export default function UserTab(props) {
 
@@ -18,10 +19,30 @@ export default function UserTab(props) {
         return () => {} 
     });
 
+    const abCard = <AbCard exercises={[
+        'High Plank',
+        'Russian Twists',
+        'Pidgeon Crunches',
+        'Side Plank',
+        'Low Plank',
+        'Penguins',
+        'Crunches',
+        'In-and-outs',
+        'Reverse Crunches',
+        'V-Ups',
+        "Bicycle Kicks",
+        'Low Plank',
+        "Flutter Kicks",
+        "Situps",
+        "V Sit",
+        "Leg Lifts",
+        "V Ups",
+    ]}/>;
+
     return (
         <View style={{flex: 1}}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Hello, {props.user.first_name}!</Text>
+            <View style={[headerStyles.container, headerStyles.header]}>
+                <Text style={headerStyles.title}>Hello, {props.user.first_name}!</Text>
             </View>
             <ScrollView 
                 style={{ padding: 10, flex: 1}}
@@ -29,7 +50,13 @@ export default function UserTab(props) {
             >
                 <Text style={styles.sectionLabel}>Today</Text>
                 {
-                    (todaysWorkouts || []).map((workout, index) => {
+                    (todaysWorkouts === null && <Card>
+                        <Text style={[styles.cardTitle,{padding: 16}]}>Loading...</Text>
+                    </Card>) ||
+                    (todaysWorkouts.length === 0  && <Card>
+                        <Text style={[styles.cardTitle,{padding: 16}]}>No Workouts Today</Text>
+                    </Card>) ||
+                    todaysWorkouts.map((workout, index) => {
                         return (
                         <WorkoutCover 
                             key={index} 
@@ -39,7 +66,7 @@ export default function UserTab(props) {
                             team_name={workout.team_name}
                             created={workout.created}
                             onStartWorkout={() => props.push(() => 
-                            <WorkoutProgress 
+                            <WorkoutPage 
                                 pop={props.pop}
                                 push={props.push}
                                 workout={workout}
@@ -49,25 +76,6 @@ export default function UserTab(props) {
                     })
                 }
                 <Text style={styles.sectionLabel}>Featured</Text>
-                <AbCard exercises={[
-                    'High Plank',
-                    'Russian Twists',
-                    'Pidgeon Crunches',
-                    'Side Plank',
-                    'Low Plank',
-                    'Penguins',
-                    'Crunches',
-                    'In-and-outs',
-                    'Reverse Crunches',
-                    'V-Ups',
-                    "Bicycle Kicks",
-                    'Low Plank',
-                    "Flutter Kicks",
-                    "Situps",
-                    "V Sit",
-                    "Leg Lifts",
-                    "V Ups",
-                ]}/>
             </ScrollView>
         </View>
     );
@@ -95,5 +103,12 @@ const styles = StyleSheet.create({
         color: Colors.PrimaryContrast,
         fontFamily: 'Comfortaa_700Bold',
         textAlign: 'left',
-    }
+    },
+    cardTitle: {
+        fontSize: 20,
+        textAlign: 'center',
+        fontFamily: 'Comfortaa_300Light',
+        color: Colors.SurfaceContrast,
+        textAlign: 'left',
+    },
 })

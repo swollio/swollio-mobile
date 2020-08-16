@@ -1,10 +1,98 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { Text, View, ScrollView, SafeAreaView } from 'react-native';
 import Colors from '../../utilities/Colors';
 import Icon from 'react-native-vector-icons/Feather';
 import { getAssignmentsForWorkout, postAthleteWorkoutResult } from '../../utilities/api';
 import { WorkoutCard } from '../../components/Components';
 import PostWorkoutSurvey from '../../forms/PostWorkoutSurvey';
+import LoadingPage from '../LoadingPage';
+import OutlinedButton from '../../components/OutlinedButton'
+import headerStyles from '../styles/Header'
+
+/**
+ * Header is the header component for the Athlete Workout Page.
+ * It contains a back button as well as a check button to mark the
+ * workout as completed.
+ * 
+ * @param pop
+ * @param setComplete
+ */
+function Header(props) {
+    return (
+        <View style={[headerStyles.container, headerStyles.header, {    
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+        }]}>
+            <Icon 
+                name={'arrow-left'}
+                style={headerStyles.text}
+                size={36}
+                onPress={props.pop}
+                
+            />
+            <Text style={headerStyles.title}>Workout</Text>
+            <Icon 
+                name={'check'}
+                style={headerStyles.text}
+                size={36}
+                onPress={() => props.setComplete(true)}
+            />
+        </View>
+    )
+}
+
+/**
+ * WorkoutCompleteConfirmation informs the user that their workout is
+ * complete, and asks them to confirm that they wish to complete the workout.
+ * @param {*} props 
+ */
+function WorkoutCompleteConfirmation(props) {
+    return (
+        <SafeAreaView style={{height: "100%"}}>
+            <Icon 
+                name={'arrow-left'}
+                style={{fontSize: 36, padding: 16}}
+                onPress={() => props.setComplete(false)}
+            />
+            <View style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                flex: 1,
+            }}>
+                <Text style={[headerStyles.title, {textAlign: 'center', marginBottom: 24}]}>
+                    Workout Complete!
+                </Text>
+                <Text style={[headerStyles.subtitle, { textAlign: 'center', marginBottom: 24 }]}>
+                    Once you proceed, you will be not be able to make any changes.
+                </Text>
+                <Text style={[headerStyles.subtitle, { textAlign: 'center', marginBottom: 36 }]}>
+                    If you are done, press submit and continue on to the post-workout survey.
+                </Text>
+                
+                <OutlinedButton
+                    text={'Submit Workout'}
+                    onPress={() =>        
+                        postAthleteWorkoutResult(
+                            props.user.athlete_id,
+                            props.workout.id,
+                            props.results.flat().filter(x => x.created !== null)
+                        ).then(() => {
+                            props.push(() => // Push the PostWorkoutSurvey onto the stack
+                                <PostWorkoutSurvey
+                                    pop={num => props.pop(num) }
+                                    workout={props.workout}
+                                    user={props.user}
+                                    push={props.push}
+                                />
+                            );
+                        })
+                    }
+                />
+            </View>
+        </SafeAreaView>
+    );
+}
 
 /**
  * The WorkoutPage component is the root level container which displays
@@ -34,7 +122,6 @@ export default function WorkoutPage(props) {
      * the results for a single exercise to a workout card.
      */
     const [results, setResults] = useState(null);
-    
     const [complete, setComplete] = useState(false);
 
     // Load the list of assignments
@@ -68,146 +155,46 @@ export default function WorkoutPage(props) {
         }
     });
     
-    const Assignments = (assignments || []).map((assignment, index) => {
-        return (
-            <WorkoutCard 
-                key = {index}
-                exercise_id = {assignment.exercise_id}
-                results = {results === null ? null: results[index]}
-                onChange = {(resultObj) => {
-                    if (!results) return;
-                    results[index] = resultObj;
-                    setResults([...results]);
-                }}
-                selectColor = {Colors.Primary}
-                barColor = {Colors.Primary}
-                title={assignment.name}
-            />
-        );
-    })
-
-    if (complete) {
-        return (
-            <SafeAreaView>
-                <View style={{height: "100%"}}>
-                <View>
-                    <Icon 
-                        name={'arrow-left'}
-                        style={{fontSize: 30, padding: 16}}
-                        onPress={() => setComplete(false)}
-                    />
-                </View>
-                <View style={{
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flex: 0.9,
-                }}>
-                    <Text style={[styles.megaText]}>Workout Complete!</Text>
-                    <Text style={[styles.bodyText, { marginBottom: 24 }]}>
-                        Once you proceed, you will be not be able to make any changes.
-                    </Text>
-                    <Text style={[styles.bodyText, { marginBottom: 36 }]}>
-                        If you are done, press submit and continue on to the post-workout survey.
-                    </Text>
-                    <TouchableOpacity onPress={() => 
-                    {        
-                        postAthleteWorkoutResult(
-                            props.user.athlete_id,
-                            props.workout.id,
-                            results.flat().filter(x => x.created !== null)
-                        ).then(() => {
-                            props.push(() => // Push the PostWorkoutSurvey onto the stack
-                                <PostWorkoutSurvey
-                                    pop={ num => props.pop(num) }
-                                    workout={props.workout}
-                                    user={props.user}
-                                    push={props.push}
-                                />
-                            );
-                        })
-                    }} style={styles.submitButton}>
-                        <Text style={{fontSize: 22, textAlign: 'center', color: Colors.Primary}}>Submit Workout</Text>
-                    </TouchableOpacity>
-                </View>
-                </View>
-            </SafeAreaView>
-        )
-    } else 
     return (
-        <>
-            <SafeAreaView style={styles.safeAreaTop} />
-            <View style={styles.header}>
-                <Icon 
-                    name={'arrow-left'}
-                    style={styles.headerIcon}
-                    onPress={props.pop}
-                />
-                <Text style={styles.headerText}>Workout</Text>
-                <Icon 
-                    name={'check'}
-                    style={styles.headerIcon}
-                    onPress={() => {
-                        setComplete(true);
-                    }}
-                />
-            </View>
-            <ScrollView padding={10} style={{backgroundColor: Colors.Background}}>
-                { Assignments }
-            </ScrollView>
-        </>
-
+        complete
+        && <WorkoutCompleteConfirmation 
+            user={props.user}
+            push={props.push}
+            workout={props.workout}
+            results={props.results}
+            setComplete={(b) => setComplete(b)}
+        />
+        || <View style={{height: '100%', backgroundColor: Colors.Background}}>
+            <SafeAreaView style={headerStyles.safeAreaTop} />
+            <Header 
+                pop={props.pop}
+                setComplete={(b) => setComplete(b)}
+            />
+            {
+                (assignments === null &&
+                    <LoadingPage />) ||
+                (assignments.length == 0 &&
+                    <WaterMark title={'No Assignments'} />) ||
+                <ScrollView padding={10} style={{flex: 1}}>
+                {
+                    assignments.map((assignment, index) => (
+                        <WorkoutCard 
+                            key = {index}
+                            exercise_id = {assignment.exercise_id}
+                            results = {results === null ? null: results[index]}
+                            onChange = {(resultObj) => {
+                                if (!results) return;
+                                results[index] = resultObj;
+                                setResults([...results]);
+                            }}
+                            selectColor = {Colors.Primary}
+                            barColor = {Colors.Primary}
+                            title={assignment.name}
+                        />
+                    ))
+                }
+                </ScrollView>
+            }
+        </View>
     );
 }
-
-
-const styles = StyleSheet.create({
-    safeAreaTop: {
-        flex: 0,
-        backgroundColor: Colors.Primary
-    },
-    header: {
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 8,
-        backgroundColor: Colors.Primary,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
-    },
-    submitButton: {
-        borderColor: Colors.Primary, 
-        borderWidth: 1, 
-        height: 50, 
-        borderRadius: 25, 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        paddingHorizontal: 32,
-    },
-    megaText: {
-        fontSize: 30,
-        textAlign: 'center',
-        color: Colors.SurfaceContrast,
-        fontFamily: 'Comfortaa_600SemiBold',
-        marginBottom: 24,
-    },
-    bodyText: {
-        fontSize: 18,
-        textAlign: 'center',
-        color: Colors.SurfaceContrast,
-        fontFamily: 'Comfortaa_400Regular',
-        paddingLeft: 28,
-        paddingRight: 28
-    },
-    headerIcon: {
-        fontSize: 30,
-        color: Colors.PrimaryContrast,
-    },
-    headerText: {
-        fontSize: 24,
-        color: Colors.PrimaryContrast,
-        fontFamily: 'Comfortaa_700Bold',
-        textAlign: 'left',
-    }
-})
