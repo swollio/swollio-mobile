@@ -5,6 +5,7 @@ import Colors from '../../utilities/Colors';
 import WaterMark from '../../components/WaterMark'
 
 function Assignment(props) {
+
     return (
         <View style={styles.assignment}>
             <Text style={styles.assignmentText}>{props.assignment.name}</Text>
@@ -21,7 +22,7 @@ export default function WorkoutDetailsAssignments(props) {
             <WaterMark title={"This workout is empty"}>
                 <Text style={{fontSize: 16, textAlign: 'center', padding: 24, color: Colors.SurfaceContrast2}}>Add exercises to this workout to get started. You will be able to choose from a list of curated exercises, or create your own! </Text>
             </WaterMark>) ||
-        <ScrollView style={{width: '100%', paddingBottom: 100}}>
+        <ScrollView style={{paddingBottom: 100}}>
             {props.assignments.map((a, i) =>
                 <Assignment key={i} assignment={a} />
             )}

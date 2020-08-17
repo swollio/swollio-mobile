@@ -10,12 +10,26 @@ import FormContainer from '../../containers/FormContainer'
 import SolidButton from '../../components/SolidButton'
 import BubbleSelect from '../../components/BubbleSelect'
 
+import headerStyles from '../styles/Header'
+
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
 
 
-function SelectExercise(props) {
+function Header(props) {
+    return (
+        <View style={{width: '100%', padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Icon onPress={() => props.pop()} size={30} color={Colors.SurfaceContrast} name={'arrow-left'}/>
+            <OutlinedButton
+                text="Custom Exercise"
+                style={{width: 160, height: 40}}
+            />
+        </View>
+    );
+}
+
+export function SelectExercise(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
@@ -25,13 +39,14 @@ function SelectExercise(props) {
         });
     }, [searchTerm]);
 
-    return <View style={{height: '100%', backgroundColor: Colors.Surface}}>
-        <View style={{flexDirection: 'column', padding: 16}}>
+    return <View style={{height: '100%', width: '100%'}}>
+    <SafeAreaView />
+        <Header pop={props.onCancel} />
+        <View style={{flexDirection: 'column', paddingHorizontal: 16}}>
             <View style={{flexDirection: 'row', backgroundColor: Colors.Background, borderRadius: 25, width: '100%', overflow: 'hidden'}}>
                 <View style={{height: 50, alignItems: 'center', justifyContent: 'center', width: 50}}>
                 <Icon 
                     name={'search'}
-                    onPress={() => props.onSelect(exercise)}
                     size={30}
                     color={Colors.SurfaceContrast2}
                 />
@@ -47,28 +62,26 @@ function SelectExercise(props) {
         </View>
         <ScrollView style={{flex: 1}}>
         {searchResults.map(exercise => 
-            <View key={exercise.id} style={styles.section}>
+            <TouchableOpacity
+                onPress={() => {props.onSelect(exercise)}}
+                key={exercise.id}
+                style={styles.section}
+            >
                 <Text style={styles.content}>{exercise.name}</Text>
                 <Icon 
                     name={'plus'}
-                    onPress={() => props.onSelect(exercise)}
                     size={30}
                     color={Colors.Primary}
                 />
-            </View>
+            </TouchableOpacity>
         )}
         </ScrollView>
-        <View style={{paddingVertical: 24, justifyContent: 'center',         borderColor: Colors.Primary,
-        borderTopWidth: 2, alignItems: 'center'}}>
-            <Text style={{padding: 16, fontSize: 18, fontFamily: 'Comfortaa_400Regular'}}>Can't find your exercise?</Text>
-            <OutlinedButton text={'Custom Exercise'} onPress={() => props.onSelect(null)}/>
-        </View>
     </View>
 }
 
 function SelectWeightAndSetsForm(props) {
     
-    const [reps, setReps] = useState([])
+    const [reps, setReps] = useState([10, 8, 6])
 
     return (
         <View style={{width: '100%', alignItems: 'center'}}>
@@ -223,7 +236,7 @@ function CreateCustomExercise(props) {
  * - onCancel: callback to handle cancel action
  * - onCreate: callback to handle create action
  */
-export default function CreateAssignmentForm(props) {
+export function CreateAssignmentForm(props) {
     
     // If exercise is null, then the exercise hasnt been selected yet.
     // If the exercise is a non empty exercise object, then the exercise has been

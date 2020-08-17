@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 function Header(props) {
     return (
-        <View style={styles.header}>
+        <View style={{width: '100%'}}>
             <Icon onPress={() => props.pop()} size={40} color={Colors.PrimaryContrast} name={'arrow-left'}/>
             <Text style={styles.title}>Exercises</Text>
             <View style={{width: 50}}></View>
@@ -26,11 +26,8 @@ export default function SelectExercises(props) {
     return (
         <View style={{height: '100%'}}>
             <SafeAreaView style={styles.safeAreaTop} />
-            <SafeAreaView style={styles.safeAreaBottom}>
             <View style={{backgroundColor: Colors.Surface, height: '100%'}}>
-                <Header pop={props.pop} />
                 <View style={{flex: 1}}>
-                    
                     <View style={{padding: 16, borderBottomColor: Colors.SurfaceContrast2, borderBottomWidth: 1}}>
                         <TextInput onChangeText={(value) => setSearchTerm(value)} style={styles.textInput} />
                     </View>
@@ -46,7 +43,6 @@ export default function SelectExercises(props) {
                     </ScrollView>
                 </View>
             </View>
-            </SafeAreaView>
         </View>
     )
 }
