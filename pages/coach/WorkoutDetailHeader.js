@@ -1,11 +1,14 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import { Text, View, StyleSheet} from 'react-native';
+import { Text, TextInput, View, StyleSheet} from 'react-native';
 
 import WorkoutDetailsItem from './WorkoutDetailsItem'
 import Colors from '../../utilities/Colors';
 import moment from 'moment'
-
+import SolidButton from '../../components/SolidButton';
+import { OutlinedButton } from '../../components/Components';
+import Calendar from '../../components/Calendar'
+import headerStyles from '../styles/Header'
 
 const days = [
     "Monday",
@@ -30,27 +33,35 @@ const days = [
  * - options: { created: string, repeat: string }
  */
 export default function WorkoutDetailsHeader(props) {
+    
+    function isValid(date) {
+        return date > moment()
+    }
+
     return (
         <View style={styles.headerContainer}>
             <View style={styles.header}>
                 <Icon 
                     name={'arrow-left'}
-                    style={styles.headerIcon}
+                    style={[styles.headerIcon, {width: 80}]}
                     onPress={props.onBack}
                 />
-                <Text style={styles.headerText}>Details</Text>
-                <Icon 
-                    name={'check'}
-                    style={styles.headerIcon}
+                <OutlinedButton
+                    text="Save Workout"
                     onPress={props.onFinish}
+                    style={{width: 160, height: 40}}
                 />
             </View>
-            <WorkoutDetailsItem icon={'calendar'} value={
-                moment(props.options.start_date).format('MM/DD/YYYY') + 
-                " - " +
-                moment(props.options.end_date).format('MM/DD/YYYY')
-            }/>
-            <WorkoutDetailsItem icon={'history'} value={props.options.repeat.map(i => days[i]).join(", ")}/>
+            <TextInput 
+                placeholder={'Untitled Workout'}
+                onChangeText={(text) => props.onChangeName(text)}
+                style={[headerStyles.title, {
+                    borderColor: Colors.Primary,
+                    borderBottomWidth: 1,
+                    paddingVertical: 16,
+                }]}
+            >{props.options.name}</TextInput>
+            <Calendar date={props.options.dates} onToggleDate={props.onToggleDate}/>
         </View>
         
     );

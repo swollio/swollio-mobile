@@ -4,7 +4,7 @@ import Colors from '../utilities/Colors';
 
 export default function WaterMark(props) {
     return (
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center'}}>
             <Text style={styles.watermark}>{props.title}</Text>
             {props.children}
         </View>
@@ -13,8 +13,10 @@ export default function WaterMark(props) {
 
 const styles = StyleSheet.create({
     watermark: {
-        textAlign: 'center',
         fontSize: 24,
+        padding: 12,
+        textAlign: 'center',
+        width: '100%',
         color: Colors.SurfaceContrast2,
         fontFamily: 'Comfortaa_500Medium',
     },

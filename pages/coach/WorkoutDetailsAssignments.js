@@ -2,6 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, Text} from "react-native"
 import Icon from 'react-native-vector-icons/Feather';
 import Colors from '../../utilities/Colors';
+import WaterMark from '../../components/WaterMark'
 
 function Assignment(props) {
     return (
@@ -15,6 +16,11 @@ function Assignment(props) {
 
 export default function WorkoutDetailsAssignments(props) {
     return (
+        (props.assignments === null && <WaterMark title={'Loading'} />) ||
+        (props.assignments.length === 0 && 
+            <WaterMark title={"This workout is empty"}>
+                <Text style={{fontSize: 16, textAlign: 'center', padding: 24, color: Colors.SurfaceContrast2}}>Add exercises to this workout to get started. You will be able to choose from a list of curated exercises, or create your own! </Text>
+            </WaterMark>) ||
         <ScrollView style={{width: '100%', paddingBottom: 100}}>
             {props.assignments.map((a, i) =>
                 <Assignment key={i} assignment={a} />

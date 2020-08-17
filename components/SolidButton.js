@@ -18,8 +18,14 @@ export default function SolidButton(props) {
             }: {}, props.style]}
             onPress={() => !props.disabled && props.onPress()}
         >
-            <Text style={{fontSize: 16,         fontFamily: "Comfortaa_400Regular",
-color: Colors.PrimaryContrast}}>{props.text}</Text>
+            <Text style={{
+                fontSize: 18,
+                fontFamily: "Comfortaa_700Bold",
+                color: Colors.PrimaryContrast
+            }}>
+                {props.text}
+            </Text>
+            
         </TouchableOpacity>
     )
 }

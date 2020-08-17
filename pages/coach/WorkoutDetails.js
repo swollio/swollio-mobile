@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar, SafeAreaView, StyleSheet, View } from 'react-native';
 import WorkoutDetailsHeader from './WorkoutDetailHeader'
 import WorkoutDetailsAssignments from './WorkoutDetailsAssignments'
-import CircularButton from '../../components/CircularButton'
+import SolidButton from '../../components/SolidButton'
 import Colors from '../../utilities/Colors';
 
 /**
@@ -30,15 +30,17 @@ export default function WorkoutDetails(props) {
         <>
             <SafeAreaView style={styles.safeAreaTop} />
             <StatusBar barStyle="dark-content" />
-            <View style={{flex: 1, alignItems: 'flex-end'}}>
+            <View style={{flex: 1, alignItems: 'flex-end', width: '100%'}}>
                 <WorkoutDetailsHeader
                     options={props.options}
                     onBack={props.onCancel}
                     onFinish={props.onCreate}
+                    onToggleDate={props.onToggleDate}
+                    onChangeName={props.onChangeName}
                 />        
                 <WorkoutDetailsAssignments assignments={props.assignments} />        
-                <View style={{padding: 16, position: 'absolute', right: 0, bottom: 0}}>
-                    <CircularButton icon={'plus'} onPress={props.onAddExercises}/> 
+                <View style={{padding: 30, position: 'absolute', alignItems: 'flex-end', width: 250, right: 0, bottom: 0}}>
+                    <SolidButton text={'Add Exercise'} onPress={props.onAddExercises}/> 
                 </View>    
             </View>
         </>
