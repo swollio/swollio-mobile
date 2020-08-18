@@ -207,19 +207,19 @@ export function getStatisticsForAthlete(athlete_id) {
 }
 
 export function postAthleteTeamTag(athlete_id, team_tag_id) {
-    return post(`teams/addTag/${athlete_id}/${team_tag_id}`).then(result => result.text());
+    return post(`teams/tags/${athlete_id}/${team_tag_id}`).then(result => result.text());
 }
 
 export function getTagsForTeam(team_id) {
-    return get(`teams/${team_id}/getTags`).then(result => result.json())
+    return get(`teams/${team_id}/tags`).then(result => result.json())
 }
 
 export function getAthleteTags(athlete_id, team_id) {
-    return get(`teams/${team_id}/getAthleteTags/${athlete_id}`).then(result => result.json())
+    return get(`teams/${team_id}/athletes/${athlete_id}/tags`).then(result => result.json())
 }
 
 export function postTeamTag(team_id, tag) {
-    return post(`teams/${team_id}/addTag/${tag}`).then(result => result.text())
+    return post(`teams/${team_id}/tags/${tag}`).then(result => result.text())
 }
 
 export function createCustomExerciseForTeam(team_id, exercise) {
