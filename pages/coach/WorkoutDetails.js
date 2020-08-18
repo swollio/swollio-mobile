@@ -37,6 +37,7 @@ export default function WorkoutDetails(props) {
 
     return (
         showExercises ? <SelectExercise
+            user={props.user}
             onCancel={toggleExercises}
             onSelect={(e) => {
                 props.onAddAssignment({

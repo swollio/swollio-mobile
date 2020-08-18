@@ -158,6 +158,7 @@ export default function CreateWorkoutForm(props) {
         );
     } else if (creationState === 0) {
         return (<WorkoutDetails 
+            user={props.user}
             options={options}
             assignments={assignments}
             onCreate={() => props.onCreate({
