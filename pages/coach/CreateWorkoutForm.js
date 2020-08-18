@@ -163,7 +163,7 @@ export default function CreateWorkoutForm(props) {
             onCreate={() => props.onCreate({
                 name: options.name === '' ? 'Untitled Workout': options.name,
                 dates: [...options.dates],
-                assignments
+                assignments: assignments.map(a => ({...a, rep_count: a.rep_count.filter(x => x !== 0)}))
             })}
             push={props.push}
             pop={props.pop}

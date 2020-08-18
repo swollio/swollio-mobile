@@ -5,7 +5,7 @@ import Colors from '../../utilities/Colors';
 import WaterMark from '../../components/WaterMark'
 import Card from '../../components/Cards/Card'
 import SolidButton from '../../components/SolidButton';
-
+import AssignmentCard from './AssignmentCard'
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
@@ -92,7 +92,7 @@ export default function WorkoutDetailsAssignments(props) {
         <View style={{width: '100%', flex: 1, backgroundColor: Colors.Background}}>
             <ScrollView contentContainerStyle={{padding: 8}} style={{paddingBottom: 100}}>
                 {props.assignments.map((a, i) =>
-                    <Assignment key={i} assignment={a} />
+                    <AssignmentCard onUpdate={(a) => {}} key={i} assignment={a} />
                 )}
             </ScrollView>
         </View>)
