@@ -45,8 +45,6 @@ export default function PostWorkoutSurvey(props) {
                     onPress={() => { 
                     postPostWorkoutSurvey(props.user.athlete_id, props.workout.workout_id,
                     {
-                        athlete_id: props.user.athlete_id, 
-                        workout_id: props.workout.workout_id,
                         due_date: props.workout.date,
                         rating: workoutRating,
                         hours_sleep: hoursSleep,
