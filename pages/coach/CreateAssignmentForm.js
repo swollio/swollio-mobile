@@ -10,29 +10,26 @@ import FormContainer from '../../containers/FormContainer'
 import SolidButton from '../../components/SolidButton'
 import BubbleSelect from '../../components/BubbleSelect'
 
+import headerStyles from '../styles/Header'
+
 function capitalize(text) {
     return text.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
 
+
 function Header(props) {
     return (
-        <View style={styles.header}>
-            <View style={{flexDirection: 'row', width: '100%', marginBottom: 8, alignItems: 'center', justifyContent: 'space-between'}}>
-                <Icon 
-                    onPress={props.onCancel}
-                    size={40}
-                    color={Colors.SurfaceContrast}
-                    name={'arrow-left'}
-                />
-                <Text style={styles.title}>Exercises</Text>
-                <View style={{width: 50}}></View>
-            </View>
+        <View style={{width: '100%', padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Icon onPress={() => props.pop()} size={30} color={Colors.SurfaceContrast} name={'arrow-left'}/>
+            <OutlinedButton
+                text="Custom Exercise"
+                style={{width: 160, height: 40}}
+            />
         </View>
-        
     );
 }
 
-function SelectExercise(props) {
+export function SelectExercise(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
@@ -42,13 +39,14 @@ function SelectExercise(props) {
         });
     }, [searchTerm]);
 
-    return <View style={{height: '100%', backgroundColor: Colors.Surface}}>
-        <View style={{flexDirection: 'column', padding: 16}}>
+    return <View style={{height: '100%', width: '100%'}}>
+    <SafeAreaView />
+        <Header pop={props.onCancel} />
+        <View style={{flexDirection: 'column', paddingHorizontal: 16}}>
             <View style={{flexDirection: 'row', backgroundColor: Colors.Background, borderRadius: 25, width: '100%', overflow: 'hidden'}}>
                 <View style={{height: 50, alignItems: 'center', justifyContent: 'center', width: 50}}>
                 <Icon 
                     name={'search'}
-                    onPress={() => props.onSelect(exercise)}
                     size={30}
                     color={Colors.SurfaceContrast2}
                 />
@@ -64,34 +62,31 @@ function SelectExercise(props) {
         </View>
         <ScrollView style={{flex: 1}}>
         {searchResults.map(exercise => 
-            <View key={exercise.id} style={styles.section}>
+            <TouchableOpacity
+                onPress={() => {props.onSelect(exercise)}}
+                key={exercise.id}
+                style={styles.section}
+            >
                 <Text style={styles.content}>{exercise.name}</Text>
                 <Icon 
                     name={'plus'}
-                    onPress={() => props.onSelect(exercise)}
                     size={30}
                     color={Colors.Primary}
                 />
-            </View>
+            </TouchableOpacity>
         )}
         </ScrollView>
-        <View style={{paddingVertical: 24, justifyContent: 'center',         borderColor: Colors.Primary,
-        borderTopWidth: 2, alignItems: 'center'}}>
-            <Text style={{padding: 16, fontSize: 18, fontFamily: 'Comfortaa_400Regular'}}>Can't find your exercise?</Text>
-            <OutlinedButton text={'Custom Exercise'} onPress={() => props.onSelect(null)}/>
-        </View>
     </View>
 }
 
-function SelectWeightAndSets(props) {
+function SelectWeightAndSetsForm(props) {
     
-    const [reps, setReps] = useState([])
+    const [reps, setReps] = useState([10, 8, 6])
 
-    return <View style={{flex: 1, padding: 24, justifyContent: 'space-between', backgroundColor: Colors.Surface, borderTopRightRadius: 20, borderTopLeftRadius: 20, alignItems: 'center'}}>
+    return (
         <View style={{width: '100%', alignItems: 'center'}}>
-            <Text style={styles.surfaceTitle}>{capitalize(props.exercise.name)}</Text>
-            <Text style={{textAlign: 'center', marginVertical: 16}}>How many reps should your athletes complete?</Text>
-            <View style={{alignItems: 'flex-start'}}>
+            <Text style={styles.formTitle}>How many reps should your athletes complete?</Text>
+            <View style={{paddingVertical: 16}}>
             {
                 (reps.map((repCount, i) => 
                 <View key={i + '-' + repCount} style={{marginVertical: 4, width: 355, flexDirection: 'row', alignItems: "center", overflow: 'hidden', borderColor: Colors.Primary, borderWidth: 1, borderRadius: 30}}>
@@ -124,21 +119,17 @@ function SelectWeightAndSets(props) {
             </View>
             </View>
 
-
+            <SolidButton 
+                width={200}
+                text={'Continue'}
+                onPress={() => {
+                    props.onChange('rep_count', reps)
+                    props.onCompleted()
+                }}
+            />
         </View>
-        <TouchableOpacity 
-            activeOpacity={0.8}
-            style={styles.optionButton}
-            onPress={() => props.onCreate({
-                exercise_id: props.exercise.id,
-                name: props.exercise.name,
-                weight_scheme: 'constant',
-                rep_count: reps
-            })}
-        >
-            <Text style={{color: Colors.PrimaryContrast}}>Add to Workout</Text>
-        </TouchableOpacity>
-    </View>
+
+    );
 }
 
 const ExerciseNameForm = CreateSingleStringForm({
@@ -149,6 +140,7 @@ const ExerciseNameForm = CreateSingleStringForm({
     field: 'name',
     dismissKeyboard: true,
 });
+
 
 function SelectPrimaryMusclesForm(props) {
     
@@ -188,14 +180,38 @@ function ExerciseCreatedForm(props) {
     );
 }
 
+
+function AssignmentForm(props) {
+    return (
+        <FormContainer
+            onCancel={() => props.onCancel()}
+            onCompleted={(form) => {
+                props.onCreate({
+                    exercise_id: props.exercise.id,
+                    name: props.exercise.name,
+                    weight_scheme: 'constant',
+                    rep_count: form.rep_count,
+                })                    
+            }}
+            forms={[
+                SelectWeightAndSetsForm,
+            ]}
+        />
+    )
+}
+
 function CreateCustomExercise(props) {
     return (
         <FormContainer
             onCancel={() => props.onCancel()}
             onCompleted={(form) => {
                 createCustomExerciseForTeam(props.team_id, form).then((id) => {
-                    console.log(id)
-                    props.onCreate(form)
+                    props.onCreate({
+                        exercise_id: id,
+                        name: form.name,
+                        weight_scheme: 'constant',
+                        rep_count: form.rep_count,
+                    })                    
                 }).catch(err => {
                     console.log(err)
                 })
@@ -203,6 +219,7 @@ function CreateCustomExercise(props) {
             forms={[
                 ExerciseNameForm,
                 SelectPrimaryMusclesForm,
+                SelectWeightAndSetsForm,
                 ExerciseCreatedForm
             ]}
         />
@@ -219,7 +236,7 @@ function CreateCustomExercise(props) {
  * - onCancel: callback to handle cancel action
  * - onCreate: callback to handle create action
  */
-export default function CreateAssignmentForm(props) {
+export function CreateAssignmentForm(props) {
     
     // If exercise is null, then the exercise hasnt been selected yet.
     // If the exercise is a non empty exercise object, then the exercise has been
@@ -231,15 +248,12 @@ export default function CreateAssignmentForm(props) {
     let content;
     if (exercise === undefined) {
         content = (
-            <>
-                <Header onCancel={props.onCancel}></Header>
-                <View style={{backgroundColor: Colors.Background, flex: 1}}>
-                    <SelectExercise
-                        onCancel={props.onCancel}
-                        onSelect={(exercise) => setExercise(exercise)}
-                    />
-                </View>
-            </>
+            <View style={{backgroundColor: Colors.Background, flex: 1}}>
+                <SelectExercise
+                    onCancel={props.onCancel}
+                    onSelect={(exercise) => setExercise(exercise)}
+                />
+            </View>
         );
     } else if (exercise == null) {
         content = (<CreateCustomExercise
@@ -249,16 +263,13 @@ export default function CreateAssignmentForm(props) {
         />);
     } else {
         content = (
-            <>
-                <Header onCancel={props.onCancel}></Header>
-                <View style={{backgroundColor: Colors.Background, flex: 1}}>
-                    <SelectWeightAndSets
-                        exercise={exercise}
-                        onCancel={props.onCancel}
-                        onCreate={props.onCreate}
-                    />
-                </View>
-            </>
+            <View style={{backgroundColor: Colors.Background, flex: 1}}>
+                <AssignmentForm
+                    exercise={exercise}
+                    onCancel={props.onCancel}
+                    onCreate={props.onCreate}
+                />
+            </View>
         );
     }
 

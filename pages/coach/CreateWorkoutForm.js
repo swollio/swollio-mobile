@@ -4,14 +4,13 @@ import Colors from '../../utilities/Colors';
 import Icon from 'react-native-vector-icons/Feather';
 import SolidButton from '../../components/SolidButton'
 
-import CreateAssignmentForm from './CreateAssignmentForm'
 import DatePicker from '../../components/DatePicker';
 
 import { CreateSingleStringForm } from '../../components/Components';
 import FormContainer from '../../containers/FormContainer'
 import WorkoutDetails from './WorkoutDetails'
 import { getAssignmentsForTeamWorkout } from '../../utilities/api'
-
+import moment from 'moment'
 export const WorkoutNameForm = CreateSingleStringForm({
     title: 'Choose Name.',
     subtitle: 'Enter the workout name.',
@@ -113,7 +112,25 @@ export function WorkoutCreatedForm(props) {
 
 export default function CreateWorkoutForm(props) {
 
-    const [options, setOptions] = useState(props.options);
+    const [options, setOptions] = useState(props.options || {
+        name: '',
+        dates: new Set(),
+    });
+
+    const toggleDate = (date) => {
+        if (options.dates.has(date)) {
+            options.dates.delete(date);
+        } else {
+            options.dates.add(date);
+        }
+        setOptions({...options})
+    }
+
+    const changeName = (name) => {
+        options.name = name.trim();
+        setOptions({...options})
+    }
+
     const [assignments, setAssignments] = useState(props.assignments);
     const [creationState, setCreationState] = useState(0)
     
@@ -126,7 +143,7 @@ export default function CreateWorkoutForm(props) {
                     WorkoutNameForm,
                     (props) => <
                         WorkoutDateForm {...props}
-                        field="start_date"
+                        field="dates"
                         title="Select start date."
                     />,
                     WorkoutRepeatForm,
@@ -143,20 +160,20 @@ export default function CreateWorkoutForm(props) {
         return (<WorkoutDetails 
             options={options}
             assignments={assignments}
-            onCreate={() => props.onCreate({...options, assignments})}
+            onCreate={() => props.onCreate({
+                name: options.name === '' ? 'Untitled Workout': options.name,
+                dates: [...options.dates],
+                assignments
+            })}
+            push={props.push}
+            pop={props.pop}
             onCancel={() => props.onCancel()}
-            onAddExercises={() => setCreationState(1)}>
-        </WorkoutDetails>);
-    } else {
-        return (<CreateAssignmentForm
-            user={props.user}
-            onCancel={() => setCreationState(0)}
-            onCreate={(assignment) => {
-                setAssignments([...assignments, assignment])
-                setCreationState(0);
-            }}
-        />);
-    }
+            onToggleDate={(date) => toggleDate(date.format('YYYY-MM-DD'))}
+            onAddExercises={() => setCreationState(1)}
+            onChangeName={(name) => changeName(name)}
+            onAddAssignment={(assignment) => setAssignments([...assignments, assignment])}
+        />)
+    } 
 }
 
 

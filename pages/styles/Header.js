@@ -12,8 +12,7 @@ export default StyleSheet.create({
         backgroundColor: Colors.Surface,
     },
     header: {
-        paddingVertical: 16,
-        paddingHorizontal: 24,
+        padding: 16,
         width: '100%',
     },
     text: {

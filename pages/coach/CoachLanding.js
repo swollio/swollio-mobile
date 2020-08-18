@@ -118,7 +118,7 @@ export default function CoachPage(props) {
                         <Text style={{fontSize: 16, textAlign: 'center', padding: 24, color: Colors.SurfaceContrast2}}>Instruct your athletes to enter the following team pin during signup</Text>
                         <View style={{flexDirection: 'row'}}>
                         {teamData && teamData.pin.toString().split('').map((x, i) => 
-                            <View style={{padding: 8, backgroundColor: Colors.Surface, margin: 2, borderRadius: 8}}>
+                            <View key={i} style={{padding: 8, backgroundColor: Colors.Surface, margin: 2, borderRadius: 8}}>
                                 <Text style={{fontSize: 28, color: Colors.SurfaceContrast2}} key={i}>{x}</Text>
                             </View>
                         )}

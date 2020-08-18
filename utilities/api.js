@@ -175,7 +175,7 @@ export function createTeam(team) {
 }
 
 export function getAthletesForTeam(team_id) {
-    return get(`teams/${team_id}/athletes`).then(result => result.json())
+    return get(`teams/${team_id}/athletes`).then(result => result.json()).then(result => {console.log(team_id); return result})
 }
 
 export function getTeamData(team_id) {

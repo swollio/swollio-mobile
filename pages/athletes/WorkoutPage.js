@@ -160,8 +160,9 @@ export default function WorkoutPage(props) {
         && <WorkoutCompleteConfirmation 
             user={props.user}
             push={props.push}
+            pop={props.pop}
             workout={props.workout}
-            results={props.results}
+            results={results}
             setComplete={(b) => setComplete(b)}
         />
         || <View style={{height: '100%', backgroundColor: Colors.Background}}>

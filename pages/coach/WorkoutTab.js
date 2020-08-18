@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Colors from '../../utilities/Colors';
 import { Card, OutlinedButton } from '../../components/Components'
 import { getWorkoutsForTeam } from '../../utilities/api'
-import Icon from 'react-native-vector-icons/Feather';
 import CreateWorkoutForm from './CreateWorkoutForm'
 import { postWorkoutForTeam, getAssignmentsForTeamWorkout } from '../../utilities/api'
 import WorkoutDetailsItem from './WorkoutDetailsItem'
 import moment from 'moment'
 import WaterMark from '../../components/WaterMark'
 import headerStyles from '../styles/Header'
+import SolidButton from '../../components/SolidButton'
 
 const days = [
     "Monday",
@@ -41,25 +41,6 @@ function Header(props) {
             }
         ]}>
             <Text style={headerStyles.title}>Workouts</Text>
-            <Icon 
-                name={'plus'}
-                size={40}
-                style={headerStyles.text}
-                onPress={() => props.push(() =>
-                    <CreateWorkoutForm {...props}
-                        onCreate={(w) => {
-                            postWorkoutForTeam(props.user.team_id, w).then(() => {
-                                props.pop()
-                            }).catch(() => {
-                                props.pop()
-                            })
-                        }}
-                        assignments={[]}
-                        onCancel={() => props.pop()}
-                        options={null}
-                    />
-                )} 
-            />
         </View>
     );
 }
@@ -79,7 +60,9 @@ export default function WorkoutsPage(props) {
         <>
             <Header {...props} />
                 {  (workouts === null && <WaterMark title={'Loading...'}/>)
-                || (workouts.length == 0 && <WaterMark title={'No Upcoming Workouts'}/>)
+                || (workouts.length == 0 && <WaterMark title={'No Upcoming Workouts'}>
+                         <Text style={{fontSize: 16, textAlign: 'center', padding: 24, color: Colors.SurfaceContrast2}}>Any workouts that you create will automatically get assigned to your athletes. You can check in later and monitor their progress.</Text>
+                </WaterMark>)
                 || 
                     <ScrollView padding={10}>
                         {
@@ -87,40 +70,35 @@ export default function WorkoutsPage(props) {
                                 <Card barColor={Colors.Primary} key={workout.id}>
                                     <View style={{flex: 1, justifyContent: 'space-around'}}>
                                         <Text style={styles.workoutTitle}>{workout.name}</Text>
-                                        <WorkoutDetailsItem icon={'calendar'} value={
-                                            moment(workout.start_date).format('MM/DD/YYYY') + 
-                                            " - " +
-                                            moment(workout.end_date).format('MM/DD/YYYY')
-                                        }/>
-                                        <WorkoutDetailsItem icon={'history'} value={workout.repeat.map(i => days[i]).join(", ")}/>
-                                    </View>
-                                    <View style={{alignItems: 'center', padding: 16}}>
-                                    <OutlinedButton 
-                                        onPress={() => {
-                                            getAssignmentsForTeamWorkout(props.user.team_id, workout.id)
-                                            .then(assignments => {
-                                                props.push(() =>
-                                                <CreateWorkoutForm
-                                                    push={props.push}
-                                                    pop={props.pop}
-                                                    onCreate={(w) => props.pop() }
-                                                    onCancel={ () => props.pop() }
-                                                    options={workout}
-                                                    assignments={assignments}
-                                                />
-                                            ).catch(err => {
-                                                console.log(err);
-                                            })
-                                            })
-                                        }}
-                                        text={"Edit"}
-                                    />
+                                        <WorkoutDetailsItem icon={'history'} value={workout.dates.length + ' upcoming workouts'}/>
                                     </View>
                                 </Card>
                             ))
                         }
-                </ScrollView>    
-            }
+                </ScrollView>   
+                            }
+                <View style={{padding: 30, position: 'absolute', alignItems: 'flex-end', width: 250, right: 0, bottom: 0}}>
+                    <SolidButton
+                            text="Create"
+                            style={{width: 130, height: 45}}
+                            onPress={() => props.push(() =>
+                                <CreateWorkoutForm {...props}
+                                    onCreate={(w) => {
+                                        console.log(w);
+                                        postWorkoutForTeam(props.user.team_id, w).then(() => {
+                                            props.pop()
+                                        }).catch(() => {
+                                            props.pop()
+                                        })
+                                    }}
+                                    assignments={[]}
+                                    onCancel={() => props.pop()}
+                                    options={null}
+                                />
+                            )} 
+                        />
+                </View>  
+
         </>
     )
 }

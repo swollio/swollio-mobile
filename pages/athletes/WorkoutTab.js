@@ -98,7 +98,8 @@ export default function WorkoutsTab(props) {
                 (workouts === null &&
                     <LoadingPage />) ||
                 (workouts.length == 0 &&
-                    <WaterMark title={'No Upcoming Workouts'} />) ||
+                    <WaterMark title={'No Upcoming Workouts'} >
+                    </WaterMark>) ||
                 <ScrollView padding={10}>
                     <WorkoutCovers
                         push={props.push}

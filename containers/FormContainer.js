@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         overflow: 'hidden',
+        paddingTop: 12,
     },
     progressContainer: {
         flexDirection: 'row',
@@ -147,24 +148,6 @@ const styles = StyleSheet.create({
         width: 100,
         borderTopRightRadius: 25,
         borderBottomRightRadius: 25,
-        shadowColor: Colors.BackgroundContrast,
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    },
-    continueButton: {
-        backgroundColor: Colors.Primary,
-        width: 350,
-        maxWidth: '80%',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 10,
-        borderRadius: 25,
         shadowColor: Colors.BackgroundContrast,
         shadowOffset: {
             width: 0,

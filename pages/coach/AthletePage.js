@@ -68,7 +68,6 @@ export default function (props) {
         }
     });
 
-    console.log(props.athlete)
     const dataCards = (weightSeries || []).map((e, index) => {
         return (
             <DataCard 
