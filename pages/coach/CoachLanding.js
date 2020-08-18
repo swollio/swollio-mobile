@@ -8,7 +8,6 @@ import AthletePage from "./AthletePage";
 import Tag from '../../components/Tag';
 import WorkoutDetailsItem from './WorkoutDetailsItem'
 import { SolidButton, WaterMark } from '../../components/Components'
-
 import headerStyles from '../styles/Header'
 import Popup from '../../components/Popup';
 
@@ -55,7 +54,7 @@ function AthleteElement(props) {
                     <View style={{flexDirection: 'column'}}>
                         <Text style={styles.athleteText}>{getFullName(props.athlete)}</Text>
                         <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-                            <View style={{ maxWidth: "90%", flexDirection: 'row', flexWrap:'wrap'}}>
+                            <View style={{ width: "93%", flexDirection: 'row', flexWrap:'wrap'}}>
                                 {tags}
                             </View>
                         </View>                        

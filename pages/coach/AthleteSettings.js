@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, SafeAreaView, TextInput, Modal, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Colors from '../../utilities/Colors';
-import { Tag, OptionButton } from "../../components/Components";
+import { Tag, OptionButton, Popup } from "../../components/Components";
 import { getTagsForTeam, postAthleteTeamTag, getAthleteTags, postTeamTag } from "../../utilities/api";
 
 export default function AthleteSettings(props) {
+
+
     const [tagInputState, setTagInputState] = useState(0);
     const [teamTags, setTeamTags] = useState(null);
     const [athleteTags, setAthleteTags] = useState(null);
-    const [createTag, setCreateTag] = useState(null);
+    const [createTag, setCreateTag] = useState(false);
 
     useEffect(() => {
         if (!teamTags)
@@ -48,45 +50,44 @@ export default function AthleteSettings(props) {
             );
 
         return (
-            <Modal
-                animationType={"slide"}
-                transparent={true}
-                visible={tagInputState}
-                >
-                <View style={styles.centeredView}>
-                    { !createTag ?
-                        <View style={styles.modalView}>
+            <Popup
+                toggle={tagInputState}
+                onDismiss={() => setTagInputState(false)}
+            >
+                { !createTag ?
+                        <>
                             <ScrollView 
                                 showsVerticalScrollIndicator={false}
-                                style={{height:"50%"}}
-                                >
+                                style={styles.scrollStyle}
+                            >
                                 {tagButtons}
                             </ScrollView>
-                        </View>
-                        :
-                        <TextInput 
-                            style={styles.textInput}
-                            onChangeText={(text) => setCreateTag(text)}
-                            onSubmitEditing={submitVals}
-                        />
-                    }
-                    <OptionButton style={{width: 200}} onPress={() => setCreateTag(true)}>
-                        <Text style={{
-                            fontSize: 24,
-                            fontFamily: "Comfortaa_600SemiBold"}}>
-                                + Add New Tag
-                            </Text>
-                    </OptionButton>
-                    <OptionButton style={{width: 200}} onPress={() => setTagInputState(false)}>
-                        <Text style={{
-                            fontSize: 24,
-                            fontFamily: "Comfortaa_600SemiBold"}}>
-                                Cancel
-                            </Text>
-                    </OptionButton>
-                </View>
-                
-            </Modal>
+                            <OptionButton style={{width: 200}} onPress={() => setCreateTag(true)}>
+                                <Text style={{
+                                    fontSize: 24,
+                                    fontFamily: "Comfortaa_600SemiBold"}}>
+                                        + Add New Tag
+                                    </Text>
+                            </OptionButton>
+                            <OptionButton style={{width: 200}} onPress={() => setTagInputState(false)}>
+                                <Text style={{
+                                    fontSize: 24,
+                                    fontFamily: "Comfortaa_600SemiBold"}}>
+                                        Cancel
+                                    </Text>
+                            </OptionButton>
+                        </>
+                    :
+                    <TextInput 
+                        style={styles.textInput} 
+                        onSubmitEditing={(event) => {
+                            console.log(event.nativeEvent.text)
+                            setCreateTag(false)
+                            setTagInputState(false)
+                        }}
+                    />
+                }
+            </Popup>
         );
     }   
 
@@ -162,7 +163,8 @@ const styles = StyleSheet.create({
         fontFamily: "Comfortaa_600SemiBold",
         marginTop: 5,
         marginBottom: 10,
-        marginLeft: 5
+        marginLeft: 5,
+        alignSelf: 'center'
     },
     headerIcon: {
         fontSize: 30,
@@ -208,4 +210,12 @@ const styles = StyleSheet.create({
         maxWidth: '80%',
         textAlign: 'center'
     },
+    scrollStyle: {
+        height: "25%",
+        width: "100%",
+        borderWidth: 1,
+        borderColor: Colors.Primary,
+        borderRadius: 8,
+        padding: 8
+    }
 })

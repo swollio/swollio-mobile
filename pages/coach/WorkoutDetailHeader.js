@@ -49,6 +49,7 @@ export default function WorkoutDetailsHeader(props) {
             </View>
             <TextInput 
                 placeholder={'Untitled Workout'}
+                autoCapitalize={"words"}
                 onChangeText={(text) => props.onChangeName(text)}
                 style={[headerStyles.title, {
                     borderColor: Colors.SurfaceContrast2,

@@ -82,7 +82,6 @@ export default function WorkoutsPage(props) {
                             onPress={() => props.push(() =>
                                 <CreateWorkoutForm {...props}
                                     onCreate={(w) => {
-                                        console.log(w);
                                         postWorkoutForTeam(props.user.team_id, w).then(() => {
                                             props.pop()
                                         }).catch(() => {

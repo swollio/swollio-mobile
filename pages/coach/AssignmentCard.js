@@ -137,8 +137,6 @@ export default function AssignmentCard(props) {
             while (updated_rep_counts.length < 5) {
                 updated_rep_counts.push(0);
             }
-           
-            console.log(updated_rep_counts)
 
             props.assignment.rep_count = updated_rep_counts;
             props.onUpdate({...props.assignment})
