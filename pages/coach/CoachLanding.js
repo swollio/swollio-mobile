@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TouchableWithoutFeedback } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 import Colors from '../../utilities/Colors';
 import { getAthletesForTeam, getTeamData } from '../../utilities/api'
 import Card from '../../components/Cards/Card'
@@ -7,9 +7,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import AthletePage from "./AthletePage";
 import Tag from '../../components/Tag';
 import WorkoutDetailsItem from './WorkoutDetailsItem'
-import WaterMark from '../../components/WaterMark'
+import { SolidButton, WaterMark } from '../../components/Components'
 
 import headerStyles from '../styles/Header'
+import Popup from '../../components/Popup';
 
 function getFullName(user) {
     return user.first_name.charAt(0).toUpperCase()
@@ -25,7 +26,7 @@ function Header(props) {
                 <Text style={headerStyles.title}>{getFullName(props.user)}</Text>
                 <Text style={headerStyles.subtitle}>Head Coach</Text>
             </View>
-            <View style={{padding: 8}}>
+            <View>
             {props.teamData &&
                 <View>
                     <WorkoutDetailsItem icon='users' value={props.teamData.name} />
@@ -76,41 +77,27 @@ export default function CoachPage(props) {
         if (data === null) {
             getAthletesForTeam(props.user.team_id).then(data => setData(data));
         }
-    });
 
-    useEffect(() => {
         if (teamData === null) {
             getTeamData(props.user.team_id).then(data => setTeamData(data));
         }
     });
 
-    function PinView () {
-        return (
-            <Modal
-                animationType={"fade"}
-                transparent={true}
-                visible={showPin}
-                onRequestClose={() => setShowPin(false)}
-                >
-                    <TouchableWithoutFeedback onPress={() => setShowPin(false)}>
-                        <View style={styles.centeredView}>
-                            <TouchableWithoutFeedback onPress={() => {}}>
-                                <View style={styles.modalView}>
-                                    <Text style={styles.pinText}>Team pin:</Text>
-                                    <Text style={[styles.athleteText, { alignSelf: 'center', fontSize: 30}]}>{props.user.pin}</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        </View>
-                    </TouchableWithoutFeedback> 
-            </Modal>
-            
-        );
-    }
-
     return (
         <>
             <Header user={props.user} teamData={teamData} onPress={() => setShowPin(true)}/>
-            {showPin ? <PinView /> : <></>}
+            <Popup 
+                toggle={showPin} 
+                style={{borderTopWidth: 10, borderTopColor: Colors.Primary}}
+                dismissModal={() => setShowPin(false)}
+            >
+                <Icon 
+                    name={"user-plus"}
+                    style={styles.popupIcon}
+                />
+                <Text style={styles.popupHeader}>{props.user.pin}</Text>
+                <Text style={styles.popupText}>This is your team pin. Give it to your athletes so that they can join the team!</Text>
+            </Popup>
             {
                 (data === null && <WaterMark title={'Loading'} />) ||
                 (data.length === 0 && 
@@ -141,7 +128,15 @@ export default function CoachPage(props) {
                     )}
                 </ScrollView>
             }
-
+            { !showPin ? 
+                <View style={styles.addAthletePosition}>
+                    <SolidButton
+                        text="Add Athlete"
+                        style={{width: 130, height: 45}}
+                        onPress={() => setShowPin(true)} 
+                    />
+                </View> : <></>
+            }
         </>
     );
 }
@@ -150,35 +145,7 @@ const styles = StyleSheet.create({
   
     headerIcon: {
         fontSize: 36,
-        color: Colors.PrimaryContrast,
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-      },
-    modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        paddingHorizontal: 10,
-        alignContent: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-      },
-    pinText: {
-        fontFamily: 'Comfortaa_600SemiBold',
-        fontSize: 26,
         color: Colors.Primary,
-        marginHorizontal: 10,
-        marginVertical: 5
     },
     athleteText: {
         fontSize: 20,
@@ -187,4 +154,31 @@ const styles = StyleSheet.create({
         color: Colors.SurfaceContrast,
         textAlign: 'left',
     },
+    popupHeader: {
+        fontSize: 40,
+        textAlign: 'center',
+        fontFamily: 'Comfortaa_700Bold',
+        color: Colors.Primary,
+    },
+    popupText: {
+        fontFamily: 'Comfortaa_600SemiBold',
+        fontSize: 20,
+        color: Colors.SurfaceContrast,
+        marginHorizontal: 10,
+        marginVertical: 10,
+        textAlign: 'center'
+    },
+    popupIcon: {
+        fontSize: 48,
+        marginBottom: 20,
+        marginLeft: 10
+    },
+    addAthletePosition: {
+        padding: 15, 
+        position: 'absolute', 
+        alignItems: 'flex-end', 
+        width: 250, 
+        right: 0, 
+        bottom: 0
+    }
 })

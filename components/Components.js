@@ -20,3 +20,6 @@ export { default as DatePicker } from './DatePicker';
 export { default as Timer } from './Timer';
 export { default as VerticalScrollPicker } from './VerticalScrollPicker';
 export { default as Tag } from "./Tag";
+export { default as Popup } from "./Popup"
+export { default as SolidButton } from "./SolidButton"
+export { default as WaterMark } from "./WaterMark"
