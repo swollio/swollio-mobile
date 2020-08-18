@@ -81,7 +81,7 @@ export function SelectExercise(props) {
 
 function SelectWeightAndSetsForm(props) {
     
-    const [reps, setReps] = useState([10, 8, 6])
+    const [reps, setReps] = useState([0, 0, 0, 0, 0])
 
     return (
         <View style={{width: '100%', alignItems: 'center'}}>

@@ -41,7 +41,7 @@ export default function WorkoutDetails(props) {
             onSelect={(e) => {
                 props.onAddAssignment({
                     exercise_id: e.id, 
-                    rep_count: [10, 8, 6],
+                    rep_count: [0, 0, 0, 0, 0],
                     name: e.name,
                     weight_scheme: 'constant',
                 });

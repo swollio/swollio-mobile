@@ -28,7 +28,7 @@ export default class ScrollPicker extends Component {
     
     render() {
         return (
-        <View style={[this.props.style, { width: 302, height: 60 } ]} >
+        <View style={[{ width: 300, height: 60 },this.props.style]} >
             <FlatList     
                 style={{width: 300, height: 60, overflow: 'hidden', borderRadius: 30}}
                 data={['', '', ...this.props.data, '', '']}
