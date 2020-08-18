@@ -41,7 +41,7 @@ export default function WorkoutDetails(props) {
             onSelect={(e) => {
                 props.onAddAssignment({
                     exercise_id: e.id, 
-                    rep_count: [5, 5, 5],
+                    rep_count: [10, 8, 6],
                     name: e.name,
                     weight_scheme: 'constant',
                 });
@@ -69,12 +69,12 @@ export default function WorkoutDetails(props) {
                     </View>
                     <SolidButton text={'Done'} onPress={toggleCalendar}/>
                 </View>) ||
-                <View>
-                    <WorkoutDetailsAssignments assignments={props.assignments} /> 
-                    <View style={{padding: 30, position: 'absolute', alignItems: 'flex-end', width: 250, right: 0, bottom: 0}}>
-                        <SolidButton text={'Add Exercise'} onPress={toggleExercises}/> 
-                    </View> 
-                </View>       
+                    <>
+                        <WorkoutDetailsAssignments assignments={props.assignments} /> 
+                        <View style={{padding: 30, position: 'absolute', alignItems: 'flex-end', width: 250, right: 0, bottom: 0}}>
+                            <SolidButton text={'Add Exercise'} onPress={toggleExercises}/> 
+                        </View> 
+                    </>       
                 }   
                  
             </View>
