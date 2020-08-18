@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import { Text, TextInput, View, StyleSheet} from 'react-native';
 
@@ -7,7 +7,6 @@ import Colors from '../../utilities/Colors';
 import moment from 'moment'
 import SolidButton from '../../components/SolidButton';
 import { OutlinedButton } from '../../components/Components';
-import Calendar from '../../components/Calendar'
 import headerStyles from '../styles/Header'
 
 const days = [
@@ -34,13 +33,9 @@ const days = [
  */
 export default function WorkoutDetailsHeader(props) {
     
-    function isValid(date) {
-        return date > moment()
-    }
-
     return (
-        <View style={styles.headerContainer}>
-            <View style={styles.header}>
+        <View style={[headerStyles.container, headerStyles.header]}>
+            <View style={[styles.header, {paddingVertical: 16}]}>
                 <Icon 
                     name={'arrow-left'}
                     style={[styles.headerIcon, {width: 80}]}
@@ -56,12 +51,15 @@ export default function WorkoutDetailsHeader(props) {
                 placeholder={'Untitled Workout'}
                 onChangeText={(text) => props.onChangeName(text)}
                 style={[headerStyles.title, {
-                    borderColor: Colors.Primary,
+                    borderColor: Colors.SurfaceContrast2,
                     borderBottomWidth: 1,
-                    paddingVertical: 16,
+                    paddingVertical: 8,
                 }]}
             >{props.options.name}</TextInput>
-            <Calendar date={props.options.dates} onToggleDate={props.onToggleDate}/>
+            <View style={{flexDirection: 'row', paddingTop: 16, justifyContent: 'flex-start', alignItems: 'center'}}>
+                <Icon size={36} style={{paddingHorizontal: 16}} name={'calendar'}/>
+                <OutlinedButton style={{width: 'auto', paddingHorizontal: 24}} text={`${props.options.dates.size} workout dates`} onPress={props.onToggleCalendar}/>
+            </View>  
         </View>
         
     );
@@ -80,7 +78,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 8,     
     },
     headerIcon: {
         fontSize: 30,

@@ -4,7 +4,6 @@ import Colors from '../../utilities/Colors';
 import Icon from 'react-native-vector-icons/Feather';
 import SolidButton from '../../components/SolidButton'
 
-import CreateAssignmentForm from './CreateAssignmentForm'
 import DatePicker from '../../components/DatePicker';
 
 import { CreateSingleStringForm } from '../../components/Components';
@@ -166,21 +165,15 @@ export default function CreateWorkoutForm(props) {
                 dates: [...options.dates],
                 assignments
             })}
+            push={props.push}
+            pop={props.pop}
             onCancel={() => props.onCancel()}
             onToggleDate={(date) => toggleDate(date.format('YYYY-MM-DD'))}
             onAddExercises={() => setCreationState(1)}
             onChangeName={(name) => changeName(name)}
+            onAddAssignment={(assignment) => setAssignments([...assignments, assignment])}
         />)
-    } else {
-        return (<CreateAssignmentForm
-            user={props.user}
-            onCancel={() => setCreationState(0)}
-            onCreate={(assignment) => {
-                setAssignments([...assignments, assignment])
-                setCreationState(0);
-            }}
-        />);
-    }
+    } 
 }
 
 
