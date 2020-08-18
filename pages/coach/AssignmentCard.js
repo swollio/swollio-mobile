@@ -34,7 +34,7 @@ function AssignmentSetInfo(props) {
             alignItems: 'center',
         }, props.style]}>
             {props.sets.map((reps, i) => 
-                <AssignmentSetInfoButton index={i} onPress={() => props.onEdit(i)} reps={reps}/>
+                <AssignmentSetInfoButton key={i} index={i} onPress={() => props.onEdit(i)} reps={reps}/>
             )}
         </View>
     )
@@ -97,6 +97,7 @@ function AssignmentEditCard(props) {
         </Card>
     );
 }
+
 
 /**
  * AssignmentCard displays an editable assignment component displaying an

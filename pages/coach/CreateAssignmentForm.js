@@ -9,7 +9,6 @@ import { CreateSingleStringForm } from '../../components/Components';
 import FormContainer from '../../containers/FormContainer'
 import SolidButton from '../../components/SolidButton'
 import BubbleSelect from '../../components/BubbleSelect'
-
 import headerStyles from '../styles/Header'
 
 function capitalize(text) {
@@ -22,6 +21,7 @@ function Header(props) {
         <View style={{width: '100%', padding: 16, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <Icon onPress={() => props.pop()} size={30} color={Colors.SurfaceContrast} name={'arrow-left'}/>
             <OutlinedButton
+                onPress={props.onCreateCustom}
                 text="Custom Exercise"
                 style={{width: 160, height: 40}}
             />
@@ -29,9 +29,12 @@ function Header(props) {
     );
 }
 
+
 export function SelectExercise(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+
+    const [createCustom, setCreateCustom] = useState(false);
 
     useEffect(() => {
         searchExercisesByName(searchTerm).then(data => {
@@ -39,9 +42,16 @@ export function SelectExercise(props) {
         });
     }, [searchTerm]);
 
+    if (createCustom) {
+        return <CreateCustomExercise
+            team_id={props.user.team_id}
+            onCancel={props.onCancel}
+            onCreate={(exercise) => props.onSelect(exercise)}
+        />
+    }
     return <View style={{height: '100%', width: '100%'}}>
     <SafeAreaView />
-        <Header pop={props.onCancel} />
+        <Header onCreateCustom={() => setCreateCustom(true)} pop={props.onCancel} />
         <View style={{flexDirection: 'column', paddingHorizontal: 16}}>
             <View style={{flexDirection: 'row', backgroundColor: Colors.Background, borderRadius: 25, width: '100%', overflow: 'hidden'}}>
                 <View style={{height: 50, alignItems: 'center', justifyContent: 'center', width: 50}}>
@@ -200,17 +210,15 @@ function AssignmentForm(props) {
     )
 }
 
-function CreateCustomExercise(props) {
+export function CreateCustomExercise(props) {
     return (
         <FormContainer
             onCancel={() => props.onCancel()}
             onCompleted={(form) => {
                 createCustomExerciseForTeam(props.team_id, form).then((id) => {
                     props.onCreate({
-                        exercise_id: id,
-                        name: form.name,
-                        weight_scheme: 'constant',
-                        rep_count: form.rep_count,
+                        id,
+                        ...form
                     })                    
                 }).catch(err => {
                     console.log(err)
@@ -219,7 +227,6 @@ function CreateCustomExercise(props) {
             forms={[
                 ExerciseNameForm,
                 SelectPrimaryMusclesForm,
-                SelectWeightAndSetsForm,
                 ExerciseCreatedForm
             ]}
         />
