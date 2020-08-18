@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Colors from '../../utilities/Colors';
-import { Card, OutlinedButton } from '../../components/Components'
+import { Card, OutlinedButton, WaterMark, SolidButton } from '../../components/Components'
 import { getWorkoutsForTeam } from '../../utilities/api'
 import CreateWorkoutForm from './CreateWorkoutForm'
 import { postWorkoutForTeam, getAssignmentsForTeamWorkout } from '../../utilities/api'
 import WorkoutDetailsItem from './WorkoutDetailsItem'
 import moment from 'moment'
-import WaterMark from '../../components/WaterMark'
 import headerStyles from '../styles/Header'
-import SolidButton from '../../components/SolidButton'
 
 const days = [
     "Monday",
