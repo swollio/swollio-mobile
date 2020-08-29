@@ -12,7 +12,7 @@ export default function RootHeader({title, action, onAction}) {
       {action ? (
         <SolidButton
           text={action}
-          style={{width: 100, height: 30}}
+          style={{width: 100, height: 40}}
           onPress={onAction}
         />
       ) : (

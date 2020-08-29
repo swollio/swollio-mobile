@@ -27,8 +27,12 @@ export const WorkoutsContextProvider = ({children}) => {
     }
   }, [user]);
 
+  const refresh = () => {
+    getWorkouts(user.team_id);
+  };
+
   return (
-    <WorkoutsContext.Provider value={{workouts, loading}}>
+    <WorkoutsContext.Provider value={{workouts, loading, refresh}}>
       {children}
     </WorkoutsContext.Provider>
   );

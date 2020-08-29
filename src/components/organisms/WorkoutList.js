@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Color from '../../styles/Color';
 import Font from '../../styles/Font';
+import * as api from '../../utilities/api';
 
 import {WorkoutsContext} from '../../utilities/WorkoutContext';
 
@@ -51,13 +52,14 @@ const styles = StyleSheet.create({
   cardOuter: {
     backgroundColor: Color.PrimaryContrast,
     width: '100%',
-    borderRadius: 6,
+    borderRadius: 4,
     overflow: 'hidden',
+    marginVertical: 4,
   },
   cardInner: {
     width: '100%',
     borderLeftColor: Color.Primary,
-    borderLeftWidth: 5,
+    borderLeftWidth: 10,
     padding: 8,
   },
   cardTitle: {

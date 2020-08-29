@@ -45,5 +45,5 @@ const styles = StyleSheet.create({
     fontSize: 24,
     padding: 16,
   },
-  buttonStyle: {width: 'auto', paddingHorizontal: 16, height: 30},
+  buttonStyle: {width: 'auto', paddingHorizontal: 16, height: 40},
 });

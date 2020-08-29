@@ -16,7 +16,7 @@ export default function CoachWorkoutsScreen() {
         title={'Workouts.'}
         action={'Create'}
         onAction={() => {
-          navigation.navigate('CreateWorkout', {
+          navigation.navigate('EditWorkout', {
             workout: {
               name: '',
               dates: [],

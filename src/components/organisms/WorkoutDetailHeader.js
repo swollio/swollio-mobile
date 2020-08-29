@@ -30,7 +30,7 @@ export default function WorkoutDetailsHeader(props) {
           onPress={props.onBack}
         />
         <OutlinedButton
-          text="Save Workout"
+          text={props.options.id ? 'Save Workout' : 'Create Workout'}
           onPress={props.onFinish}
           style={{width: 160, height: 40}}
         />

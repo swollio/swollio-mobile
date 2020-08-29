@@ -7,8 +7,9 @@ import Fonts from '../../styles/Font';
 
 export default function Calendar(props) {
   const dates = new Set(
-    props.date.map((date) => moment(date).format('YYYY-MM-DD')),
+    props.date.map((date) => moment.utc(date).format('YYYY-MM-DD')),
   );
+
   const [currentMonth, setCurrentMonth] = useState(moment().startOf('month'));
   const start_dow = currentMonth.startOf('month').isoWeekday() % 7;
   const end_dow = currentMonth.endOf('month').isoWeekday() % 7;
