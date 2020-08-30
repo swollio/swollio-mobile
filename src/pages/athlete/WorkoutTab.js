@@ -1,27 +1,74 @@
-import * as React from 'react';
-import {Text, Button, View, SafeAreaView} from 'react-native';
+import React, {useContext} from 'react';
+import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 
 import RootHeader from '../../components/organisms/RootHeader';
+import WaterMark from '../../components/organisms/WaterMark';
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
 
 import TabPageStyles from '../styles/TabPage';
-import * as api from '../../utilities/api';
-export default function AthleteWorkoutsScreen() {
-  const navigation = useNavigation();
+import LoadingPage from '../LoadingPage';
+import WorkoutCover from '../../components/organisms/WorkoutCover';
+import Colors from '../../styles/Color';
+import {AthleteWorkoutContext} from '../../utilities/AthleteWorkoutContext';
+import Font from '../../styles/Font';
 
-  api.getWorkoutsForAthlete(1).then((workouts) => {
-    console.log(workouts);
-  });
+function GroupedWorkoutCovers(props) {
+  const navigation = useNavigation();
+  return props.workouts.map((workout, index) => (
+    <WorkoutCover
+      key={index}
+      completed={workout.completed}
+      color={Colors.Primary}
+      title={workout.workout_name}
+      team_name={workout.team_name}
+      created={workout.created}
+      onStartWorkout={() => navigation.navigate('WorkoutPage', workout)}
+    />
+  ));
+}
+
+function WorkoutCovers(props) {
+  return (props.workouts || []).map((workoutsGroupedByDate, index) => (
+    <View key={index}>
+      <Text style={styles.sectionLabel}>
+        {moment(workoutsGroupedByDate.date).format('dddd MMM D')}
+      </Text>
+      <GroupedWorkoutCovers
+        key={index}
+        workouts={workoutsGroupedByDate.workouts}
+      />
+    </View>
+  ));
+}
+
+export default function AthleteWorkoutsScreen(props) {
+  const workoutsContext = useContext(AthleteWorkoutContext);
+  const workouts = workoutsContext.workouts;
+
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
-      <RootHeader title={'Workouts.'} />
       <View style={TabPageStyles.pageMain}>
-        <Text>AthleteWorkoutsScreen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate('Details')}
-        />
+        <RootHeader title={'Workouts.'} />
+        {(workouts === null && <LoadingPage />) ||
+          (workouts.length === 0 && (
+            <WaterMark title={'No Upcoming Workouts'} />
+          )) || (
+            <ScrollView padding={10}>
+              <WorkoutCovers workouts={workouts} />
+            </ScrollView>
+          )}
       </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  sectionLabel: {
+    fontSize: 18,
+    fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
+    marginTop: 12,
+    marginBottom: 12,
+  },
+});

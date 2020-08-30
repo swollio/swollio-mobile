@@ -9,7 +9,7 @@ export default function SolidButton(props) {
       activeOpacity={0.8}
       style={[
         styles.button,
-        {margin: props.margin ? props.margin : 0},
+        {margin: props.margin || 0},
         props.disabled
           ? {
               backgroundColor: Colors.Background,

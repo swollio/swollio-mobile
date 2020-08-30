@@ -11,7 +11,6 @@ export default StyleSheet.create({
   },
   pageMain: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: Color.Background,
     justifyContent: 'center',
   },
