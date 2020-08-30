@@ -49,7 +49,7 @@
 		00E356EE1AD99517003FC87E /* swollioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swollioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* swollioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = swollioTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* swollio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swollio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Swollio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swollio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = swollio/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = swollio/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = swollio/Images.xcassets; sourceTree = "<group>"; };
@@ -62,15 +62,15 @@
 		4C02E4DA3C43BDB2E389E5D1 /* Pods-swollio-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swollio-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-swollio-tvOSTests/Pods-swollio-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D2DEF23514850EAD1D4F050 /* Pods-swollio-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swollio-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-swollio-tvOSTests/Pods-swollio-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		641252359609B40F7D4F3277 /* Pods-swollio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swollio.debug.xcconfig"; path = "Target Support Files/Pods-swollio/Pods-swollio.debug.xcconfig"; sourceTree = "<group>"; };
-		6F57752C77AC4D4A94068276 /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Light.ttf"; path = "../assets/fonts/Comfortaa-Light.ttf"; sourceTree = "<group>"; };
+		6F57752C77AC4D4A94068276 /* Comfortaa-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Light.ttf"; path = "../assets/fonts/Comfortaa-Light.ttf"; sourceTree = "<group>"; };
 		7804E047B83CA4EAECBA52A9 /* libPods-swollio-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-swollio-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = swollio/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		88111FC19575CE51B48119A5 /* Pods-swollio-swollioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swollio-swollioTests.debug.xcconfig"; path = "Target Support Files/Pods-swollio-swollioTests/Pods-swollio-swollioTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A3393272E88F4B6783F39D3F /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Bold.ttf"; path = "../assets/fonts/Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
+		A3393272E88F4B6783F39D3F /* Comfortaa-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Bold.ttf"; path = "../assets/fonts/Comfortaa-Bold.ttf"; sourceTree = "<group>"; };
 		ACAA07717B7B2EAA35BF0A37 /* Pods-swollio-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swollio-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-swollio-tvOS/Pods-swollio-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		B1D207EAEBD242C8AACBAB3E /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Regular.ttf"; path = "../assets/fonts/Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
-		B8A088B0A0074A3DAE8C8407 /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-SemiBold.ttf"; path = "../assets/fonts/Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
-		BC084A011A024325ACA92E21 /* Comfortaa-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Medium.ttf"; path = "../assets/fonts/Comfortaa-Medium.ttf"; sourceTree = "<group>"; };
+		B1D207EAEBD242C8AACBAB3E /* Comfortaa-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Regular.ttf"; path = "../assets/fonts/Comfortaa-Regular.ttf"; sourceTree = "<group>"; };
+		B8A088B0A0074A3DAE8C8407 /* Comfortaa-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-SemiBold.ttf"; path = "../assets/fonts/Comfortaa-SemiBold.ttf"; sourceTree = "<group>"; };
+		BC084A011A024325ACA92E21 /* Comfortaa-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Comfortaa-Medium.ttf"; path = "../assets/fonts/Comfortaa-Medium.ttf"; sourceTree = "<group>"; };
 		D626DF7FA95A67BBD5CC94B0 /* libPods-swollio-swollioTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-swollio-swollioTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E59A79555DFA4FE18B19E84A /* Pods-swollio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swollio.release.xcconfig"; path = "Target Support Files/Pods-swollio/Pods-swollio.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -169,7 +169,6 @@
 				B8A088B0A0074A3DAE8C8407 /* Comfortaa-SemiBold.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -198,7 +197,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* swollio.app */,
+				13B07F961A680F5B00A75B9A /* Swollio.app */,
 				00E356EE1AD99517003FC87E /* swollioTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* swollio-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* swollio-tvOSTests.xctest */,
@@ -262,7 +261,7 @@
 			);
 			name = swollio;
 			productName = swollio;
-			productReference = 13B07F961A680F5B00A75B9A /* swollio.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Swollio.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* swollio-tvOS */ = {
@@ -761,7 +760,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.swoll.SwollioMobile;
-				PRODUCT_NAME = swollio;
+				PRODUCT_NAME = Swollio;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -784,7 +783,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.swoll.SwollioMobile;
-				PRODUCT_NAME = swollio;
+				PRODUCT_NAME = Swollio;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

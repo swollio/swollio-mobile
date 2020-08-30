@@ -19,6 +19,7 @@ import Calendar from '../../components/organisms/Calendar';
 
 import * as api from '../../utilities/api';
 import {UserContext} from '../../utilities/UserContext';
+import {WorkoutsContext} from '../../utilities/WorkoutContext';
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -26,15 +27,34 @@ LogBox.ignoreLogs([
 
 const usePostWorkout = () => {
   const {user} = useContext(UserContext);
+  const {refresh} = useContext(WorkoutsContext);
+
   const [state, setState] = useState({loading: false, result: null});
   const post = async (workout) => {
     setState((prev) => ({...prev, loading: true}));
     const response = await api.postWorkoutForTeam(user.team_id, workout);
     const result = await response.text();
+    refresh();
     setState((prev) => ({...prev, loading: false, result}));
   };
 
   return [state, post];
+};
+
+const useUpdateWorkout = () => {
+  const {user} = useContext(UserContext);
+  const {refresh} = useContext(WorkoutsContext);
+
+  const [state, setState] = useState({loading: false, result: null});
+  const update = async (workout) => {
+    setState((prev) => ({...prev, loading: true}));
+    const response = await api.updateWorkoutForTeam(user.team_id, workout);
+    const result = await response.text();
+    refresh();
+    setState((prev) => ({...prev, loading: false, result}));
+  };
+
+  return [state, update];
 };
 
 function WorkoutDetailsCalendarContent({dates, toggleCalendar, updateDates}) {
@@ -79,23 +99,26 @@ function WorkoutDetailsAssignmentsContent({
 
 export default function WorkoutDetails({navigation, route}) {
   const [showCalendar, setShowCalendar] = useState(false);
-  const [workout, updateWorkout] = useState({...route.params.workout});
+  const [workout, setWorkout] = useState({...route.params.workout});
+  const {reloadWorkouts} = useContext(WorkoutsContext);
+  const [, updateWorkout] = useUpdateWorkout();
   const [, postWorkout] = usePostWorkout();
 
   const updateName = (name) => {
-    updateWorkout({...workout, name});
+    setWorkout({...workout, name});
   };
 
   const updateDates = (dates) => {
-    updateWorkout({...workout, dates});
+    console.log(dates);
+    setWorkout({...workout, dates});
   };
 
   const updateAssignments = (assignments) => {
-    updateWorkout({...workout, assignments});
+    setWorkout({...workout, assignments});
   };
 
   const addAssignment = (exercise) => {
-    updateWorkout({
+    setWorkout({
       ...workout,
       assignments: [...workout.assignments, {exercise, rep_count: [10, 8, 6]}],
     });
@@ -109,7 +132,7 @@ export default function WorkoutDetails({navigation, route}) {
         options={workout}
         onBack={() => navigation.goBack()}
         onFinish={() => {
-          postWorkout(workout);
+          workout.id ? updateWorkout(workout) : postWorkout(workout);
           navigation.goBack();
         }}
         onToggleCalendar={() => setShowCalendar(!showCalendar)}
