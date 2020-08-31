@@ -20,10 +20,12 @@ function GroupedWorkoutCovers(props) {
       key={index}
       completed={workout.completed}
       color={Colors.Primary}
-      title={workout.workout_name}
+      title={workout.name}
       team_name={workout.team_name}
       created={workout.created}
-      onStartWorkout={() => navigation.navigate('WorkoutPage', workout)}
+      onStartWorkout={() =>
+        navigation.navigate('WorkoutPage', workout.assignments)
+      }
     />
   ));
 }
@@ -45,6 +47,7 @@ function WorkoutCovers(props) {
 export default function AthleteWorkoutsScreen(props) {
   const workoutsContext = useContext(AthleteWorkoutContext);
   const workouts = workoutsContext.workouts;
+  console.log(workouts);
 
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>

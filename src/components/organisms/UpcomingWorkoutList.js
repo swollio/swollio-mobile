@@ -65,12 +65,14 @@ export default function WorkoutList() {
   const {workouts} = useContext(WorkoutsContext);
   const navigation = useNavigation();
 
-  if (workouts === null) return <></>;
+  if (workouts === null) {
+    return <></>;
+  }
 
   const unnested = [];
 
-  for (workout of workouts) {
-    for (date of workout.dates) {
+  for (const workout of workouts) {
+    for (const date of workout.dates) {
       if (moment.utc(date).isAfter(moment(), 'day')) {
         unnested.push({date, workout});
       }

@@ -161,7 +161,7 @@ export default function WorkoutCard(props) {
             onPress={() => setChooseAlternatives(!chooseAlternatives)}
             style={styles.xIcon}
             size={24}
-            name={'menu'}
+            name={'bars'}
           />
         )}
       </View>

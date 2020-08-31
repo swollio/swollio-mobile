@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import Colors from '../../styles/Color';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import * as api from '../../utilities/api';
-import {WorkoutCard} from '../../components/organisms/WorkoutCard';
+import WorkoutCard from '../../components/organisms/WorkoutCard';
 import LoadingPage from '../LoadingPage';
 import WaterMark from '../../components/organisms/WaterMark';
 import OutlinedButton from '../../components/atoms/SolidButton';
@@ -98,7 +98,8 @@ function WorkoutCompleteConfirmation(props) {
  */
 export default function WorkoutPage(props) {
   // The list of assignments to be completed by the athlete
-  const assignments = props.workout.assignments;
+  const assignments = props.route.params;
+  console.log(assignments);
   /*
    * Results stores a 2D array of workout_results.
    * The outer array groups results by exercise.
@@ -108,13 +109,11 @@ export default function WorkoutPage(props) {
    */
   const [results, setResults] = useState(null);
   const [complete, setComplete] = useState(false);
+  const navigation = useNavigation();
 
   return (
     (complete && (
       <WorkoutCompleteConfirmation
-        user={props.user}
-        push={props.push}
-        pop={props.pop}
         workout={props.workout}
         results={results}
         setComplete={(b) => setComplete(b)}
@@ -122,7 +121,7 @@ export default function WorkoutPage(props) {
     )) || (
       <View style={styles.workoutBackground}>
         <SafeAreaView style={headerStyles.safeAreaTop} />
-        <Header pop={props.pop} setComplete={(b) => setComplete(b)} />
+        <Header pop={navigation.goBack()} setComplete={(b) => setComplete(b)} />
         {(assignments === null && <LoadingPage />) ||
           (assignments.length === 0 && (
             <WaterMark title={'No Assignments'} />
@@ -131,7 +130,7 @@ export default function WorkoutPage(props) {
               {assignments.map((assignment, index) => (
                 <WorkoutCard
                   key={index}
-                  exercise_id={assignment.exercise_id}
+                  exercise_id={assignment.exercise.id}
                   results={results === null ? null : results[index]}
                   onChange={(resultObj) => {
                     if (!results) {
@@ -142,7 +141,7 @@ export default function WorkoutPage(props) {
                   }}
                   selectColor={Colors.Primary}
                   barColor={Colors.Primary}
-                  title={assignment.name}
+                  title={assignment.exercise.name}
                 />
               ))}
             </ScrollView>
