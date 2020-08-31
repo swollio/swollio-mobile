@@ -1,96 +1,89 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import moment from 'moment';
 
 import Colors from '../../styles/Color';
 import Fonts from '../../styles/Font';
-import * as api from '../../utilities/api';
-import moment from 'moment';
 import OutlinedButton from '../atoms/OutlinedButton';
-
 import {WorkoutsContext} from '../../utilities/WorkoutContext';
 
-function WorkoutListItem({date, workout}) {
+function GroupedWorkoutItem({groupedWorkouts}) {
   const navigation = useNavigation();
+  const day = moment(groupedWorkouts[0].date).format('DD');
+  const month = moment(groupedWorkouts[0].date).format('MMM');
 
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('EditWorkout', {workout})}
-      style={styles.athleteListItem}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-        }}>
-        <View
-          style={{
-            alignItems: 'center',
-          }}>
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              backgroundColor: Colors.Primary,
-              borderRadius: 20,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text
-              style={{
-                color: Colors.PrimaryContrast,
-                fontSize: 16,
-                fontFamily: Fonts.Header,
-              }}>
-              {moment.utc(date).format('DD')}
-            </Text>
-          </View>
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: Fonts.Header,
-            }}>
-            {moment.utc(date).format('MMM')}
-          </Text>
-        </View>
-        <Text style={styles.athleteListItemText}>{workout.name}</Text>
+    <View style={styles.groupedWorkoutItem}>
+      <View style={styles.groupedWorkoutItemDateContainer}>
+        <Text style={styles.groupedWorkoutItemDateTextDay}>{day}</Text>
+        <Text style={styles.groupedWorkoutItemDateTextMonth}>{month}</Text>
       </View>
-      <Icon size={20} name="chevron-right"></Icon>
-    </TouchableOpacity>
+      <View style={styles.groupedWorkoutItemWorkoutContainer}>
+        {groupedWorkouts.map((groupedWorkout) => {
+          const workout = groupedWorkout.workout;
+          return (
+            <TouchableOpacity
+              style={styles.groupedWorkoutItemWorkout}
+              key={groupedWorkout.workout.id}
+              onPress={() =>
+                navigation.navigate('EditWorkout', {
+                  workout,
+                })
+              }>
+              <Text style={styles.groupedWorkoutItemWorkoutText}>
+                {workout.name}
+              </Text>
+              <Icon size={20} name="chevron-right" />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    </View>
   );
+}
+
+function groupBy(xs, key) {
+  return xs.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
 }
 
 export default function WorkoutList() {
   const {workouts} = useContext(WorkoutsContext);
   const navigation = useNavigation();
 
-  if (workouts === null) return <></>;
+  const [groupedWorkouts, setGroupedWorkouts] = useState(null);
 
-  const unnested = [];
-
-  for (workout of workouts) {
-    for (date of workout.dates) {
-      if (moment.utc(date).isAfter(moment(), 'day')) {
-        unnested.push({date, workout});
+  // Whenever the workouts change, recompute the next 5 upcoming
+  // workouts grouped by date.
+  // TODO: consider moving this functionality to the backend?
+  useEffect(() => {
+    if (workouts !== null) {
+      const unnested = [];
+      for (let workout of workouts) {
+        for (let date of workout.dates) {
+          if (moment.utc(date).isAfter(moment(), 'day')) {
+            unnested.push({date, workout});
+          }
+        }
       }
+      unnested.sort((a, b) => moment.utc(a.date) - moment.utc(b.date));
+      setGroupedWorkouts(groupBy(unnested.slice(0, 5), 'date'));
     }
-  }
+  }, [workouts]);
 
-  unnested.sort((a, b) => moment.utc(a.date) - moment.utc(b.date));
-
+  if (groupedWorkouts === null) return <></>;
   return (
     <View style={styles.cardOuter}>
       <View style={styles.cardInner}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+        <View style={styles.groupedWorkoutHeader}>
           <Text style={styles.cardTitle}>Upcoming</Text>
           <OutlinedButton
             text="Create"
+            style={styles.outlinedButton}
             onPress={() =>
               navigation.navigate('EditWorkout', {
                 workout: {
@@ -100,16 +93,10 @@ export default function WorkoutList() {
                 },
               })
             }
-            style={{
-              width: 'auto',
-              paddingHorizontal: 16,
-              height: 40,
-              marginVertical: 4,
-            }}
           />
         </View>
-        {unnested.slice(0, 3).map((workoutInstance, i) => (
-          <WorkoutListItem key={i} {...workoutInstance} />
+        {Object.values(groupedWorkouts).map((workoutGroup, i) => (
+          <GroupedWorkoutItem key={i} groupedWorkouts={workoutGroup} />
         ))}
       </View>
     </View>
@@ -117,14 +104,48 @@ export default function WorkoutList() {
 }
 
 const styles = StyleSheet.create({
-  athleteListItem: {
+  groupedWorkoutItem: {
     width: '100%',
+    flexDirection: 'row',
+    alignItems: 'stretch',
     paddingVertical: 8,
-    borderTopWidth: 1,
-    borderTopColor: '#EEE',
+  },
+  groupedWorkoutItemDateContainer: {
+    alignItems: 'center',
+    paddingHorizontal: 8,
+  },
+  groupedWorkoutItemDateTextDay: {
+    color: Colors.SurfaceContrast,
+    fontSize: 20,
+    fontFamily: Fonts.Header,
+  },
+  groupedWorkoutItemDateTextMonth: {
+    fontSize: 12,
+    color: Colors.SurfaceContrast2,
+    fontFamily: Fonts.Header,
+  },
+  groupedWorkoutItemWorkoutContainer: {
+    borderLeftColor: Colors.SurfaceContrast2,
+    borderLeftWidth: 1,
+    flex: 1,
+    paddingHorizontal: 8,
+  },
+  groupedWorkoutItemWorkout: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#EEE',
+    padding: 8,
+  },
+  groupedWorkoutItemWorkoutText: {
+    fontFamily: Fonts.Header,
+    fontSize: 20,
+  },
+  groupedWorkoutHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   cardOuter: {
     backgroundColor: Colors.PrimaryContrast,
@@ -144,9 +165,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  athleteListItemText: {
-    fontFamily: Fonts.Header,
-    fontSize: 20,
-    marginLeft: 16,
+  outlinedButton: {
+    width: 'auto',
+    paddingHorizontal: 16,
+    height: 40,
+    marginVertical: 4,
   },
 });

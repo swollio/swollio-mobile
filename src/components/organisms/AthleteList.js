@@ -31,7 +31,7 @@ export default function AthleteList() {
     try {
       const result = await Share.share({
         message: `${user.first_name} ${user.last_name} has invited you to join their team`,
-        url: 'https://www.google.com',
+        url: `https://www.swoll.io/joinTeam?pin=${user.pin}`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
