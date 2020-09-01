@@ -1,12 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {
-  StatusBar,
-  LogBox,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {StatusBar, Text, SafeAreaView, StyleSheet, View} from 'react-native';
 
 import Colors from '../../styles/Color';
 import Fonts from '../../styles/Font';
@@ -20,10 +13,6 @@ import Calendar from '../../components/organisms/Calendar';
 import * as api from '../../utilities/api';
 import {UserContext} from '../../utilities/UserContext';
 import {WorkoutsContext} from '../../utilities/WorkoutContext';
-
-LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
-]);
 
 const usePostWorkout = () => {
   const {user} = useContext(UserContext);
