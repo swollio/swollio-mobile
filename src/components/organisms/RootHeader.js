@@ -12,7 +12,7 @@ export default function RootHeader({title, action, onAction}) {
       {action ? (
         <SolidButton
           text={action}
-          style={{width: 100, height: 40}}
+          style={styles.headerButton}
           onPress={onAction}
         />
       ) : (
@@ -33,7 +33,11 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontFamily: Font.Header,
+  },
+  headerButton: {
+    width: 100,
+    height: 30,
   },
 });
