@@ -7,6 +7,7 @@ import ScrollPicker from '../../components/molecules/ScrollPicker';
 import SolidButton from '../../components/atoms/SolidButton';
 import * as api from '../../utilities/api';
 import {UserContext} from '../../utilities/UserContext';
+import headerStyles from '../../components/organisms/styles/Header';
 import Font from '../../styles/Font';
 
 /**
@@ -19,15 +20,22 @@ export default function PostWorkoutSurvey(props) {
   const [workoutRating, setWorkoutRating] = useState(-1);
   const [hoursSleep, setHoursSleep] = useState(6);
   const [wellnessVal, setWellnessVal] = useState(-1);
-  const {athlete_id} = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const navigation = useNavigation();
 
   return (
-    <>
-      <SafeAreaView style={styles.safeAreaTop} />
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Post Workout Survey</Text>
+    <View style={[headerStyles.container, styles.flex]}>
+      <SafeAreaView style={headerStyles.safeAreaTop} />
+
+      <View
+        style={[
+          headerStyles.container,
+          headerStyles.header,
+          styles.headerStyle,
+        ]}>
+        <Text style={headerStyles.title}>Post Workout Survey</Text>
       </View>
+
       <View style={styles.form}>
         <Text style={styles.question}>Give this workout a rating: </Text>
         <ButtonRow
@@ -55,26 +63,27 @@ export default function PostWorkoutSurvey(props) {
           onChange={(val) => setWellnessVal(val)}
         />
       </View>
+
       <View style={styles.buttonView}>
         <SolidButton
           style={styles.button}
           onPress={() => {
-            if (athlete_id === null) {
+            if (user.athlete_id === null) {
               return;
             }
             api
-              .postPostWorkoutSurvey(athlete_id, props.route.params.id, {
-                due_date: props.workout.date,
+              .postPostWorkoutSurvey(user.athlete_id, props.route.params.id, {
+                due_date: props.route.params.date,
                 rating: workoutRating,
                 hours_sleep: hoursSleep,
                 wellness: wellnessVal,
               })
-              .then(() => navigation.goBack());
-          }}>
-          <Text style={styles.buttonText}> Finish Workout </Text>
-        </SolidButton>
+              .then(() => navigation.navigate('AthleteMainScreen'));
+          }}
+          text={'Finish Workout'}
+        />
       </View>
-    </>
+    </View>
   );
 }
 
@@ -147,5 +156,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.PrimaryContrast,
     fontSize: 22,
+  },
+  flex: {
+    flex: 1,
   },
 });

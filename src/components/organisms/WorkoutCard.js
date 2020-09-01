@@ -32,7 +32,7 @@ function SingleSetRow(props) {
           maxValue={props.initialReps}
           value={props.reps}
         />
-        <Icon style={styles.smallX} size={24} name={'x'} />
+        <Icon style={styles.smallX} size={24} name={'times'} />
         <TouchableOpacity onPress={props.onEdit} style={styles.editButton}>
           <Text style={styles.weightText}> {props.weight} lbs. </Text>
         </TouchableOpacity>
@@ -154,7 +154,7 @@ export default function WorkoutCard(props) {
             onPress={() => setChooseAlternatives(!chooseAlternatives)}
             style={styles.xIcon}
             size={24}
-            name={'x'}
+            name={'times'}
           />
         ) : (
           <Icon

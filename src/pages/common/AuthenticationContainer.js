@@ -8,6 +8,7 @@ import LoginForm from './LoginForm';
 import ActionHeader from '../../components/organisms/ActionHeader';
 import AthletePage from '../athlete/MainPage';
 import WorkoutPage from '../athlete/WorkoutPage';
+import PostWorkoutSurvey from '../athlete/PostWorkoutSurvey';
 import CoachPage from '../coach/MainPage';
 import WorkoutDetails from '../coach/WorkoutDetails';
 import ChooseExercise from '../coach/ChooseExercise';
@@ -79,7 +80,10 @@ function MainPage() {
             <Stack.Screen name="AthleteMainScreen" component={AthletePage} />
             <Stack.Screen name="Details" component={DetailsScreen} />
             <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
-            <Stack.Screen name="PostWorkoutSurvey" component={WorkoutPage} />
+            <Stack.Screen
+              name="PostWorkoutSurvey"
+              component={PostWorkoutSurvey}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </AthleteWorkoutContextProvider>

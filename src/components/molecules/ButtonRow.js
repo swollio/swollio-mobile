@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
-import Colors from '../utilities/Colors';
+import Colors from '../../styles/Color';
 
 /**
  * This function returns a stateful component which manages a row of buttons.

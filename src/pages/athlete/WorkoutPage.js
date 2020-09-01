@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../styles/Color';
@@ -26,14 +26,14 @@ function Header(props) {
       <Icon
         name={'arrow-left'}
         style={headerStyles.text}
-        size={36}
-        onPress={navigation.goBack()}
+        size={24}
+        onPress={() => navigation.goBack()}
       />
       <Text style={headerStyles.title}>Workout</Text>
       <Icon
         name={'check'}
         style={headerStyles.text}
-        size={36}
+        size={24}
         onPress={() => props.setComplete(true)}
       />
     </View>
@@ -46,13 +46,13 @@ function Header(props) {
  * @param {*} props
  */
 function WorkoutCompleteConfirmation(props) {
-  const {athlete_id} = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.safeAreaHeader}>
       <Icon
         name={'arrow-left'}
-        style={headerStyles.text}
+        style={[headerStyles.text, styles.headerIcon]}
         size={36}
         onPress={() => props.setComplete(false)}
       />
@@ -71,17 +71,20 @@ function WorkoutCompleteConfirmation(props) {
         <OutlinedButton
           text={'Submit Workout'}
           onPress={() => {
-            if (athlete_id === null) {
+            if (user.athlete_id === null) {
               return;
             }
             api
               .postAthleteWorkoutResult(
-                athlete_id,
-                props.workout.id,
+                user.athlete_id,
+                props.workout_id,
                 props.results.flat().filter((x) => x.created !== null),
               )
               .then(() => {
-                navigation.navigate('PostWorkoutSurvey', props.workout);
+                navigation.navigate('PostWorkoutSurvey', {
+                  date: props.date,
+                  id: props.workout_id,
+                });
               });
           }}
         />
@@ -98,8 +101,7 @@ function WorkoutCompleteConfirmation(props) {
  */
 export default function WorkoutPage(props) {
   // The list of assignments to be completed by the athlete
-  const assignments = props.route.params;
-  console.log(assignments);
+  const assignments = props.route.params.assignments;
   /*
    * Results stores a 2D array of workout_results.
    * The outer array groups results by exercise.
@@ -109,11 +111,40 @@ export default function WorkoutPage(props) {
    */
   const [results, setResults] = useState(null);
   const [complete, setComplete] = useState(false);
-  const navigation = useNavigation();
+  const defaultWeight = 60;
+
+  // Load the list of assignments
+  useEffect(() => {
+    if (!assignments) {
+      return;
+    }
+    // Outer map traverses by assignment (so each inner array will have the same exercise_id)
+    setResults(
+      assignments.map((assignment) =>
+        // Since there are rep_count.length number of reps, we are going to
+        // make each element of the inner array an object that defaults to
+        // the rep_count as that index, a default weight, and the exercise id
+        assignment.rep_count.map((reps) => ({
+          // These fields are constant and will never be changed by the athlete
+          assignment_id: assignment.id,
+          exercise_id: assignment.exercise.id,
+          initalReps: reps,
+          date: props.route.params.date,
+
+          // These fields will be changed by the athlete as they complete the workout
+          reps: reps,
+          weight: defaultWeight,
+          created: null,
+        })),
+      ),
+    );
+  }, [assignments, props.route.params.date]);
 
   return (
     (complete && (
       <WorkoutCompleteConfirmation
+        workout_id={props.route.params.workout_id}
+        date={props.route.params.date}
         workout={props.workout}
         results={results}
         setComplete={(b) => setComplete(b)}
@@ -121,7 +152,7 @@ export default function WorkoutPage(props) {
     )) || (
       <View style={styles.workoutBackground}>
         <SafeAreaView style={headerStyles.safeAreaTop} />
-        <Header pop={navigation.goBack()} setComplete={(b) => setComplete(b)} />
+        <Header setComplete={(b) => setComplete(b)} />
         {(assignments === null && <LoadingPage />) ||
           (assignments.length === 0 && (
             <WaterMark title={'No Assignments'} />
@@ -167,7 +198,7 @@ const styles = StyleSheet.create({
   completeView: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
+    flex: 0.9,
   },
   completeText: {
     textAlign: 'center',
@@ -179,5 +210,9 @@ const styles = StyleSheet.create({
   },
   flex: {
     flex: 1,
+  },
+  headerIcon: {
+    marginLeft: 20,
+    marginTop: 10,
   },
 });

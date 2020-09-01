@@ -24,7 +24,11 @@ function GroupedWorkoutCovers(props) {
       team_name={workout.team_name}
       created={workout.created}
       onStartWorkout={() =>
-        navigation.navigate('WorkoutPage', workout.assignments)
+        navigation.navigate('WorkoutPage', {
+          workout_id: props.workout_id,
+          assignments: workout.assignments,
+          date: props.date,
+        })
       }
     />
   ));
@@ -38,7 +42,9 @@ function WorkoutCovers(props) {
       </Text>
       <GroupedWorkoutCovers
         key={index}
+        workout_id={workoutsGroupedByDate.workout_id}
         workouts={workoutsGroupedByDate.workouts}
+        date={workoutsGroupedByDate.date}
       />
     </View>
   ));
@@ -47,7 +53,6 @@ function WorkoutCovers(props) {
 export default function AthleteWorkoutsScreen(props) {
   const workoutsContext = useContext(AthleteWorkoutContext);
   const workouts = workoutsContext.workouts;
-  console.log(workouts);
 
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
