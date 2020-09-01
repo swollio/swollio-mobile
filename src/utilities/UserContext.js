@@ -17,7 +17,7 @@ export const UserContextProvider = ({children}) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [api.currentUserId()]);
 
   return (
     <UserContext.Provider value={{user, loading}}>

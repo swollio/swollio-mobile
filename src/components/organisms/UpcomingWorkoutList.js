@@ -51,7 +51,7 @@ function groupBy(xs, key) {
   }, {});
 }
 
-export default function WorkoutList() {
+export default function UpcomingWorkoutList() {
   const {workouts} = useContext(WorkoutsContext);
   const navigation = useNavigation();
 
