@@ -1,20 +1,22 @@
 import React, {useContext} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {Text, Button, View, SafeAreaView} from 'react-native';
+import {Text, Button, View, SafeAreaView, StyleSheet} from 'react-native';
 
 import LoginForm from './LoginForm';
 import ActionHeader from '../../components/organisms/ActionHeader';
 import AthletePage from '../athlete/MainPage';
+import WorkoutPage from '../athlete/WorkoutPage';
+import PostWorkoutSurvey from '../athlete/PostWorkoutSurvey';
 import CoachPage from '../coach/MainPage';
 import WorkoutDetails from '../coach/WorkoutDetails';
 import ChooseExercise from '../coach/ChooseExercise';
-import * as api from '../../utilities/api';
 import {useNavigation} from '@react-navigation/native';
 import {UserContextProvider, UserContext} from '../../utilities/UserContext';
 import {WorkoutsContextProvider} from '../../utilities/WorkoutContext';
 import {AthletesContextProvider} from '../../utilities/AthletesContext';
+import {AthleteWorkoutContextProvider} from '../../utilities/AthleteWorkoutContext';
 
 const Stack = createStackNavigator();
 
@@ -22,14 +24,9 @@ function DetailsScreen() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{backgroundColor: 'white'}}>
+    <SafeAreaView style={styles.safeAreaBackground}>
       <ActionHeader title={'Details'} />
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+      <View style={styles.detailsView}>
         <Text>Details Screen</Text>
         <Button title="Go Back" onPress={() => navigation.goBack()} />
       </View>
@@ -41,14 +38,9 @@ function AthleteDetailsScreen() {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{backgroundColor: 'white'}}>
+    <SafeAreaView style={styles.safeAreaBackground}>
       <ActionHeader title={'Athlete Details'} />
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
+      <View style={styles.detailsView}>
         <Text>Details Screen</Text>
         <Button title="Go Back" onPress={() => navigation.goBack()} />
       </View>
@@ -82,17 +74,23 @@ function MainPage() {
     );
   } else {
     return (
-      <NavigationContainer>
-        <Stack.Navigator headerMode="none">
-          <Stack.Screen name="AthleteMainScreen" component={AthletePage} />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AthleteWorkoutContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator headerMode="none">
+            <Stack.Screen name="AthleteMainScreen" component={AthletePage} />
+            <Stack.Screen name="Details" component={DetailsScreen} />
+            <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
+            <Stack.Screen
+              name="PostWorkoutSurvey"
+              component={PostWorkoutSurvey}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AthleteWorkoutContextProvider>
     );
   }
 }
 export default function AuthenticationContainer() {
-  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
   if (!user.token) {
@@ -105,3 +103,14 @@ export default function AuthenticationContainer() {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  safeAreaBackground: {
+    backgroundColor: 'white',
+  },
+  detailsView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

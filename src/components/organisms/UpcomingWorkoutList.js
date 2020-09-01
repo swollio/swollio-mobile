@@ -75,7 +75,9 @@ export default function UpcomingWorkoutList() {
     }
   }, [workouts]);
 
-  if (groupedWorkouts === null) return <></>;
+  if (groupedWorkouts === null) {
+    return <></>;
+  }
   return (
     <View style={styles.cardOuter}>
       <View style={styles.cardInner}>
