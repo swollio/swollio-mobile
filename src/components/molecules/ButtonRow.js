@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 26,
+    alignSelf: 'center',
   },
   buttonRow: {
     flexDirection: 'row',

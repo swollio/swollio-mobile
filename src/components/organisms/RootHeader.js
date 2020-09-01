@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontFamily: Font.Header,
   },
   headerButton: {

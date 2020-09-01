@@ -192,11 +192,11 @@ export function getWorkoutsForTeam(team_id) {
 }
 
 export function createAthlete(athlete) {
-  return post(`athletes/`, athlete);
+  return post('athletes/', athlete);
 }
 
 export function createTeam(team) {
-  return post(`teams/`, team);
+  return post('teams/', team);
 }
 
 export function getAthletesForTeam(team_id) {
