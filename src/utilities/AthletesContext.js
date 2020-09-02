@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext, createContext} from 'react';
-import * as api from './api';
+import useApi from './api';
 import {UserContext} from './UserContext';
 
 export const AthletesContext = createContext({});
@@ -8,10 +8,11 @@ export const AthletesContextProvider = ({children}) => {
   const {user} = useContext(UserContext);
   const [athletes, setAthletes] = useState(null);
   const [loading, setLoading] = useState(false);
+  const {getAthletesForTeam} = useApi();
 
   const getAthletes = async (id) => {
     setLoading(true);
-    const result = await api.getAthletesForTeam(id);
+    const result = await getAthletesForTeam(id);
     console.log('ATHLETES LOADED');
     setAthletes(result);
     setLoading(false);

@@ -5,7 +5,7 @@ import Colors from '../../styles/Color';
 import ButtonRow from '../../components/molecules/ButtonRow';
 import ScrollPicker from '../../components/molecules/ScrollPicker';
 import SolidButton from '../../components/atoms/SolidButton';
-import * as api from '../../utilities/api';
+import useApi from '../../utilities/api';
 import {UserContext} from '../../utilities/UserContext';
 import headerStyles from '../../components/organisms/styles/Header';
 import Font from '../../styles/Font';
@@ -22,6 +22,7 @@ export default function PostWorkoutSurvey(props) {
   const [wellnessVal, setWellnessVal] = useState(-1);
   const {user} = useContext(UserContext);
   const navigation = useNavigation();
+  const {postPostWorkoutSurvey} = useApi();
 
   return (
     <View style={[headerStyles.container, styles.flex]}>
@@ -71,14 +72,12 @@ export default function PostWorkoutSurvey(props) {
             if (user.athlete_id === null) {
               return;
             }
-            api
-              .postPostWorkoutSurvey(user.athlete_id, props.route.params.id, {
-                due_date: props.route.params.date,
-                rating: workoutRating,
-                hours_sleep: hoursSleep,
-                wellness: wellnessVal,
-              })
-              .then(() => navigation.navigate('AthleteMainScreen'));
+            postPostWorkoutSurvey(user.athlete_id, props.route.params.id, {
+              due_date: props.route.params.date,
+              rating: workoutRating,
+              hours_sleep: hoursSleep,
+              wellness: wellnessVal,
+            }).then(() => navigation.navigate('AthleteMainScreen'));
           }}
           text={'Finish Workout'}
         />

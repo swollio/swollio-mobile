@@ -4,7 +4,7 @@ import {UserContext} from '../../utilities/UserContext';
 
 import RootHeader from '../../components/organisms/RootHeader';
 
-import * as api from '../../utilities/api';
+import useApi from '../../utilities/api';
 import Colors from '../../styles/Color';
 import Font from '../../styles/Font';
 import TabPageStyles from '../styles/TabPage';
@@ -18,12 +18,13 @@ export default function AthleteHomeScreen() {
   const {user} = useContext(UserContext);
   const navigation = useNavigation();
   const [todaysWorkouts, setTodaysWorkouts] = useState(null);
+  const {getTodaysWorkoutsForAthlete} = useApi();
 
   useEffect(() => {
     if (todaysWorkouts === null) {
-      api
-        .getTodaysWorkoutsForAthlete(user.athlete_id)
-        .then((data) => setTodaysWorkouts(data));
+      getTodaysWorkoutsForAthlete(user.athlete_id).then((data) =>
+        setTodaysWorkouts(data),
+      );
     }
     return () => {};
   });
