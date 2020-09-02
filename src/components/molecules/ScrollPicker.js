@@ -1,6 +1,12 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import Colors from '../../styles/Color';
+import React, { Component } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import Colors from "../../styles/Color";
 
 export default class ScrollPicker extends Component {
   constructor(props) {
@@ -9,30 +15,37 @@ export default class ScrollPicker extends Component {
     this.state = {
       selected:
         this.props.data.findIndex(
-          (number) => number === this.props.initialValue,
+          (number) => number === this.props.initialValue
         ) + 2,
     };
 
     this.viewabilityConfig = {
       itemVisiblePercentThreshold: 50,
     };
+
+    this.onViewableItemsChanged.bind(this);
   }
 
-  onViewableItemsChanged = ({viewableItems, changed}) => {
+  onViewableItemsChanged = ({ viewableItems, changed }) => {
     if (viewableItems[2]) {
       this.setState({
         selected: viewableItems[2].index,
       });
       this.props.onChange(viewableItems[2].item);
     }
-  };
+  }
 
   render() {
     return (
-      <View style={[{width: 300, height: 60}, this.props.style]}>
+      <View style={[{ width: 300, height: 60 }, this.props.style]}>
         <FlatList
-          style={{width: 300, height: 60, overflow: 'hidden', borderRadius: 30}}
-          data={['', '', ...this.props.data, '', '']}
+          style={{
+            width: 300,
+            height: 60,
+            overflow: "hidden",
+            borderRadius: 30,
+          }}
+          data={["", "", ...this.props.data, "", ""]}
           ref={(ref) => {
             this.flatListRef = ref;
           }}
@@ -40,7 +53,7 @@ export default class ScrollPicker extends Component {
           onViewableItemsChanged={this.onViewableItemsChanged}
           showsHorizontalScrollIndicator={false}
           viewabilityConfig={this.viewabilityConfig}
-          horizontal={true}
+          horizontal
           snapToInterval={60}
           decelerationRate="fast"
           bounces={false}
@@ -50,24 +63,26 @@ export default class ScrollPicker extends Component {
             offset: 60 * index,
             index,
           })}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <TouchableOpacity
               activeOpacity={0.8}
               style={{
                 width: 60,
                 height: 60,
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onPress={() =>
-                this.flatListRef.scrollToIndex({index, viewPosition: 0.5})
-              }>
+                this.flatListRef.scrollToIndex({ index, viewPosition: 0.5 })
+              }
+            >
               <View
                 style={[
                   styles.item,
-                  (item === '' && styles.emptyItem) || {},
+                  (item === "" && styles.emptyItem) || {},
                   (index === this.state.selected && styles.selectedItem) || {},
-                ]}>
+                ]}
+              >
                 <Text
                   style={{
                     fontSize: 20,
@@ -75,7 +90,8 @@ export default class ScrollPicker extends Component {
                       index === this.state.selected
                         ? Colors.PrimaryContrast
                         : Colors.SurfaceContrast2,
-                  }}>
+                  }}
+                >
                   {item}
                 </Text>
               </View>
@@ -91,8 +107,8 @@ const styles = StyleSheet.create({
   item: {
     width: 50,
     height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 25,
     backgroundColor: Colors.Background,
   },

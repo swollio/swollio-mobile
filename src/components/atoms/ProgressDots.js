@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View} from "react-native";
+import { StyleSheet, View } from "react-native";
 import Colors from "../../styles/Color";
 
 /**
@@ -10,33 +10,33 @@ import Colors from "../../styles/Color";
  * - numEnabled: number => number of dots to fill in
  * @param {Object} props The parameters passed in
  */
-export default function ProgressDots(props) {
-    const DotRow = [...Array(props.numDots).keys()].map((index) => (
-        <View
-            key={index}
-            style={[
-                styles.dot,
-                {
-                    backgroundColor:
-            index < props.numEnabled ? Colors.Primary : Colors.Background,
-                },
-                props.style,
-            ]}
-        />
-    ));
+export default function ProgressDots({ numDots, numEnabled, style }) {
+  const DotRow = [...Array(numDots).keys()].map((index) => (
+    <View
+      key={index}
+      style={[
+        styles.dot,
+        {
+          backgroundColor:
+            index < numEnabled ? Colors.Primary : Colors.Background,
+        },
+        style,
+      ]}
+    />
+  ));
 
-    return <View style={styles.outerView}>{DotRow}</View>;
+  return <View style={styles.outerView}>{DotRow}</View>;
 }
 
 const styles = StyleSheet.create({
-    outerView: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    dot: {
-        height: 8,
-        width: 8,
-        borderRadius: 4,
-        margin: 10,
-    },
+  outerView: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  dot: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    margin: 10,
+  },
 });

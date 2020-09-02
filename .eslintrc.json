@@ -1,10 +1,13 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
-    "node": true
+    "es6": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -18,9 +21,8 @@
   },
   "plugins": ["react"],
   "rules": {
-    "indent": ["error", 4],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "double"],
-    "semi": ["error", "always"]
+    "react/prop-types": "off",
+    "react/jsx-filename-extension": "off",
+    "no-use-before-define": "off"
   }
 }

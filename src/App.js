@@ -1,7 +1,8 @@
 import React from "react";
-import {createStackNavigator} from "@react-navigation/stack";
-import {NavigationContainer} from "@react-navigation/native";
-import {Text, Button, View, SafeAreaView, StyleSheet} from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { Text, Button, View, SafeAreaView, StyleSheet } from "react-native";
+
 import AccountTypePage from "./pages/common/ChooseAccountTypePage";
 import SignupPage from "./pages/common/SignupPage";
 import SetupAthlete from "./pages/common/SetupAthlete";
@@ -14,136 +15,135 @@ import PostWorkoutSurvey from "./pages/athlete/PostWorkoutSurvey";
 import CoachPage from "./pages/coach/MainPage";
 import WorkoutDetails from "./pages/coach/WorkoutDetails";
 import ChooseExercise from "./pages/coach/ChooseExercise";
-import {useNavigation} from "@react-navigation/native";
-import {UserContextProvider} from "./utilities/UserContext";
-import {WorkoutsContextProvider} from "./utilities/WorkoutContext";
-import {AthletesContextProvider} from "./utilities/AthletesContext";
-import {AthleteWorkoutContextProvider} from "./utilities/AthleteWorkoutContext";
-import {TokenContextProvider} from "./utilities/TokenContext";
+import { UserContextProvider } from "./utilities/UserContext";
+import { WorkoutsContextProvider } from "./utilities/WorkoutContext";
+import { AthletesContextProvider } from "./utilities/AthletesContext";
+import { AthleteWorkoutContextProvider } from "./utilities/AthleteWorkoutContext";
+import { TokenContextProvider } from "./utilities/TokenContext";
 
 const Stack = createStackNavigator();
 
 function DetailsScreen() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    return (
-        <SafeAreaView style={styles.safeAreaBackground}>
-            <ActionHeader title={"Details"} />
-            <View style={styles.detailsView}>
-                <Text>Details Screen</Text>
-                <Button title="Go Back" onPress={() => navigation.goBack()} />
-            </View>
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView style={styles.safeAreaBackground}>
+      <ActionHeader title="Details" />
+      <View style={styles.detailsView}>
+        <Text>Details Screen</Text>
+        <Button title="Go Back" onPress={() => navigation.goBack()} />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 function AthleteDetailsScreen() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    return (
-        <SafeAreaView style={styles.safeAreaBackground}>
-            <ActionHeader title={"Athlete Details"} />
-            <View style={styles.detailsView}>
-                <Text>Details Screen</Text>
-                <Button title="Go Back" onPress={() => navigation.goBack()} />
-            </View>
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView style={styles.safeAreaBackground}>
+      <ActionHeader title="Athlete Details" />
+      <View style={styles.detailsView}>
+        <Text>Details Screen</Text>
+        <Button title="Go Back" onPress={() => navigation.goBack()} />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 export default function App() {
-    return (
-        <TokenContextProvider>
-            <UserContextProvider>
-                <WorkoutsContextProvider>
-                    <AthletesContextProvider>
-                        <AthleteWorkoutContextProvider>
-                            <NavigationContainer>
-                                <Stack.Navigator headerMode="none" initialRouteName="LoginPage">
-                                    <Stack.Screen name="LoginPage" component={LoginForm} />
-                                    <Stack.Screen
-                                        name="SignupPage"
-                                        component={SignupPage}
-                                        options={{
-                                            gestureEnabled: false,
-                                            animationEnabled: false,
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="SetupAthlete"
-                                        component={SetupAthlete}
-                                        options={{
-                                            gestureEnabled: false,
-                                            animationEnabled: false,
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="SetupCoach"
-                                        component={SetupCoach}
-                                        options={{
-                                            gestureEnabled: false,
-                                            animationEnabled: false,
-                                        }}
-                                    />
+  return (
+    <TokenContextProvider>
+      <UserContextProvider>
+        <WorkoutsContextProvider>
+          <AthletesContextProvider>
+            <AthleteWorkoutContextProvider>
+              <NavigationContainer>
+                <Stack.Navigator headerMode="none" initialRouteName="LoginPage">
+                  <Stack.Screen name="LoginPage" component={LoginForm} />
+                  <Stack.Screen
+                    name="SignupPage"
+                    component={SignupPage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="SetupAthlete"
+                    component={SetupAthlete}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="SetupCoach"
+                    component={SetupCoach}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
 
-                                    <Stack.Screen
-                                        name="AccountTypePage"
-                                        component={AccountTypePage}
-                                        options={{
-                                            gestureEnabled: false,
-                                            animationEnabled: false,
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="AthleteMainScreen"
-                                        component={AthletePage}
-                                        options={{
-                                            gestureEnabled: false,
-                                            animationEnabled: false,
-                                        }}
-                                    />
-                                    <Stack.Screen name="Details" component={DetailsScreen} />
-                                    <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
-                                    <Stack.Screen
-                                        name="PostWorkoutSurvey"
-                                        component={PostWorkoutSurvey}
-                                    />
+                  <Stack.Screen
+                    name="AccountTypePage"
+                    component={AccountTypePage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="AthleteMainScreen"
+                    component={AthletePage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
+                  <Stack.Screen name="Details" component={DetailsScreen} />
+                  <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
+                  <Stack.Screen
+                    name="PostWorkoutSurvey"
+                    component={PostWorkoutSurvey}
+                  />
 
-                                    <Stack.Screen
-                                        name="CoachMainScreen"
-                                        component={CoachPage}
-                                        options={{
-                                            gestureEnabled: false,
-                                            animationEnabled: false,
-                                        }}
-                                    />
-                                    <Stack.Screen
-                                        name="AthleteDetails"
-                                        component={AthleteDetailsScreen}
-                                    />
+                  <Stack.Screen
+                    name="CoachMainScreen"
+                    component={CoachPage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="AthleteDetails"
+                    component={AthleteDetailsScreen}
+                  />
 
-                                    <Stack.Screen name="EditWorkout" component={WorkoutDetails} />
-                                    <Stack.Screen
-                                        name="ChooseExercise"
-                                        component={ChooseExercise}
-                                    />
-                                </Stack.Navigator>
-                            </NavigationContainer>
-                        </AthleteWorkoutContextProvider>
-                    </AthletesContextProvider>
-                </WorkoutsContextProvider>
-            </UserContextProvider>
-        </TokenContextProvider>
-    );
+                  <Stack.Screen name="EditWorkout" component={WorkoutDetails} />
+                  <Stack.Screen
+                    name="ChooseExercise"
+                    component={ChooseExercise}
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </AthleteWorkoutContextProvider>
+          </AthletesContextProvider>
+        </WorkoutsContextProvider>
+      </UserContextProvider>
+    </TokenContextProvider>
+  );
 }
 
 const styles = StyleSheet.create({
-    safeAreaBackground: {
-        backgroundColor: "white",
-    },
-    detailsView: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-    },
+  safeAreaBackground: {
+    backgroundColor: "white",
+  },
+  detailsView: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

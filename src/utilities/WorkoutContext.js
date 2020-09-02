@@ -1,40 +1,40 @@
-import React, {useState, useEffect, useContext, createContext} from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import useApi from "./api";
-import {UserContext} from "./UserContext";
+import { UserContext } from "./UserContext";
 
 export const WorkoutsContext = createContext({
-    loaded: false,
-    workouts: null,
-    error: null,
+  loaded: false,
+  workouts: null,
+  error: null,
 });
 
-export const WorkoutsContextProvider = ({children}) => {
-    const {user} = useContext(UserContext);
-    const [workouts, setWorkouts] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const {getWorkoutsForTeam} = useApi();
+export const WorkoutsContextProvider = ({ children }) => {
+  const { user } = useContext(UserContext);
+  const [workouts, setWorkouts] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { getWorkoutsForTeam } = useApi();
 
-    const getWorkouts = async (id) => {
-        setLoading(true);
-        const result = await getWorkoutsForTeam(id);
-        console.log("WORKOUTS LOADED");
-        setWorkouts(result);
-        setLoading(false);
-    };
+  const getWorkouts = async (id) => {
+    setLoading(true);
+    const result = await getWorkoutsForTeam(id);
+    console.log("WORKOUTS LOADED");
+    setWorkouts(result);
+    setLoading(false);
+  };
 
-    useEffect(() => {
-        if (user !== null && user.team_id) {
-            getWorkouts(user.team_id);
-        }
-    }, [user]);
+  useEffect(() => {
+    if (user !== null && user.team_id) {
+      getWorkouts(user.team_id);
+    }
+  }, [user]);
 
-    const refresh = () => {
-        getWorkouts(user.team_id);
-    };
+  const refresh = () => {
+    getWorkouts(user.team_id);
+  };
 
-    return (
-        <WorkoutsContext.Provider value={{workouts, loading, refresh}}>
-            {children}
-        </WorkoutsContext.Provider>
-    );
+  return (
+    <WorkoutsContext.Provider value={{ workouts, loading, refresh }}>
+      {children}
+    </WorkoutsContext.Provider>
+  );
 };
