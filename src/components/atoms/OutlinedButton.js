@@ -29,6 +29,5 @@ const styles = StyleSheet.create({
     borderColor: Colors.Primary,
     alignItems: "center",
     justifyContent: "center",
-    width: "80%",
   },
 });

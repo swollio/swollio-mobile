@@ -32,7 +32,6 @@ export default function SolidButton({
 
 const styles = StyleSheet.create({
   button: {
-    width: "80%",
     backgroundColor: Colors.Primary,
     height: 50,
     alignItems: "center",
