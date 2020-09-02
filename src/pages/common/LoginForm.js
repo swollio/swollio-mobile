@@ -6,6 +6,7 @@ import SolidButton from "../../components/atoms/SolidButton";
 import OutlinedButton from "../../components/atoms/OutlinedButton";
 import ErrorMessage from "../../components/molecules/ErrorMessage";
 import { UserContext } from "../../utilities/UserContext";
+import { TokenContext } from "../../utilities/TokenContext";
 
 import FormContainer from "./FormContainer";
 import FormGroup from "./FormGroup";
@@ -17,17 +18,35 @@ import LoginStyles from "./styles/LoginStyles";
 
 export default function LoginForm() {
   const navigation = useNavigation();
+  const { token } = useContext(TokenContext);
   const { user } = useContext(UserContext);
   const { login } = useApi();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage] = useState(null);
 
+  /*
+   * If the user is logged in, redirect to the proper home page depending on
+   * their account type. If the user has not setup their account, redirect\
+   * them to account setup.
+   */
   useEffect(() => {
-    if (user) {
+    if (user && !user.athlete_id && !user.team_id) {
       navigation.navigate("AccountTypePage");
+    } else if (user && user.athlete_id) {
+      navigation.navigate("AthleteMainScreen");
+    } else if (user && user.team_id) {
+      navigation.navigate("CoachMainScreen");
     }
   }, [user]);
+
+  /*
+   * If the user has a token, but their user data has not been loaded yet,
+   * display a blank page while their data loads.
+   *
+   * TODO: Display a loading screen.
+   */
+  if (token) return <></>;
 
   return (
     <FormContainer>

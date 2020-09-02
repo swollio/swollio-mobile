@@ -16,7 +16,7 @@ import useApi from "../../utilities/api";
 import LoginStyles from "./styles/LoginStyles";
 
 export default function SignupPage() {
-  const { user } = useContext(UserContext);
+  const { user, refreshUser } = useContext(UserContext);
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState(null);
   const [age, setAge] = useState("");
@@ -88,7 +88,7 @@ export default function SignupPage() {
               weight,
               gender,
               user_id: user.user_id,
-            })
+            }).then(() => refreshUser())
           }
         />
       </FormGroup>

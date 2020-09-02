@@ -1,13 +1,11 @@
 import { useContext } from "react";
 import { decode as atob } from "base-64";
 import { TokenContext } from "./TokenContext";
-import { UserContext } from "./UserContext";
 
 import config from "../config.json";
 
 export default function useApi() {
   const { token, setToken } = useContext(TokenContext);
-  const { user, refreshUser } = useContext(UserContext);
 
   const signup = (user) => {
     return fetch(`${config.api}/auth/signup`, {
@@ -155,11 +153,10 @@ export default function useApi() {
   };
 
   const createAthlete = (athlete) => {
-    return post("athletes/", athlete).then(() => refreshUser());
+    return post("athletes/", athlete);
   };
-
   const createTeam = (team) => {
-    return post("teams/", team).then(() => refreshUser());
+    return post("teams/", team);
   };
 
   const getAthletesForTeam = (team_id) => {

@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import Color from "../../styles/Color";
 import Font from "../../styles/Font";
-
+import WaterMark from "./WaterMark";
 import { WorkoutsContext } from "../../utilities/WorkoutContext";
 
 function WorkoutListItem({ navigation, exercise }) {
@@ -19,6 +19,13 @@ export default function WorkoutList() {
   const { workouts } = useContext(WorkoutsContext);
 
   const navigation = useNavigation();
+
+  if (workouts === null) {
+    return <WaterMark title="Loading..." />;
+  }
+  if (workouts.length === 0) {
+    return <WaterMark title="No Workouts" />;
+  }
 
   return (
     <>

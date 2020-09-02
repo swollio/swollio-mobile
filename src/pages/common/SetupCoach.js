@@ -16,7 +16,7 @@ import useApi from "../../utilities/api";
 import LoginStyles from "./styles/LoginStyles";
 
 export default function SignupPage() {
-  const { user } = useContext(UserContext);
+  const { user, refreshUser } = useContext(UserContext);
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState(null);
   const [name, setName] = useState("");
@@ -65,7 +65,7 @@ export default function SignupPage() {
             createTeam({
               name,
               sport,
-            })
+            }).then(() => refreshUser())
           }
         />
       </FormGroup>

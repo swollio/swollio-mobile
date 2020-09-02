@@ -21,6 +21,8 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       getUser();
+    } else {
+      setUser(null);
     }
   }, [token]);
 

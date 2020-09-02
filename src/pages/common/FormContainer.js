@@ -1,9 +1,10 @@
 import React from "react";
 import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from "react-native";
+import Colors from "../../styles/Color";
 
 export default function FormContainer({ children }) {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.backgound}>
       <KeyboardAvoidingView style={styles.formContainer} behavior="padding">
         {children}
       </KeyboardAvoidingView>
@@ -12,6 +13,10 @@ export default function FormContainer({ children }) {
 }
 
 const styles = StyleSheet.create({
+  backgound: {
+    flex: 1,
+    backgroundColor: Colors.PrimaryContrast,
+  },
   formContainer: {
     justifyContent: "space-between",
     alignItems: "stretch",

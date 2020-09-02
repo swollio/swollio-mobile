@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { UserContext } from "../../utilities/UserContext";
+import { TokenContext } from "../../utilities/TokenContext";
 
 import RootHeader from "../../components/organisms/RootHeader";
 
@@ -19,6 +20,7 @@ export default function AthleteHomeScreen() {
   const navigation = useNavigation();
   const [todaysWorkouts, setTodaysWorkouts] = useState(null);
   const { getTodaysWorkoutsForAthlete } = useApi();
+  const { removeToken } = useContext(TokenContext);
 
   useEffect(() => {
     if (todaysWorkouts === null) {
@@ -59,7 +61,13 @@ export default function AthleteHomeScreen() {
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
       <View style={styles.background}>
-        <RootHeader title={`Welcome, ${user.first_name}!`} />
+        <RootHeader
+          title={`Welcome, ${user.first_name}!`}
+          action="Logout"
+          onAction={() => {
+            removeToken().then(() => navigation.navigate("LoginPage"));
+          }}
+        />
         <ScrollView
           style={styles.scrollViewContainer}
           showsVerticalScrollIndicator={false}

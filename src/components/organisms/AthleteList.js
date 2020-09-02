@@ -13,10 +13,7 @@ function AthleteListItem({ first_name, last_name }) {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("AthleteDetails")}
-      style={styles.athleteListItem}
-    >
+    <TouchableOpacity style={styles.athleteListItem}>
       <Text style={styles.athleteListItemText}>
         {`${first_name} ${last_name}`}
       </Text>
@@ -32,7 +29,7 @@ export default function AthleteList() {
     try {
       const result = await Share.share({
         message: `${user.first_name} ${user.last_name} has invited you to join their team`,
-        url: `https://www.swoll.io/joinTeam?pin=${user.pin}`,
+        url: `https://www.swoll.io/join/${user.team_id}`,
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

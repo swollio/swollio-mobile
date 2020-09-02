@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -46,7 +46,7 @@ export default function SelectExercise({ navigation, route }) {
     >
       <ActionHeader
         title="Create Custom"
-        onAction={() => setCreateCustom(true)}
+        onAction={() => {}}
         pop={() => navigation.goBack()}
       />
       <View style={{ flexDirection: "column", paddingHorizontal: 16 }}>

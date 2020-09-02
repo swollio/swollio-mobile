@@ -33,11 +33,11 @@ const usePostWorkout = () => {
 const useUpdateWorkout = () => {
   const { user } = useContext(UserContext);
   const { refresh } = useContext(WorkoutsContext);
-
+  const { updateWorkoutForTeam } = useApi();
   const [state, setState] = useState({ loading: false, result: null });
   const update = async (workout) => {
     setState((prev) => ({ ...prev, loading: true }));
-    const response = await api.updateWorkoutForTeam(user.team_id, workout);
+    const response = await updateWorkoutForTeam(user.team_id, workout);
     const result = await response.text();
     refresh();
     setState((prev) => ({ ...prev, loading: false, result }));
@@ -89,7 +89,6 @@ function WorkoutDetailsAssignmentsContent({
 export default function WorkoutDetails({ navigation, route }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [workout, setWorkout] = useState({ ...route.params.workout });
-  const { reloadWorkouts } = useContext(WorkoutsContext);
   const [, updateWorkout] = useUpdateWorkout();
   const [, postWorkout] = usePostWorkout();
 
@@ -98,7 +97,6 @@ export default function WorkoutDetails({ navigation, route }) {
   };
 
   const updateDates = (dates) => {
-    console.log(dates);
     setWorkout({ ...workout, dates });
   };
 
@@ -124,7 +122,17 @@ export default function WorkoutDetails({ navigation, route }) {
         options={workout}
         onBack={() => navigation.goBack()}
         onFinish={() => {
-          workout.id ? updateWorkout(workout) : postWorkout(workout);
+          if (workout.id) {
+            updateWorkout({
+              ...workout,
+              name: workout.name || "Untitled Workout",
+            });
+          } else {
+            postWorkout({
+              ...workout,
+              name: workout.name || "Untitled Workout",
+            });
+          }
           navigation.goBack();
         }}
         onToggleCalendar={() => setShowCalendar(!showCalendar)}
