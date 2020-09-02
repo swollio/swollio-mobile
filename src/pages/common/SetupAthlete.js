@@ -15,6 +15,7 @@ import {UserContext} from '../../utilities/UserContext';
 import Colors from '../../styles/Color';
 import Fonts from '../../styles/Font';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import useApi from '../../utilities/api';
 
 export default function SignupPage() {
   const {user} = useContext(UserContext);
@@ -24,6 +25,7 @@ export default function SignupPage() {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [gender, setGender] = useState('');
+  const {createAthlete} = useApi();
 
   useEffect(() => {
     if (user.athlete_id) {
@@ -85,11 +87,12 @@ export default function SignupPage() {
         <SolidButton
           text={'Continue'}
           onPress={() =>
-            createTeam({
+            createAthlete({
               age,
               height,
               weight,
               gender,
+              user_id: user.user_id,
             })
           }
         />

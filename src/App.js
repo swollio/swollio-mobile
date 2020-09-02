@@ -61,17 +61,46 @@ export default function App() {
               <NavigationContainer>
                 <Stack.Navigator headerMode="none" initialRouteName="LoginPage">
                   <Stack.Screen name="LoginPage" component={LoginForm} />
-                  <Stack.Screen name="SignupPage" component={SignupPage} />
-                  <Stack.Screen name="SetupAthlete" component={SetupAthlete} />
-                  <Stack.Screen name="SetupCoach" component={SetupCoach} />
+                  <Stack.Screen
+                    name="SignupPage"
+                    component={SignupPage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="SetupAthlete"
+                    component={SetupAthlete}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="SetupCoach"
+                    component={SetupCoach}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
 
                   <Stack.Screen
                     name="AccountTypePage"
                     component={AccountTypePage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
                   />
                   <Stack.Screen
                     name="AthleteMainScreen"
                     component={AthletePage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
                   />
                   <Stack.Screen name="Details" component={DetailsScreen} />
                   <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
@@ -80,7 +109,14 @@ export default function App() {
                     component={PostWorkoutSurvey}
                   />
 
-                  <Stack.Screen name="CoachMainScreen" component={CoachPage} />
+                  <Stack.Screen
+                    name="CoachMainScreen"
+                    component={CoachPage}
+                    options={{
+                      gestureEnabled: false,
+                      animationEnabled: false,
+                    }}
+                  />
                   <Stack.Screen
                     name="AthleteDetails"
                     component={AthleteDetailsScreen}
