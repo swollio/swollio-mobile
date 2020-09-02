@@ -1,4 +1,4 @@
-import {useState, useContext} from 'react';
+import {useContext} from 'react';
 import {TokenContext} from '../utilities/TokenContext';
 import {decode as atob} from 'base-64';
 import config from '../config.json';

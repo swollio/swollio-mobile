@@ -15,7 +15,7 @@ import CoachPage from './pages/coach/MainPage';
 import WorkoutDetails from './pages/coach/WorkoutDetails';
 import ChooseExercise from './pages/coach/ChooseExercise';
 import {useNavigation} from '@react-navigation/native';
-import {UserContextProvider, UserContext} from './utilities/UserContext';
+import {UserContextProvider} from './utilities/UserContext';
 import {WorkoutsContextProvider} from './utilities/WorkoutContext';
 import {AthletesContextProvider} from './utilities/AthletesContext';
 import {AthleteWorkoutContextProvider} from './utilities/AthleteWorkoutContext';
@@ -55,46 +55,47 @@ export default function App() {
   return (
     <TokenContextProvider>
       <UserContextProvider>
-        <AthleteWorkoutContextProvider></AthleteWorkoutContextProvider>
-        <WorkoutsContextProvider>
-          <AthletesContextProvider>
-            <NavigationContainer>
-              <Stack.Navigator headerMode="none" initialRouteName="LoginPage">
-                <Stack.Screen name="LoginPage" component={LoginForm} />
-                <Stack.Screen name="SignupPage" component={SignupPage} />
-                <Stack.Screen name="SetupAthlete" component={SetupAthlete} />
-                <Stack.Screen name="SetupCoach" component={SetupCoach} />
+        <AthleteWorkoutContextProvider>
+          <WorkoutsContextProvider>
+            <AthletesContextProvider>
+              <NavigationContainer>
+                <Stack.Navigator headerMode="none" initialRouteName="LoginPage">
+                  <Stack.Screen name="LoginPage" component={LoginForm} />
+                  <Stack.Screen name="SignupPage" component={SignupPage} />
+                  <Stack.Screen name="SetupAthlete" component={SetupAthlete} />
+                  <Stack.Screen name="SetupCoach" component={SetupCoach} />
 
-                <Stack.Screen
-                  name="AccountTypePage"
-                  component={AccountTypePage}
-                />
-                <Stack.Screen
-                  name="AthleteMainScreen"
-                  component={AthletePage}
-                />
-                <Stack.Screen name="Details" component={DetailsScreen} />
-                <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
-                <Stack.Screen
-                  name="PostWorkoutSurvey"
-                  component={PostWorkoutSurvey}
-                />
+                  <Stack.Screen
+                    name="AccountTypePage"
+                    component={AccountTypePage}
+                  />
+                  <Stack.Screen
+                    name="AthleteMainScreen"
+                    component={AthletePage}
+                  />
+                  <Stack.Screen name="Details" component={DetailsScreen} />
+                  <Stack.Screen name="WorkoutPage" component={WorkoutPage} />
+                  <Stack.Screen
+                    name="PostWorkoutSurvey"
+                    component={PostWorkoutSurvey}
+                  />
 
-                <Stack.Screen name="CoachMainScreen" component={CoachPage} />
-                <Stack.Screen
-                  name="AthleteDetails"
-                  component={AthleteDetailsScreen}
-                />
+                  <Stack.Screen name="CoachMainScreen" component={CoachPage} />
+                  <Stack.Screen
+                    name="AthleteDetails"
+                    component={AthleteDetailsScreen}
+                  />
 
-                <Stack.Screen name="EditWorkout" component={WorkoutDetails} />
-                <Stack.Screen
-                  name="ChooseExercise"
-                  component={ChooseExercise}
-                />
-              </Stack.Navigator>
-            </NavigationContainer>
-          </AthletesContextProvider>
-        </WorkoutsContextProvider>
+                  <Stack.Screen name="EditWorkout" component={WorkoutDetails} />
+                  <Stack.Screen
+                    name="ChooseExercise"
+                    component={ChooseExercise}
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </AthletesContextProvider>
+          </WorkoutsContextProvider>
+        </AthleteWorkoutContextProvider>
       </UserContextProvider>
     </TokenContextProvider>
   );

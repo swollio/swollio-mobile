@@ -138,7 +138,7 @@ export default function AbCard(props) {
           }}
           exercise={props.exercises[index]}
           nextExercise={
-            index === MAX_INDEX - 1 ? 'None' : props.exercises[index]
+            index === MAX_INDEX ? 'None' : props.exercises[index + 1]
           }
           exerciseCount={numExercises}
           duration={duration}

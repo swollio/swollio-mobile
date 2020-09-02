@@ -29,6 +29,8 @@ export default function AthleteHomeScreen() {
     return () => {};
   });
 
+  console.log(todaysWorkouts);
+
   const abCard = (
     <AbCard
       exercises={[
@@ -71,7 +73,7 @@ export default function AthleteHomeScreen() {
                 </Text>
               </Card>
             )) ||
-              (todaysWorkouts.workouts.length === 0 && (
+              (todaysWorkouts.length === 0 && (
                 <Card>
                   <Text style={[styles.cardTitle, styles.padding]}>
                     No Workouts Today
