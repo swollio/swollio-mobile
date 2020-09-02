@@ -15,11 +15,20 @@ import {UserContext} from '../../utilities/UserContext';
 import Colors from '../../styles/Color';
 import Fonts from '../../styles/Font';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import useApi from '../../utilities/api';
 export default function SignupPage() {
   const {user} = useContext(UserContext);
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState(null);
+  const [name, setName] = useState('');
+  const [sport, setSport] = useState('');
+  const {createTeam} = useApi();
+
+  useEffect(() => {
+    if (user.team_id) {
+      navigation.navigate('CoachMainScreen');
+    }
+  }, [user]);
 
   return (
     <SafeAreaView>
@@ -35,24 +44,34 @@ export default function SignupPage() {
 
             <TextInput
               style={styles.textInputContainer}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setName(text)}
               autoCorrect={false}
               placeholder={'Team Name'}
               autoCapitalize="words"
               keyboardAppearance="light"
+              value={name}
             />
             <TextInput
               style={styles.textInputContainer}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setSport(text)}
               autoCorrect={false}
               placeholder={'Sport'}
               autoCapitalize="words"
               keyboardAppearance="light"
+              value={sport}
             />
           </View>
         </View>
 
-        <SolidButton text={'Continue'} onPress={() => {}} />
+        <SolidButton
+          text={'Continue'}
+          onPress={() =>
+            createTeam({
+              name,
+              sport,
+            })
+          }
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
