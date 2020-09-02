@@ -1,6 +1,6 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import Colors from '../../styles/Color';
+import React from "react";
+import {StyleSheet, View} from "react-native";
+import Colors from "../../styles/Color";
 
 /**
  * This component returns a Card, which is the building block of our UI. This card is formatted
@@ -9,24 +9,24 @@ import Colors from '../../styles/Color';
  * @param {Object} props The only props are going to be the children which are embedded in this card
  */
 export default function Card(props) {
-  return (
-    <View
-      style={[
-        styles.card,
-        {borderLeftColor: props.barColor || Colors.Primary},
-        props.style,
-      ]}>
-      {props.children}
-    </View>
-  );
+    return (
+        <View
+            style={[
+                styles.card,
+                {borderLeftColor: props.barColor || Colors.Primary},
+                props.style,
+            ]}>
+            {props.children}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: Colors.Surface,
-    borderRadius: 4,
-    borderLeftWidth: 10,
-    padding: 10,
-    marginBottom: 8,
-  },
+    card: {
+        backgroundColor: Colors.Surface,
+        borderRadius: 4,
+        borderLeftWidth: 10,
+        padding: 10,
+        marginBottom: 8,
+    },
 });
