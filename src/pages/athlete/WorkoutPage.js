@@ -100,7 +100,6 @@ function WorkoutCompleteConfirmation(props) {
  * it sends the results of the workout to the server.
  */
 export default function WorkoutPage(props) {
-  console.log(props.route.params);
   // The list of assignments to be completed by the athlete
   const assignments = props.route.params.assignments;
   /*
