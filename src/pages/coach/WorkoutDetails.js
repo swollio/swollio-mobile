@@ -10,18 +10,18 @@ import WorkoutDetailsHeader from '../../components/organisms/WorkoutDetailHeader
 import WorkoutDetailsAssignments from '../../components/organisms/WorkoutDetailsAssignments';
 import Calendar from '../../components/organisms/Calendar';
 
-import * as api from '../../utilities/api';
+import useApi from '../../utilities/api';
 import {UserContext} from '../../utilities/UserContext';
 import {WorkoutsContext} from '../../utilities/WorkoutContext';
 
 const usePostWorkout = () => {
   const {user} = useContext(UserContext);
   const {refresh} = useContext(WorkoutsContext);
-
+  const {postWorkoutForTeam} = useApi();
   const [state, setState] = useState({loading: false, result: null});
   const post = async (workout) => {
     setState((prev) => ({...prev, loading: true}));
-    const response = await api.postWorkoutForTeam(user.team_id, workout);
+    const response = await postWorkoutForTeam(user.team_id, workout);
     const result = await response.text();
     refresh();
     setState((prev) => ({...prev, loading: false, result}));

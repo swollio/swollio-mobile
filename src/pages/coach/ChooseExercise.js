@@ -10,18 +10,18 @@ import {
 } from 'react-native';
 
 import Colors from '../../styles/Color';
-import * as api from '../../utilities/api';
+import useApi from '../../utilities/api';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import ActionHeader from '../../components/organisms/ActionHeader';
 
 export default function SelectExercise({navigation, route}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-
+  const {searchExercisesByName} = useApi();
   const [createCustom, setCreateCustom] = useState(false);
 
   useEffect(() => {
-    api.searchExercisesByName(searchTerm).then((data) => {
+    searchExercisesByName(searchTerm).then((data) => {
       setSearchResults(data);
     });
   }, [searchTerm]);

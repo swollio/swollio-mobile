@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, ScrollView, SafeAreaView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Colors from '../../styles/Color';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import * as api from '../../utilities/api';
+import useApi from '../../utilities/api';
 import WorkoutCard from '../../components/organisms/WorkoutCard';
 import LoadingPage from '../LoadingPage';
 import WaterMark from '../../components/organisms/WaterMark';
@@ -48,6 +48,8 @@ function Header(props) {
 function WorkoutCompleteConfirmation(props) {
   const {user} = useContext(UserContext);
   const navigation = useNavigation();
+  const {postAthleteWorkoutResult} = useApi();
+
   return (
     <SafeAreaView style={styles.safeAreaHeader}>
       <Icon
@@ -74,18 +76,16 @@ function WorkoutCompleteConfirmation(props) {
             if (user.athlete_id === null) {
               return;
             }
-            api
-              .postAthleteWorkoutResult(
-                user.athlete_id,
-                props.workout_id,
-                props.results.flat().filter((x) => x.created !== null),
-              )
-              .then(() => {
-                navigation.navigate('PostWorkoutSurvey', {
-                  date: props.date,
-                  id: props.workout_id,
-                });
+            postAthleteWorkoutResult(
+              user.athlete_id,
+              props.workout_id,
+              props.results.flat().filter((x) => x.created !== null),
+            ).then(() => {
+              navigation.navigate('PostWorkoutSurvey', {
+                date: props.date,
+                id: props.workout_id,
               });
+            });
           }}
         />
       </View>

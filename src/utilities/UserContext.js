@@ -1,23 +1,27 @@
-import React, {useState, useEffect, createContext} from 'react';
-import * as api from './api';
-
+import React, {useState, useEffect, useContext, createContext} from 'react';
+import useApi from './api';
+import {TokenContext} from './TokenContext';
 export const UserContext = createContext({});
 
 export const UserContextProvider = ({children}) => {
+  const {token} = useContext(TokenContext);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const {currentUser} = useApi();
 
   const getUser = async () => {
     setLoading(true);
-    const result = await api.currentUser();
+    const result = await currentUser();
     console.log('USER LOADED');
     setUser(result);
     setLoading(false);
   };
 
   useEffect(() => {
-    getUser();
-  }, [api.currentUserId()]);
+    if (token) {
+      getUser();
+    }
+  }, [token]);
 
   return (
     <UserContext.Provider value={{user, loading}}>

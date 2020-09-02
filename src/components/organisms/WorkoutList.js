@@ -4,7 +4,6 @@ import {useNavigation} from '@react-navigation/native';
 
 import Color from '../../styles/Color';
 import Font from '../../styles/Font';
-import * as api from '../../utilities/api';
 
 import {WorkoutsContext} from '../../utilities/WorkoutContext';
 

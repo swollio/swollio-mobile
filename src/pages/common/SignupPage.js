@@ -1,32 +1,25 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {
-  StyleSheet,
-  SafeAreaView,
-  KeyboardAvoidingView,
   Text,
   View,
+  SafeAreaView,
   TextInput,
+  KeyboardAvoidingView,
+  StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import {useNavigation, Link} from '@react-navigation/native';
 import SolidButton from '../../components/atoms/SolidButton';
 import OutlinedButton from '../../components/atoms/OutlinedButton';
 import ErrorMessage from '../../components/molecules/ErrorMessage';
-import {useNavigation, Link} from '@react-navigation/native';
 import {UserContext} from '../../utilities/UserContext';
-
 import Colors from '../../styles/Color';
 import Fonts from '../../styles/Font';
-import useApi from '../../utilities/api';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function LoginForm(props) {
-  const navigation = useNavigation();
+export default function SignupPage() {
   const {user} = useContext(UserContext);
-  const {login} = useApi();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState(null);
-
   useEffect(() => {
     if (user) {
       navigation.navigate('AccountTypePage');
@@ -38,11 +31,29 @@ export default function LoginForm(props) {
       <KeyboardAvoidingView style={styles.form} behavior={'padding'}>
         <View style={styles.fieldContainer}>
           <View>
-            <Text style={styles.title}>Hello.</Text>
-            <Text style={styles.subtitle}>Please login to continue</Text>
+            <Text style={styles.title}>Welcome.</Text>
+            <Text style={styles.subtitle}>
+              Please create an account to get started.
+            </Text>
 
             <ErrorMessage title={'Login Failed'} message={errorMessage} />
 
+            <TextInput
+              style={styles.textInputContainer}
+              onChangeText={(text) => setEmail(text)}
+              autoCorrect={false}
+              placeholder={'First Name'}
+              autoCapitalize="words"
+              keyboardAppearance="light"
+            />
+            <TextInput
+              style={styles.textInputContainer}
+              onChangeText={(text) => setEmail(text)}
+              autoCorrect={false}
+              placeholder={'Last Name'}
+              autoCapitalize="words"
+              keyboardAppearance="light"
+            />
             <TextInput
               style={styles.textInputContainer}
               onChangeText={(text) => setEmail(text)}
@@ -54,30 +65,34 @@ export default function LoginForm(props) {
             />
             <TextInput
               style={styles.textInputContainer}
-              onChangeText={(text) => setPassword(text)}
-              secureTextEntry={true}
-              placeholder={'Password'}
+              onChangeText={(text) => setEmail(text)}
               autoCorrect={false}
+              placeholder={'Password'}
+              autoCapitalize="none"
               keyboardAppearance="light"
+              secureTextEntry={true}
+            />
+
+            <TextInput
+              style={styles.textInputContainer}
+              onChangeText={(text) => setEmail(text)}
+              autoCorrect={false}
+              placeholder={'Repeat Password'}
+              autoCapitalize="none"
+              keyboardAppearance="light"
+              secureTextEntry={true}
             />
           </View>
         </View>
 
         <View style={styles.buttonGroupContainer}>
-          <SolidButton
-            text={'Login'}
-            margin={8}
-            onPress={() => {
-              login(email, password);
-            }}
-          />
-
+          <SolidButton text={'Signup'} margin={8} onPress={() => {}} />
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={styles.bodyText}>Don't have an account? </Text>
+            <Text style={styles.bodyText}>Already have an account? </Text>
             <OutlinedButton
-              text="Signup"
+              text="Login"
               style={{width: 'auto', height: 30, paddingHorizontal: 16}}
-              onPress={() => navigation.navigate('SignupPage')}
+              onPress={() => navigation.navigate('LoginPage')}
             />
           </View>
         </View>
@@ -85,6 +100,7 @@ export default function LoginForm(props) {
     </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   title: {
     fontSize: 30,
@@ -115,15 +131,15 @@ const styles = StyleSheet.create({
     borderColor: Colors.SurfaceContrast2,
     borderWidth: 1,
   },
+  bodyText: {
+    fontSize: 16,
+    marginVertical: 16,
+  },
   form: {
     alignItems: 'center',
     justifyContent: 'space-between',
     height: '100%',
     width: '100%',
-  },
-  bodyText: {
-    fontSize: 16,
-    marginVertical: 16,
   },
   fieldContainer: {
     paddingHorizontal: 24,

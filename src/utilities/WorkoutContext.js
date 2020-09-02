@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext, createContext} from 'react';
-import * as api from './api';
+import useApi from './api';
 import {UserContext} from './UserContext';
 
 export const WorkoutsContext = createContext({
@@ -12,10 +12,11 @@ export const WorkoutsContextProvider = ({children}) => {
   const {user} = useContext(UserContext);
   const [workouts, setWorkouts] = useState(null);
   const [loading, setLoading] = useState(false);
+  const {getWorkoutsForTeam} = useApi();
 
   const getWorkouts = async (id) => {
     setLoading(true);
-    const result = await api.getWorkoutsForTeam(id);
+    const result = await getWorkoutsForTeam(id);
     console.log('WORKOUTS LOADED');
     setWorkouts(result);
     setLoading(false);
