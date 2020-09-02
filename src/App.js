@@ -15,7 +15,7 @@ import CoachPage from './pages/coach/MainPage';
 import WorkoutDetails from './pages/coach/WorkoutDetails';
 import ChooseExercise from './pages/coach/ChooseExercise';
 import {useNavigation} from '@react-navigation/native';
-import {UserContextProvider, UserContext} from './utilities/UserContext';
+import {UserContextProvider} from './utilities/UserContext';
 import {WorkoutsContextProvider} from './utilities/WorkoutContext';
 import {AthletesContextProvider} from './utilities/AthletesContext';
 import {AthleteWorkoutContextProvider} from './utilities/AthleteWorkoutContext';

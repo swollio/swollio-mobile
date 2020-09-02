@@ -32,38 +32,43 @@ export function AbTimerCard(props) {
   const [play, setPlay] = useState(true);
 
   return (
-    <Card>
-      <View style={styles.center}>
-        <Timer
-          paused={!play}
-          onFinish={props.onFinish}
-          timerVal={props.duration}
-        />
-        <Text style={styles.exercise}>{props.exercise}</Text>
-        <View style={styles.row}>
-          <CircularButton
-            style={styles.circularButton}
-            icon="rewind"
-            onPress={() => props.onRewind()}
+    <View>
+      <Card style={styles.noBottomMargin}>
+        <View style={styles.center}>
+          <Timer
+            paused={!play}
+            onFinish={props.onFinish}
+            timerVal={props.duration}
           />
-          <CircularButton
-            style={styles.circularButton}
-            icon={play ? 'pause' : 'play'}
-            onPress={() => setPlay(!play)}
-          />
-          <CircularButton
-            style={styles.circularButton}
-            icon="fast-forward"
-            onPress={() => props.onFastForward()}
+          <Text style={styles.exercise}>{props.exercise}</Text>
+          <View style={styles.row}>
+            <CircularButton
+              style={styles.circularButton}
+              icon="step-backward"
+              onPress={() => props.onRewind()}
+            />
+            <CircularButton
+              style={styles.circularButton}
+              icon={play ? 'pause' : 'play'}
+              onPress={() => setPlay(!play)}
+            />
+            <CircularButton
+              style={styles.circularButton}
+              icon="step-forward"
+              onPress={() => props.onFastForward()}
+            />
+          </View>
+          <ProgressDots
+            style={[{margin: 80 / props.exerciseCount}]}
+            numDots={props.exerciseCount}
+            numEnabled={props.exerciseIndex + 1}
           />
         </View>
-        <ProgressDots
-          style={[{margin: 80 / props.exerciseCount}]}
-          numDots={props.exerciseCount}
-          numEnabled={props.exerciseIndex + 1}
-        />
+      </Card>
+      <View style={styles.upNextView}>
+        <Text style={styles.upNextText}> Up Next: {props.nextExercise} </Text>
       </View>
-    </Card>
+    </View>
   );
 }
 
@@ -132,6 +137,9 @@ export default function AbCard(props) {
             }
           }}
           exercise={props.exercises[index]}
+          nextExercise={
+            index === MAX_INDEX ? 'None' : props.exercises[index + 1]
+          }
           exerciseCount={numExercises}
           duration={duration}
           exerciseIndex={index}
@@ -179,7 +187,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   center: {
-    flexDirection: 'row',
+    alignItems: 'center',
   },
   completedContainer: {
     justifyContent: 'center',
@@ -194,5 +202,21 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 30,
     borderColor: Colors.Primary,
+  },
+  noBottomMargin: {
+    marginBottom: 0,
+  },
+  upNextView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: Colors.SurfaceContrast2,
+    borderTopRightRadius: 8,
+    borderTopLeftRadius: 8,
+    borderBottomRightRadius: 16,
+    borderBottomLeftRadius: 16,
+  },
+  upNextText: {
+    fontFamily: Font.Header,
   },
 });

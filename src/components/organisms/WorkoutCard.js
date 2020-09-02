@@ -8,7 +8,7 @@ import DecrementButton from '../molecules/DecrementButton';
 import CompleteSetButton from '../molecules/CompleteSetButton';
 import ScrollPicker from '../molecules/ScrollPicker';
 import Card from './Card';
-import {getAlternativesForExercises} from '../../utilities/api';
+import useApi from '../../utilities/api';
 
 function capitalize(text) {
   return text
@@ -57,6 +57,7 @@ function SingleSetRow(props) {
  */
 export default function WorkoutCard(props) {
   const [alternatives, setAlternatives] = useState(null);
+  const {getAlternativesForExercises} = useApi();
 
   useEffect(() => {
     if (alternatives === null) {

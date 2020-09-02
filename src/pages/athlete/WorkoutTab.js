@@ -25,7 +25,7 @@ function GroupedWorkoutCovers(props) {
       created={workout.created}
       onStartWorkout={() =>
         navigation.navigate('WorkoutPage', {
-          workout_id: props.workout_id,
+          workout_id: workout.id,
           assignments: workout.assignments,
           date: props.date,
         })
@@ -42,7 +42,6 @@ function WorkoutCovers(props) {
       </Text>
       <GroupedWorkoutCovers
         key={index}
-        workout_id={workoutsGroupedByDate.workout_id}
         workouts={workoutsGroupedByDate.workouts}
         date={workoutsGroupedByDate.date}
       />

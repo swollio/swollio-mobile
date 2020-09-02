@@ -27,7 +27,7 @@ export default function ChooseAccountTypePage() {
     } else if (user.team_id) {
       navigation.navigate('CoachMainScreen');
     }
-  }, [user]);
+  }, [user, navigation]);
 
   return (
     <SafeAreaView>
