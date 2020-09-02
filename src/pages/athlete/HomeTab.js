@@ -77,14 +77,14 @@ export default function AthleteHomeScreen() {
                 </Text>
               </Card>
             )) ||
-            todaysWorkouts.workouts.map((workout, index) => {
+            todaysWorkouts.map((workout) => {
               return (
                 <WorkoutCover
-                  key={index}
+                  key={workout.id}
                   color={Colors.Primary}
-                  completed={workout.completed}
-                  title={workout.name}
-                  team_name={workout.team_name}
+                  completed={workout.details.completed}
+                  title={workout.details.name}
+                  team_name={workout.details.team_name}
                   created={workout.date}
                   onStartWorkout={() =>
                     navigation.navigate("WorkoutPage", {
