@@ -15,11 +15,18 @@ import {UserContext} from '../../utilities/UserContext';
 import Colors from '../../styles/Color';
 import Fonts from '../../styles/Font';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import useApi from '../../utilities/api';
 export default function SignupPage() {
   const {user} = useContext(UserContext);
   const navigation = useNavigation();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const {signup} = useApi();
   const [errorMessage, setErrorMessage] = useState(null);
+
   useEffect(() => {
     if (user) {
       navigation.navigate('AccountTypePage');
@@ -40,19 +47,21 @@ export default function SignupPage() {
 
             <TextInput
               style={styles.textInputContainer}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setFirstName(text)}
               autoCorrect={false}
               placeholder={'First Name'}
               autoCapitalize="words"
               keyboardAppearance="light"
+              value={firstName}
             />
             <TextInput
               style={styles.textInputContainer}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setLastName(text)}
               autoCorrect={false}
               placeholder={'Last Name'}
               autoCapitalize="words"
               keyboardAppearance="light"
+              value={lastName}
             />
             <TextInput
               style={styles.textInputContainer}
@@ -62,31 +71,47 @@ export default function SignupPage() {
               autoCapitalize="none"
               keyboardAppearance="light"
               keyboardType="email-address"
+              value={email}
             />
             <TextInput
               style={styles.textInputContainer}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setPassword(text)}
               autoCorrect={false}
               placeholder={'Password'}
               autoCapitalize="none"
               keyboardAppearance="light"
               secureTextEntry={true}
+              value={password}
             />
 
             <TextInput
               style={styles.textInputContainer}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={(text) => setConfirmPassword(text)}
               autoCorrect={false}
               placeholder={'Repeat Password'}
               autoCapitalize="none"
               keyboardAppearance="light"
               secureTextEntry={true}
+              value={confirmPassword}
             />
           </View>
         </View>
 
         <View style={styles.buttonGroupContainer}>
-          <SolidButton text={'Signup'} margin={8} onPress={() => {}} />
+          <SolidButton
+            text={'Signup'}
+            margin={8}
+            onPress={() =>
+              signup({
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                password: password,
+              }).catch((error) => {
+                setErrorMessage(error);
+              })
+            }
+          />
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={styles.bodyText}>Already have an account? </Text>
             <OutlinedButton

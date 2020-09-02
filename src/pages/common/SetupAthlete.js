@@ -25,6 +25,12 @@ export default function SignupPage() {
   const [weight, setWeight] = useState('');
   const [gender, setGender] = useState('');
 
+  useEffect(() => {
+    if (user.athlete_id) {
+      navigation.navigate('AthleteMainScreen');
+    }
+  }, [user]);
+
   return (
     <SafeAreaView>
       <KeyboardAvoidingView style={styles.form} behavior={'padding'}>
@@ -76,7 +82,17 @@ export default function SignupPage() {
           </View>
         </View>
 
-        <SolidButton text={'Continue'} onPress={() => {}} />
+        <SolidButton
+          text={'Continue'}
+          onPress={() =>
+            createTeam({
+              age,
+              height,
+              weight,
+              gender,
+            })
+          }
+        />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

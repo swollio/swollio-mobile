@@ -55,9 +55,9 @@ export default function App() {
   return (
     <TokenContextProvider>
       <UserContextProvider>
-        <AthleteWorkoutContextProvider>
-          <WorkoutsContextProvider>
-            <AthletesContextProvider>
+        <WorkoutsContextProvider>
+          <AthletesContextProvider>
+            <AthleteWorkoutContextProvider>
               <NavigationContainer>
                 <Stack.Navigator headerMode="none" initialRouteName="LoginPage">
                   <Stack.Screen name="LoginPage" component={LoginForm} />
@@ -93,9 +93,9 @@ export default function App() {
                   />
                 </Stack.Navigator>
               </NavigationContainer>
-            </AthletesContextProvider>
-          </WorkoutsContextProvider>
-        </AthleteWorkoutContextProvider>
+            </AthleteWorkoutContextProvider>
+          </AthletesContextProvider>
+        </WorkoutsContextProvider>
       </UserContextProvider>
     </TokenContextProvider>
   );
