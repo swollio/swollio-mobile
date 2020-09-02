@@ -9,16 +9,15 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import TabPageStyles from "../../pages/styles/TabPage";
 import LoadingView from "../molecules/LoadingView";
-
 import Color from "../../styles/Color";
 import Font from "../../styles/Font";
 import WaterMark from "./WaterMark";
 import { WorkoutsContext } from "../../utilities/WorkoutContext";
 
-function WorkoutListItem({ navigation, exercise }) {
+function WorkoutListItem({ exercise }) {
   return (
-    <View style={styles.athleteListItem}>
-      <Text style={styles.athleteListItemText}>{exercise.name}</Text>
+    <View style={styles.workoutListItem}>
+      <Text style={styles.workoutListItemText}>{exercise.name}</Text>
     </View>
   );
 }
@@ -58,7 +57,7 @@ export default function WorkoutList() {
 }
 
 const styles = StyleSheet.create({
-  athleteListItem: {
+  workoutListItem: {
     width: "100%",
     paddingVertical: 8,
     borderTopWidth: 1,
@@ -79,11 +78,12 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: Font.Header,
-    fontSize: 20,
+    fontSize: 24,
+    fontWeight: "600",
     marginVertical: 4,
   },
-  athleteListItemText: {
-    fontFamily: Font.Header,
-    fontSize: 12,
+  workoutListItemText: {
+    fontFamily: Font.Body,
+    fontSize: 16,
   },
 });

@@ -1,12 +1,21 @@
 import React from "react";
-import { KeyboardAvoidingView, SafeAreaView, StyleSheet } from "react-native";
+import {
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  View,
+  SafeAreaView,
+  StyleSheet,
+} from "react-native";
 import Colors from "../../styles/Color";
 
 export default function FormContainer({ children }) {
   return (
     <SafeAreaView style={styles.backgound}>
       <KeyboardAvoidingView style={styles.formContainer} behavior="padding">
-        {children}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={{ flex: 1 }}>{children}</View>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

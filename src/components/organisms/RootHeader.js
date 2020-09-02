@@ -38,6 +38,6 @@ const styles = StyleSheet.create({
   },
   headerButton: {
     width: 100,
-    height: 30,
+    height: 40,
   },
 });

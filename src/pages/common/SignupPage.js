@@ -103,7 +103,8 @@ export default function SignupPage() {
               last_name: lastName,
               email,
               password,
-            }).catch((error) => setErrorMessage(error))}
+            }).catch((error) => setErrorMessage(error))
+          }
         />
         <OutlinedButton
           text="Login"
