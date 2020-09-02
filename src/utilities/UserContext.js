@@ -23,8 +23,13 @@ export const UserContextProvider = ({children}) => {
     }
   }, [token]);
 
+  const refreshUser = () => {
+    if (token) {
+      getUser();
+    }
+  };
   return (
-    <UserContext.Provider value={{user, loading}}>
+    <UserContext.Provider value={{user, loading, refreshUser}}>
       {children}
     </UserContext.Provider>
   );
