@@ -42,7 +42,6 @@ function WorkoutCovers(props) {
       </Text>
       <GroupedWorkoutCovers
         key={index}
-        workout_id={workoutsGroupedByDate.workout_id}
         workouts={workoutsGroupedByDate.workouts}
         date={workoutsGroupedByDate.date}
       />

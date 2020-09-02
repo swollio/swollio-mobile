@@ -29,8 +29,6 @@ export default function AthleteHomeScreen() {
     return () => {};
   });
 
-  console.log(todaysWorkouts);
-
   const abCard = (
     <AbCard
       exercises={[
@@ -93,7 +91,7 @@ export default function AthleteHomeScreen() {
                       navigation.navigate('WorkoutPage', {
                         workout_id: workout.id,
                         assignments: workout.assignments,
-                        date: workout.date,
+                        date: todaysWorkouts.date,
                       })
                     }
                   />
