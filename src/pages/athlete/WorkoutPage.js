@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
   },
   safeAreaHeader: {
     height: '100%',
+    backgroundColor: Colors.Surface,
   },
   workoutBackground: {
     height: '100%',
