@@ -1,11 +1,11 @@
 import React from "react";
-import { ScrollView, View, SafeAreaView } from "react-native";
-
+import { View, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
 import RootHeader from "../../components/organisms/RootHeader";
+import WorkoutList from "../../components/organisms/WorkoutList";
 
 import TabPageStyles from "../styles/TabPage";
-import WorkoutList from "../../components/organisms/WorkoutList";
 
 export default function CoachWorkoutsScreen() {
   const navigation = useNavigation();
@@ -26,9 +26,7 @@ export default function CoachWorkoutsScreen() {
         }}
       />
       <View style={TabPageStyles.pageMain}>
-        <ScrollView style={TabPageStyles.scrollView}>
-          <WorkoutList />
-        </ScrollView>
+        <WorkoutList />
       </View>
     </SafeAreaView>
   );

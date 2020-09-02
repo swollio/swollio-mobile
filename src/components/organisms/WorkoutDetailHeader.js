@@ -26,6 +26,7 @@ export default function WorkoutDetailsHeader({
   onFinish,
   onChangeName,
   onToggleCalendar,
+  isSavingWorkout,
 }) {
   return (
     <View style={[headerStyles.container, headerStyles.header]}>
@@ -38,12 +39,14 @@ export default function WorkoutDetailsHeader({
         <OutlinedButton
           text={options.id ? "Save Workout" : "Create Workout"}
           onPress={onFinish}
+          disabled={isSavingWorkout}
           style={{ width: 160, height: 40 }}
         />
       </View>
       <TextInput
         placeholder="Untitled Workout"
         autoCapitalize="words"
+        editable={!isSavingWorkout}
         onChangeText={(text) => onChangeName(text)}
         style={[
           headerStyles.title,
@@ -52,6 +55,7 @@ export default function WorkoutDetailsHeader({
             borderBottomWidth: 1,
             paddingVertical: 8,
           },
+          isSavingWorkout && { color: Colors.SurfaceContrast2 },
         ]}
       >
         {options.name}
@@ -68,6 +72,7 @@ export default function WorkoutDetailsHeader({
         <OutlinedButton
           style={{ width: "auto", paddingHorizontal: 24 }}
           text={`${options.dates.length} workout dates`}
+          disabled={isSavingWorkout}
           onPress={onToggleCalendar}
         />
       </View>

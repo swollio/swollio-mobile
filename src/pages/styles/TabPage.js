@@ -17,5 +17,6 @@ export default StyleSheet.create({
   scrollView: {
     padding: 8,
     width: "100%",
+    flex: 1,
   },
 });

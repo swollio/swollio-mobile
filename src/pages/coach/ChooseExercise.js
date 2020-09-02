@@ -8,11 +8,46 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-
 import Icon from "react-native-vector-icons/FontAwesome5";
-import Colors from "../../styles/Color";
+
 import useApi from "../../utilities/api";
+
 import ActionHeader from "../../components/organisms/ActionHeader";
+
+import Colors from "../../styles/Color";
+
+function SearchBar({ searchTerm, setSearchTerm }) {
+  return (
+    <View style={searchBarStyles.searchBarContainer}>
+      <View style={searchBarStyles.searchBarIconContainer}>
+        <Icon name="search" size={24} color={Colors.SurfaceContrast2} />
+      </View>
+      <TextInput
+        height={50}
+        style={{ padding: 8, height: 50, flex: 1 }}
+        onChangeText={(text) => setSearchTerm(text)}
+        placeholder="Search for exercises"
+        value={searchTerm}
+      />
+    </View>
+  );
+}
+
+const searchBarStyles = StyleSheet.create({
+  searchBarContainer: {
+    flexDirection: "row",
+    backgroundColor: Colors.Background,
+    borderRadius: 25,
+    overflow: "hidden",
+    margin: 16,
+  },
+  searchBarIconContainer: {
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+  },
+});
 
 export default function SelectExercise({ navigation, route }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,35 +84,7 @@ export default function SelectExercise({ navigation, route }) {
         onAction={() => {}}
         pop={() => navigation.goBack()}
       />
-      <View style={{ flexDirection: "column", paddingHorizontal: 16 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: Colors.Background,
-            borderRadius: 25,
-            width: "100%",
-            overflow: "hidden",
-            marginVertical: 8,
-          }}
-        >
-          <View
-            style={{
-              height: 50,
-              alignItems: "center",
-              justifyContent: "center",
-              width: 50,
-            }}
-          />
-          <Icon name="search" size={24} color={Colors.SurfaceContrast2} />
-        </View>
-        <TextInput
-          height={50}
-          style={{ padding: 8, height: 50, flex: 1 }}
-          onChangeText={(text) => setSearchTerm(text)}
-          placeholder="Search for exercises"
-          value={searchTerm}
-        />
-      </View>
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <ScrollView style={{ flex: 1, backgroundColor: Colors.PrimaryContrast }}>
         {searchResults.map((exercise) => (
           <TouchableOpacity
@@ -89,7 +96,7 @@ export default function SelectExercise({ navigation, route }) {
             style={styles.section}
           >
             <Text style={styles.content}>{exercise.name}</Text>
-            <Icon name="plus" size={24} color={Colors.Primary} />
+            <Icon name="plus" size={20} color={Colors.Primary} />
           </TouchableOpacity>
         ))}
       </ScrollView>

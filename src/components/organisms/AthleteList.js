@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import Color from "../../styles/Color";
 import Font from "../../styles/Font";
 import OutlinedButton from "../atoms/OutlinedButton";
-
+import LoadingView from "../molecules/LoadingView";
 import { UserContext } from "../../utilities/UserContext";
 import { AthletesContext } from "../../utilities/AthletesContext";
 
@@ -45,9 +45,6 @@ export default function AthleteList() {
     }
   };
 
-  if (athletes === null) {
-    return <></>;
-  }
   return (
     <View style={styles.cardOuter}>
       <View style={styles.cardInner}>
@@ -62,6 +59,7 @@ export default function AthleteList() {
           <OutlinedButton
             text="Invite"
             onPress={onShare}
+            disabled={athletes === null}
             style={{
               width: "auto",
               paddingHorizontal: 16,
@@ -70,9 +68,13 @@ export default function AthleteList() {
             }}
           />
         </View>
-        {athletes.map((athlete) => (
-          <AthleteListItem key={athlete.id} {...athlete} />
-        ))}
+        {athletes ? (
+          athletes.map((athlete) => (
+            <AthleteListItem key={athlete.id} {...athlete} />
+          ))
+        ) : (
+          <LoadingView />
+        )}
       </View>
     </View>
   );

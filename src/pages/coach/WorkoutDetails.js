@@ -6,6 +6,7 @@ import Fonts from "../../styles/Font";
 
 import SolidButton from "../../components/atoms/SolidButton";
 
+import LoadingView from "../../components/molecules/LoadingView";
 import WorkoutDetailsHeader from "../../components/organisms/WorkoutDetailHeader";
 import WorkoutDetailsAssignments from "../../components/organisms/WorkoutDetailsAssignments";
 import Calendar from "../../components/organisms/Calendar";
@@ -18,13 +19,12 @@ const usePostWorkout = () => {
   const { user } = useContext(UserContext);
   const { refresh } = useContext(WorkoutsContext);
   const { postWorkoutForTeam } = useApi();
-  const [state, setState] = useState({ loading: false, result: null });
+  const [state, setState] = useState({ loading: false, response: null });
   const post = async (workout) => {
     setState((prev) => ({ ...prev, loading: true }));
     const response = await postWorkoutForTeam(user.team_id, workout);
-    const result = await response.text();
-    refresh();
-    setState((prev) => ({ ...prev, loading: false, result }));
+    await refresh();
+    setState((prev) => ({ ...prev, loading: false, response }));
   };
 
   return [state, post];
@@ -34,13 +34,12 @@ const useUpdateWorkout = () => {
   const { user } = useContext(UserContext);
   const { refresh } = useContext(WorkoutsContext);
   const { updateWorkoutForTeam } = useApi();
-  const [state, setState] = useState({ loading: false, result: null });
+  const [state, setState] = useState({ loading: false, response: null });
   const update = async (workout) => {
     setState((prev) => ({ ...prev, loading: true }));
     const response = await updateWorkoutForTeam(user.team_id, workout);
-    const result = await response.text();
-    refresh();
-    setState((prev) => ({ ...prev, loading: false, result }));
+    await refresh();
+    setState((prev) => ({ ...prev, loading: false, response }));
   };
 
   return [state, update];
@@ -55,7 +54,11 @@ function WorkoutDetailsCalendarContent({ dates, toggleCalendar, updateDates }) {
         </Text>
         <Calendar date={dates} onEdit={updateDates} />
       </View>
-      <SolidButton text="Done" onPress={toggleCalendar} />
+      <SolidButton
+        style={{ width: 200 }}
+        text="Done"
+        onPress={toggleCalendar}
+      />
     </View>
   );
 }
@@ -65,7 +68,12 @@ function WorkoutDetailsAssignmentsContent({
   assignments,
   addAssignment,
   updateAssignments,
+  isSavingWorkout,
 }) {
+  if (isSavingWorkout) {
+    return <LoadingView />;
+  }
+
   return (
     <>
       <WorkoutDetailsAssignments
@@ -75,6 +83,7 @@ function WorkoutDetailsAssignmentsContent({
       <View style={styles.addExerciseButtonContainer}>
         <SolidButton
           text="Add Exercise"
+          style={{ width: 200 }}
           onPress={() =>
             navigation.navigate("ChooseExercise", {
               onChoose: addAssignment,
@@ -89,29 +98,38 @@ function WorkoutDetailsAssignmentsContent({
 export default function WorkoutDetails({ navigation, route }) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [workout, setWorkout] = useState({ ...route.params.workout });
-  const [, updateWorkout] = useUpdateWorkout();
-  const [, postWorkout] = usePostWorkout();
+  const [updateState, updateWorkout] = useUpdateWorkout();
+  const [postState, postWorkout] = usePostWorkout();
+  const isSavingWorkout = updateState.loading || postState.loading;
 
   const updateName = (name) => {
-    setWorkout({ ...workout, name });
+    if (!isSavingWorkout) {
+      setWorkout({ ...workout, name });
+    }
   };
 
   const updateDates = (dates) => {
-    setWorkout({ ...workout, dates });
+    if (!isSavingWorkout) {
+      setWorkout({ ...workout, dates });
+    }
   };
 
   const updateAssignments = (assignments) => {
-    setWorkout({ ...workout, assignments });
+    if (!isSavingWorkout) {
+      setWorkout({ ...workout, assignments });
+    }
   };
 
   const addAssignment = (exercise) => {
-    setWorkout({
-      ...workout,
-      assignments: [
-        ...workout.assignments,
-        { exercise, rep_count: [10, 8, 6] },
-      ],
-    });
+    if (!isSavingWorkout) {
+      setWorkout({
+        ...workout,
+        assignments: [
+          ...workout.assignments,
+          { exercise, rep_count: [10, 8, 6] },
+        ],
+      });
+    }
   };
 
   return (
@@ -126,20 +144,20 @@ export default function WorkoutDetails({ navigation, route }) {
             updateWorkout({
               ...workout,
               name: workout.name || "Untitled Workout",
-            });
+            }).then(() => navigation.goBack());
           } else {
             postWorkout({
               ...workout,
               name: workout.name || "Untitled Workout",
-            });
+            }).then(() => navigation.goBack());
           }
-          navigation.goBack();
         }}
+        isSavingWorkout={isSavingWorkout}
         onToggleCalendar={() => setShowCalendar(!showCalendar)}
         onChangeName={updateName}
       />
       <View style={styles.contentContainer}>
-        {showCalendar ? (
+        {showCalendar && !isSavingWorkout ? (
           <WorkoutDetailsCalendarContent
             toggleCalendar={() => setShowCalendar(!showCalendar)}
             dates={workout.dates}
@@ -151,6 +169,7 @@ export default function WorkoutDetails({ navigation, route }) {
             assignments={workout.assignments}
             updateAssignments={updateAssignments}
             addAssignment={addAssignment}
+            isSavingWorkout={isSavingWorkout}
           />
         )}
       </View>

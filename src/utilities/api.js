@@ -5,40 +5,36 @@ import { TokenContext } from "./TokenContext";
 import config from "../config.json";
 
 export default function useApi() {
-  const { token, setToken } = useContext(TokenContext);
+  const { token, setToken, removeToken } = useContext(TokenContext);
 
-  const signup = (user) => {
-    return fetch(`${config.api}/auth/signup`, {
+  const signup = async (user) => {
+    const result = await fetch(`${config.api}/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
-    })
-      .then((result) => {
-        if (result.status === 200) {
-          return result.text();
-        }
-        throw result.text();
-      })
-      .then((t) => setToken(t));
+    });
+    if (result.status === 200) {
+      setToken(await result.text());
+    } else {
+      throw await result.json();
+    }
   };
 
-  const login = (email, password) => {
-    return fetch(`${config.api}/auth/login`, {
+  const login = async (email, password) => {
+    const result = await fetch(`${config.api}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    })
-      .then((result) => {
-        if (result.status === 200) {
-          return result.text();
-        }
-        throw result.text();
-      })
-      .then((t) => setToken(t));
+    });
+    if (result.status === 200) {
+      setToken(await result.text());
+    } else {
+      throw await result.json();
+    }
   };
 
   const tokenPayload = (token) => {
@@ -61,34 +57,38 @@ export default function useApi() {
     return tokenPayload(token).user_id;
   };
 
-  const get = (route) => {
-    return fetch(`${config.api}/${route}`, {
+  const get = async (route) => {
+    const result = await fetch(`${config.api}/${route}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Cache-Control": "no-cache",
       },
-    }).then((result) => {
-      if (result.status === 200) {
-        return result;
-      }
-      throw result.text();
     });
+    if (result.status === 200) {
+      return result.json();
+    }
+    if (result.status === 401) {
+      return removeToken();
+    }
+    throw await result.json();
   };
 
-  const post = (route, body) => {
-    return fetch(`${config.api}/${route}`, {
+  const post = async (route, body) => {
+    const result = await fetch(`${config.api}/${route}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
-    }).then((result) => {
-      if (result.status === 200) {
-        return result;
-      }
-      throw result.text();
     });
+    if (result.status === 200) {
+      return result.json();
+    }
+    if (result.status === 401) {
+      return removeToken();
+    }
+    throw await result.json();
   };
 
   /**
@@ -98,58 +98,50 @@ export default function useApi() {
    *
    * @param {string} route - the route to query
    */
-  const put = (route, body) => {
-    return fetch(`${config.api}/${route}`, {
+  const put = async (route, body) => {
+    const result = await fetch(`${config.api}/${route}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
-    }).then((result) => {
-      if (result.status === 200) {
-        return result;
-      }
-      throw result.text();
     });
+    if (result.status === 200) {
+      return result.json();
+    }
+    if (result.status === 401) {
+      return removeToken();
+    }
+    throw await result.json();
   };
 
   const currentUser = () => {
-    return get(`users/${currentUserId()}`).then((result) => result.json());
+    return get(`users/${currentUserId()}`);
   };
 
   const getWorkoutsForAthlete = (athlete_id) => {
-    return get(`athletes/${athlete_id}/workouts`).then((result) =>
-      result.json()
-    );
+    return get(`athletes/${athlete_id}/workouts`);
   };
 
   const getTodaysWorkoutsForAthlete = (athlete_id) => {
-    return get(`athletes/${athlete_id}/workouts?date=today`).then((result) =>
-      result.json()
-    );
+    return get(`athletes/${athlete_id}/workouts?date=today`);
   };
 
   const getAssignmentsForTeamWorkout = (team_id, workout_id) => {
-    return get(`teams/${team_id}/workouts/${workout_id}`).then((result) =>
-      result.json()
-    );
+    return get(`teams/${team_id}/workouts/${workout_id}`);
   };
 
   const getAssignmentsForWorkout = (athlete_id, workout_id) => {
-    return get(`athletes/${athlete_id}/workouts/${workout_id}`).then((result) =>
-      result.json()
-    );
+    return get(`athletes/${athlete_id}/workouts/${workout_id}`);
   };
 
   const getWorkoutForTeam = (team_id, workout_id) => {
-    return get(`athletes/${team_id}/workouts/${workout_id}`).then((result) =>
-      result.json()
-    );
+    return get(`athletes/${team_id}/workouts/${workout_id}`);
   };
 
   const getWorkoutsForTeam = (team_id) => {
-    return get(`teams/${team_id}/workouts`).then((result) => result.json());
+    return get(`teams/${team_id}/workouts`);
   };
 
   const createAthlete = (athlete) => {
@@ -160,19 +152,15 @@ export default function useApi() {
   };
 
   const getAthletesForTeam = (team_id) => {
-    return get(`teams/${team_id}/athletes`)
-      .then((result) => result.json())
-      .then((result) => {
-        return result;
-      });
+    return get(`teams/${team_id}/athletes`);
   };
 
   const getTeamData = (team_id) => {
-    return get(`teams/${team_id}`).then((result) => result.json());
+    return get(`teams/${team_id}`);
   };
 
   const searchExercisesByName = (name) => {
-    return get(`exercises?search=${name}`).then((result) => result.json());
+    return get(`exercises?search=${name}`);
   };
 
   const postWorkoutForTeam = (team_id, workout) => {
@@ -188,48 +176,35 @@ export default function useApi() {
   };
 
   const getAlternativesForExercises = (exercise_id) => {
-    return get(`exercises/${exercise_id}/similar`).then((result) =>
-      result.json()
-    );
+    return get(`exercises/${exercise_id}/similar`);
   };
 
   const postPostWorkoutSurvey = (athlete_id, workout_id, surveyResult) => {
-    return post(
-      `athletes/${athlete_id}/surveys/${workout_id}`,
-      surveyResult
-    ).then((result) => result.text());
+    return post(`athletes/${athlete_id}/surveys/${workout_id}`, surveyResult);
   };
 
   const getStatisticsForAthlete = (athlete_id) => {
-    return get(`athletes/${athlete_id}/exercises`).then((result) =>
-      result.json()
-    );
+    return get(`athletes/${athlete_id}/exercises`);
   };
 
   const postAthleteTeamTag = (athlete_id, team_tag_id) => {
-    return post(`teams/tags/${athlete_id}/${team_tag_id}`).then((result) =>
-      result.text()
-    );
+    return post(`teams/tags/${athlete_id}/${team_tag_id}`);
   };
 
   const getTagsForTeam = (team_id) => {
-    return get(`teams/${team_id}/tags`).then((result) => result.json());
+    return get(`teams/${team_id}/tags`);
   };
 
   const getAthleteTags = (athlete_id, team_id) => {
-    return get(`teams/${team_id}/athletes/${athlete_id}/tags`).then((result) =>
-      result.json()
-    );
+    return get(`teams/${team_id}/athletes/${athlete_id}/tags`);
   };
 
   const postTeamTag = (team_id, tag) => {
-    return post(`teams/${team_id}/tags/${tag}`).then((result) => result.text());
+    return post(`teams/${team_id}/tags/${tag}`);
   };
 
   const createCustomExerciseForTeam = (team_id, exercise) => {
-    return post(`teams/${team_id}/exercises`, exercise).then((result) =>
-      result.json()
-    );
+    return post(`teams/${team_id}/exercises`, exercise);
   };
   const getMusclesList = () => {
     return [

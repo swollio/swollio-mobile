@@ -1,6 +1,14 @@
 import React, { useContext } from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import TabPageStyles from "../../pages/styles/TabPage";
+import LoadingView from "../molecules/LoadingView";
 
 import Color from "../../styles/Color";
 import Font from "../../styles/Font";
@@ -21,14 +29,14 @@ export default function WorkoutList() {
   const navigation = useNavigation();
 
   if (workouts === null) {
-    return <WaterMark title="Loading..." />;
+    return <LoadingView />;
   }
   if (workouts.length === 0) {
     return <WaterMark title="No Workouts" />;
   }
 
   return (
-    <>
+    <ScrollView style={TabPageStyles.scrollView}>
       {workouts.map((workout, index) => (
         <TouchableOpacity
           onPress={() => {
@@ -45,7 +53,7 @@ export default function WorkoutList() {
           </View>
         </TouchableOpacity>
       ))}
-    </>
+    </ScrollView>
   );
 }
 

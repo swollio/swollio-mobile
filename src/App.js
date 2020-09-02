@@ -53,12 +53,12 @@ function AthleteDetailsScreen() {
 
 export default function App() {
   return (
-    <TokenContextProvider>
-      <UserContextProvider>
-        <WorkoutsContextProvider>
-          <AthletesContextProvider>
-            <AthleteWorkoutContextProvider>
-              <NavigationContainer>
+    <NavigationContainer>
+      <TokenContextProvider>
+        <UserContextProvider>
+          <WorkoutsContextProvider>
+            <AthletesContextProvider>
+              <AthleteWorkoutContextProvider>
                 <Stack.Navigator headerMode="none" initialRouteName="LoginPage">
                   <Stack.Screen name="LoginPage" component={LoginForm} />
                   <Stack.Screen
@@ -128,12 +128,12 @@ export default function App() {
                     component={ChooseExercise}
                   />
                 </Stack.Navigator>
-              </NavigationContainer>
-            </AthleteWorkoutContextProvider>
-          </AthletesContextProvider>
-        </WorkoutsContextProvider>
-      </UserContextProvider>
-    </TokenContextProvider>
+              </AthleteWorkoutContextProvider>
+            </AthletesContextProvider>
+          </WorkoutsContextProvider>
+        </UserContextProvider>
+      </TokenContextProvider>
+    </NavigationContainer>
   );
 }
 

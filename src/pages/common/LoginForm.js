@@ -15,6 +15,7 @@ import Colors from "../../styles/Color";
 import useApi from "../../utilities/api";
 
 import LoginStyles from "./styles/LoginStyles";
+import LoadingView from "../../components/molecules/LoadingView";
 
 export default function LoginForm() {
   const navigation = useNavigation();
@@ -46,7 +47,12 @@ export default function LoginForm() {
    *
    * TODO: Display a loading screen.
    */
-  if (token) return <></>;
+  if (token)
+    return (
+      <FormContainer>
+        <LoadingView />
+      </FormContainer>
+    );
 
   return (
     <FormContainer>
@@ -93,7 +99,6 @@ export default function LoginForm() {
 const styles = StyleSheet.create({
   textInputContainer: {
     color: Colors.SurfaceContrast,
-    backgroundColor: Colors.Background,
     paddingHorizontal: 16,
     fontSize: 16,
     paddingVertical: 16,

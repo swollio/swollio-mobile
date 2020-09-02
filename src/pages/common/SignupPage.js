@@ -118,7 +118,6 @@ export default function SignupPage() {
 const styles = StyleSheet.create({
   textInputContainer: {
     color: Colors.SurfaceContrast,
-    backgroundColor: Colors.Background,
     paddingHorizontal: 16,
     fontSize: 16,
     paddingVertical: 16,

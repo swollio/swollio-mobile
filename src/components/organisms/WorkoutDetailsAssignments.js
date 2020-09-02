@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, View, StyleSheet, Text } from "react-native";
 import Colors from "../../styles/Color";
 import WaterMark from "./WaterMark";
 import AssignmentCard from "./AssignmentCard";
@@ -11,11 +11,11 @@ export default function WorkoutDetailsAssignments(props) {
         <Text style={styles.watermarkText}>
           Add exercises to this workout to get started. You will be able to
           choose from a list of curated exercises, or create your own!
-{" "}
         </Text>
       </WaterMark>
     );
   }
+
   return (
     <ScrollView
       width="100%"

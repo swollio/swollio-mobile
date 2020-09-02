@@ -3,14 +3,36 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import Colors from "../../styles/Color";
 import Fonts from "../../styles/Font";
 
-export default function OutlinedButton({ margin, style, text, onPress }) {
+export default function OutlinedButton({
+  margin,
+  disabled,
+  style,
+  text,
+  onPress,
+}) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      style={[styles.optionButton, { margin }, style]}
-      onPress={onPress}
+      style={[
+        styles.optionButton,
+        { margin },
+        style,
+        disabled && {
+          borderColor: Colors.SurfaceContrast2,
+        },
+      ]}
+      onPress={() => (!disabled ? onPress() : null)}
     >
-      <Text style={styles.title}>{text}</Text>
+      <Text
+        style={[
+          styles.title,
+          disabled && {
+            color: Colors.SurfaceContrast2,
+          },
+        ]}
+      >
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 }

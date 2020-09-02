@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import moment from "moment";
+import LoadingView from "../molecules/LoadingView";
 
 import Colors from "../../styles/Color";
 import Fonts from "../../styles/Font";
@@ -30,7 +31,8 @@ function GroupedWorkoutItem({ groupedWorkouts }) {
               onPress={() =>
                 navigation.navigate("EditWorkout", {
                   workout,
-                })}
+                })
+              }
             >
               <Text style={styles.groupedWorkoutItemWorkoutText}>
                 {workout.name}
@@ -75,9 +77,6 @@ export default function UpcomingWorkoutList() {
     }
   }, [workouts]);
 
-  if (groupedWorkouts === null) {
-    return <></>;
-  }
   return (
     <View style={styles.cardOuter}>
       <View style={styles.cardInner}>
@@ -86,6 +85,7 @@ export default function UpcomingWorkoutList() {
           <OutlinedButton
             text="Create"
             style={styles.outlinedButton}
+            disabled={!groupedWorkouts}
             onPress={() =>
               navigation.navigate("EditWorkout", {
                 workout: {
@@ -93,12 +93,17 @@ export default function UpcomingWorkoutList() {
                   dates: [],
                   assignments: [],
                 },
-              })}
+              })
+            }
           />
         </View>
-        {Object.values(groupedWorkouts).map((workoutGroup, i) => (
-          <GroupedWorkoutItem key={i} groupedWorkouts={workoutGroup} />
-        ))}
+        {groupedWorkouts ? (
+          Object.values(groupedWorkouts).map((workoutGroup, i) => (
+            <GroupedWorkoutItem key={i} groupedWorkouts={workoutGroup} />
+          ))
+        ) : (
+          <LoadingView />
+        )}
       </View>
     </View>
   );
@@ -113,7 +118,7 @@ const styles = StyleSheet.create({
   },
   groupedWorkoutItemDateContainer: {
     alignItems: "center",
-    paddingHorizontal: 8,
+    padding: 12,
   },
   groupedWorkoutItemDateTextDay: {
     color: Colors.SurfaceContrast,
@@ -137,7 +142,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderColor: "#EEE",
-    padding: 8,
+    padding: 12,
   },
   groupedWorkoutItemWorkoutText: {
     fontFamily: Fonts.Header,
