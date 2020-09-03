@@ -36,11 +36,12 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 25,
+    borderRadius: 8,
   },
   text: {
     fontSize: 16,
-    fontFamily: Fonts.Header,
+    fontFamily: Fonts.Body,
+    fontWeight: "bold",
     color: Colors.PrimaryContrast,
   },
 });

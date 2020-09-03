@@ -10,9 +10,10 @@ export default StyleSheet.create({
     marginVertical: 4,
   },
   subtitle: {
-    fontFamily: Fonts.Header,
+    fontFamily: Fonts.Body,
+    fontWeight: "300",
     color: Colors.SurfaceContrast2,
-    fontSize: 18,
+    fontSize: 20,
     marginVertical: 4,
   },
 });

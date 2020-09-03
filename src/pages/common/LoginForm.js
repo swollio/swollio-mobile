@@ -1,5 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, TextInput } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+  TextInput,
+} from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import SolidButton from "../../components/atoms/SolidButton";
@@ -16,6 +22,23 @@ import useApi from "../../utilities/api";
 
 import LoginStyles from "./styles/LoginStyles";
 import LoadingView from "../../components/molecules/LoadingView";
+import Font from "../../styles/Font";
+
+function Link({ onPress, children }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <Text
+        style={{
+          fontFamily: Font.Body,
+          fontSize: 16,
+          textDecorationLine: "underline",
+        }}
+      >
+        {children}
+      </Text>
+    </TouchableOpacity>
+  );
+}
 
 export default function LoginForm() {
   const navigation = useNavigation();
@@ -56,9 +79,10 @@ export default function LoginForm() {
 
   return (
     <FormContainer>
-      <FormGroup flex={1} justifyContent="center">
-        <Text style={LoginStyles.title}>Hello.</Text>
-        <Text style={LoginStyles.subtitle}>Please login to continue</Text>
+      <Text style={LoginStyles.title}>Hello.</Text>
+      <Text style={LoginStyles.subtitle}>Please login to continue</Text>
+
+      <View style={{ marginVertical: 16 }}>
         <ErrorMessage title="Login Failed" message={errorMessage} />
         <TextInput
           style={styles.textInputContainer}
@@ -77,21 +101,52 @@ export default function LoginForm() {
           autoCorrect={false}
           keyboardAppearance="light"
         />
-      </FormGroup>
+      </View>
 
-      <FormGroup>
-        <SolidButton
-          text="Login"
-          margin={8}
-          onPress={() => login(email, password)}
-        />
+      <View
+        style={{
+          flexDirection: "row",
+          paddingVertical: 24,
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: Font.Body,
+            fontSize: 16,
+            fontWeight: "300",
+            textAlign: "center",
+            color: Colors.SurfaceContrast2,
+          }}
+        >
+          By logging in, you agree to Swollio's Privacy Policy and Terms of Use
+        </Text>
+      </View>
 
-        <OutlinedButton
-          text="Create Account"
-          margin={8}
-          onPress={() => navigation.navigate("SignupPage")}
-        />
-      </FormGroup>
+      <SolidButton text="Login" onPress={() => login(email, password)} />
+
+      <View
+        style={{
+          flexDirection: "row",
+          paddingVertical: 24,
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: Font.Body,
+            fontSize: 16,
+            paddingHorizontal: 8,
+            color: Colors.SurfaceContrast2,
+          }}
+        >
+          Not a member?
+        </Text>
+
+        <Link onPress={() => navigation.navigate("SignupPage")}>
+          Create Account
+        </Link>
+      </View>
     </FormContainer>
   );
 }

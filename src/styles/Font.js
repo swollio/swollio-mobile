@@ -1,5 +1,5 @@
 export default {
   Header: "Comfortaa",
-  Body: "Comfortaa",
+  Body: "Roboto",
   Title: "Comfortaa",
 };

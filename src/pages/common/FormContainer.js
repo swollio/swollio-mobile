@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  KeyboardAvoidingView,
-  Keyboard,
-  View,
-  SafeAreaView,
-  StyleSheet,
-} from "react-native";
+import { View, SafeAreaView, StyleSheet } from "react-native";
 import { KeyboardAwareScrollView } from "@codler/react-native-keyboard-aware-scroll-view";
 import Colors from "../../styles/Color";
 
@@ -28,8 +22,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.PrimaryContrast,
   },
   formContainer: {
-    justifyContent: "space-between",
     alignItems: "stretch",
     flex: 1,
+    padding: 24,
   },
 });
