@@ -1,22 +1,23 @@
 import React from "react";
 import {
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   Keyboard,
   View,
   SafeAreaView,
   StyleSheet,
 } from "react-native";
+import { KeyboardAwareScrollView } from "@codler/react-native-keyboard-aware-scroll-view";
 import Colors from "../../styles/Color";
 
 export default function FormContainer({ children }) {
   return (
     <SafeAreaView style={styles.backgound}>
-      <KeyboardAvoidingView style={styles.formContainer} behavior="padding">
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={{ flex: 1 }}>{children}</View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.formContainer}
+        behavior="padding"
+      >
+        <View style={{ flex: 1 }}>{children}</View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
