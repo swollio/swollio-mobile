@@ -13,6 +13,7 @@ export const AthleteWorkoutContextProvider = ({ children }) => {
   const getWorkouts = async (id) => {
     setLoading(true);
     const result = await getWorkoutsForAthlete(id);
+    console.log(result);
     setWorkouts(result);
     setLoading(false);
   };

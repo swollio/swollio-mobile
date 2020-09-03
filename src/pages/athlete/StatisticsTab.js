@@ -1,23 +1,16 @@
 import * as React from "react";
-import { Text, Button, View, SafeAreaView } from "react-native";
+import { View, SafeAreaView } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
 import RootHeader from "../../components/organisms/RootHeader";
-
+import WaterMark from "../../components/organisms/WaterMark";
 import TabPageStyles from "../styles/TabPage";
 
 export default function AthleteStatisticsScreen() {
-  const navigation = useNavigation();
-
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
       <RootHeader title="Progress." />
       <View style={TabPageStyles.pageMain}>
-        <Text>Athlete Statistics Screen</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate("Details")}
-        />
+        <WaterMark title="There are no athlete statistics at this time." />
       </View>
     </SafeAreaView>
   );
