@@ -85,21 +85,22 @@ export default function AthleteHomeScreen() {
                 </Text>
               </Card>
             )) ||
-            todaysWorkouts.map((workout) => {
+            todaysWorkouts.workouts.map((workout) => {
               return (
                 <WorkoutCover
                   key={workout.id}
                   color={Colors.Primary}
-                  completed={workout.details.completed}
-                  title={workout.details.name}
-                  team_name={workout.details.team_name}
+                  completed={workout.completed}
+                  title={workout.name}
+                  team_name={workout.team_name}
                   created={workout.date}
                   onStartWorkout={() =>
                     navigation.navigate("WorkoutPage", {
                       workout_id: workout.id,
                       assignments: workout.assignments,
                       date: todaysWorkouts.date,
-                    })}
+                    })
+                  }
                 />
               );
             })}
