@@ -104,8 +104,8 @@ export default function AthleteHomeScreen() {
                 />
               );
             })}
-          <Text style={styles.sectionLabel}>Featured</Text>
-          {abCard}
+          {/* <Text style={styles.sectionLabel}>Featured</Text>
+          {abCard} */}
         </ScrollView>
       </View>
     </SafeAreaView>
