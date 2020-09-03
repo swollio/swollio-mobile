@@ -100,9 +100,9 @@ function WorkoutCompleteConfirmation(props) {
  * It stores the current state of the workout progress. Upon workout completion,
  * it sends the results of the workout to the server.
  */
-export default function WorkoutPage(props) {
+export default function WorkoutPage({ route, workout }) {
   // The list of assignments to be completed by the athlete
-  const { assignments } = props.route.params;
+  const { assignments } = route.params;
   /*
    * Results stores a 2D array of workout_results.
    * The outer array groups results by exercise.
@@ -130,7 +130,7 @@ export default function WorkoutPage(props) {
           assignment_id: assignment.id,
           exercise_id: assignment.exercise.id,
           initalReps: reps,
-          date: props.route.params.date,
+          date: route.params.date,
 
           // These fields will be changed by the athlete as they complete the workout
           reps,
@@ -139,14 +139,14 @@ export default function WorkoutPage(props) {
         }))
       )
     );
-  }, [assignments, props.route.params.date]);
+  }, [assignments, route.params.date]);
 
   return (
     (complete && (
       <WorkoutCompleteConfirmation
-        workout_id={props.route.params.workout_id}
-        date={props.route.params.date}
-        workout={props.workout}
+        workout_id={route.params.workout_id}
+        date={route.params.date}
+        workout={workout}
         results={results}
         setComplete={(b) => setComplete(b)}
       />
