@@ -11,7 +11,7 @@ import Colors from "../../styles/Color";
 import Font from "../../styles/Font";
 import TabPageStyles from "../styles/TabPage";
 import LoadingPage from "../LoadingPage";
-import AbCard from "../../components/organisms/AbCard";
+// import AbCard from "../../components/organisms/AbCard";
 import WorkoutCover from "../../components/organisms/WorkoutCover";
 import Card from "../../components/organisms/Card";
 
@@ -25,35 +25,35 @@ export default function AthleteHomeScreen() {
   useEffect(() => {
     if (todaysWorkouts === null) {
       getTodaysWorkoutsForAthlete(user.athlete_id).then((data) =>
-        setTodaysWorkouts(data)
+        setTodaysWorkouts(data[0])
       );
     }
     return () => {};
   });
 
-  const abCard = (
-    <AbCard
-      exercises={[
-        "High Plank",
-        "Russian Twists",
-        "Pidgeon Crunches",
-        "Side Plank",
-        "Low Plank",
-        "Penguins",
-        "Crunches",
-        "In-and-outs",
-        "Reverse Crunches",
-        "V-Ups",
-        "Bicycle Kicks",
-        "Low Plank",
-        "Flutter Kicks",
-        "Situps",
-        "V Sit",
-        "Leg Lifts",
-        "V Ups",
-      ]}
-    />
-  );
+  // const abCard = (
+  //   <AbCard
+  //     exercises={[
+  //       "High Plank",
+  //       "Russian Twists",
+  //       "Pidgeon Crunches",
+  //       "Side Plank",
+  //       "Low Plank",
+  //       "Penguins",
+  //       "Crunches",
+  //       "In-and-outs",
+  //       "Reverse Crunches",
+  //       "V-Ups",
+  //       "Bicycle Kicks",
+  //       "Low Plank",
+  //       "Flutter Kicks",
+  //       "Situps",
+  //       "V Sit",
+  //       "Leg Lifts",
+  //       "V Ups",
+  //     ]}
+  //   />
+  // );
 
   if (!user) {
     return <LoadingPage />;
@@ -78,7 +78,7 @@ export default function AthleteHomeScreen() {
               <Text style={[styles.cardTitle, styles.padding]}>Loading...</Text>
             </Card>
           )) ||
-            (todaysWorkouts.length === 0 && (
+            (todaysWorkouts.workouts.length === 0 && (
               <Card>
                 <Text style={[styles.cardTitle, styles.padding]}>
                   No Workouts Today
