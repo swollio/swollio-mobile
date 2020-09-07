@@ -78,22 +78,12 @@ function AssignmentDataCard(props) {
         <Text style={styles.assignmentTitle}>
           {props.assignment.exercise.name}
         </Text>
-        <TouchableOpacity
+        <Icon
+          size={24}
           onPress={props.onDelete}
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Icon
-            size={24}
-            style={{ color: Colors.SurfaceContrast }}
-            name="trash"
-          />
-        </TouchableOpacity>
+          style={{ color: Colors.SurfaceContrast }}
+          name="times"
+        />
       </View>
       <AssignmentSetInfo
         style={{ marginVertical: 16 }}
@@ -124,16 +114,10 @@ function AssignmentEditCard(props) {
         <OutlinedButton
           style={{ width: "auto", height: 40, paddingHorizontal: 16 }}
           text="Remove Set"
-          onPress={() => {
-            props.onChange(0);
-            props.onCompleted();
-          }}
+          onPress={() => props.onRemove()}
         />
       </View>
-      <Text style={styles.assignmentBody}>
-        This value indicates the number of each exercise that the athlete should
-        complete
-      </Text>
+
       <View style={{ alignItems: "center", padding: 16 }}>
         <ScrollPicker
           style={{ marginVertical: 16 }}
@@ -141,7 +125,11 @@ function AssignmentEditCard(props) {
           onChange={props.onChange}
           data={[...Array(100).keys()].map((x) => x)}
         />
-        <OutlinedButton onPress={props.onCompleted} text="Set Rep Count" />
+        <OutlinedButton
+          style={{ paddingHorizontal: 16 }}
+          onPress={props.onCompleted}
+          text="Set Rep Count"
+        />
       </View>
     </Card>
   );
@@ -174,6 +162,17 @@ export default function AssignmentCard(props) {
         const rep_count = [...props.assignment.rep_count];
         rep_count[edited] = i;
         props.onUpdate({ ...props.assignment, rep_count });
+      }}
+      onRemove={() => {
+        const repCount = [...props.assignment.rep_count];
+        repCount.splice(edited, 1);
+
+        while (repCount.length < 5) {
+          repCount.push(0);
+        }
+
+        props.onUpdate({ ...props.assignment, rep_count: repCount });
+        setEdited(null);
       }}
       onCompleted={() => {
         const rep_count = [];

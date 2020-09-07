@@ -68,9 +68,11 @@ export default class ScrollPicker extends Component {
               activeOpacity={0.8}
               style={{
                 width: 60,
-                height: 60,
+                height: 50,
                 alignItems: "center",
                 justifyContent: "center",
+                borderRightWidth: 1,
+                borderColor: '#EEE',
               }}
               onPress={() =>
                 this.flatListRef.scrollToIndex({ index, viewPosition: 0.5 })
@@ -86,9 +88,10 @@ export default class ScrollPicker extends Component {
                 <Text
                   style={{
                     fontSize: 20,
+                    textAlign: 'center',
                     color:
                       index === this.state.selected
-                        ? Colors.PrimaryContrast
+                        ? Colors.Primary
                         : Colors.SurfaceContrast2,
                   }}
                 >
@@ -106,16 +109,11 @@ export default class ScrollPicker extends Component {
 const styles = StyleSheet.create({
   item: {
     width: 50,
-    height: 50,
+    height: 30,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 25,
-    backgroundColor: Colors.Background,
+
   },
-  emptyItem: {
-    backgroundColor: Colors.Surface,
-  },
-  selectedItem: {
-    backgroundColor: Colors.Primary,
-  },
+
+
 });
