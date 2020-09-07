@@ -68,7 +68,7 @@ export default function UpcomingWorkoutList() {
       const unnested = [];
       workouts.forEach((workout) => {
         workout.dates.forEach((date) => {
-          if (moment.utc(date).isAfter(moment(), "day")) {
+          if (moment.utc(date).isSameOrAfter(moment.utc(moment()), "day")) {
             unnested.push({ date, workout });
           }
         });
