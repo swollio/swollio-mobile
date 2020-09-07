@@ -39,10 +39,10 @@ export default function PostWorkoutSurvey(props) {
       </View>
 
       <View style={styles.form}>
-        <Text style={styles.question}>Give this workout a rating: </Text>
+        <Text style={styles.question}>Rate this workout: </Text>
         <ButtonRow
           style={styles.toggleButton}
-          buttons={[1, 2, 3, 4, 5]}
+          buttons={["Too Easy", "Just Right", "Too Hard"]}
           onChange={(val) => setWorkoutRating(val)}
         />
         <Text style={styles.question}>
@@ -58,7 +58,6 @@ export default function PostWorkoutSurvey(props) {
         />
         <Text style={styles.question}>
           Please rank how you are feeling today:
-{" "}
         </Text>
         <ButtonRow
           style={styles.toggleButton}
@@ -118,16 +117,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   question: {
-    fontSize: 20,
-    fontFamily: Font.Header,
+    fontSize: 22,
+    fontFamily: Font.Body,
     textAlign: "left",
+    width: "100%",
   },
   headerIcon: {
     fontSize: 30,
     color: Colors.PrimaryContrast,
   },
   toggleButton: {
-    padding: 10,
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -136,8 +135,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginRight: 8,
     marginLeft: 8,
-    marginTop: 20,
-    marginBottom: 20,
   },
   scrollPicker: {
     marginTop: 20,

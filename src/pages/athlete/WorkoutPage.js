@@ -10,7 +10,8 @@ import WaterMark from "../../components/organisms/WaterMark";
 import OutlinedButton from "../../components/atoms/SolidButton";
 import headerStyles from "../../components/organisms/styles/Header";
 import { UserContext } from "../../utilities/UserContext";
-
+import ButtonRow from "../../components/molecules/ButtonRow";
+import ActionHeader from "../../components/organisms/ActionHeader";
 /**
  * Header is the header component for the Athlete Workout Page.
  * It contains a back button as well as a check button to mark the
@@ -49,7 +50,8 @@ function Header(props) {
 function WorkoutCompleteConfirmation(props) {
   const { user } = useContext(UserContext);
   const navigation = useNavigation();
-  const { postAthleteWorkoutResult } = useApi();
+  const { postAthleteWorkoutResult, postPostWorkoutSurvey } = useApi();
+  const [workoutDifficulty, setWorkoutDifficulty] = useState(null);
 
   return (
     <SafeAreaView style={styles.safeAreaHeader}>
@@ -60,19 +62,23 @@ function WorkoutCompleteConfirmation(props) {
         onPress={() => props.setComplete(false)}
       />
       <View style={styles.completeView}>
-        <Text style={[headerStyles.title, styles.completeText]}>
+        <Text style={[headerStyles.title, { marginBottom: 16 }]}>
           Workout Complete!
         </Text>
-        <Text style={[headerStyles.subtitle, styles.completeText]}>
-          Once you proceed, you will be not be able to make any changes.
-        </Text>
-        <Text style={[headerStyles.subtitle, styles.completeSubText]}>
-          If you are done, press submit and continue on to the post-workout
-          survey.
-        </Text>
+
+        <View style={{ width: "80%", marginBottom: 18 }}>
+          <Text style={[headerStyles.subtitle, styles.completeText]}>
+            How difficult was this workout?
+          </Text>
+          <ButtonRow
+            buttons={["Too Easy", "Just Right", "Too Hard"]}
+            onChange={(val, i) => setWorkoutDifficulty(i)}
+          />
+        </View>
 
         <OutlinedButton
           text="Submit Workout"
+          style={{ paddingHorizontal: 16 }}
           onPress={() => {
             if (user.athlete_id === null) {
               return;
@@ -81,12 +87,16 @@ function WorkoutCompleteConfirmation(props) {
               user.athlete_id,
               props.workout_id,
               props.results.flat().filter((x) => x.created !== null)
-            ).then(() => {
-              navigation.navigate("PostWorkoutSurvey", {
-                date: props.date,
-                id: props.workout_id,
+            )
+              .then(() =>
+                postPostWorkoutSurvey(user.athlete_id, props.workout_id, {
+                  due_date: props.date,
+                  difficuly: workoutDifficulty,
+                })
+              )
+              .then(() => {
+                navigation.navigate("AthleteMainScreen");
               });
-            });
           }}
         />
       </View>
@@ -153,7 +163,10 @@ export default function WorkoutPage({ route, workout }) {
     )) || (
       <View style={styles.workoutBackground}>
         <SafeAreaView style={headerStyles.safeAreaTop} />
-        <Header setComplete={(b) => setComplete(b)} />
+        <ActionHeader
+          title="Finish Workout"
+          onAction={() => setComplete(true)}
+        />
         {(assignments === null && <LoadingPage />) ||
           (assignments.length === 0 && (
             <WaterMark title="No Assignments" />
@@ -201,14 +214,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 0.9,
+    padding: 16,
   },
   completeText: {
     textAlign: "center",
-    marginBottom: 24,
   },
   completeSubText: {
     textAlign: "center",
-    marginBottom: 36,
   },
   flex: {
     flex: 1,

@@ -19,6 +19,7 @@ function AssignmentSetInfoButton(props) {
     >
       <Text
         style={{
+          font: Fonts.Body,
           fontSize: props.reps === 0 ? 14 : 18,
           textAlign: "center",
           color: props.reps === 0 ? "#CCC" : Colors.PrimaryContrast,

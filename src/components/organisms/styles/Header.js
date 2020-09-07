@@ -27,7 +27,6 @@ export default StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
-    maxWidth: "80%",
     fontFamily: Fonts.Header,
     color: Colors.SurfaceContrast2,
     textAlign: "left",

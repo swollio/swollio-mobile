@@ -35,7 +35,7 @@ export default function ButtonRow({ buttons, onChange, style }) {
     // Since the button is toggled, and if there is an onChange
     // action passed into this component, execute it at the change
     if (onChange) {
-      onChange(buttons[index]);
+      onChange(buttons[index], index);
     }
   }
 

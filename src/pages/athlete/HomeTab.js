@@ -25,12 +25,13 @@ export default function AthleteHomeScreen() {
   useEffect(() => {
     if (todaysWorkouts === null) {
       getTodaysWorkoutsForAthlete(user.athlete_id).then((data) =>
-        setTodaysWorkouts(data[0] || null)
+        setTodaysWorkouts(data)
       );
     }
     return () => {};
-  });
+  }, [user]);
 
+  console.log(todaysWorkouts);
   // const abCard = (
   //   <AbCard
   //     exercises={[
@@ -78,14 +79,14 @@ export default function AthleteHomeScreen() {
               <Text style={[styles.cardTitle, styles.padding]}>Loading...</Text>
             </Card>
           )) ||
-            (todaysWorkouts.workouts.length === 0 && (
+            (todaysWorkouts.length === 0 && (
               <Card>
                 <Text style={[styles.cardTitle, styles.padding]}>
                   No Workouts Today
                 </Text>
               </Card>
             )) ||
-            todaysWorkouts.workouts.map((workout) => {
+            todaysWorkouts[0].workouts.map((workout) => {
               return (
                 <WorkoutCover
                   key={workout.id}
@@ -98,7 +99,7 @@ export default function AthleteHomeScreen() {
                     navigation.navigate("WorkoutPage", {
                       workout_id: workout.id,
                       assignments: workout.assignments,
-                      date: todaysWorkouts.date,
+                      date: todaysWorkouts[0].date,
                     })
                   }
                 />
