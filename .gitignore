@@ -2,6 +2,9 @@
 #
 .DS_Store
 config.json
+dev.config.json
+prod.config.json
+
 .vscode
 # Xcode
 #
