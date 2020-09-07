@@ -1,14 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, TextInput } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import SolidButton from "../../components/atoms/SolidButton";
-import OutlinedButton from "../../components/atoms/OutlinedButton";
 import ErrorMessage from "../../components/molecules/ErrorMessage";
 import { UserContext } from "../../utilities/UserContext";
 
 import FormContainer from "./FormContainer";
-import FormGroup from "./FormGroup";
 
 import Colors from "../../styles/Color";
 import useApi from "../../utilities/api";
@@ -31,14 +29,14 @@ export default function SignupPage() {
 
   return (
     <FormContainer>
-      <FormGroup flex={1} justifyContent="center">
-        <Text style={LoginStyles.title}>Setup Coach.</Text>
-        <Text style={LoginStyles.subtitle}>
-          Please create an account to get started.
-        </Text>
+      <Text style={LoginStyles.title}>Setup Team.</Text>
+      <Text style={LoginStyles.subtitle}>
+        Please enter your team information.
+      </Text>
 
-        <ErrorMessage title="Login Failed" message={errorMessage} />
+      <ErrorMessage title="Login Failed" message={errorMessage} />
 
+      <View style={{ marginVertical: 24 }}>
         <TextInput
           style={styles.textInputContainer}
           onChangeText={(text) => setName(text)}
@@ -52,23 +50,24 @@ export default function SignupPage() {
           style={styles.textInputContainer}
           onChangeText={(text) => setSport(text)}
           autoCorrect={false}
-          placeholder="Sport"
+          placeholder="Sport (optional)"
           autoCapitalize="words"
           keyboardAppearance="light"
           value={sport}
         />
-      </FormGroup>
-      <FormGroup>
-        <SolidButton
-          text="Continue"
-          onPress={() =>
-            createTeam({
-              name,
-              sport,
-            }).then(() => refreshUser())
-          }
-        />
-      </FormGroup>
+      </View>
+
+      <SolidButton
+        text="Continue"
+        onPress={() =>
+          createTeam({
+            name,
+            sport,
+          })
+            .then(() => refreshUser())
+            .catch((error) => setErrorMessage(error.message))
+        }
+      />
     </FormContainer>
   );
 }

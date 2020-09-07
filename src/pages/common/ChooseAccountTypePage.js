@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import OutlinedButton from "../../components/atoms/OutlinedButton";
@@ -25,20 +25,24 @@ export default function ChooseAccountTypePage() {
   return (
     <FormContainer>
       <FormGroup flex={1} justifyContent="center">
-        <Text style={LoginStyles.title}>Setup Account.</Text>
-        <Text style={LoginStyles.subtitle}>Are you an athlete or a coach?</Text>
-      </FormGroup>
-      <FormGroup flex={1} justifyContent="flex-start">
-        <OutlinedButton
-          text="Athlete"
-          style={{ marginVertical: 8 }}
-          onPress={() => navigation.navigate("SetupAthlete")}
-        />
-        <OutlinedButton
-          text="Coach"
-          style={{ marginVertical: 8 }}
-          onPress={() => navigation.navigate("SetupCoach")}
-        />
+        <Text style={[LoginStyles.title, { textAlign: "center" }]}>
+          Setup Account.
+        </Text>
+        <Text style={[LoginStyles.subtitle, { textAlign: "center" }]}>
+          Are you an athlete or a coach?
+        </Text>
+        <View style={{ marginVertical: 24 }}>
+          <OutlinedButton
+            text="Athlete"
+            style={{ marginVertical: 8 }}
+            onPress={() => navigation.navigate("SetupAthlete")}
+          />
+          <OutlinedButton
+            text="Coach"
+            style={{ marginVertical: 8 }}
+            onPress={() => navigation.navigate("SetupCoach")}
+          />
+        </View>
       </FormGroup>
     </FormContainer>
   );

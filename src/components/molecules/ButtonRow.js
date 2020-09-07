@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import Colors from "../../styles/Color";
+import OutlinedButton from "../atoms/OutlinedButton";
+import SolidButton from "../atoms/SolidButton";
 
 /**
  * This function returns a stateful component which manages a row of buttons.
@@ -41,34 +43,23 @@ export default function ButtonRow({ buttons, onChange, style }) {
   // are going to make an array of <TouchableOpacity> components
   // with texts in them to account for the variable amount of buttons.
   const buttonList = buttons.map((button, index) => {
+    if (states[index]) {
+      return (
+        <SolidButton
+          key={index}
+          style={{ flex: 1, marginLeft: index === 0 ? 0 : 16 }}
+          onPress={() => stateController(index)}
+          text={button}
+        />
+      );
+    }
     return (
-      <TouchableOpacity
+      <OutlinedButton
         key={index}
-        style={[
-          states[index]
-            ? {
-                backgroundColor: Colors.Primary,
-                borderColor: Colors.PrimaryContrast,
-              }
-            : {
-                backgroundColor: Colors.PrimaryContrast,
-                borderColor: Colors.Primary,
-              },
-          style,
-        ]}
+        style={{ flex: 1, marginLeft: index === 0 ? 0 : 16 }}
         onPress={() => stateController(index)}
-      >
-        <Text
-          style={[
-            styles.buttonText,
-            states[index]
-              ? { color: Colors.PrimaryContrast }
-              : { color: Colors.Primary },
-          ]}
-        >
-          {button}
-        </Text>
-      </TouchableOpacity>
+        text={button}
+      />
     );
   });
 
@@ -77,28 +68,15 @@ export default function ButtonRow({ buttons, onChange, style }) {
 }
 
 const styles = StyleSheet.create({
-  toggleButton: {
-    padding: 10,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 1,
-    marginRight: 10,
-    marginLeft: 10,
-    marginTop: 30,
-    marginBottom: 30,
-  },
   buttonText: {
     fontSize: 26,
     alignSelf: "center",
   },
   buttonRow: {
     flexDirection: "row",
-    width: "80%",
     justifyContent: "center",
     alignContent: "center",
     alignItems: "center",
+    marginVertical: 8,
   },
 });

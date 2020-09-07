@@ -25,7 +25,7 @@ export default function AthleteHomeScreen() {
   useEffect(() => {
     if (todaysWorkouts === null) {
       getTodaysWorkoutsForAthlete(user.athlete_id).then((data) =>
-        setTodaysWorkouts(data[0])
+        setTodaysWorkouts(data[0] || null)
       );
     }
     return () => {};

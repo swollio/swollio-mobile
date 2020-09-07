@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.Primary,
     fontSize: 16,
-    fontFamily: Fonts.Header,
+    fontFamily: Fonts.Body,
     textAlign: "center",
   },
   optionButton: {
     height: 44,
-    borderRadius: 22,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: Colors.Primary,
     alignItems: "center",

@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import moment from "moment";
 import LoadingView from "../molecules/LoadingView";
 
+import WaterMark from "./WaterMark";
 import Colors from "../../styles/Color";
 import Fonts from "../../styles/Font";
 import OutlinedButton from "../atoms/OutlinedButton";
@@ -97,13 +98,13 @@ export default function UpcomingWorkoutList() {
             }
           />
         </View>
-        {groupedWorkouts ? (
+        {(groupedWorkouts === null && <LoadingView />) ||
+          (Object.keys(groupedWorkouts).length === 0 && (
+            <WaterMark style={{ marginVertical: 16 }} title="No Workouts" />
+          )) ||
           Object.values(groupedWorkouts).map((workoutGroup, i) => (
             <GroupedWorkoutItem key={i} groupedWorkouts={workoutGroup} />
-          ))
-        ) : (
-          <LoadingView />
-        )}
+          ))}
       </View>
     </View>
   );

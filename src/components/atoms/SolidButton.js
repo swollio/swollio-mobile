@@ -33,7 +33,7 @@ export default function SolidButton({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.Primary,
-    height: 50,
+    height: 44,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,

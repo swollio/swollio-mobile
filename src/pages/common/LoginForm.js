@@ -9,13 +9,11 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import SolidButton from "../../components/atoms/SolidButton";
-import OutlinedButton from "../../components/atoms/OutlinedButton";
 import ErrorMessage from "../../components/molecules/ErrorMessage";
 import { UserContext } from "../../utilities/UserContext";
 import { TokenContext } from "../../utilities/TokenContext";
 
 import FormContainer from "./FormContainer";
-import FormGroup from "./FormGroup";
 
 import Colors from "../../styles/Color";
 import useApi from "../../utilities/api";
@@ -24,7 +22,7 @@ import LoginStyles from "./styles/LoginStyles";
 import LoadingView from "../../components/molecules/LoadingView";
 import Font from "../../styles/Font";
 
-function Link({ onPress, children }) {
+function LinkText({ onPress, children }) {
   return (
     <TouchableOpacity onPress={onPress}>
       <Text
@@ -45,9 +43,14 @@ export default function LoginForm() {
   const { token } = useContext(TokenContext);
   const { user } = useContext(UserContext);
   const { login } = useApi();
+
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+
   const [password, setPassword] = useState("");
-  const [errorMessage] = useState(null);
+  const [passwordError, setPasswordError] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState(null);
 
   /*
    * If the user is logged in, redirect to the proper home page depending on
@@ -84,20 +87,37 @@ export default function LoginForm() {
 
       <View style={{ marginVertical: 16 }}>
         <ErrorMessage title="Login Failed" message={errorMessage} />
+
         <TextInput
-          style={styles.textInputContainer}
+          style={[
+            styles.textInputContainer,
+            emailError && { borderColor: Colors.Error },
+          ]}
           onChangeText={(text) => setEmail(text)}
           autoCorrect={false}
           placeholder="Email"
+          value={email}
+          onBlur={() =>
+            setEmailError(
+              !RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$").test(
+                email
+              )
+            )
+          }
           autoCapitalize="none"
           keyboardAppearance="light"
           keyboardType="email-address"
         />
         <TextInput
-          style={styles.textInputContainer}
+          style={[
+            styles.textInputContainer,
+            passwordError && { borderColor: Colors.Error },
+          ]}
           onChangeText={(text) => setPassword(text)}
           secureTextEntry
+          value={password}
           placeholder="Password"
+          onBlur={() => setPasswordError(password.length === 0)}
           autoCorrect={false}
           keyboardAppearance="light"
         />
@@ -123,7 +143,22 @@ export default function LoginForm() {
         </Text>
       </View>
 
-      <SolidButton text="Login" onPress={() => login(email, password)} />
+      <SolidButton
+        text="Login"
+        onPress={() => {
+          login(email, password)
+            .then(() => {
+              setEmail("");
+              setEmailError(false);
+              setPassword("");
+              setPasswordError(false);
+              setErrorMessage(null);
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
+        }}
+      />
 
       <View
         style={{
@@ -143,9 +178,9 @@ export default function LoginForm() {
           Not a member?
         </Text>
 
-        <Link onPress={() => navigation.navigate("SignupPage")}>
+        <LinkText onPress={() => navigation.navigate("SignupPage")}>
           Create Account
-        </Link>
+        </LinkText>
       </View>
     </FormContainer>
   );

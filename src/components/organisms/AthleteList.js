@@ -8,6 +8,7 @@ import OutlinedButton from "../atoms/OutlinedButton";
 import LoadingView from "../molecules/LoadingView";
 import { UserContext } from "../../utilities/UserContext";
 import { AthletesContext } from "../../utilities/AthletesContext";
+import WaterMark from "./WaterMark";
 
 function AthleteListItem({ first_name, last_name }) {
   const navigation = useNavigation();
@@ -68,13 +69,13 @@ export default function AthleteList() {
             }}
           />
         </View>
-        {athletes ? (
+        {(athletes === null && <LoadingView />) ||
+          (athletes.length === 0 && (
+            <WaterMark style={{ marginVertical: 16 }} title="No Athletes" />
+          )) ||
           athletes.map((athlete) => (
             <AthleteListItem key={athlete.id} {...athlete} />
-          ))
-        ) : (
-          <LoadingView />
-        )}
+          ))}
       </View>
     </View>
   );

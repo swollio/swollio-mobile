@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, TextInput } from "react-native";
+import { StyleSheet, View, Text, TextInput } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import SolidButton from "../../components/atoms/SolidButton";
-import OutlinedButton from "../../components/atoms/OutlinedButton";
 import ErrorMessage from "../../components/molecules/ErrorMessage";
 import { UserContext } from "../../utilities/UserContext";
-
+import ButtonRow from "../../components/molecules/ButtonRow";
 import FormContainer from "./FormContainer";
 import FormGroup from "./FormGroup";
 
@@ -19,10 +18,11 @@ export default function SignupPage() {
   const { user, refreshUser } = useContext(UserContext);
   const navigation = useNavigation();
   const [errorMessage, setErrorMessage] = useState(null);
-  const [age, setAge] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [gender, setGender] = useState("");
+  const [age, setAge] = useState(null);
+  const [heightFeet, setHeightFeet] = useState(null);
+  const [heightInches, setHeightInches] = useState(null);
+  const [weight, setWeight] = useState(null);
+  const [gender, setGender] = useState(null);
   const { createAthlete } = useApi();
 
   useEffect(() => {
@@ -33,65 +33,72 @@ export default function SignupPage() {
 
   return (
     <FormContainer>
-      <FormGroup flex={1} justifyContent="center">
-        <Text style={LoginStyles.title}>Setup Athlete.</Text>
-        <Text style={LoginStyles.subtitle}>
-          Please create an account to get started.
-        </Text>
+      <Text style={LoginStyles.title}>Setup Athlete.</Text>
+      <Text style={LoginStyles.subtitle}>
+        Please create an account to get started.
+      </Text>
 
-        <ErrorMessage title="Login Failed" message={errorMessage} />
+      <ErrorMessage title="Login Failed" message={errorMessage} />
+
+      <View style={{ marginVertical: 24 }}>
+        <TextInput
+          style={styles.textInputContainer}
+          onChangeText={(text) => setAge(Number.parseInt(text, 10))}
+          autoCorrect={false}
+          placeholder="Age (years)"
+          keyboardAppearance="light"
+          keyboardType="numeric"
+          value={age ? age.toString() : ""}
+        />
+        <View style={{ flexDirection: "row" }}>
+          <TextInput
+            style={[styles.textInputContainer, { marginRight: 8, flex: 1 }]}
+            onChangeText={(text) => setHeightFeet(Number.parseInt(text, 10))}
+            autoCorrect={false}
+            placeholder="Height (feet)"
+            keyboardAppearance="light"
+            keyboardType="numeric"
+            value={heightFeet ? heightFeet.toString() : ""}
+          />
+          <TextInput
+            style={[styles.textInputContainer, { marginLeft: 8, flex: 1 }]}
+            onChangeText={(text) => setHeightInches(Number.parseInt(text, 10))}
+            autoCorrect={false}
+            placeholder="Height (inches)"
+            keyboardAppearance="light"
+            keyboardType="numeric"
+            value={heightInches ? heightInches.toString() : ""}
+          />
+        </View>
 
         <TextInput
           style={styles.textInputContainer}
-          onChangeText={(text) => setAge(text)}
+          onChangeText={(text) => setWeight(Number.parseInt(text, 10))}
           autoCorrect={false}
-          placeholder="Age"
+          placeholder="Weight (lbs)"
           keyboardAppearance="light"
           keyboardType="numeric"
-          value={age}
+          value={weight ? weight.toString() : ""}
         />
-        <TextInput
-          style={styles.textInputContainer}
-          onChangeText={(text) => setHeight(text)}
-          autoCorrect={false}
-          placeholder="Height"
-          keyboardAppearance="light"
-          keyboardType="numeric"
-          value={height}
+        <ButtonRow
+          onChange={(value) => setGender(value)}
+          buttons={["male", "female"]}
         />
-        <TextInput
-          style={styles.textInputContainer}
-          onChangeText={(text) => setWeight(text)}
-          autoCorrect={false}
-          placeholder="Weight"
-          keyboardAppearance="light"
-          keyboardType="numeric"
-          value={weight}
-        />
-        <TextInput
-          style={styles.textInputContainer}
-          onChangeText={(text) => setGender(text)}
-          autoCorrect={false}
-          placeholder="Gender"
-          autoCapitalize="none"
-          keyboardAppearance="light"
-          value={gender}
-        />
-      </FormGroup>
-      <FormGroup>
-        <SolidButton
-          text="Continue"
-          onPress={() =>
-            createAthlete({
-              age,
-              height,
-              weight,
-              gender,
-              user_id: user.user_id,
-            }).then(() => refreshUser())
-          }
-        />
-      </FormGroup>
+      </View>
+      <SolidButton
+        text="Continue"
+        onPress={() =>
+          createAthlete({
+            age,
+            height: heightFeet * 12 + heightInches,
+            weight,
+            gender,
+            user_id: user.user_id,
+          })
+            .then(() => refreshUser())
+            .catch((error) => setErrorMessage(error.message))
+        }
+      />
     </FormContainer>
   );
 }

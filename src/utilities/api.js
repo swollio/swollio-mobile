@@ -18,7 +18,7 @@ export default function useApi() {
     if (result.status === 200) {
       setToken(await result.text());
     } else {
-      throw await result.json();
+      throw (await result.json()).error;
     }
   };
 
@@ -33,7 +33,7 @@ export default function useApi() {
     if (result.status === 200) {
       setToken(await result.text());
     } else {
-      throw await result.json();
+      throw (await result.json()).error;
     }
   };
 
@@ -70,7 +70,7 @@ export default function useApi() {
     if (result.status === 401) {
       return removeToken();
     }
-    throw await result.json();
+    throw (await result.json()).error;
   };
 
   const post = async (route, body) => {
@@ -88,7 +88,7 @@ export default function useApi() {
     if (result.status === 401) {
       return removeToken();
     }
-    throw await result.json();
+    throw (await result.json()).error;
   };
 
   /**
@@ -113,7 +113,7 @@ export default function useApi() {
     if (result.status === 401) {
       return removeToken();
     }
-    throw await result.json();
+    throw (await result.json()).error;
   };
 
   const currentUser = () => {

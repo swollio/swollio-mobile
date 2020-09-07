@@ -23,7 +23,7 @@ export default function ErrorMessage({ title, message }) {
       <Icon name="exclamation-triangle" size={30} style={styles.icon} />
       <View>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.message}>{message.toString()}</Text>
+        <Text style={styles.message}>{message}</Text>
       </View>
     </View>
   );
