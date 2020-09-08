@@ -91,7 +91,7 @@ function WorkoutCompleteConfirmation(props) {
               .then(() =>
                 postPostWorkoutSurvey(user.athlete_id, props.workout_id, {
                   due_date: props.date,
-                  difficuly: workoutDifficulty,
+                  difficulty: workoutDifficulty,
                 })
               )
               .then(() => {
