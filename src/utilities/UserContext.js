@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import moment from "moment";
 import useApi from "./api";
 import { TokenContext } from "./TokenContext";
 
@@ -13,7 +14,7 @@ export const UserContextProvider = ({ children }) => {
   const getUser = async () => {
     setLoading(true);
     const result = await currentUser();
-    console.log("USER LOADED");
+    console.log(`${moment().utc().toISOString()}: USER LOADED`);
     setUser(result);
     setLoading(false);
   };

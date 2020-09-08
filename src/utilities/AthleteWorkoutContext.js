@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import moment from "moment";
 import useApi from "./api";
 import { UserContext } from "./UserContext";
 
@@ -13,7 +14,7 @@ export const AthleteWorkoutContextProvider = ({ children }) => {
   const getWorkouts = async (id) => {
     setLoading(true);
     const result = await getWorkoutsForAthlete(id);
-    console.log(result);
+    console.log(`${moment().utc().toISOString()}: ATHLETE WORKOUTS LOADED`);
     setWorkouts(result);
     setLoading(false);
   };
@@ -24,8 +25,13 @@ export const AthleteWorkoutContextProvider = ({ children }) => {
     }
   }, [user]);
 
+  const refresh = async () => {
+    const resWorkouts = await getWorkoutsForAthlete(user.athlete_id);
+    setWorkouts(resWorkouts);
+  };
+
   return (
-    <AthleteWorkoutContext.Provider value={{ workouts, loading }}>
+    <AthleteWorkoutContext.Provider value={{ workouts, loading, refresh }}>
       {children}
     </AthleteWorkoutContext.Provider>
   );

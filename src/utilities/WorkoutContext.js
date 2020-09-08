@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import moment from "moment";
 import useApi from "./api";
 import { UserContext } from "./UserContext";
 
@@ -17,7 +18,7 @@ export const WorkoutsContextProvider = ({ children }) => {
   const getWorkouts = async (id) => {
     setLoading(true);
     const result = await getWorkoutsForTeam(id);
-    console.log("WORKOUTS LOADED");
+    console.log(`${moment().utc().toISOString()}: WORKOUTS LOADED`);
     setWorkouts(result);
     setLoading(false);
   };

@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { UserContext } from "../../utilities/UserContext";
 import { TokenContext } from "../../utilities/TokenContext";
+import { AthleteWorkoutContext } from "../../utilities/AthleteWorkoutContext";
 
 import RootHeader from "../../components/organisms/RootHeader";
 
-import useApi from "../../utilities/api";
 import Colors from "../../styles/Color";
 import Font from "../../styles/Font";
 import TabPageStyles from "../styles/TabPage";
@@ -17,21 +17,11 @@ import Card from "../../components/organisms/Card";
 
 export default function AthleteHomeScreen() {
   const { user } = useContext(UserContext);
+  const { workouts } = useContext(AthleteWorkoutContext);
   const navigation = useNavigation();
-  const [todaysWorkouts, setTodaysWorkouts] = useState(null);
-  const { getTodaysWorkoutsForAthlete } = useApi();
+  const isFocused = useIsFocused();
   const { removeToken } = useContext(TokenContext);
 
-  useEffect(() => {
-    if (todaysWorkouts === null) {
-      getTodaysWorkoutsForAthlete(user.athlete_id).then((data) =>
-        setTodaysWorkouts(data)
-      );
-    }
-    return () => {};
-  }, [user]);
-
-  console.log(todaysWorkouts);
   // const abCard = (
   //   <AbCard
   //     exercises={[
@@ -59,6 +49,29 @@ export default function AthleteHomeScreen() {
   if (!user) {
     return <LoadingPage />;
   }
+
+  function UpcomingWorkoutCovers() {
+    return workouts[0].workouts.map((workout) => {
+      return (
+        <WorkoutCover
+          key={workout.id}
+          color={Colors.Primary}
+          completed={workout.completed}
+          title={workout.name}
+          team_name={workout.team_name}
+          created={workout.date}
+          onStartWorkout={() =>
+            navigation.navigate("WorkoutPage", {
+              workout_id: workout.id,
+              assignments: workout.assignments,
+              date: workouts[0].date,
+            })
+          }
+        />
+      );
+    });
+  }
+
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
       <View style={styles.background}>
@@ -74,37 +87,17 @@ export default function AthleteHomeScreen() {
           showsVerticalScrollIndicator={false}
         >
           <Text style={styles.sectionLabel}>Today</Text>
-          {(todaysWorkouts === null && (
+          {(workouts === null && (
             <Card>
-              <Text style={[styles.cardTitle, styles.padding]}>Loading...</Text>
+              <Text style={styles.bodyText}>Loading...</Text>
             </Card>
           )) ||
-            (todaysWorkouts.length === 0 && (
+            (workouts.length === 0 && (
               <Card>
-                <Text style={[styles.cardTitle, styles.padding]}>
-                  No Workouts Today
-                </Text>
+                <Text style={styles.bodyText}> No Workouts Today </Text>
               </Card>
             )) ||
-            todaysWorkouts[0].workouts.map((workout) => {
-              return (
-                <WorkoutCover
-                  key={workout.id}
-                  color={Colors.Primary}
-                  completed={workout.completed}
-                  title={workout.name}
-                  team_name={workout.team_name}
-                  created={workout.date}
-                  onStartWorkout={() =>
-                    navigation.navigate("WorkoutPage", {
-                      workout_id: workout.id,
-                      assignments: workout.assignments,
-                      date: todaysWorkouts[0].date,
-                    })
-                  }
-                />
-              );
-            })}
+            (isFocused ? <UpcomingWorkoutCovers /> : <LoadingPage />)}
           {/* <Text style={styles.sectionLabel}>Featured</Text>
           {abCard} */}
         </ScrollView>
@@ -154,5 +147,11 @@ const styles = StyleSheet.create({
     color: Colors.SurfaceContrast,
     marginTop: 12,
     marginBottom: 12,
+  },
+  bodyText: {
+    // fontFamily: Font.Body,
+    padding: 8,
+    fontSize: 16,
+    fontWeight: "300",
   },
 });
