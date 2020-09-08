@@ -27,7 +27,7 @@ export default function AthleteStatisticsScreen() {
 
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
-      <RootHeader title="Progress." />
+      <RootHeader title="Progress" />
       <View style={TabPageStyles.pageMain}>
         {(weightSeries === null && <WaterMark title="Loading..." />) ||
           (weightSeries.length === 0 && (

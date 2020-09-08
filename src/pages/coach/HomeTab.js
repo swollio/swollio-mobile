@@ -27,7 +27,7 @@ export default function CoachHomeScreen() {
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
       <RootHeader
-        title={`Welcome ${user.first_name}.`}
+        title={`Welcome, ${user.first_name}!`}
         action="Logout"
         onAction={onLogout}
       />

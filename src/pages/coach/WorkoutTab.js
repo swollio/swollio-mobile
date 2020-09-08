@@ -13,7 +13,7 @@ export default function CoachWorkoutsScreen() {
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
       <RootHeader
-        title="Workouts."
+        title="Workouts"
         action="Create"
         onAction={() => {
           navigation.navigate("EditWorkout", {

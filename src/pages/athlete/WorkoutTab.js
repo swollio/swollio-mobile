@@ -56,7 +56,7 @@ export default function AthleteWorkoutsScreen() {
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
       <View style={TabPageStyles.pageMain}>
-        <RootHeader title="Workouts." />
+        <RootHeader title="Workouts" />
         {(workouts === null && <LoadingPage />) ||
           (workouts.length === 0 && (
             <WaterMark title="No Upcoming Workouts" />
