@@ -38,7 +38,7 @@ function WorkoutCovers(props) {
   return (props.workouts || []).map((workoutsGroupedByDate, index) => (
     <View key={index}>
       <Text style={styles.sectionLabel}>
-        {moment(workoutsGroupedByDate.date).format("dddd MMM D")}
+        {moment.utc(workoutsGroupedByDate.date).format("dddd MMM D")}
       </Text>
       <GroupedWorkoutCovers
         key={index}

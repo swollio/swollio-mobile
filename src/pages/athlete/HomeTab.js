@@ -86,7 +86,7 @@ export default function AthleteHomeScreen() {
           style={styles.scrollViewContainer}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.sectionLabel}>Today</Text>
+          <Text style={styles.sectionLabel}>Upcoming</Text>
           {(workouts === null && (
             <Card>
               <Text style={styles.bodyText}>Loading...</Text>

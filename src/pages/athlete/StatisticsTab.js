@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, ScrollView, SafeAreaView } from "react-native";
 
+import { useIsFocused } from "@react-navigation/native";
 import RootHeader from "../../components/organisms/RootHeader";
 import WaterMark from "../../components/organisms/WaterMark";
 import TabPageStyles from "../styles/TabPage";
@@ -12,14 +13,17 @@ export default function AthleteStatisticsScreen() {
   const { user } = useContext(UserContext);
   const [weightSeries, setWeightSeries] = useState(null);
   const { getStatisticsForAthlete } = useApi();
+  const isFocused = useIsFocused();
+
   useEffect(() => {
-    if (weightSeries === null) {
+    if (isFocused) {
       getStatisticsForAthlete(user.athlete_id).then((data) => {
         setWeightSeries(data);
       });
     }
+
     return () => {};
-  });
+  }, [isFocused]);
 
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>

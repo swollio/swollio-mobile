@@ -13,8 +13,8 @@ import { WorkoutsContext } from "../../utilities/WorkoutContext";
 
 function GroupedWorkoutItem({ groupedWorkouts }) {
   const navigation = useNavigation();
-  const day = moment(groupedWorkouts[0].date).format("DD");
-  const month = moment(groupedWorkouts[0].date).format("MMM");
+  const day = moment.utc(groupedWorkouts[0].date).format("DD");
+  const month = moment.utc(groupedWorkouts[0].date).format("MMM");
 
   return (
     <View style={styles.groupedWorkoutItem}>
