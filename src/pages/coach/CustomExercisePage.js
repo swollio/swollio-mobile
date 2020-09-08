@@ -4,45 +4,51 @@ import { StyleSheet, Text, TextInput, View, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import SolidButton from "../../components/atoms/SolidButton";
 import ErrorMessage from "../../components/molecules/ErrorMessage";
-
+import BubbleSelect from "../../components/organisms/BubbleSelect";
 import Colors from "../../styles/Color";
 import useApi from "../../utilities/api";
+import ActionHeader from "../../components/organisms/ActionHeader";
+import { UserContext } from "../../utilities/UserContext";
 
 export default function SignupPage() {
   const navigation = useNavigation();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { user } = useContext(UserContext);
+  const [muscles, setMuscles] = useState([]);
   const [name, setName] = useState("");
-  const [sport, setSport] = useState("");
-
+  const { createCustomExerciseForTeam, getMusclesList } = useApi();
+  const musclesList = getMusclesList();
   return (
-    <SafeAreaView>
-      <Text>Setup Team.</Text>
-      <Text>Please enter your team information.</Text>
+    <SafeAreaView style={{ backgroundColor: Colors.PrimaryContrast, flex: 1 }}>
+      <ActionHeader
+        title="Create Exercise"
+        onAction={() => {
+          createCustomExerciseForTeam(user.team_id, {
+            name: name.toLowerCase(),
+            muscles,
+          });
+          navigation.goBack();
+        }}
+      />
+      <View style={{ paddingHorizontal: 16 }}>
+        <View style={{ marginVertical: 24 }}>
+          <TextInput
+            style={styles.textInputContainer}
+            onChangeText={(text) => setName(text)}
+            value={name}
+            placeholder="Exercise Name"
+            autoCorrect={false}
+            autoCapitalize="none"
+            keyboardAppearance="light"
+          />
 
-      <ErrorMessage title="Login Failed" message={errorMessage} />
-
-      <View style={{ marginVertical: 24 }}>
-        <TextInput
-          style={styles.textInputContainer}
-          onChangeText={(text) => setName(text)}
-          autoCorrect={false}
-          placeholder="Team Name"
-          autoCapitalize="words"
-          keyboardAppearance="light"
-          value={name}
-        />
-        <TextInput
-          style={styles.textInputContainer}
-          onChangeText={(text) => setSport(text)}
-          autoCorrect={false}
-          placeholder="Sport (optional)"
-          autoCapitalize="words"
-          keyboardAppearance="light"
-          value={sport}
-        />
+          <BubbleSelect
+            items={musclesList}
+            id={(x) => x.id}
+            text={(x) => x.nickname}
+            onChange={(m) => setMuscles(m)}
+          />
+        </View>
       </View>
-
-      <SolidButton text="Continue" onPress={() => {}} />
     </SafeAreaView>
   );
 }

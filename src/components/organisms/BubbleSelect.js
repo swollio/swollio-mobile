@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { TouchableOpacity, Text, View } from "react-native";
 import Colors from "../../styles/Color";
+import SolidButton from "../atoms/SolidButton";
+import OutlinedButton from "../atoms/OutlinedButton";
 
 export default function MultiSelect({ items, id, text, onChange }) {
   const initialState = {};
@@ -23,38 +25,33 @@ export default function MultiSelect({ items, id, text, onChange }) {
     >
       {items.map((x) => {
         const currentId = id(x);
+        if (selected[currentId]) {
+          return (
+            <SolidButton
+              key={currentId}
+              style={{ paddingHorizontal: 16, margin: 4 }}
+              text={text(x)}
+              onPress={() => {
+                selected[currentId] = !selected[currentId];
+                setSelected({ ...selected });
+                const result = items.filter((y) => selected[y.id]);
+                onChange(result);
+              }}
+            />
+          );
+        }
         return (
-          <TouchableOpacity
+          <OutlinedButton
             key={currentId}
-            activeOpacity={0.8}
-            style={[
-              {
-                height: 50,
-                paddingHorizontal: 24,
-                margin: 8,
-                flexDirection: "row",
-                alignItems: "center",
-                borderRadius: 25,
-                borderColor: Colors.Primary,
-                borderWidth: 1,
-              },
-              selected[currentId] ? { backgroundColor: Colors.Primary } : {},
-            ]}
+            style={{ paddingHorizontal: 16, margin: 4 }}
+            text={text(x)}
             onPress={() => {
               selected[currentId] = !selected[currentId];
               setSelected({ ...selected });
               const result = items.filter((y) => selected[y.id]);
               onChange(result);
             }}
-          >
-            <Text
-              style={{
-                color: selected[id] ? Colors.PrimaryContrast : Colors.Primary,
-              }}
-            >
-              {text(x)}
-            </Text>
-          </TouchableOpacity>
+          />
         );
       })}
     </View>
