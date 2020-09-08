@@ -20,6 +20,7 @@ import { WorkoutsContextProvider } from "./utilities/WorkoutContext";
 import { AthletesContextProvider } from "./utilities/AthletesContext";
 import { AthleteWorkoutContextProvider } from "./utilities/AthleteWorkoutContext";
 import { TokenContextProvider } from "./utilities/TokenContext";
+import CustomExercisePage from "./pages/coach/CustomExercisePage";
 
 const Stack = createStackNavigator();
 
@@ -107,6 +108,11 @@ export default function App() {
                   <Stack.Screen
                     name="PostWorkoutSurvey"
                     component={PostWorkoutSurvey}
+                  />
+
+                  <Stack.Screen
+                    name="CustomExercisePage"
+                    component={CustomExercisePage}
                   />
 
                   <Stack.Screen
