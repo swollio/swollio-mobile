@@ -37,15 +37,14 @@ export default function WorkoutDetailsAssignments(props) {
           }}
         />
       ))}
+      <View style={{ height: 100 }} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   assignmentScrollView: {
-    flex: 1,
     padding: 8,
-    paddingBottom: 100,
   },
   watermarkText: {
     fontSize: 16,

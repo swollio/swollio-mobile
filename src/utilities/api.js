@@ -306,5 +306,7 @@ export default function useApi() {
     postPostWorkoutSurvey,
     getStatisticsForAthlete,
     getWorkoutsForTeam,
+    getMusclesList,
+    createCustomExerciseForTeam,
   };
 }

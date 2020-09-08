@@ -81,7 +81,7 @@ export default function SelectExercise({ navigation, route }) {
     >
       <ActionHeader
         title="Create Custom"
-        onAction={() => {}}
+        onAction={() => navigation.navigate("CustomExercisePage")}
         pop={() => navigation.goBack()}
       />
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
