@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import moment from "moment";
 import RootHeader from "../../components/organisms/RootHeader";
 import WaterMark from "../../components/organisms/WaterMark";
@@ -49,9 +49,9 @@ function WorkoutCovers(props) {
   ));
 }
 
-export default function AthleteWorkoutsScreen(props) {
-  const workoutsContext = useContext(AthleteWorkoutContext);
-  const { workouts } = workoutsContext;
+export default function AthleteWorkoutsScreen() {
+  const { workouts } = useContext(AthleteWorkoutContext);
+  const isFocused = useIsFocused();
 
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
@@ -62,7 +62,11 @@ export default function AthleteWorkoutsScreen(props) {
             <WaterMark title="No Upcoming Workouts" />
           )) || (
             <ScrollView padding={10}>
-              <WorkoutCovers workouts={workouts} />
+              {isFocused ? (
+                <WorkoutCovers workouts={workouts} />
+              ) : (
+                <LoadingPage />
+              )}
             </ScrollView>
           )}
       </View>

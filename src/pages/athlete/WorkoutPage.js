@@ -10,37 +10,9 @@ import WaterMark from "../../components/organisms/WaterMark";
 import OutlinedButton from "../../components/atoms/SolidButton";
 import headerStyles from "../../components/organisms/styles/Header";
 import { UserContext } from "../../utilities/UserContext";
+import { AthleteWorkoutContext } from "../../utilities/AthleteWorkoutContext";
 import ButtonRow from "../../components/molecules/ButtonRow";
 import ActionHeader from "../../components/organisms/ActionHeader";
-/**
- * Header is the header component for the Athlete Workout Page.
- * It contains a back button as well as a check button to mark the
- * workout as completed.
- *
- * @param setComplete
- */
-function Header(props) {
-  const navigation = useNavigation();
-  return (
-    <View
-      style={[headerStyles.container, headerStyles.header, styles.headerStyle]}
-    >
-      <Icon
-        name="arrow-left"
-        style={headerStyles.text}
-        size={24}
-        onPress={() => navigation.goBack()}
-      />
-      <Text style={headerStyles.title}>Workout</Text>
-      <Icon
-        name="check"
-        style={headerStyles.text}
-        size={24}
-        onPress={() => props.setComplete(true)}
-      />
-    </View>
-  );
-}
 
 /**
  * WorkoutCompleteConfirmation informs the user that their workout is
@@ -49,6 +21,7 @@ function Header(props) {
  */
 function WorkoutCompleteConfirmation(props) {
   const { user } = useContext(UserContext);
+  const { refresh } = useContext(AthleteWorkoutContext);
   const navigation = useNavigation();
   const { postAthleteWorkoutResult, postPostWorkoutSurvey } = useApi();
   const [workoutDifficulty, setWorkoutDifficulty] = useState(null);
@@ -95,7 +68,7 @@ function WorkoutCompleteConfirmation(props) {
                 })
               )
               .then(() => {
-                navigation.navigate("AthleteMainScreen");
+                refresh().then(() => navigation.navigate("AthleteMainScreen"));
               });
           }}
         />

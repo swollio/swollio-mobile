@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
+import moment from "moment";
 import useApi from "./api";
 import { UserContext } from "./UserContext";
 
@@ -13,7 +14,7 @@ export const AthletesContextProvider = ({ children }) => {
   const getAthletes = async (id) => {
     setLoading(true);
     const result = await getAthletesForTeam(id);
-    console.log("ATHLETES LOADED");
+    console.log(`${moment().utc().toISOString()}: ATHLETES LOADED`);
     setAthletes(result);
     setLoading(false);
   };

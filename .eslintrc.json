@@ -25,6 +25,7 @@
     "react/jsx-filename-extension": "off",
     "no-use-before-define": "off",
     "react/jsx-curly-newline": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "no-console": "off"
   }
 }
