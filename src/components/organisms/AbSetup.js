@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 18,
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
     marginVertical: 16,
   },
   bodyAddendum: {

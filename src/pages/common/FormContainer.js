@@ -19,7 +19,7 @@ export default function FormContainer({ children }) {
 const styles = StyleSheet.create({
   backgound: {
     flex: 1,
-    backgroundColor: Colors.PrimaryContrast,
+    backgroundColor: Colors.Surface,
   },
   formContainer: {
     alignItems: "stretch",

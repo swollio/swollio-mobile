@@ -28,6 +28,7 @@ function LinkText({ onPress, children }) {
       <Text
         style={{
           fontFamily: Font.Body,
+          color: Colors.SurfaceContrast,
           fontSize: 16,
           textDecorationLine: "underline",
         }}
@@ -95,6 +96,7 @@ export default function LoginForm() {
           ]}
           onChangeText={(text) => setEmail(text)}
           autoCorrect={false}
+          keyboardAppearance="default"
           placeholder="Email"
           value={email}
           onBlur={() =>
@@ -105,7 +107,6 @@ export default function LoginForm() {
             )
           }
           autoCapitalize="none"
-          keyboardAppearance="light"
           keyboardType="email-address"
         />
         <TextInput
@@ -119,7 +120,6 @@ export default function LoginForm() {
           placeholder="Password"
           onBlur={() => setPasswordError(password.length === 0)}
           autoCorrect={false}
-          keyboardAppearance="light"
         />
       </View>
 

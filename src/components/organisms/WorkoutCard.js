@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     color: Colors.SurfaceContrast,
-    fontFamily: Font.Header,
+    fontFamily: Font.Body,
     textAlign: "left",
     marginBottom: 15,
   },
@@ -191,10 +191,11 @@ const styles = StyleSheet.create({
   },
   smallX: {
     marginHorizontal: 8,
+    color: Colors.SurfaceContrast,
   },
   rows: {
     flexDirection: "row",
-    borderColor: "#EEE",
+    borderColor: Colors.SurfaceContrast2,
     borderTopWidth: 1,
     padding: 5,
     justifyContent: "space-between",
@@ -267,5 +268,6 @@ const styles = StyleSheet.create({
   xIcon: {
     width: 60,
     textAlign: "center",
+    color: Colors.SurfaceContrast,
   },
 });

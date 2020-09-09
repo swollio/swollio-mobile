@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   workoutTitle: {
     fontSize: 26,
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
     marginLeft: 10,
     marginBottom: 5,
     textAlign: "left",
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
   completedText: {
     fontSize: 24,
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
     marginHorizontal: 8,
   },
   cardTextView: {

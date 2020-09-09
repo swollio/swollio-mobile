@@ -61,10 +61,10 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 8,
     borderTopWidth: 1,
-    borderTopColor: "#EEE",
+    borderTopColor: Color.SurfaceContrast2,
   },
   cardOuter: {
-    backgroundColor: Color.PrimaryContrast,
+    backgroundColor: Color.Surface,
     width: "100%",
     borderRadius: 4,
     overflow: "hidden",
@@ -78,12 +78,14 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontFamily: Font.Header,
+    color: Color.SurfaceContrast,
     fontSize: 24,
     fontWeight: "600",
     marginVertical: 4,
   },
   workoutListItemText: {
     fontFamily: Font.Body,
+    color: Color.SurfaceContrast,
     fontSize: 16,
   },
 });

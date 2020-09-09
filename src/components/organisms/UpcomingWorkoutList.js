@@ -38,7 +38,11 @@ function GroupedWorkoutItem({ groupedWorkouts }) {
               <Text style={styles.groupedWorkoutItemWorkoutText}>
                 {workout.name}
               </Text>
-              <Icon size={20} name="chevron-right" />
+              <Icon
+                size={20}
+                style={{ color: Colors.SurfaceContrast }}
+                name="chevron-right"
+              />
             </TouchableOpacity>
           );
         })}
@@ -142,11 +146,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderColor: "#EEE",
+    borderColor: Colors.SurfaceContrast2,
     padding: 12,
   },
   groupedWorkoutItemWorkoutText: {
     fontFamily: Fonts.Header,
+    color: Colors.SurfaceContrast,
     fontSize: 20,
   },
   groupedWorkoutHeader: {
@@ -155,7 +160,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   cardOuter: {
-    backgroundColor: Colors.PrimaryContrast,
+    backgroundColor: Colors.Surface,
     width: "100%",
     borderRadius: 4,
     overflow: "hidden",
@@ -164,11 +169,13 @@ const styles = StyleSheet.create({
   cardInner: {
     width: "100%",
     borderLeftColor: Colors.Primary,
+    backgroundColor: Colors.Surface,
     borderLeftWidth: 10,
     padding: 8,
   },
   cardTitle: {
     fontFamily: Fonts.Header,
+    color: Colors.SurfaceContrast,
     fontSize: 24,
     fontWeight: "bold",
   },

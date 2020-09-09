@@ -32,18 +32,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomColor: Color.Primary,
-    backgroundColor: Color.PrimaryContrast,
+    backgroundColor: Color.Surface,
     borderBottomWidth: 2,
     paddingHorizontal: 8,
   },
   headerTitle: {
     fontSize: 24,
     fontFamily: Font.Header,
+    color: Color.SurfaceContrast,
   },
   spacer: { width: 50 },
   backIcon: {
     fontSize: 24,
     padding: 16,
+    color: Color.SurfaceContrast,
   },
   buttonStyle: { width: "auto", paddingHorizontal: 16, height: 40 },
 });

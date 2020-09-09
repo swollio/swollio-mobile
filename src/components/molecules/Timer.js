@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, Vibration } from "react-native";
 import Font from "../../styles/Font";
+import Color from "../../styles/Color";
 
 function zero_pad(num, n) {
   return `0${num}`.slice(-n);
@@ -31,8 +32,7 @@ export default function Timer(props) {
 
   return (
     <Text style={styles.timer}>
-      {zero_pad(Math.floor(timeLeft / 60), 1)}:
-{zero_pad(timeLeft % 60, 2)}
+      {zero_pad(Math.floor(timeLeft / 60), 1)}:{zero_pad(timeLeft % 60, 2)}
     </Text>
   );
 }
@@ -41,6 +41,7 @@ const styles = {
   timer: {
     fontSize: 69,
     fontFamily: Font.Header,
+    color: Color.SurfaceContrast,
     margin: 10,
   },
 };

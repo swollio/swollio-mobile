@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { StatusBar, Text, SafeAreaView, StyleSheet, View } from "react-native";
+import { Text, SafeAreaView, StyleSheet, View } from "react-native";
 
 import Colors from "../../styles/Color";
 import Fonts from "../../styles/Font";
@@ -135,7 +135,6 @@ export default function WorkoutDetails({ navigation, route }) {
   return (
     <>
       <SafeAreaView style={styles.safeAreaTop} />
-      <StatusBar barStyle="dark-content" />
       <WorkoutDetailsHeader
         options={workout}
         onBack={() => navigation.goBack()}
@@ -185,6 +184,7 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 18,
     fontFamily: Fonts.Header,
+    color: Colors.SurfaceContrast,
     padding: 24,
   },
   addExerciseButtonContainer: {

@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Text, Button, View, SafeAreaView, StyleSheet } from "react-native";
 
+import Colors from "./styles/Color";
 import AccountTypePage from "./pages/common/ChooseAccountTypePage";
 import SignupPage from "./pages/common/SignupPage";
 import SetupAthlete from "./pages/common/SetupAthlete";
@@ -145,7 +146,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   safeAreaBackground: {
-    backgroundColor: "white",
+    backgroundColor: Colors.Background,
   },
   detailsView: {
     flex: 1,

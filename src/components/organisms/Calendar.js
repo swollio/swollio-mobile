@@ -58,7 +58,7 @@ export default function Calendar(props) {
       >
         <Icon
           size={24}
-          style={{ padding: 16 }}
+          style={{ padding: 16, color: Colors.SurfaceContrast }}
           onPress={() =>
             setCurrentMonth(moment(currentMonth).subtract(1, "month"))
           }
@@ -67,7 +67,7 @@ export default function Calendar(props) {
         <Text style={styles.monthText}>{currentMonth.format("MMMM YYYY")}</Text>
         <Icon
           size={24}
-          style={{ padding: 16 }}
+          style={{ padding: 16, color: Colors.SurfaceContrast }}
           onPress={() => setCurrentMonth(moment(currentMonth).add(1, "month"))}
           name="angle-right"
         />
@@ -82,7 +82,14 @@ export default function Calendar(props) {
         >
           {["Su", "M", "Tu", "W", "Th", "F", "Sa"].map((day, i) => (
             <View key={i} style={styles.calendarItem}>
-              <Text key={day} style={{ textAlign: "center" }}>
+              <Text
+                key={day}
+                style={{
+                  textAlign: "center",
+                  color: Colors.SurfaceContrast,
+                  fontFamily: Fonts.Body,
+                }}
+              >
                 {day}
               </Text>
             </View>
@@ -126,7 +133,10 @@ export default function Calendar(props) {
                   <Text
                     style={{
                       textAlign: "center",
-                      color: isSelectedDay(x) ? Colors.PrimaryContrast : "#BBB",
+                      fontFamily: Fonts.Body,
+                      color: isSelectedDay(x)
+                        ? Colors.PrimaryContrast
+                        : Colors.SurfaceContrast2,
                     }}
                   >
                     {x === "" ? "-" : x}
@@ -135,6 +145,7 @@ export default function Calendar(props) {
                   <Text
                     style={{
                       textAlign: "center",
+                      fontFamily: Fonts.Body,
                       color: isSelectedDay(x)
                         ? Colors.PrimaryContrast
                         : Colors.SurfaceContrast,
@@ -154,7 +165,8 @@ export default function Calendar(props) {
 
 const styles = StyleSheet.create({
   monthText: {
-    fontFamily: Fonts.Header,
+    fontFamily: Fonts.Body,
+    color: Colors.SurfaceContrast,
     fontSize: 20,
   },
   calendarItem: {

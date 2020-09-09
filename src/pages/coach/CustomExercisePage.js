@@ -18,7 +18,7 @@ export default function SignupPage() {
   const { createCustomExerciseForTeam, getMusclesList } = useApi();
   const musclesList = getMusclesList();
   return (
-    <SafeAreaView style={{ backgroundColor: Colors.PrimaryContrast, flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: Colors.Surface, flex: 1 }}>
       <ActionHeader
         title="Create Exercise"
         onAction={() => {

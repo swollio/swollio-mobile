@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   rows: {
     flexDirection: "row",
-    borderColor: "#EEE",
+    borderColor: Colors.SurfaceContrast2,
     borderTopWidth: 1,
     padding: 5,
   },
@@ -149,9 +149,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   bodyText: {
-    // fontFamily: Font.Body,
+    fontFamily: Font.Body,
     padding: 8,
     fontSize: 16,
     fontWeight: "300",
+    color: Colors.SurfaceContrast,
   },
 });

@@ -13,7 +13,16 @@ const AthleteTab = createBottomTabNavigator();
 export default function AthleteMainScreen() {
   return (
     <AthleteTab.Navigator
-      tabBarOptions={{ style: { padding: 8 }, activeTintColor: Color.Primary }}
+      tabBarOptions={{
+        style: {
+          padding: 8,
+          backgroundColor: Color.Surface,
+          borderTopWidth: 0,
+        },
+
+        activeTintColor: Color.Primary,
+        inactiveTintColor: Color.SurfaceContrast2,
+      }}
     >
       <AthleteTab.Screen
         name="Home"

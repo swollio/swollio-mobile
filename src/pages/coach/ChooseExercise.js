@@ -75,7 +75,7 @@ export default function SelectExercise({ navigation, route }) {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: Colors.PrimaryContrast,
+        backgroundColor: Colors.Surface,
         width: "100%",
       }}
     >
@@ -85,7 +85,7 @@ export default function SelectExercise({ navigation, route }) {
         pop={() => navigation.goBack()}
       />
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <ScrollView style={{ flex: 1, backgroundColor: Colors.PrimaryContrast }}>
+      <ScrollView style={{ flex: 1, backgroundColor: Colors.Surface }}>
         {searchResults.map((exercise) => (
           <TouchableOpacity
             onPress={() => {

@@ -68,7 +68,11 @@ export default function WorkoutDetailsHeader({
           alignItems: "center",
         }}
       >
-        <Icon size={36} style={{ paddingHorizontal: 16 }} name="calendar" />
+        <Icon
+          size={36}
+          style={{ paddingHorizontal: 16, color: Colors.SurfaceContrast }}
+          name="calendar"
+        />
         <OutlinedButton
           style={{ width: "auto", paddingHorizontal: 24 }}
           text={`${options.dates.length} workout dates`}

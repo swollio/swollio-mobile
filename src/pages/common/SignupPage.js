@@ -27,6 +27,7 @@ function LinkText({ onPress, children }) {
       <Text
         style={{
           fontFamily: Font.Body,
+          color: Colors.SurfaceContrast,
           fontSize: 16,
           textDecorationLine: "underline",
         }}
@@ -85,7 +86,6 @@ export default function SignupPage() {
           placeholder="First Name"
           onBlur={() => setFirstNameError(firstName.length === 0)}
           autoCapitalize="words"
-          keyboardAppearance="light"
           value={firstName}
         />
         <TextInput
@@ -97,7 +97,6 @@ export default function SignupPage() {
           autoCorrect={false}
           placeholder="Last Name"
           autoCapitalize="words"
-          keyboardAppearance="light"
           onBlur={() => setLastNameError(lastName.length === 0)}
           value={lastName}
         />
@@ -110,7 +109,6 @@ export default function SignupPage() {
           autoCorrect={false}
           placeholder="Email"
           autoCapitalize="none"
-          keyboardAppearance="light"
           keyboardType="email-address"
           onBlur={() =>
             setEmailError(
@@ -131,7 +129,6 @@ export default function SignupPage() {
           autoCorrect={false}
           placeholder="Password"
           autoCapitalize="none"
-          keyboardAppearance="light"
           secureTextEntry
           value={password}
         />
@@ -145,7 +142,6 @@ export default function SignupPage() {
           autoCorrect={false}
           placeholder="Repeat Password"
           autoCapitalize="none"
-          keyboardAppearance="light"
           onBlur={() => setConfirmPasswordError(password !== confirmPassword)}
           secureTextEntry
           value={confirmPassword}

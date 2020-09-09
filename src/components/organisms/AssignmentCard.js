@@ -22,7 +22,7 @@ function AssignmentSetInfoButton(props) {
           fontFamily: Fonts.Body,
           fontSize: props.reps === 0 ? 14 : 18,
           textAlign: "center",
-          color: props.reps === 0 ? "#CCC" : Colors.PrimaryContrast,
+          color: props.reps === 0 ? Colors.SurfaceContrast2 : Colors.Surface,
         }}
       >
         {props.reps === 0 ? `Set ${props.index + 1}` : props.reps}

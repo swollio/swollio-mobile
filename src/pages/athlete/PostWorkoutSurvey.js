@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 24,
-    color: Colors.PrimaryContrast,
+    color: Colors.SurfaceContrast,
     fontFamily: Font.Header,
     textAlign: "left",
     marginLeft: 20,
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
   question: {
     fontSize: 22,
     fontFamily: Font.Body,
+    color: Colors.SurfaceContrast,
     textAlign: "left",
     width: "100%",
   },

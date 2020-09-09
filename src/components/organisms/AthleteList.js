@@ -86,10 +86,10 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 16,
     borderTopWidth: 1,
-    borderTopColor: "#EEE",
+    borderTopColor: Color.SurfaceContrast2,
   },
   cardOuter: {
-    backgroundColor: Color.PrimaryContrast,
+    backgroundColor: Color.Surface,
     width: "100%",
     borderRadius: 4,
     overflow: "hidden",
@@ -105,9 +105,11 @@ const styles = StyleSheet.create({
     fontFamily: Font.Header,
     fontSize: 24,
     fontWeight: "bold",
+    color: Color.SurfaceContrast,
   },
   athleteListItemText: {
     fontFamily: Font.Header,
+    color: Color.SurfaceContrast,
     fontSize: 20,
   },
 });

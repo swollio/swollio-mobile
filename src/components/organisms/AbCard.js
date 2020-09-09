@@ -165,20 +165,24 @@ const styles = StyleSheet.create({
   mega: {
     fontSize: 36,
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
   },
   body: {
     fontSize: 16,
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
     marginVertical: 16,
   },
   timer: {
     fontSize: 69,
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
     margin: 10,
   },
   exercise: {
     fontSize: 24,
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
     marginBottom: 10,
   },
   progressDots: {
@@ -222,5 +226,6 @@ const styles = StyleSheet.create({
   },
   upNextText: {
     fontFamily: Font.Header,
+    color: Colors.SurfaceContrast,
   },
 });

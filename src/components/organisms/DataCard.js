@@ -31,7 +31,7 @@ export default function DataCard(props) {
           yAccessor={({ item }) => item.value}
           contentInset={{ top: 20, bottom: 20 }}
           svg={{
-            fill: "#000",
+            fill: Colors.SurfaceContrast,
           }}
         />
         <View style={{ flex: 0.9 }}>
@@ -47,7 +47,12 @@ export default function DataCard(props) {
             svg={{ fill: "url(#weightGradient)" }}
             contentInset={{ top: 20, bottom: 20 }}
           >
-            <Grid />
+            <Grid
+              svg={{
+                fill: Colors.SurfaceContrast,
+                stroke: Colors.SurfaceContrast,
+              }}
+            />
             <WeightGradient />
           </AreaChart>
           <View style={{ height: 5 }} />
@@ -60,7 +65,8 @@ export default function DataCard(props) {
             }
             contentInset={{ left: 10, right: 0 }}
             svg={{
-              fill: "#000",
+              fill: Colors.SurfaceContrast,
+              stroke: Colors.SurfaceContrast,
               height: 10,
             }}
           />

@@ -4,11 +4,12 @@ import { Text, View, StyleSheet } from "react-native";
 import Color from "../../styles/Color";
 import Font from "../../styles/Font";
 import SolidButton from "../atoms/SolidButton";
+import headerStyles from "./styles/Header";
 
 export default function RootHeader({ title, action, onAction }) {
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerTitle}>{title}</Text>
+      <Text style={headerStyles.title}>{title}</Text>
       {action ? (
         <SolidButton
           text={action}
@@ -28,13 +29,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomColor: Color.Primary,
-    backgroundColor: Color.PrimaryContrast,
+    backgroundColor: Color.Surface,
     borderBottomWidth: 2,
     padding: 16,
   },
   headerTitle: {
     fontSize: 28,
     fontFamily: Font.Header,
+    color: Color.SurfaceContrast,
   },
   headerButton: {
     width: 100,

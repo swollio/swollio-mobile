@@ -14,8 +14,13 @@ export default function AthleteMainScreen() {
   return (
     <AthleteTab.Navigator
       tabBarOptions={{
-        style: { padding: 8 },
+        style: {
+          padding: 8,
+          borderTopWidth: 0,
+          backgroundColor: Color.Surface,
+        },
         activeTintColor: Color.Primary,
+        inactiveTintColor: Color.SurfaceContrast2,
       }}
     >
       <AthleteTab.Screen

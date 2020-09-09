@@ -5,7 +5,7 @@ import Color from "../../styles/Color";
 export default StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: Color.PrimaryContrast,
+    backgroundColor: Color.Surface,
     borderBottomColor: Color.Primary,
     borderBottomWidth: 2,
   },
