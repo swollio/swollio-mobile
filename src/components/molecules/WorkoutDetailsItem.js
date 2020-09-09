@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 8,
-    borderColor: Colors.SurfaceContrast2,
+    borderColor: Colors.Background,
     borderTopWidth: 1,
   },
   itemIcon: {

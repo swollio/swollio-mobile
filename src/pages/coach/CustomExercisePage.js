@@ -38,7 +38,6 @@ export default function SignupPage() {
             placeholder="Exercise Name"
             autoCorrect={false}
             autoCapitalize="none"
-            keyboardAppearance="light"
           />
 
           <BubbleSelect
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginVertical: 8,
     flexDirection: "row",
-    borderColor: Colors.SurfaceContrast2,
+    borderColor: Colors.Background,
     borderWidth: 1,
   },
 });

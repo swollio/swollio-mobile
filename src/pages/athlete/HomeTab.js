@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   rows: {
     flexDirection: "row",
-    borderColor: Colors.SurfaceContrast2,
+    borderColor: Colors.Background,
     borderTopWidth: 1,
     padding: 5,
   },

@@ -43,7 +43,6 @@ export default function SignupPage() {
           autoCorrect={false}
           placeholder="Team Name"
           autoCapitalize="words"
-          keyboardAppearance="light"
           value={name}
         />
         <TextInput
@@ -52,7 +51,6 @@ export default function SignupPage() {
           autoCorrect={false}
           placeholder="Sport (optional)"
           autoCapitalize="words"
-          keyboardAppearance="light"
           value={sport}
         />
       </View>
@@ -81,7 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginVertical: 8,
     flexDirection: "row",
-    borderColor: Colors.SurfaceContrast2,
+    borderColor: Colors.Background,
     borderWidth: 1,
   },
 });

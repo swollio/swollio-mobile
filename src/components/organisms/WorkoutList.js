@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 8,
     borderTopWidth: 1,
-    borderTopColor: Color.SurfaceContrast2,
+    borderTopColor: Color.Background,
   },
   cardOuter: {
     backgroundColor: Color.Surface,

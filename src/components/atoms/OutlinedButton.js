@@ -18,7 +18,7 @@ export default function OutlinedButton({
         { margin },
         style,
         disabled && {
-          borderColor: Colors.SurfaceContrast2,
+          borderColor: Colors.Background,
         },
       ]}
       onPress={() => (!disabled ? onPress() : null)}
@@ -27,7 +27,7 @@ export default function OutlinedButton({
         style={[
           styles.title,
           disabled && {
-            color: Colors.SurfaceContrast2,
+            color: Colors.Background,
           },
         ]}
       >

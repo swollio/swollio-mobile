@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Header,
   },
   groupedWorkoutItemWorkoutContainer: {
-    borderLeftColor: Colors.SurfaceContrast2,
+    borderLeftColor: Colors.Background,
     borderLeftWidth: 1,
     flex: 1,
     paddingHorizontal: 8,
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderColor: Colors.SurfaceContrast2,
+    borderColor: Colors.Background,
     padding: 12,
   },
   groupedWorkoutItemWorkoutText: {

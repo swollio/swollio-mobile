@@ -106,7 +106,7 @@ export default function SelectExercise({ navigation, route }) {
 
 const styles = StyleSheet.create({
   section: {
-    borderColor: Colors.SurfaceContrast2,
+    borderColor: Colors.Background,
     borderBottomWidth: 1,
     padding: 16,
     flexDirection: "row",

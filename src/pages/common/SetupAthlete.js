@@ -46,7 +46,6 @@ export default function SignupPage() {
           onChangeText={(text) => setAge(Number.parseInt(text, 10))}
           autoCorrect={false}
           placeholder="Age (years)"
-          keyboardAppearance="light"
           keyboardType="numeric"
           value={age ? age.toString() : ""}
         />
@@ -56,7 +55,6 @@ export default function SignupPage() {
             onChangeText={(text) => setHeightFeet(Number.parseInt(text, 10))}
             autoCorrect={false}
             placeholder="Height (feet)"
-            keyboardAppearance="light"
             keyboardType="numeric"
             value={heightFeet ? heightFeet.toString() : ""}
           />
@@ -65,7 +63,6 @@ export default function SignupPage() {
             onChangeText={(text) => setHeightInches(Number.parseInt(text, 10))}
             autoCorrect={false}
             placeholder="Height (inches)"
-            keyboardAppearance="light"
             keyboardType="numeric"
             value={heightInches ? heightInches.toString() : ""}
           />
@@ -76,7 +73,6 @@ export default function SignupPage() {
           onChangeText={(text) => setWeight(Number.parseInt(text, 10))}
           autoCorrect={false}
           placeholder="Weight (lbs)"
-          keyboardAppearance="light"
           keyboardType="numeric"
           value={weight ? weight.toString() : ""}
         />
@@ -112,7 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginVertical: 8,
     flexDirection: "row",
-    borderColor: Colors.SurfaceContrast2,
+    borderColor: Colors.Background,
     borderWidth: 1,
   },
 });

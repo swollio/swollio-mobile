@@ -24,14 +24,14 @@ export default function CompleteSetButton({
           width: 2 * radius || 60,
           height: 2 * radius || 60,
           borderRadius: radius || 30,
-          backgroundColor: completed ? Colors.Primary : Colors.SurfaceContrast2,
+          backgroundColor: completed ? Colors.Primary : Colors.Background,
         },
       ]}
     >
       <Icon
         name={icon}
         style={[styles.circularButtonIcon, { fontSize: fontSize || 30 }]}
-        color={Colors.PrimaryContrast}
+        color={completed ? Colors.PrimaryContrast : Colors.SurfaceContrast}
       />
     </TouchableOpacity>
   );
@@ -40,7 +40,6 @@ export default function CompleteSetButton({
 const styles = StyleSheet.create({
   circularButtonIcon: {
     fontSize: 30,
-    color: Colors.PrimaryContrast,
   },
   circularButton: {
     alignItems: "center",

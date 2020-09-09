@@ -72,7 +72,7 @@ export default class ScrollPicker extends Component {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRightWidth: 1,
-                borderColor: '#EEE',
+                borderColor: Colors.Background,
               }}
               onPress={() =>
                 this.flatListRef.scrollToIndex({ index, viewPosition: 0.5 })

@@ -14,7 +14,10 @@ function AssignmentSetInfoButton(props) {
       onPress={props.onPress}
       style={[
         styles.setInfoButton,
-        { backgroundColor: props.reps === 0 ? "#EEE" : Colors.Primary },
+        {
+          backgroundColor:
+            props.reps === 0 ? Colors.Background : Colors.Primary,
+        },
       ]}
     >
       <Text
@@ -22,7 +25,8 @@ function AssignmentSetInfoButton(props) {
           fontFamily: Fonts.Body,
           fontSize: props.reps === 0 ? 14 : 18,
           textAlign: "center",
-          color: props.reps === 0 ? Colors.SurfaceContrast2 : Colors.Surface,
+          color:
+            props.reps === 0 ? Colors.SurfaceContrast2 : Colors.PrimaryContrast,
         }}
       >
         {props.reps === 0 ? `Set ${props.index + 1}` : props.reps}

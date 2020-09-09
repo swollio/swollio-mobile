@@ -51,7 +51,7 @@ export default function WorkoutDetailsHeader({
         style={[
           headerStyles.title,
           {
-            borderColor: Colors.SurfaceContrast2,
+            borderColor: Colors.Background,
             borderBottomWidth: 1,
             paddingVertical: 8,
           },
