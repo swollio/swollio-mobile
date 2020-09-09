@@ -3,11 +3,11 @@ import { Appearance } from "react-native";
 const getColorPalette = () => {
   if (Appearance.getColorScheme() === "dark") {
     return {
-      Primary: "#FF0266", // '#07163f',
+      Primary: "#EC4B57", // '#07163f',
       PrimaryContrast: "#000000",
 
-      Secondary: "#D02235",
-      SecondaryContrast: "#FFFFFF",
+      Secondary: "#EC4B57",
+      SecondaryContrast: "#000000",
 
       Background: "#131313",
       BackgroundContrast: "#FFFFFF",
@@ -16,8 +16,8 @@ const getColorPalette = () => {
       SurfaceContrast: "#FFFFFF",
       SurfaceContrast2: "#989898",
 
-      Error: "#FF0266",
-      ErrorContrast: "#FFFFFF",
+      Error: "#EC4B57",
+      ErrorContrast: "#000000",
     };
   }
   return {
