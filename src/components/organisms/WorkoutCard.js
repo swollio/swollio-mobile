@@ -64,13 +64,10 @@ export default function WorkoutCard(props) {
   const { getAlternativesForExercises } = useApi();
 
   useEffect(() => {
-    if (alternatives === null) {
-      getAlternativesForExercises(props.exercise_id).then((data) => {
-        setAlternatives(data);
-      });
-    }
-    return () => {};
-  });
+    getAlternativesForExercises(props.exercise_id).then((data) => {
+      setAlternatives(data);
+    });
+  }, [props.exercise_id]);
 
   // Stores the index of the set for which the weight is currently being
   // edited. If no sets are currently being edited, then the editedSetIndex
@@ -140,10 +137,17 @@ export default function WorkoutCard(props) {
 
   const alternativesView = (
     <View style={styles.alternativesView}>
-      {(alternatives || []).map((a, i) => (
+      <Text style={styles.bodyText}>
+        Missing equipment? Replace the assigned exercise with a similar
+        exercise.
+      </Text>
+      {(alternatives || []).slice(0, 3).map((a, i) => (
         <TouchableOpacity
           key={i}
-          onPress={props.onEdit}
+          onPress={() => {
+            props.onChooseAlternative(a);
+            setChooseAlternatives(false);
+          }}
           style={styles.alternativeButton}
         >
           <Text style={styles.alternativeText}> {a.name} </Text>
@@ -168,7 +172,7 @@ export default function WorkoutCard(props) {
             onPress={() => setChooseAlternatives(!chooseAlternatives)}
             style={styles.xIcon}
             size={24}
-            name="bars"
+            name="exchange-alt"
           />
         )}
       </View>
@@ -232,6 +236,12 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
     color: Colors.Primary,
+  },
+  bodyText: {
+    fontFamily: Font.Body,
+    color: Colors.SurfaceContrast,
+    fontSize: 16,
+    marginBottom: 16,
   },
   editView: {
     width: "100%",

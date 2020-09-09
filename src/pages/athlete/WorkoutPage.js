@@ -85,7 +85,7 @@ function WorkoutCompleteConfirmation(props) {
  */
 export default function WorkoutPage({ route, workout }) {
   // The list of assignments to be completed by the athlete
-  const { assignments } = route.params;
+  const [assignments, setAssignments] = useState(route.params.assignments);
   /*
    * Results stores a 2D array of workout_results.
    * The outer array groups results by exercise.
@@ -104,7 +104,7 @@ export default function WorkoutPage({ route, workout }) {
     }
     // Outer map traverses by assignment (so each inner array will have the same exercise_id)
     setResults(
-      assignments.map((assignment) =>
+      route.params.assignments.map((assignment) =>
         // Since there are rep_count.length number of reps, we are going to
         // make each element of the inner array an object that defaults to
         // the rep_count as that index, a default weight, and the exercise id
@@ -122,7 +122,7 @@ export default function WorkoutPage({ route, workout }) {
         }))
       )
     );
-  }, [assignments, route.params.date]);
+  }, [route.params.date]);
 
   return (
     (complete && (
@@ -156,6 +156,22 @@ export default function WorkoutPage({ route, workout }) {
                     }
                     results[index] = resultObj;
                     setResults([...results]);
+                  }}
+                  onChooseAlternative={(e) => {
+                    setResults(
+                      results.map((assignmentResults) =>
+                        assignmentResults.map((r) =>
+                          r.assignment_id === assignment.id
+                            ? { ...r, exercise_id: e.id }
+                            : r
+                        )
+                      )
+                    );
+                    setAssignments(
+                      assignments.map((a) =>
+                        a.id === assignment.id ? { ...a, exercise: e } : a
+                      )
+                    );
                   }}
                   selectColor={Colors.Primary}
                   barColor={Colors.Primary}

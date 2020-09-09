@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginVertical: 8,
     flexDirection: "row",
-    borderColor: Colors.Background,
+    borderColor: Colors.SurfaceContrast,
     borderWidth: 1,
   },
 });
