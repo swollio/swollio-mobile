@@ -24,14 +24,14 @@ export default function CompleteSetButton({
           width: 2 * radius || 60,
           height: 2 * radius || 60,
           borderRadius: radius || 30,
-          backgroundColor: completed ? Colors.Primary : Colors.Background,
+          backgroundColor: completed ? Colors.Primary : Colors.SurfaceContrast2,
         },
       ]}
     >
       <Icon
         name={icon}
         style={[styles.circularButtonIcon, { fontSize: fontSize || 30 }]}
-        color={completed ? Colors.PrimaryContrast : Colors.SurfaceContrast}
+        color={completed ? Colors.PrimaryContrast : Colors.PrimaryContrast}
       />
     </TouchableOpacity>
   );

@@ -24,7 +24,13 @@ function SearchBar({ searchTerm, setSearchTerm }) {
       </View>
       <TextInput
         height={50}
-        style={{ padding: 8, height: 50, flex: 1 }}
+        style={{
+          borderColor: Colors.SurfaceContrast,
+          padding: 8,
+          height: 50,
+          flex: 1,
+          color: Colors.SurfaceContrast,
+        }}
         onChangeText={(text) => setSearchTerm(text)}
         placeholder="Search for exercises"
         value={searchTerm}
