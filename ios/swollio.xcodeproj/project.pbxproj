@@ -17,6 +17,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* swollioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* swollioTests.m */; };
+		3269B28B250A91B9009C740C /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3269B28A250A91B9009C740C /* AppCenter-Config.plist */; };
 		3815B436D95E4CEA9B3944CC /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C48F85E52C440068B3B3F5F /* Roboto-LightItalic.ttf */; };
 		3A6CD3B80B2DFC815D43628A /* libPods-swollio-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7804E047B83CA4EAECBA52A9 /* libPods-swollio-tvOSTests.a */; };
 		45613FDF3A8440A385E8A399 /* Comfortaa-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8A088B0A0074A3DAE8C8407 /* Comfortaa-SemiBold.ttf */; };
@@ -72,6 +73,7 @@
 		28450ECFD9274C98A453813B /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BoldItalic.ttf"; path = "../assets/fonts/Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* swollio-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swollio-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* swollio-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swollio-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3269B28A250A91B9009C740C /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "swollio/AppCenter-Config.plist"; sourceTree = "<group>"; };
 		359A44FD2F6D445187BCFDA4 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-MediumItalic.ttf"; path = "../assets/fonts/Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
 		3A22AF8988D3466EC495C185 /* Pods-swollio-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-swollio-tvOS.release.xcconfig"; path = "Target Support Files/Pods-swollio-tvOS/Pods-swollio-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		3BAF54DB1E0C4B0F8EA34AE9 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Thin.ttf"; path = "../assets/fonts/Roboto-Thin.ttf"; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3269B28A250A91B9009C740C /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* swollio */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* swollioTests */,
@@ -400,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				3269B28B250A91B9009C740C /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				AA93887B5EAB43BD9EC6EBB7 /* Comfortaa-Bold.ttf in Resources */,
 				66D87A7087424766AAFE1A9C /* Comfortaa-Light.ttf in Resources */,
