@@ -10,6 +10,39 @@ import Fonts from "../../styles/Font";
 import Card from "./Card";
 
 export default function DataCard(props) {
+  if (props.data.length < 2) {
+    return (
+      <Card>
+        <Text style={styles.title}>{props.exercise_name}</Text>
+        <Text
+          style={{
+            color: Colors.SurfaceContrast2,
+            width: "100%",
+            textAlign: "center",
+            marginTop: 24,
+            marginBottom: 12,
+            fontSize: 18,
+            fontFamily: Fonts.Body,
+          }}
+        >
+          Not Enough Data
+        </Text>
+        <Text
+          style={{
+            color: Colors.SurfaceContrast2,
+            width: "100%",
+            textAlign: "center",
+            marginBottom: 24,
+            fontSize: 16,
+            fontFamily: Fonts.Body,
+          }}
+        >
+          {`We will not provide statistics until you have completed ${props.exercise_name} on two seperate occasions`}
+        </Text>
+      </Card>
+    );
+  }
+
   const WeightGradient = ({ index }) => (
     <Defs key={index}>
       <LinearGradient id="weightGradient" x1="0%" x2="0%" y1="100%" y2="0%">
@@ -83,7 +116,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     color: Colors.BackgroundContrast,
-    fontFamily: Fonts.Header,
+    fontFamily: Fonts.Body,
     textAlign: "left",
   },
 });
