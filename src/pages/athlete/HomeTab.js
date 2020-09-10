@@ -1,19 +1,25 @@
 import React, { useContext } from "react";
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
+import moment from "moment";
+
+// Utilities
 import { UserContext } from "../../utilities/UserContext";
 import { TokenContext } from "../../utilities/TokenContext";
 import { AthleteWorkoutContext } from "../../utilities/AthleteWorkoutContext";
 
-import RootHeader from "../../components/organisms/RootHeader";
-
+// Styles
 import Colors from "../../styles/Color";
 import Font from "../../styles/Font";
 import TabPageStyles from "../styles/TabPage";
+
+import RootHeader from "../../components/organisms/RootHeader";
+import Card from "../../components/organisms/Card";
+import WorkoutCover from "../../components/organisms/WorkoutCover";
+import WeeklyProgressUpdateCard from "../../components/organisms/WeeklyProgressUpdateCard";
+
 import LoadingPage from "../LoadingPage";
 // import AbCard from "../../components/organisms/AbCard";
-import WorkoutCover from "../../components/organisms/WorkoutCover";
-import Card from "../../components/organisms/Card";
 
 export default function AthleteHomeScreen() {
   const { user } = useContext(UserContext);
@@ -51,7 +57,14 @@ export default function AthleteHomeScreen() {
   }
 
   function UpcomingWorkoutCovers() {
-    return workouts[0].workouts.map((workout) => {
+    // Find the first set of workouts scheduled at earliest for the start of
+    // the current day.
+    const firstUpcomingWorkoutGroup = workouts.find((group) =>
+      moment.utc(group.date).isSameOrAfter(moment.utc(), "day")
+    );
+
+    if (!firstUpcomingWorkoutGroup) return [];
+    return firstUpcomingWorkoutGroup.workouts.map((workout) => {
       return (
         <WorkoutCover
           key={workout.id}
@@ -86,7 +99,9 @@ export default function AthleteHomeScreen() {
           style={styles.scrollViewContainer}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.sectionLabel}>Upcoming</Text>
+          <Text style={styles.sectionLabel}>This Week</Text>
+          <WeeklyProgressUpdateCard />
+          <Text style={styles.sectionLabel}>Up Next</Text>
           {(workouts === null && (
             <Card>
               <Text style={styles.bodyText}>Loading...</Text>

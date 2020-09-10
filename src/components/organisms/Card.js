@@ -8,26 +8,26 @@ import Colors from "../../styles/Color";
  *
  * @param {Object} props The only props are going to be the children which are embedded in this card
  */
-export default function Card(props) {
+export default function Card({ children }) {
   return (
-    <View
-      style={[
-        styles.card,
-        { borderLeftColor: props.barColor || Colors.Primary },
-        props.style,
-      ]}
-    >
-      {props.children}
+    <View style={styles.cardOuter}>
+      <View style={styles.cardInner}>{children}</View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
+  cardOuter: {
     backgroundColor: Colors.Surface,
+    width: "100%",
     borderRadius: 4,
+    overflow: "hidden",
+    marginVertical: 4,
+  },
+  cardInner: {
+    width: "100%",
+    borderLeftColor: Colors.Primary,
     borderLeftWidth: 10,
-    padding: 10,
-    marginBottom: 8,
+    padding: 8,
   },
 });
