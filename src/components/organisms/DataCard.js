@@ -9,11 +9,11 @@ import Colors from "../../styles/Color";
 import Fonts from "../../styles/Font";
 import Card from "./Card";
 
-export default function DataCard(props) {
-  if (props.data.length < 2) {
+export default function DataCard({ data, exercise_name }) {
+  if (data.length < 2) {
     return (
       <Card>
-        <Text style={styles.title}>{props.exercise_name}</Text>
+        <Text style={styles.title}>{exercise_name}</Text>
         <Text
           style={{
             color: Colors.SurfaceContrast2,
@@ -37,7 +37,7 @@ export default function DataCard(props) {
             fontFamily: Fonts.Body,
           }}
         >
-          {`We will not provide statistics until you have completed ${props.exercise_name} on two seperate occasions`}
+          {`We will not provide statistics until you have completed ${exercise_name} on two seperate occasions`}
         </Text>
       </Card>
     );
@@ -54,11 +54,11 @@ export default function DataCard(props) {
 
   return (
     <Card barColor={Colors.Primary}>
-      <Text style={styles.title}>{props.exercise_name}</Text>
+      <Text style={styles.title}>{exercise_name}</Text>
       <View style={{ flexDirection: "row", display: "flex" }}>
         <YAxis
           style={{ flex: 0.1, marginBottom: 15 }}
-          data={props.data}
+          data={data}
           formatLabel={(value) => value}
           numberOfTicks={3}
           yAccessor={({ item }) => item.value}
@@ -70,7 +70,7 @@ export default function DataCard(props) {
         <View style={{ flex: 0.9 }}>
           <AreaChart
             style={{ height: 200 }}
-            data={props.data}
+            data={data}
             scale={scale.scaleTime}
             xAccessor={({ item }) => item.date}
             yAccessor={({ item }) => item.value}
@@ -90,11 +90,11 @@ export default function DataCard(props) {
           </AreaChart>
           <View style={{ height: 5 }} />
           <XAxis
-            data={props.data}
+            data={data}
             scale={scale.scaleTime}
             numberOfTicks={6}
             formatLabel={(_, index) =>
-              moment(props.data[index].date).format("MM/DD")
+              moment.utc(data[index].date).format("MM/DD")
             }
             contentInset={{ left: 10, right: 0 }}
             svg={{
