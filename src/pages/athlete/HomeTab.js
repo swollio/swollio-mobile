@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import moment from "moment";
@@ -80,7 +80,7 @@ export default function AthleteHomeScreen() {
               date: workouts[0].date,
             })
           }
-          onEditWorkout={() => navigation.navigate("EditWorkout", workout)}
+          onEditWorkout={() => navigation.navigate("EditWorkout", { workout })}
         />
       );
     });

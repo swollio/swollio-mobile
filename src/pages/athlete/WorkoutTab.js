@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 
 import { useNavigation, useIsFocused } from "@react-navigation/native";
@@ -56,9 +56,17 @@ function WorkoutCovers(props) {
 }
 
 export default function AthleteWorkoutsScreen() {
-  const { workouts } = useContext(AthleteWorkoutContext);
+  const { workouts, refresh } = useContext(AthleteWorkoutContext);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    if (isFocused) {
+      refresh();
+    }
+
+    return () => {};
+  }, [isFocused]);
 
   return (
     <SafeAreaView style={TabPageStyles.pageContainer}>
