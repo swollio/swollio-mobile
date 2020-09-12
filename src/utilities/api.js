@@ -202,6 +202,10 @@ export default function useApi() {
     return post(`teams/tags/${athlete_id}/${team_tag_id}`);
   };
 
+  const getFeedForAthlete = (athlete_id) => {
+    return get(`athletes/${athlete_id}/feed`);
+  };
+
   const getTagsForTeam = (team_id) => {
     return get(`teams/${team_id}/tags`);
   };
@@ -321,5 +325,6 @@ export default function useApi() {
     createCustomExerciseForTeam,
     postWorkoutForAthlete,
     updateWorkoutForAthlete,
+    getFeedForAthlete,
   };
 }
