@@ -5,6 +5,7 @@ import Card from "./Card";
 import SolidButton from "../atoms/SolidButton";
 import Colors from "../../styles/Color";
 import Font from "../../styles/Font";
+import OutlinedButton from "../atoms/OutlinedButton";
 
 export default function WorkoutCover(props) {
   return (
@@ -25,11 +26,18 @@ export default function WorkoutCover(props) {
               </View>
             </View>
           ) : (
-            <SolidButton
-              style={[styles.SolidButton, { borderColor: props.color }]}
-              onPress={props.onStartWorkout}
-              text="Start"
-            />
+            <View style={{ flexDirection: "row" }}>
+              <SolidButton
+                style={[styles.SolidButton, { borderColor: props.color }]}
+                onPress={props.onStartWorkout}
+                text="Start"
+              />
+              <OutlinedButton
+                style={[styles.SolidButton, { borderColor: props.color }]}
+                onPress={props.onEditWorkout}
+                text="Edit"
+              />
+            </View>
           )}
         </View>
       </View>
@@ -53,7 +61,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   SolidButton: {
-    width: "80%",
     height: 40,
     alignItems: "center",
     justifyContent: "center",
@@ -62,6 +69,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginTop: 15,
     marginBottom: 10,
+    paddingHorizontal: 28,
+    marginHorizontal: 4,
   },
   buttonText: {
     color: Colors.PrimaryContrast,

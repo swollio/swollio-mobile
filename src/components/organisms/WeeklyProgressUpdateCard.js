@@ -33,11 +33,17 @@ export default function WeeklyProgressUpdateCard() {
       // This variable indicates whether the scheduled date of the workout
       // occurs this week. Note that and isoWeek differs from a week in that
       // an isoWeek starts on monday and a week starts on sunday.
+      //
+      // Note that moment.isBetween takes two additional parameters:
+      // 1. granularity: the order of magnitude of comparison
+      // 2. inclusivity: boundary conditions in interval notation
       const scheduledForThisWeek = moment
         .utc(group.date)
         .isBetween(
           moment.utc().startOf("isoWeek"),
-          moment.utc().endOf("isoWeek")
+          moment.utc().endOf("isoWeek"),
+          "day",
+          "[]"
         );
 
       if (scheduledForThisWeek) {

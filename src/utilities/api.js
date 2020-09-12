@@ -167,8 +167,19 @@ export default function useApi() {
     return post(`teams/${team_id}/workouts`, workout);
   };
 
+  const postWorkoutForAthlete = (athlete_id, workout) => {
+    console.log(athlete_id);
+    return post(`athletes/${athlete_id}/workouts`, workout);
+  };
+
   const updateWorkoutForTeam = (team_id, workout) => {
     return put(`teams/${team_id}/workouts`, workout);
+  };
+
+  const updateWorkoutForAthlete = (athlete_id, workout) => {
+    console.log(athlete_id);
+
+    return put(`athletes/${athlete_id}/workouts`, workout);
   };
 
   const postAthleteWorkoutResult = (athlete_id, workout_id, results) => {
@@ -308,5 +319,7 @@ export default function useApi() {
     getWorkoutsForTeam,
     getMusclesList,
     createCustomExerciseForTeam,
+    postWorkoutForAthlete,
+    updateWorkoutForAthlete,
   };
 }

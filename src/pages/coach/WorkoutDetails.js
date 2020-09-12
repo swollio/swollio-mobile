@@ -13,18 +13,21 @@ import Calendar from "../../components/organisms/Calendar";
 
 import useApi from "../../utilities/api";
 import { UserContext } from "../../utilities/UserContext";
-import { WorkoutsContext } from "../../utilities/WorkoutContext";
 
 const usePostWorkout = () => {
   const { user } = useContext(UserContext);
-  const { refresh } = useContext(WorkoutsContext);
-  const { postWorkoutForTeam } = useApi();
+  const { postWorkoutForTeam, postWorkoutForAthlete } = useApi();
   const [state, setState] = useState({ loading: false, response: null });
   const post = async (workout) => {
-    setState((prev) => ({ ...prev, loading: true }));
-    const response = await postWorkoutForTeam(user.team_id, workout);
-    await refresh();
-    setState((prev) => ({ ...prev, loading: false, response }));
+    if (user.team_id) {
+      setState((prev) => ({ ...prev, loading: true }));
+      const response = await postWorkoutForTeam(user.team_id, workout);
+      setState((prev) => ({ ...prev, loading: false, response }));
+    } else {
+      setState((prev) => ({ ...prev, loading: true }));
+      const response = await postWorkoutForAthlete(user.athlete_id, workout);
+      setState((prev) => ({ ...prev, loading: false, response }));
+    }
   };
 
   return [state, post];
@@ -32,14 +35,18 @@ const usePostWorkout = () => {
 
 const useUpdateWorkout = () => {
   const { user } = useContext(UserContext);
-  const { refresh } = useContext(WorkoutsContext);
-  const { updateWorkoutForTeam } = useApi();
+  const { updateWorkoutForTeam, updateWorkoutForAthlete } = useApi();
   const [state, setState] = useState({ loading: false, response: null });
   const update = async (workout) => {
-    setState((prev) => ({ ...prev, loading: true }));
-    const response = await updateWorkoutForTeam(user.team_id, workout);
-    await refresh();
-    setState((prev) => ({ ...prev, loading: false, response }));
+    if (user.team_id) {
+      setState((prev) => ({ ...prev, loading: true }));
+      const response = await updateWorkoutForTeam(user.team_id, workout);
+      setState((prev) => ({ ...prev, loading: false, response }));
+    } else {
+      setState((prev) => ({ ...prev, loading: true }));
+      const response = await updateWorkoutForAthlete(user.athlete_id, workout);
+      setState((prev) => ({ ...prev, loading: false, response }));
+    }
   };
 
   return [state, update];
