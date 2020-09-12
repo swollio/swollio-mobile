@@ -10,32 +10,42 @@ import React, { useContext, useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import moment from "moment";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import ProfilePicturePlaceholder from "../molecules/ProfilePicturePlaceholder";
+
 // Organisms
 import Colors from "../../styles/Color";
 import Fonts from "../../styles/Font";
+
+// Molecules
+import ProfilePicturePlaceholder from "../molecules/ProfilePicturePlaceholder";
+
+const FeedItemKind = {
+  PersonalBest: 1,
+  CompletionStreak: 2,
+  JoinWorkout: 3,
+  MissedWorkout: 4,
+};
 
 export default function FeedItem({ item }) {
   return (
     <View style={styles.feedItem}>
       <ProfilePicturePlaceholder user={item.user} />
       <View style={styles.feedContent}>
-        {(item.kind === 1 && (
+        {(item.kind === FeedItemKind.PersonalBest && (
           <Text style={styles.feedText}>
             {`${item.user.first_name} ${item.user.last_name} logged a personal best in ${item.extra_data.exercise.name}`}
           </Text>
         )) ||
-          (item.kind === 2 && (
+          (item.kind === FeedItemKind.CompletionStreak && (
             <Text style={styles.feedText}>
               {`${item.user.first_name} ${item.user.last_name} has a workout completion streak of ${item.extra_data.streak}`}
             </Text>
           )) ||
-          (item.kind === 3 && (
+          (item.kind === FeedItemKind.JoinWorkout && (
             <Text style={styles.feedText}>
               {`${item.user.first_name} ${item.user.last_name} joined a new workout "${item.extra_data.workout.name}"`}
             </Text>
           )) ||
-          (item.kind === 4 && (
+          (item.kind === FeedItemKind.MissedWorkout && (
             <Text style={styles.feedText}>
               {`${item.user.first_name} ${item.user.last_name} missed a workout "${item.extra_data.workout.name}"`}
             </Text>
