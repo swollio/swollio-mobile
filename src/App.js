@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Text, Button, View, SafeAreaView, StyleSheet } from "react-native";
 
+import codePush from "react-native-code-push";
 import Colors from "./styles/Color";
 import AccountTypePage from "./pages/common/ChooseAccountTypePage";
 import SignupPage from "./pages/common/SignupPage";
@@ -53,7 +54,7 @@ function AthleteDetailsScreen() {
   );
 }
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
       <TokenContextProvider>
@@ -154,3 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
+})(App);

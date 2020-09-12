@@ -80,6 +80,7 @@ export default function AthleteHomeScreen() {
               date: workouts[0].date,
             })
           }
+          onEditWorkout={() => navigation.navigate("EditWorkout", workout)}
         />
       );
     });
