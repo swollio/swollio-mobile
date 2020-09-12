@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import moment from "moment";
@@ -16,9 +16,9 @@ import TabPageStyles from "../styles/TabPage";
 import RootHeader from "../../components/organisms/RootHeader";
 import Card from "../../components/organisms/Card";
 import WorkoutCover from "../../components/organisms/WorkoutCover";
-import WeeklyProgressUpdateCard from "../../components/organisms/WeeklyProgressUpdateCard";
-
+import useApi from "../../utilities/api";
 import LoadingPage from "../LoadingPage";
+import FeedItem from "../../components/organisms/FeedItem";
 // import AbCard from "../../components/organisms/AbCard";
 
 export default function AthleteHomeScreen() {
@@ -28,6 +28,13 @@ export default function AthleteHomeScreen() {
   const isFocused = useIsFocused();
   const { removeToken } = useContext(TokenContext);
 
+  const [feedItems, setFeedItems] = useState(null);
+  const { getFeedForAthlete } = useApi();
+  useEffect(() => {
+    (async function () {
+      setFeedItems(await getFeedForAthlete());
+    })();
+  }, [user, isFocused]);
   // const abCard = (
   //   <AbCard
   //     exercises={[
@@ -100,22 +107,9 @@ export default function AthleteHomeScreen() {
           style={styles.scrollViewContainer}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.sectionLabel}>This Week</Text>
-          <WeeklyProgressUpdateCard />
-          <Text style={styles.sectionLabel}>Up Next</Text>
-          {(workouts === null && (
-            <Card>
-              <Text style={styles.bodyText}>Loading...</Text>
-            </Card>
-          )) ||
-            (workouts.length === 0 && (
-              <Card>
-                <Text style={styles.bodyText}> No Workouts Today </Text>
-              </Card>
-            )) ||
-            (isFocused ? <UpcomingWorkoutCovers /> : <LoadingPage />)}
-          {/* <Text style={styles.sectionLabel}>Featured</Text>
-          {abCard} */}
+          {feedItems
+            ? feedItems.map((item) => <FeedItem key={item.id} item={item} />)
+            : null}
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -131,7 +125,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   background: {
-    backgroundColor: Colors.Background,
+    backgroundColor: Colors.Surface,
     flex: 1,
   },
   rows: {

@@ -8,6 +8,7 @@ import TabPageStyles from "../styles/TabPage";
 import useApi from "../../utilities/api";
 import { UserContext } from "../../utilities/UserContext";
 import DataCard from "../../components/organisms/DataCard";
+import WeeklyProgressUpdateCard from "../../components/organisms/WeeklyProgressUpdateCard";
 
 export default function AthleteStatisticsScreen() {
   const { user } = useContext(UserContext);
@@ -29,25 +30,22 @@ export default function AthleteStatisticsScreen() {
     <SafeAreaView style={TabPageStyles.pageContainer}>
       <RootHeader title="Progress" />
       <View style={TabPageStyles.pageMain}>
-        {(weightSeries === null && <WaterMark title="Loading..." />) ||
-          (weightSeries.length === 0 && (
-            <WaterMark title="No Statistics" />
-          )) || (
-            <ScrollView padding={10} style={{ height: "100%" }}>
-              {weightSeries.map((e, index) => {
-                return (
-                  <DataCard
-                    key={index}
-                    exercise_name={e.exercise_name}
-                    data={e.weight_series.map((x) => ({
-                      value: x.avg_weight,
-                      date: new Date(x.date),
-                    }))}
-                  />
-                );
-              })}
-            </ScrollView>
-          )}
+        <ScrollView padding={10} style={{ height: "100%" }}>
+          <WeeklyProgressUpdateCard />
+
+          {(weightSeries || []).map((e, index) => {
+            return (
+              <DataCard
+                key={index}
+                exercise_name={e.exercise_name}
+                data={e.weight_series.map((x) => ({
+                  value: x.avg_weight,
+                  date: new Date(x.date),
+                }))}
+              />
+            );
+          })}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
